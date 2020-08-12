@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="矿渣刷入 breed不死固件 + H大老毛子">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小娱C5_刷机篇">
+<meta property="og:url" content="http://yoursite.com/0/index.html">
+<meta property="og:site_name" content="OldGerman&#39;s Blog">
+<meta property="og:description" content="矿渣刷入 breed不死固件 + H大老毛子">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/0/IMG_5324.jpg">
+<meta property="og:image" content="http://yoursite.com/0/Inked%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(147)_LI.jpg">
+<meta property="og:image" content="http://yoursite.com/0/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(148).png">
+<meta property="og:image" content="http://yoursite.com/0/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(149).png">
+<meta property="og:image" content="http://yoursite.com/0/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(150).png">
+<meta property="og:image" content="http://yoursite.com/0/Inked%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(151)_LI.jpg">
+<meta property="og:image" content="http://yoursite.com/0/TIM%E6%88%AA%E5%9B%BE20190821154510.png">
+<meta property="og:image" content="http://yoursite.com/0/TIM%E6%88%AA%E5%9B%BE20190821154047.png">
+<meta property="og:image" content="http://yoursite.com/0/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(152).png">
+<meta property="og:image" content="http://yoursite.com/0/TIM%E6%88%AA%E5%9B%BE20190821160818.png">
+<meta property="og:updated_time" content="2019-08-28T11:20:04.923Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="小娱C5_刷机篇">
+<meta name="twitter:description" content="矿渣刷入 breed不死固件 + H大老毛子">
+<meta name="twitter:image" content="http://yoursite.com/0/IMG_5324.jpg">
+  <link rel="canonical" href="http://yoursite.com/0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>小娱C5_刷机篇 | OldGerman's Blog</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OldGerman's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Refuse to play tickets!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-阅读排名">
+      
+    
+
+    <a href="/rank" rel="section"><i class="menu-item-icon fa fa-fw fa-list"></i> <br>阅读排名</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过气德国佬">
+      <meta itemprop="description" content="潮起潮落，云卷云舒">
+      <meta itemprop="image" content="/images/psa.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OldGerman's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">小娱C5_刷机篇
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-21 12:54:26" itemprop="dateCreated datePublished" datetime="2019-08-21T12:54:26+08:00">2019-08-21</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-08-28 19:20:04" itemprop="dateModified" datetime="2019-08-28T19:20:04+08:00">2019-08-28</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span id="/0/" class="post-meta-item leancloud_visitors" data-flag-title="小娱C5_刷机篇" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/0/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/0/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>1.4k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+            <div class="post-description">矿渣刷入 breed不死固件 + H大老毛子</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="1-&#x914D;&#x7F6E;&#x6982;&#x89C8;"><a class="header-anchor" href="#1-&#x914D;&#x7F6E;&#x6982;&#x89C8;"></a>1. &#x914D;&#x7F6E;&#x6982;&#x89C8;</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">SOC</th>
+<th style="text-align:center">2.4G</th>
+<th style="text-align:center">5G</th>
+<th style="text-align:center">RAM</th>
+<th style="text-align:center">ROM</th>
+<th style="text-align:center">USB</th>
+<th>SATA</th>
+<th style="text-align:center">LAN</th>
+<th style="text-align:center">WAN</th>
+<th style="text-align:center">&#xFFE5;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>&#x5C0F;&#x5A31;C1/C5</strong></td>
+<td style="text-align:center">MT7621A 880MHz</td>
+<td style="text-align:center">N/A</td>
+<td style="text-align:center">N/A</td>
+<td style="text-align:center">512MB DDR3</td>
+<td style="text-align:center">32M Flash</td>
+<td style="text-align:center">1*3.0</td>
+<td>1*2.0</td>
+<td style="text-align:center">4*1Gbps</td>
+<td style="text-align:center">1*1Gbps</td>
+<td style="text-align:center">50~60</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Newifi 3</strong></td>
+<td style="text-align:center">MT7621A 880MHz</td>
+<td style="text-align:center">2*2 300Mbps</td>
+<td style="text-align:center">2*2 867Mbps</td>
+<td style="text-align:center">512MB DDR3</td>
+<td style="text-align:center">2*32M Flash</td>
+<td style="text-align:center">1*3.0</td>
+<td>N/A</td>
+<td style="text-align:center">4*1Gbps</td>
+<td style="text-align:center">1*1Gbps</td>
+<td style="text-align:center">119~150</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>&#x6590;&#x8BAF;K2P</strong></td>
+<td style="text-align:center">MT7621A 880MHz</td>
+<td style="text-align:center">2*2 400Mbps</td>
+<td style="text-align:center">2*2 867Mbps</td>
+<td style="text-align:center">128MB DDR3</td>
+<td style="text-align:center">16M Flash</td>
+<td style="text-align:center">N/A</td>
+<td>N/A</td>
+<td style="text-align:center">4*1Gbps</td>
+<td style="text-align:center">1*1Gbps</td>
+<td style="text-align:center">210~250</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>&#x5C0F;&#x7C73;Pro</strong></td>
+<td style="text-align:center">MT7621A 880MHz</td>
+<td style="text-align:center">4*4 800Mbps</td>
+<td style="text-align:center">4*4 1733Mbps</td>
+<td style="text-align:center">512MB DDR3</td>
+<td style="text-align:center">256M Nand</td>
+<td style="text-align:center">1*3.0</td>
+<td>N/A</td>
+<td style="text-align:center">3*1Gbps</td>
+<td style="text-align:center">1*1Gbps</td>
+<td style="text-align:center">499</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-&#x8D44;&#x6E90;&#x5305;"><a class="header-anchor" href="#2-&#x8D44;&#x6E90;&#x5305;"></a>2. &#x8D44;&#x6E90;&#x5305;</h2>
+<p>&#x767E;&#x5EA6;&#x4E91;&#x94FE;&#x63A5;&#xFF1A;<a href="https://pan.baidu.com/s/1-KpmX9guIDLhQYw00e4vwQ" target="_blank" rel="noopener">XiaoYu_C5_Breed.zip + H&#x5927;&#x8001;&#x6BDB;&#x5B50; + &#x5176;&#x4ED6;&#x53EF;&#x7528;&#x56FA;&#x4EF6;</a> &#x63D0;&#x53D6;&#x7801;&#xFF1A;<code>5hjd</code></p>
+<h2 id="3-&#x539F;&#x5382;Web&#x63A7;&#x5236;&#x53F0;"><a class="header-anchor" href="#3-&#x539F;&#x5382;Web&#x63A7;&#x5236;&#x53F0;"></a>3. &#x539F;&#x5382;Web&#x63A7;&#x5236;&#x53F0;</h2>
+<p>&#x6253;&#x5F00;&#x6D4F;&#x89C8;&#x5668;&#xFF0C;&#x8F93;&#x5165;&#x673A;&#x5668;&#x5916;&#x58F3;&#x80CC;&#x9762;&#x7684; IP&#x5730;&#x5740;&#xFF1A;<code>192.168.188.1</code> &#x5BC6;&#x7801;&#xFF1A;<code>admin</code></p>
+<p><img src="/0/IMG_5324.jpg" alt></p>
+<h4 id="&#x539F;&#x5382;&#x63A7;&#x5236;&#x53F0;&#x754C;&#x9762;&#xFF1A;"><a class="header-anchor" href="#&#x539F;&#x5382;&#x63A7;&#x5236;&#x53F0;&#x754C;&#x9762;&#xFF1A;"></a>&#x539F;&#x5382;&#x63A7;&#x5236;&#x53F0;&#x754C;&#x9762;&#xFF1A;</h4>
+<p><img src="/0/Inked%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(147)_LI.jpg" alt></p>
+<p>&#x770B;&#x4E00;&#x770B;&#xFF0C;SATA&#x786C;&#x76D8;&#x53EF;&#x4EE5;&#x8BC6;&#x522B;&#xFF0C;&#x4F46;&#x8C8C;&#x4F3C;ssh&#x6253;&#x4E0D;&#x5F00;&#xFF0C;&#x6240;&#x4EE5;&#x6CA1;&#x5565;&#x5375;&#x7528;&#xFF1A;</p>
+<p><img src="/0/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(148).png" alt></p>
+<h2 id="4-&#x5237;&#x5165;Breed"><a class="header-anchor" href="#4-&#x5237;&#x5165;Breed"></a>4. &#x5237;&#x5165;Breed</h2>
+<h4 id="Beed&#x662F;&#x5565;&#xFF1F;"><a class="header-anchor" href="#Beed&#x662F;&#x5565;&#xFF1F;"></a>Beed&#x662F;&#x5565;&#xFF1F;</h4>
+<p>breed&#x7531;&#x6069;&#x5C71;&#x8BBA;&#x575B;&#x5927;&#x795E;<a href="https://www.right.com.cn/forum/space-uid-200302.html" target="_blank" rel="noopener">HackPascal</a>&#x5F00;&#x53D1;&#xFF0C;breed&#x662F;&#x4E00;&#x79CD;Bootloader&#xFF0C;&#x7C7B;&#x4F3C;&#x4E8E;&#x7535;&#x8111;&#x7684;BIOS&#xFF0C;&#x6838;&#x5FC3;&#x529F;&#x80FD;&#x662F;&#x5F15;&#x5BFC;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#xFF0C;&#x5E38;&#x89C1;&#x7684;uboot&#x542F;&#x52A8;&#x662F;&#x5355;&#x7EBF;&#x7A0B;&#x7684;&#xFF0C;&#x800C;breed&#x662F;&#x591A;&#x7EBF;&#x7A0B;&#x7684;&#xFF0C;&#x96BE;&#x5EA6;&#x7CFB;&#x6570;&#x6BD4;uboot&#x5927;&#x5F97;&#x591A;&#xFF0C;&#x589E;&#x52A0;&#x4E86;&#x8C03;&#x5EA6;&#x5668;&#xFF0C;&#x5DF2;&#x7ECF;&#x5177;&#x5907;&#x5C0F;&#x578B;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x7684;&#x6838;&#x5FC3;</p>
+<h4 id="&#x83AB;&#x5927;&#x4F6C;&#x6587;&#x7AE0;&#x7684;&#x6E90;&#x5730;&#x5740;&#xFF1A;"><a class="header-anchor" href="#&#x83AB;&#x5927;&#x4F6C;&#x6587;&#x7AE0;&#x7684;&#x6E90;&#x5730;&#x5740;&#xFF1A;"></a>&#x83AB;&#x5927;&#x4F6C;&#x6587;&#x7AE0;&#x7684;&#x6E90;&#x5730;&#x5740;&#xFF1A;</h4>
+<p>&#x4E00;&#x952E;&#x5237;&#x5165;BREED&#x6559;&#x7A0B;&#xFF1A;<a href="http://www.nas1688.com/166.html" target="_blank" rel="noopener">&#x5DF2;&#x5931;&#x6548;</a></p>
+<h4 id="&#x5728;&#x6B64;&#x91CD;&#x65B0;&#x590D;&#x8FF0;&#x5237;&#x5165;&#x65B9;&#x6CD5;&#xFF1A;"><a class="header-anchor" href="#&#x5728;&#x6B64;&#x91CD;&#x65B0;&#x590D;&#x8FF0;&#x5237;&#x5165;&#x65B9;&#x6CD5;&#xFF1A;"></a>&#x5728;&#x6B64;&#x91CD;&#x65B0;&#x590D;&#x8FF0;&#x5237;&#x5165;&#x65B9;&#x6CD5;&#xFF1A;</h4>
+<ul>
+<li>&#x4E0A;&#x7535;&#x542F;&#x52A8;&#xFF0C;&#x4F7F;&#x7528;&#x7F51;&#x7EBF;&#x8FDE;&#x63A5;&#x7535;&#x8111;&#x548C;&#x5C0F;&#x5A31;&#x8DEF;&#x7531;&#x5668;C5&#x7684;&#x4EFB;&#x610F;Lan&#x53E3;</li>
+<li>&#x89E3;&#x538B;&#x4E0A;&#x9762;&#x7684;&#x5EA6;&#x4E91;&#x6587;&#x4EF6;&#xFF1A;<code>XiaoYu_C5_Breed.zip</code> &#x89E3;&#x538B;&#x5BC6;&#x7801;&#xFF1A;<code>www.nas1688.com</code></li>
+<li>win10&#x4E0B;&#x76F4;&#x63A5;&#x8BE5;&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x4E0D;&#x884C;&#xFF0C;&#x9700;&#x8981;&#x53F3;&#x952E; <strong>&#x4EE5;&#x7BA1;&#x7406;&#x5458;&#x6A21;&#x5F0F;&#x8FD0;&#x884C;&#x8BE5;&#x7A0B;&#x5E8F;</strong>&#xFF0C;&#x624D;&#x80FD;&#x5237;&#x5165;&#x6210;&#x529F;&#x4E0D;&#x6B7B;breed<br>
+&#x7B49;&#x5F85;&#x7535;&#x8111;&#x5206;&#x914D;&#x5230;&#x5C0F;&#x5A31;&#x7684;IP&#xFF0C;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;<code>192.168.188.1</code>&#x5C31;&#x884C;</li>
+<li>&#x5C06;&#x7F51;&#x5173;IP&#x586B;&#x5165;&#x5DE5;&#x5177;&#x4E2D;&#xFF0C;&#x9ED8;&#x8BA4;&#x5BC6;&#x7801;admin&#xFF0C;&#x70B9;&#x51FB;&#x5237;&#x5165;&#x5373;&#x53EF;</li>
+</ul>
+<h4 id="&#x5237;&#x5165;&#x6210;&#x529F;&#xFF1A;"><a class="header-anchor" href="#&#x5237;&#x5165;&#x6210;&#x529F;&#xFF1A;"></a>&#x5237;&#x5165;&#x6210;&#x529F;&#xFF1A;</h4>
+<p><img src="/0/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(149).png" alt></p>
+<p>&#x6839;&#x636E;&#x63D0;&#x793A;&#xFF0C;&#x5148;&#x62D4;&#x6389;&#x7535;&#x6E90;&#xFF0C;&#x7B49;&#x5F85;&#x4E0B;&#x4E00;&#x6B65;&#x64CD;&#x4F5C;</p>
+<h2 id="5-&#x91CD;&#x542F;&#x5230;Breed-Web&#x63A7;&#x5236;&#x53F0;"><a class="header-anchor" href="#5-&#x91CD;&#x542F;&#x5230;Breed-Web&#x63A7;&#x5236;&#x53F0;"></a>5. &#x91CD;&#x542F;&#x5230;Breed Web&#x63A7;&#x5236;&#x53F0;</h2>
+<h4 id="&#x6CE8;&#x610F;&#x4E8B;&#x9879;&#xFF1A;"><a class="header-anchor" href="#&#x6CE8;&#x610F;&#x4E8B;&#x9879;&#xFF1A;"></a>&#x6CE8;&#x610F;&#x4E8B;&#x9879;&#xFF1A;</h4>
+<ul>
+<li>&#x5237;&#x7B2C;&#x4E09;&#x65B9;&#x56FA;&#x4EF6;&#x4E00;&#x5B9A;&#x8981;&#x8FDB;&#x5165;Breed&#x754C;&#x9762;&#x5237;&#x5165;</li>
+<li>Breed&#x754C;&#x9762;&#x8FDB;&#x5165;&#x65B9;&#x6CD5;:<br>
+a. &#x62D4;&#x6389;&#x7535;&#x6E90;<br>
+b. &#x6309;&#x4F4F;Reset&#x952E;&#x4E0D;&#x653E;<br>
+c. &#x63A5;&#x901A;&#x7535;&#x6E90;<br>
+d. 6&#x79D2;&#x540E;&#x677E;&#x5F00;Reset&#x952E;<br>
+e. &#x6D4F;&#x89C8;&#x5668;&#x8BBF;&#x95EE;&#xFF1A;<code>192.168.1.1</code>&#x8FDB;&#x5165; Breed Web&#x63A7;&#x5236;&#x53F0;</li>
+</ul>
+<p><img src="/0/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(150).png" alt></p>
+<h2 id="6-&#x5907;&#x4EFD;&#x56FA;&#x4EF6;-&#x53EF;&#x9009;"><a class="header-anchor" href="#6-&#x5907;&#x4EFD;&#x56FA;&#x4EF6;-&#x53EF;&#x9009;"></a>6. &#x5907;&#x4EFD;&#x56FA;&#x4EF6;|&#x53EF;&#x9009;</h2>
+<p>&#x5C06;EEPROM&#xFF0C;&#x7F16;&#x7A0B;&#x5668;&#x56FA;&#x4EF6;&#x5907;&#x4EFD;&#xFF0C;&#x4FDD;&#x5B58;&#x751F;&#x6210;&#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x82E5;&#x4EE5;&#x540E;&#x60F3;&#x5237;&#x56DE;&#x539F;&#x5382;&#x56FA;&#x4EF6;&#xFF0C;&#x5728;Breed Web&#x6062;&#x590D;&#x5373;&#x53EF;</p>
+<p><img src="/0/Inked%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(151)_LI.jpg" alt></p>
+<h2 id="7-&#x5237;&#x5165;H&#x5927;&#x8001;&#x6BDB;&#x5B50;"><a class="header-anchor" href="#7-&#x5237;&#x5165;H&#x5927;&#x8001;&#x6BDB;&#x5B50;"></a>7. &#x5237;&#x5165;H&#x5927;&#x8001;&#x6BDB;&#x5B50;</h2>
+<h4 id="&#x89E3;&#x538B;&#x56FA;&#x4EF6;&#xFF1A;"><a class="header-anchor" href="#&#x89E3;&#x538B;&#x56FA;&#x4EF6;&#xFF1A;"></a>&#x89E3;&#x538B;&#x56FA;&#x4EF6;&#xFF1A;</h4>
+<p>&#x89E3;&#x538B;&#x4E0A;&#x9762;&#x7684;&#x5EA6;&#x4E91;&#x6587;&#x4EF6;&#xFF1A;<code>&#x5C0F;&#x5A31;&#x540C;&#x5B66;&#x53EF;&#x7528;&#x56FA;&#x4EF6;.rar</code></p>
+<p>&#x518D;&#x6B21;&#x89E3;&#x538B;&#x524D;&#x4E00;&#x6B21;&#x89E3;&#x538B;&#x5F97;&#x5230;&#x7684;&#xFF1A;<code>MT7621_7603_7612_512M_3.4.3.9-099.rar</code></p>
+<p>&#x5F97;&#x5230;&#xFF1A;<code>MT7621_7603_7612_512M_3.4.3.9-099.trx</code></p>
+<p><img src="/0/TIM%E6%88%AA%E5%9B%BE20190821154510.png" alt></p>
+<h4 id="&#x4E0A;&#x4F20;&#x56FA;&#x4EF6;&#xFF1A;"><a class="header-anchor" href="#&#x4E0A;&#x4F20;&#x56FA;&#x4EF6;&#xFF1A;"></a>&#x4E0A;&#x4F20;&#x56FA;&#x4EF6;&#xFF1A;</h4>
+<p>&#x5728;Breed Web&#x63A7;&#x5236;&#x53F0; - - &#x56FA;&#x4EF6;&#x66F4;&#x65B0;</p>
+<ul>
+<li>&#x52FE;&#x9009;&#x56FA;&#x4EF6;</li>
+<li>&#x9009;&#x62E9;&#x6587;&#x4EF6;<code>MT7621_7603_7612_512M_3.4.3.9-099.trx</code>&#x4E0A;&#x4F20;</li>
+</ul>
+<p><img src="/0/TIM%E6%88%AA%E5%9B%BE20190821154047.png" alt></p>
+<h4 id="&#x7B49;&#x5F85;&#x5237;&#x5165;&#x6210;&#x529F;&#xFF1A;"><a class="header-anchor" href="#&#x7B49;&#x5F85;&#x5237;&#x5165;&#x6210;&#x529F;&#xFF1A;"></a>&#x7B49;&#x5F85;&#x5237;&#x5165;&#x6210;&#x529F;&#xFF1A;</h4>
+<p><img src="/0/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(152).png" alt></p>
+<p>&#x5237;&#x5165;&#x65F6;&#x89C2;&#x5BDF;&#x8DEF;&#x7531;&#x9762;&#x677F;&#x6307;&#x793A;&#x706F;&#xFF0C;&#x82E5;&#x5168;&#x90E8;&#x7184;&#x706D;&#x4E86;&#x518D;&#x4EAE;&#x65F6;&#x8BF4;&#x660E;&#x5F00;&#x59CB;&#x91CD;&#x542F;&#xFF0C;&#x8FD9;&#x4E4B;&#x540E;&#x7B49;&#x5F85;&#x4E00;&#x4E24;&#x5206;&#x949F;&#x8F7D;&#x5165;&#x8001;&#x6BDB;&#x5B50;&#x7CFB;&#x7EDF;</p>
+<h2 id="8-&#x91CD;&#x542F;&#x5230;-H&#x5927;&#x8001;&#x6BDB;&#x5B50;-Web&#x63A7;&#x5236;&#x53F0;"><a class="header-anchor" href="#8-&#x91CD;&#x542F;&#x5230;-H&#x5927;&#x8001;&#x6BDB;&#x5B50;-Web&#x63A7;&#x5236;&#x53F0;"></a>8. &#x91CD;&#x542F;&#x5230; H&#x5927;&#x8001;&#x6BDB;&#x5B50; Web&#x63A7;&#x5236;&#x53F0;</h2>
+<p>&#x4E0A;&#x4E00;&#x6B65;&#x91CD;&#x542F;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x6D4F;&#x89C8;&#x5668;&#x8BBF;&#x95EE;&#xFF1A;<code>192.168.123.1</code></p>
+<p>&#x521D;&#x59CB;&#x8D26;&#x53F7;&#xFF1A;<code>admin</code></p>
+<p>&#x521D;&#x59CB;&#x5BC6;&#x7801;&#xFF1A;<code>admin</code></p>
+<p>&#x56E0;&#x4E3A;&#x5C0F;&#x5A31;C5&#x4E0D;&#x5E26;&#x65E0;&#x7EBF;&#xFF0C;&#x5EFA;&#x8BAE;&#x5173;&#x95ED;2.4G&#xFF0C;5G &#x4EE5;&#x8282;&#x7EA6;&#x6027;&#x80FD;&#xFF1A;</p>
+<p><img src="/0/TIM%E6%88%AA%E5%9B%BE20190821160818.png" alt></p>
+<p>&#x81F3;&#x6B64;&#xFF0C;&#x5237;&#x5165;&#x5B8C;&#x6BD5;</p>
+<h3 id="&#x5C0F;&#x5A31;C5-&#x914D;&#x7F6E;&#x7BC7;"><a class="header-anchor" href="#&#x5C0F;&#x5A31;C5-&#x914D;&#x7F6E;&#x7BC7;"></a><a href="https://oldgerman.github.io/29c16836/" target="_blank" rel="noopener">&#x5C0F;&#x5A31;C5_&#x914D;&#x7F6E;&#x7BC7;</a></h3>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/eeea93b8/" rel="next" title="hexo 如何上传本地图片">
+                  <i class="fa fa-chevron-left"></i> hexo 如何上传本地图片
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/29c16836/" rel="prev" title="小娱C5_配置篇">
+                  小娱C5_配置篇 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/psa.jpg"
+      alt="过气德国佬">
+  <p class="site-author-name" itemprop="name">过气德国佬</p>
+  <div class="site-description motion-element" itemprop="description">潮起潮落，云卷云舒</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-配置概览"><span class="nav-number">1.</span> <span class="nav-text">1. 配置概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-资源包"><span class="nav-number">2.</span> <span class="nav-text">2. 资源包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-原厂Web控制台"><span class="nav-number">3.</span> <span class="nav-text">3. 原厂Web控制台</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原厂控制台界面："><span class="nav-number">3.0.1.</span> <span class="nav-text">原厂控制台界面：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-刷入Breed"><span class="nav-number">4.</span> <span class="nav-text">4. 刷入Breed</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Beed是啥？"><span class="nav-number">4.0.1.</span> <span class="nav-text">Beed是啥？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#莫大佬文章的源地址："><span class="nav-number">4.0.2.</span> <span class="nav-text">莫大佬文章的源地址：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在此重新复述刷入方法："><span class="nav-number">4.0.3.</span> <span class="nav-text">在此重新复述刷入方法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#刷入成功："><span class="nav-number">4.0.4.</span> <span class="nav-text">刷入成功：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-重启到Breed-Web控制台"><span class="nav-number">5.</span> <span class="nav-text">5. 重启到Breed Web控制台</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注意事项："><span class="nav-number">5.0.1.</span> <span class="nav-text">注意事项：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-备份固件-可选"><span class="nav-number">6.</span> <span class="nav-text">6. 备份固件|可选</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-刷入H大老毛子"><span class="nav-number">7.</span> <span class="nav-text">7. 刷入H大老毛子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解压固件："><span class="nav-number">7.0.1.</span> <span class="nav-text">解压固件：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#上传固件："><span class="nav-number">7.0.2.</span> <span class="nav-text">上传固件：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#等待刷入成功："><span class="nav-number">7.0.3.</span> <span class="nav-text">等待刷入成功：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-重启到-H大老毛子-Web控制台"><span class="nav-number">8.</span> <span class="nav-text">8. 重启到 H大老毛子 Web控制台</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#小娱C5-配置篇"><span class="nav-number">8.1.</span> <span class="nav-text">小娱C5_配置篇</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+        
+
+<div id="days"></div>
+<script>
+function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("07/19/2019 15:00:00");
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=setzero(Math.floor(e_hrsold));
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+    seconds=setzero(Math.floor((e_minsold-minsold)*60));
+    document.getElementById('days').innerHTML="(∩•̀ω•́)⊃--*⋆本站由米板1代搭建，已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i) {
+    if (i<10) {
+        i="0" + i
+    };
+    return i;
+}
+show_date_time();
+</script>
+
+
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">过气德国佬</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">66k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        <span>0%</span>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'iWuakuHkkRt5xT7Ct9cyj8nO-gzGzoHsz',
+    appKey: 'PAz23pDzHnucqRDkVMShMp5B',
+    placeholder: '(๑•̀ㅁ•́ฅ✧ 说点什么吧！',
+    avatar: '',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

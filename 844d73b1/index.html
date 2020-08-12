@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="疫情期间买不到了，那就用Arduino实现一个吧！">
+<meta name="keywords" content="Arduino">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pro Micro 模拟74HC148">
+<meta property="og:url" content="http://yoursite.com/844d73b1/index.html">
+<meta property="og:site_name" content="OldGerman&#39;s Blog">
+<meta property="og:description" content="疫情期间买不到了，那就用Arduino实现一个吧！">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/844d73b1/prominipinmap.jpg">
+<meta property="og:image" content="http://yoursite.com/844d73b1/symbol_and_pin.png">
+<meta property="og:image" content="http://yoursite.com/844d73b1/%E7%9C%9F%E5%80%BC%E8%A1%A8.jpg">
+<meta property="og:image" content="http://yoursite.com/844d73b1/promicro_148_bb.jpg">
+<meta property="og:image" content="http://yoursite.com/844d73b1/bread.jpg">
+<meta property="og:image" content="http://yoursite.com/844d73b1/demo.jpg">
+<meta property="og:image" content="http://yoursite.com/844d73b1/Demo2.jpg">
+<meta property="og:image" content="http://yoursite.com/844d73b1/Demo3.jpg">
+<meta property="og:image" content="http://yoursite.com/844d73b1/logic_door.png">
+<meta property="og:updated_time" content="2020-02-28T14:53:46.014Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Pro Micro 模拟74HC148">
+<meta name="twitter:description" content="疫情期间买不到了，那就用Arduino实现一个吧！">
+<meta name="twitter:image" content="http://yoursite.com/844d73b1/prominipinmap.jpg">
+  <link rel="canonical" href="http://yoursite.com/844d73b1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Pro Micro 模拟74HC148 | OldGerman's Blog</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OldGerman's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Refuse to play tickets!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-阅读排名">
+      
+    
+
+    <a href="/rank" rel="section"><i class="menu-item-icon fa fa-fw fa-list"></i> <br>阅读排名</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/844d73b1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过气德国佬">
+      <meta itemprop="description" content="潮起潮落，云卷云舒">
+      <meta itemprop="image" content="/images/psa.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OldGerman's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Pro Micro 模拟74HC148
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-27 14:01:12" itemprop="dateCreated datePublished" datetime="2020-02-27T14:01:12+08:00">2020-02-27</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-28 22:53:46" itemprop="dateModified" datetime="2020-02-28T22:53:46+08:00">2020-02-28</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C-C/" itemprop="url" rel="index"><span itemprop="name">C/C++</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span id="/844d73b1/" class="post-meta-item leancloud_visitors" data-flag-title="Pro Micro 模拟74HC148" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/844d73b1/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/844d73b1/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>4.9k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>4 分钟</span>
+            </span>
+          
+            <div class="post-description">疫情期间买不到了，那就用Arduino实现一个吧！</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="0-Pro-Micro-pins-map"><a class="header-anchor" href="#0-Pro-Micro-pins-map"></a>0. Pro Micro pins map</h1>
+<p>From Sparkfun:</p>
+<p><img src="/844d73b1/prominipinmap.jpg" alt></p>
+<p><a href="https://github.com/sparkfun/Pro_Micro" target="_blank" rel="noopener">&#x9879;&#x76EE;&#x5730;&#x5740;</a></p>
+<h1 id="1-74LS148-74HC148"><a class="header-anchor" href="#1-74LS148-74HC148"></a>1. 74LS148 | 74HC148</h1>
+<p>&#x4E24;&#x8005;&#x90FD;&#x662F;&#x516B;&#x7EBF;-&#x4E09;&#x7EBF; &#x4F18;&#x5148;&#x7EA7;&#x7F16;&#x7801;&#x5668;</p>
+<p>74HC&#xFF1A;CMOS&#x7535;&#x5E73;,&#x4F9B;&#x7535;3&#xFF5E;12V<br>
+74LS&#xFF1A;TTL&#x7535;&#x5E73;&#xFF0C;&#x4F9B;&#x7535;4.5&#xFF5E;5.5V</p>
+<p><a href="https://blog.csdn.net/qq_27745395/article/details/76687175?depth_1-utm_source=distribute.pc_relevant.none-task&amp;utm_source=distribute.pc_relevant.none-task" target="_blank" rel="noopener">&#x6DF1;&#x5165;&#x7406;&#x89E3; TTL &#x4E0E; CMOS &#x5F02;&#x540C;</a></p>
+<h2 id="Pins-map-Symbolsymbol-and-pin"><a class="header-anchor" href="#Pins-map-Symbolsymbol-and-pin"></a>Pins map | Symbol<img src="/844d73b1/symbol_and_pin.png" alt="symbol_and_pin"></h2>
+<p>8&#x4E2A;&#x8F93;&#x5165;&#x4FE1;&#x53F7;&#x7AEF;(0-7)&#xFF0C;3 &#x4E2A;&#x8F93;&#x51FA;&#x4FE1;&#x53F7;&#x7AEF;(A0-A2)</p>
+<p>&#x5728;&#x540C;&#x65F6;&#x6709;&#x591A;&#x4E2A;&#x8F93;&#x5165;&#x4FE1;&#x53F7;&#x65F6;&#xFF0C;&#x4EC5;&#x5BF9;&#x4F18;&#x5148;&#x6743;&#x6700;&#x9AD8;&#x7684;&#x4FE1;&#x53F7;&#x8FDB;&#x884C;&#x7F16;&#x7801;</p>
+<h2 id="FUNCTION-TABLE"><a class="header-anchor" href="#FUNCTION-TABLE"></a>FUNCTION TABLE</h2>
+<p><img src="/844d73b1/%E7%9C%9F%E5%80%BC%E8%A1%A8.jpg" alt="&#x771F;&#x503C;&#x8868;"></p>
+<p>&#x4ECE;&#x771F;&#x503C;&#x8868;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#xFF1A;</p>
+<p>1&#xFE0F;&#x20E3;</p>
+<p>EI&#x662F;&#x9AD8;&#x7535;&#x5E73;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x8BE5;&#x82AF;&#x7247;&#x65E0;&#x89C6;INPUTS&#x503C;&#xFF1B;OUTPUTS&#x5168;&#x90E8;&#x62C9;&#x9AD8;</p>
+<p>EI&#x662F;&#x4F4E;&#x7535;&#x5E73;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x8BE5;&#x82AF;&#x7247;&#x624D;&#x4F1A;&#x5BF9;INPUTS&#x503C;&#x7F16;&#x7801;</p>
+<p>2&#xFE0F;&#x20E3;</p>
+<p>&#x8F93;&#x5165;7&#x770B;&#x505A;&#x662F;&#x6700;&#x4F4E;&#x4F4D;&#xFF0C;&#x8F93;&#x5165;0&#x770B;&#x505A;&#x6700;&#x9AD8;&#x4F4D;</p>
+<p>&#x8F93;&#x5165;7&#x7684;&#x4F18;&#x5148;&#x7EA7;&#x6700;&#x9AD8;&#xFF0C;&#x8F93;&#x5165;0&#x7684;&#x4F18;&#x5148;&#x7EA7;&#x6700;&#x4F4E;&#xFF0C;&#x4E14;<strong>&#x4F4E;&#x7535;&#x5E73;&#x8F93;&#x5165;&#x6709;&#x6548;</strong></p>
+<p>3&#xFE0F;&#x20E3;</p>
+<p>A2&#xFF0C;A1&#xFF0C;A0&#x9075;&#x5FAA;8421&#x7801;&#x7684;&#x89C4;&#x5F8B;</p>
+<p>4&#xFE0F;&#x20E3;</p>
+<p>&#x53EA;&#x8981;<strong>&#x8F93;&#x5165;&#x6709;&#x6548;</strong>&#xFF0C;GS&#x5C31;&#x8F93;&#x51FA;&#x4F4E;&#x7535;&#x5E73;&#xFF0C;EO&#x5C31;&#x8F93;&#x51FA;&#x9AD8;&#x7535;&#x5E73;</p>
+<h1 id="2-&#x7535;&#x8DEF;"><a class="header-anchor" href="#2-&#x7535;&#x8DEF;"></a>2. &#x7535;&#x8DEF;</h1>
+<h2 id="&#x7406;&#x60F3;&#x7535;&#x8DEF;&#x1F60E;"><a class="header-anchor" href="#&#x7406;&#x60F3;&#x7535;&#x8DEF;&#x1F60E;"></a>&#x7406;&#x60F3;&#x7535;&#x8DEF;&#x1F60E;</h2>
+<p><img src="/844d73b1/promicro_148_bb.jpg" alt></p>
+<h2 id="&#x5B9E;&#x6D4B;&#x7535;&#x8DEF;&#x1F602;"><a class="header-anchor" href="#&#x5B9E;&#x6D4B;&#x7535;&#x8DEF;&#x1F602;"></a>&#x5B9E;&#x6D4B;&#x7535;&#x8DEF;&#x1F602;</h2>
+<p><img src="/844d73b1/bread.jpg" alt></p>
+<p>PS&#xFF1A;&#x7701;&#x6389;&#x4E86;EO&#x5F15;&#x811A;&#x7684;led&#xFF0C;&#x548C;&#x4E00;&#x5806;&#x5F00;&#x5173;</p>
+<h1 id="3-Arduino-sketch"><a class="header-anchor" href="#3-Arduino-sketch"></a>3. Arduino sketch</h1>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> Name:    ProMicro_74HC148.ino</span></span><br><span class="line"><span class="comment"> Created: 2020/2/26 18:54:12</span></span><br><span class="line"><span class="comment"> Author:  OldGerman</span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment"> Pro Micro map to 74HC148:</span></span><br><span class="line"><span class="comment">            _____</span></span><br><span class="line"><span class="comment">        ____|USB|____</span></span><br><span class="line"><span class="comment">      TX|   -----   |RAW</span></span><br><span class="line"><span class="comment">      RX|           |GND</span></span><br><span class="line"><span class="comment">     GND|           |RST</span></span><br><span class="line"><span class="comment">     GND|           |VCC</span></span><br><span class="line"><span class="comment">A0 -- 2 |           | A3(21) -- 0</span></span><br><span class="line"><span class="comment">A1 -- 3 |           | A2(20) -- 1      </span></span><br><span class="line"><span class="comment">A2 -- 4 |           | A1(19) -- 2</span></span><br><span class="line"><span class="comment">      5 | Pro Micro | A0(18) -- 3</span></span><br><span class="line"><span class="comment">      6 |           | 15     -- 4</span></span><br><span class="line"><span class="comment">EI -- 7 |           | 14     -- 5 </span></span><br><span class="line"><span class="comment">GS -- 8 |           | 16     -- 6</span></span><br><span class="line"><span class="comment">EO -- 9 |           | 10     -- 7</span></span><br><span class="line"><span class="comment">        -------------</span></span><br><span class="line"><span class="comment">          top  view</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* interruptPin */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EI 7  <span class="comment">//  EI&#x662F;&#x9AD8;&#x7535;&#x5E73;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x8BE5;&#x82AF;&#x7247;&#x65E0;&#x89C6;INPUTS&#x503C;&#xFF1B;OUTPUTS&#x5168;&#x90E8;&#x62C9;&#x9AD8;</span></span></span><br><span class="line">              <span class="comment">//  EI&#x662F;&#x4F4E;&#x7535;&#x5E73;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x8BE5;&#x82AF;&#x7247;&#x624D;&#x4F1A;&#x5BF9;INPUTS&#x503C;&#x7F16;&#x7801;</span></span><br><span class="line"><span class="keyword">bool</span> outpins_high = <span class="literal">true</span>;  <span class="comment">//  &#x7528;&#x4E8E;&#x4E2D;&#x65AD;&#x6539;&#x53D8;&#x7684;&#x6807;&#x5FD7;&#x4F4D;</span></span><br><span class="line">              </span><br><span class="line"><span class="comment">/* &#x8F93;&#x5165;&#x6709;&#x6548;&#x65F6;&#xFF0C;GS&#x8F93;&#x51FA;&#x4F4E;&#x7535;&#x5E73;&#xFF0C;EO&#x8F93;&#x51FA;&#x9AD8;&#x7535;&#x5E73; */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GS 8</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EO 9</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> delay_time = <span class="number">500</span>; <span class="comment">// loop()&#x9ED8;&#x8BA4;500ms&#x6267;&#x884C;&#x4E00;&#x6B21;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//  &#x5C06;byte&#x7C7B;&#x578B;&#x4EE5;8bit&#x8F93;&#x51FA;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_byte_as_8bit</span><span class="params">(byte val)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)</span><br><span class="line">  {</span><br><span class="line">      <span class="keyword">bool</span> b = val &amp; <span class="number">0x80</span>;</span><br><span class="line">      Serial.print(b);</span><br><span class="line">      val = val &lt;&lt; <span class="number">1</span>;</span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//  &#x4E2D;&#x65AD;&#x51FD;&#x6570;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">output_high</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">  outpins_high = <span class="literal">true</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">byte Buffer = B00000000;</span><br><span class="line">byte pin_out_bit;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setup</span><span class="params">()</span> </span>{</span><br><span class="line">    Serial.begin(<span class="number">115200</span>);</span><br><span class="line">    pinMode(EI, INPUT);</span><br><span class="line">    attachInterrupt(digitalPinToInterrupt(EI), output_high, HIGH);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">10</span>; i &lt; <span class="number">22</span>; i++)</span><br><span class="line">    {</span><br><span class="line">        pinMode(i, INPUT);</span><br><span class="line">        Serial.print(<span class="string">&quot;INPUT PIN = &quot;</span>); Serial.println(i);</span><br><span class="line">        <span class="keyword">if</span> (i == <span class="number">10</span>)</span><br><span class="line">            i += <span class="number">3</span>;     <span class="comment">//  pin 14~16</span></span><br><span class="line">        <span class="keyword">if</span> (i == <span class="number">16</span>)</span><br><span class="line">            i += <span class="number">1</span>;    <span class="comment">//  pin 18~21</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    Serial.println();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">    {</span><br><span class="line">      <span class="keyword">if</span>( i == <span class="number">4</span>)</span><br><span class="line">        i += <span class="number">4</span>;</span><br><span class="line">        </span><br><span class="line">        pinMode(i, OUTPUT); <span class="comment">//  A0~A2:pin 2~3, GS,EO:pin8~9</span></span><br><span class="line">        Serial.print(<span class="string">&quot;OUTPUT PIN = &quot;</span>); Serial.println(i);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    delay(<span class="number">1000</span>);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">loop</span><span class="params">()</span> </span>{</span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">bool</span> first = <span class="literal">true</span>; <span class="comment">//  &#x89E3;&#x51B3;&#x9996;&#x6B21;EI&#x4E3A;&#x9AD8;&#xFF0C;&#x7167;&#x6837;&#x5DE5;&#x4F5C; </span></span><br><span class="line">  <span class="keyword">if</span>(!outpins_high) <span class="comment">//  EI&#x4E3A;&#x4F4E;&#x7535;&#x4F4D;&#x65F6;&#x624D;&#x5DE5;&#x4F5C;</span></span><br><span class="line">  { </span><br><span class="line">    <span class="keyword">int</span> byte_bit = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> ch = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">bool</span> read_buffer[<span class="number">8</span>] = { <span class="number">0</span> };</span><br><span class="line">    Serial.print(<span class="string">&quot;read_val = &quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">10</span>; i &lt; <span class="number">22</span>; i++,++ch)</span><br><span class="line">    {</span><br><span class="line">        <span class="keyword">bool</span> read_val = digitalRead(i);</span><br><span class="line">        read_buffer[ch] = read_val;</span><br><span class="line">        <span class="keyword">if</span>(ch == <span class="number">7</span>)</span><br><span class="line">          ch = <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">switch</span> (i)      <span class="comment">//  &#x7EA0;&#x6B63;14~16&#x53F7;&#x5F15;&#x811A;&#x4F7F;&#x4E4B;&#x5BF9;&#x5E94;74HC148&#x7684;&#x5F15;&#x811A;</span></span><br><span class="line">        {</span><br><span class="line">        <span class="keyword">case</span> <span class="number">14</span>:</span><br><span class="line">            bitWrite(Buffer, byte_bit + <span class="number">1</span>, read_val);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">15</span>:</span><br><span class="line">            bitWrite(Buffer, byte_bit + <span class="number">1</span>, read_val);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">16</span>:</span><br><span class="line">            bitWrite(Buffer, byte_bit<span class="number">-2</span>, read_val);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            bitWrite(Buffer, byte_bit, read_val);   <span class="comment">//  10&#xFF0C; 18~21&#x6620;&#x5C04;&#x4E0D;&#x53D8;</span></span><br><span class="line">        }</span><br><span class="line">        ++byte_bit;     <span class="comment">//  byte_bit&#xFF1A; 0~7</span></span><br><span class="line">        <span class="keyword">if</span> (i == <span class="number">10</span>)</span><br><span class="line">            i += <span class="number">3</span>;     <span class="comment">//  pin 14~16</span></span><br><span class="line">        <span class="keyword">if</span> (i == <span class="number">16</span>)</span><br><span class="line">            i += <span class="number">1</span>;    <span class="comment">//  pin 18~21</span></span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;<span class="number">8</span>; i++)</span><br><span class="line">        Serial.print(read_buffer[i]);</span><br><span class="line">    Serial.print(<span class="string">&quot; pin1~7: &quot;</span>);  </span><br><span class="line">    print_byte_as_8bit(Buffer);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> bit_num = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)</span><br><span class="line">    {</span><br><span class="line">        <span class="keyword">int</span> bit_val = bitRead(Buffer, i);</span><br><span class="line">        <span class="keyword">if</span> (!bit_val)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">if</span> (bit_val)</span><br><span class="line">            bit_num += bit_val;</span><br><span class="line">    }</span><br><span class="line">    Serial.print(<span class="string">&quot;  bit_num = &quot;</span>);</span><br><span class="line">    Serial.print(bit_num);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(bit_num == <span class="number">8</span>)</span><br><span class="line">    {</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++)</span><br><span class="line">      {</span><br><span class="line">        <span class="keyword">int</span> pin_out_num = i + <span class="number">2</span>;    <span class="comment">//  pin 2~4</span></span><br><span class="line">        digitalWrite(pin_out_num, HIGH);</span><br><span class="line">      }</span><br><span class="line">      Serial.print(<span class="string">&quot;  A2,1,0: 111&quot;</span>);</span><br><span class="line">      </span><br><span class="line">      digitalWrite(GS,HIGH);</span><br><span class="line">      digitalWrite(EO,LOW);</span><br><span class="line">      Serial.print(<span class="string">&quot; GS: 1&quot;</span>);</span><br><span class="line">      Serial.print(<span class="string">&quot; EO: 0&quot;</span>);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    {</span><br><span class="line">      pin_out_bit = lowByte(bit_num);</span><br><span class="line">      <span class="keyword">int</span> pin_out_val[<span class="number">3</span>] = { <span class="number">0</span> };</span><br><span class="line">      <span class="keyword">int</span> pin_out_val_no[<span class="number">3</span>] = { <span class="number">0</span> };</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++)</span><br><span class="line">      {</span><br><span class="line">        pin_out_val[i] = bitRead(pin_out_bit, i);</span><br><span class="line">        pin_out_val_no[i] = pin_out_val[i];</span><br><span class="line">        <span class="keyword">int</span> pin_out_num = i + <span class="number">2</span>;    <span class="comment">//  pin 2~4</span></span><br><span class="line">        digitalWrite(pin_out_num, pin_out_val[i]);</span><br><span class="line">      }</span><br><span class="line">      </span><br><span class="line">      Serial.print(<span class="string">&quot;  A2,1,0: &quot;</span>);</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">        Serial.print(pin_out_val_no[i]);</span><br><span class="line">      </span><br><span class="line">      digitalWrite(GS,LOW);</span><br><span class="line">      digitalWrite(EO,HIGH);</span><br><span class="line">      Serial.print(<span class="string">&quot; GS: 0&quot;</span>);</span><br><span class="line">      Serial.print(<span class="string">&quot; EO: 1&quot;</span>);</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  {</span><br><span class="line">    <span class="keyword">if</span>(!first)</span><br><span class="line">    {</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; <span class="number">10</span>; i++)  <span class="comment">//  &#x5C06;A0-A2&#xFF0C;GS&#xFF0C;EO&#x62C9;&#x9AD8;</span></span><br><span class="line">      {</span><br><span class="line">        <span class="keyword">if</span>(i == <span class="number">4</span>)</span><br><span class="line">          i += <span class="number">4</span>;</span><br><span class="line">        digitalWrite(i, HIGH);</span><br><span class="line">      }</span><br><span class="line">      Serial.print(<span class="string">&quot;  A2,1,0: 111  GS: 1  EO: 1&quot;</span>);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">if</span>(!digitalRead(EI))    <span class="comment">//  &#x53EA;&#x6709;&#x5F53;EI&#x4E3A;&#x4F4E;&#x65F6;&#xFF0C;&#x624D;&#x5DE5;&#x4F5C;</span></span><br><span class="line">      outpins_high = <span class="literal">false</span>; <span class="comment">//  &#x5DE5;&#x4F5C;&#x524D;&#x5C06;&#x4E2D;&#x65AD;&#x6807;&#x5FD7;&#x4F4D;&#x8BBE;&#x4E3A;false</span></span><br><span class="line">    </span><br><span class="line">    first = <span class="literal">false</span>;</span><br><span class="line">  }</span><br><span class="line">  Serial.println();</span><br><span class="line">  delay(delay_time); <span class="comment">//  &#x5EF6;&#x8FDF;</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h1 id="4-Demo"><a class="header-anchor" href="#4-Demo"></a>4. Demo</h1>
+<h2 id="EI&#x4E3A;&#x4F4E;&#x7535;&#x5E73;&#xFF1A;demo"><a class="header-anchor" href="#EI&#x4E3A;&#x4F4E;&#x7535;&#x5E73;&#xFF1A;demo"></a>EI&#x4E3A;&#x4F4E;&#x7535;&#x5E73;&#xFF1A;<img src="/844d73b1/demo.jpg" alt="demo"></h2>
+<h2 id="EI&#x4E3A;&#x9AD8;&#x7535;&#x5E73;&#xFF1A;"><a class="header-anchor" href="#EI&#x4E3A;&#x9AD8;&#x7535;&#x5E73;&#xFF1A;"></a>EI&#x4E3A;&#x9AD8;&#x7535;&#x5E73;&#xFF1A;</h2>
+<p><img src="/844d73b1/Demo2.jpg" alt="Demo2"></p>
+<h2 id="EI&#x9AD8;&#x4F4E;&#x7535;&#x5E73;&#x5207;&#x6362;&#xFF1A;"><a class="header-anchor" href="#EI&#x9AD8;&#x4F4E;&#x7535;&#x5E73;&#x5207;&#x6362;&#xFF1A;"></a>EI&#x9AD8;&#x4F4E;&#x7535;&#x5E73;&#x5207;&#x6362;&#xFF1A;</h2>
+<p><img src="/844d73b1/Demo3.jpg" alt="Demo3"></p>
+<h2 id="&#x914D;&#x5408;Arduino&#x793A;&#x6CE2;&#x5668;&#xFF1A;"><a class="header-anchor" href="#&#x914D;&#x5408;Arduino&#x793A;&#x6CE2;&#x5668;&#xFF1A;"></a>&#x914D;&#x5408;Arduino&#x793A;&#x6CE2;&#x5668;&#xFF1A;</h2>
+<p><a href="https://github.com/oldgerman/oldgerman.github.io/blob/master/blog-video/ProMicro-74HC148.mp4" target="_blank" rel="noopener">&#x89C6;&#x9891;&#x94FE;&#x63A5;</a></p>
+<h1 id="5-&#x6709;&#x5173;sketch"><a class="header-anchor" href="#5-&#x6709;&#x5173;sketch"></a>5. &#x6709;&#x5173;sketch</h1>
+<h2 id="Line-37-print-byte-as-8bit"><a class="header-anchor" href="#Line-37-print-byte-as-8bit"></a>Line: 37 - print_byte_as_8bit()</h2>
+<p>&#x82E5;&#x4F7F;&#x7528;<code>Serial.print(byte val, BIN)</code>&#xFF0C;&#x4F1A;&#x88C1;&#x526A;&#x6389;&#x9AD8;&#x4F4D;&#x65E0;&#x7528;&#x7684;0&#xFF0C;&#x9020;&#x6210;&#x8F93;&#x51FA;&#x4E0D;&#x6574;&#x9F50;&#xFF0C;&#x4E0D;&#x4FE1;&#x4F60;&#x8BD5;&#x8BD5;&#xFF0C;&#x5206;&#x5206;&#x949F;&#x9A82;&#x8857;</p>
+<p>&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x4ECE;Arduino.com&#x8BBA;&#x575B;copy&#x8FC7;&#x6765;&#x7684;&#xFF0C;&#x6211;&#x4F4D;&#x8FD0;&#x7B97;&#x6E23;&#x6E23;&#x1F633;</p>
+<h2 id="Line-60-Interrupt"><a class="header-anchor" href="#Line-60-Interrupt"></a>Line: 60 - Interrupt</h2>
+<table>
+<thead>
+<tr>
+<th>BOARD</th>
+<th>DIGITAL PINS USABLE FOR INTERRUPTS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Micro, Leonardo, other 32u4-based</td>
+<td>0, 1, 2, 3, 7</td>
+</tr>
+</tbody>
+</table>
+<p>&#x7A0B;&#x5E8F;&#x5728;Pro Micro&#x8FD0;&#x884C;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;<strong>EI</strong>&#x6620;&#x5C04;&#x5230;<strong>pin7</strong>&#xFF0C;&#x5E76;&#x5728;pin7&#x4E0A;&#x4F7F;&#x7528;&#x4E2D;&#x65AD;&#x51FD;&#x6570;&#x5B9E;&#x73B0;&#x4E0A;&#x6587;FUNCTION TABLE&#x7684;&#x529F;&#x80FD;1&#xFE0F;&#x20E3;</p>
+<h2 id="Line-154-int-to-byte&#x8F6C;&#x6362;"><a class="header-anchor" href="#Line-154-int-to-byte&#x8F6C;&#x6362;"></a>Line: 154 -  int to byte&#x8F6C;&#x6362;</h2>
+<p>&#x5BF9;&#x4E8E;arduino Leonardo&#xFF0C;int&#x7C7B;&#x578B;&#x5360;&#x5185;&#x5B58;2&#x5B57;&#x8282;&#xFF0C;byte&#x7C7B;&#x578B;&#x5360;1&#x5B57;&#x8282;&#xFF0C;so</p>
+<p>int to byte&#x82E5;&#x76F4;&#x63A5;&#x8D4B;&#x503C;&#x4F1A;&#x6EA2;&#x51FA; &#xFF0C;&#x5B9E;&#x6D4B;&#xFF0C;&#x4E32;&#x53E3;&#x76D1;&#x89C6;&#x5668;&#x77AC;&#x95F4;&#x6EE1;&#x5C4F;&#x5E55;&#x6253;&#x5370;11111111&#x1F602;</p>
+<h3 id="higByte-&#x4E0E;lowByte-&#x7528;&#x6CD5;"><a class="header-anchor" href="#higByte-&#x4E0E;lowByte-&#x7528;&#x6CD5;"></a>higByte()&#x4E0E;lowByte()&#x7528;&#x6CD5;:</h3>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">2333</span>; 				<span class="comment">//		x = 0000,1001,0001,1101</span></span><br><span class="line"><span class="keyword">byte</span> H_bit = <span class="built_in">highByte</span>(x); 	<span class="comment">//	H_bit = 0000,10001</span></span><br><span class="line"><span class="keyword">byte</span> L_bit = <span class="built_in">lowByte</span>(x);	<span class="comment">//	L_bit = 0001,1101</span></span><br></pre></td></tr></table></figure>
+<h1 id="6-&#x540E;&#x8BB0;"><a class="header-anchor" href="#6-&#x540E;&#x8BB0;"></a>6. &#x540E;&#x8BB0;</h1>
+<h2 id="74HC148&#x95E8;&#x7EA7;&#x7535;&#x8DEF;&#x56FE;"><a class="header-anchor" href="#74HC148&#x95E8;&#x7EA7;&#x7535;&#x8DEF;&#x56FE;"></a>74HC148&#x95E8;&#x7EA7;&#x7535;&#x8DEF;&#x56FE;</h2>
+<p><img src="/844d73b1/logic_door.png" alt></p>
+<p>&#x1F633; &#x5F88;&#x96BE;&#x60F3;&#x8C61;&#x8FD9;&#x4E2A;&#x903B;&#x8F91;&#x95E8;&#x7535;&#x8DEF;&#x662F;&#x600E;&#x4E48;&#x4F18;&#x96C5;&#x5730;&#x60F3;&#x51FA;&#x6765;&#x7684;&#xFF0C;&#x4ED6;&#x7684;&#x8BBE;&#x8BA1;&#x8005;&#x5E94;&#x8BE5;&#x5728;&#x7528;<a href="https://zh.wikipedia.org/zh-cn/%E5%B8%83%E5%B0%94%E4%BB%A3%E6%95%B0" target="_blank" rel="noopener">&#x5E03;&#x5C14;&#x4EE3;&#x6570;</a>&#x6216;&#x8005;<a href="https://zh.wikipedia.org/zh-hans/%E9%80%BB%E8%BE%91%E4%BB%A3%E6%95%B0" target="_blank" rel="noopener">&#x903B;&#x8F91;&#x4EE3;&#x6570;</a>&quot;&#x7F16;&#x7A0B;&quot;&#x5427;&#xFF1F;</p>
+<p>&#x75AB;&#x60C5;&#x5565;&#x65F6;&#x5019;&#x7ED3;&#x675F;&#x55F7;&#xFF0C;&#x6211;&#x518D;&#x4E5F;&#x4E0D;&#x60F3;&#x7528;arduino&#x6A21;&#x62DF;16&#x811A;&#x5C01;&#x88C5;&#x7684;&#x5668;&#x4EF6;&#x4E86;&#x1F62D;</p>
+<h1 id="7-&#x786C;&#x6838;&#x5EF6;&#x7533;&#x9605;&#x8BFB;"><a class="header-anchor" href="#7-&#x786C;&#x6838;&#x5EF6;&#x7533;&#x9605;&#x8BFB;"></a>7. &#x786C;&#x6838;&#x5EF6;&#x7533;&#x9605;&#x8BFB;</h1>
+<h2 id="learn-about-electronics-&#x7F16;&#x7801;&#x5668;&#x548C;&#x89E3;&#x7801;&#x5668;"><a class="header-anchor" href="#learn-about-electronics-&#x7F16;&#x7801;&#x5668;&#x548C;&#x89E3;&#x7801;&#x5668;"></a><a href="https://learnabout-electronics.org/Digital/dig44.php" target="_blank" rel="noopener">learn about electronics: &#x7F16;&#x7801;&#x5668;&#x548C;&#x89E3;&#x7801;&#x5668;</a></h2>
+<h3 id="&#x903B;&#x8F91;&#x95E8;&#x7ADE;&#x4E89;-&#x5F00;&#x5173;&#x53BB;&#x6296;"><a class="header-anchor" href="#&#x903B;&#x8F91;&#x95E8;&#x7ADE;&#x4E89;-&#x5F00;&#x5173;&#x53BB;&#x6296;"></a>&#x903B;&#x8F91;&#x95E8;&#x7ADE;&#x4E89;|&#x5F00;&#x5173;&#x53BB;&#x6296;</h3>
+<p>&#x5BF9;&#x4E8E;DIP16&#x7684;74HC148&#xFF0C;&#x6570;&#x5B57;&#x4FE1;&#x53F7;&#x901A;&#x8FC7;&#x903B;&#x8F91;&#x7535;&#x8DEF;&#x7684;&#x4E0D;&#x540C;&#x8DEF;&#x5F84;&#x53EF;&#x80FD;&#x5177;&#x6709;&#x4E0D;&#x540C;&#x6570;&#x91CF;&#x7684;&#x95E8;</p>
+<p>&#x5BF9;&#x4E8E;Pro Micro&#x6A21;&#x62DF;&#x7684;&#xFF0C;&#x7A0B;&#x5E8F;&#x672C;&#x8D28;&#x4E0A;&#x8FD8;&#x662F;&#x6309;&#x4E8C;&#x8FDB;&#x5236;&#x6D41;&#x5148;&#x540E;&#x6267;&#x884C;</p>
+<p>&#x4F8B;&#x5982;&#xFF0C;&#x5728;&#x8F93;&#x5165;&#x7AEF;&#x540C;&#x65F6;&#x6539;&#x53D8;&#x7684;&#x4E24;&#x4E2A;&#x903B;&#x8F91;&#x4FE1;&#x53F7;&#xFF0C;&#x518D;&#x901A;&#x8FC7;&#x7535;&#x8DEF;/&#x4EE3;&#x7801;&#x8FDB;&#x884C;&#x4F20;&#x9012;&#x65F6;&#xFF0C;&#x53EF;&#x80FD;&#x4E00;&#x77AC;&#x95F4;&#x8F93;&#x51FA;&#x7AEF;&#x7535;&#x5E73;&#x548C;&#x9884;&#x60F3;&#x7684;&#x4E0D;&#x4E00;&#x6837;</p>
+<p>&#x5728;&#x4F7F;&#x7528;&#x8BF8;&#x5982;&#x7F16;&#x7801;&#x5668;&#x4E4B;&#x7C7B;&#x7684;&#x7EC4;&#x5408;&#x903B;&#x8F91;IC&#x65F6;&#xFF0C;&#x5FC5;&#x987B;&#x8003;&#x8651;&#x5230;&#x8BF8;&#x5982;&#x5F00;&#x5173;&#x5F39;&#x8DF3;&#x548C;&#x903B;&#x8F91;&#x95E8;&#x7ADE;&#x4E89;&#x98CE;&#x9669;&#x4E4B;&#x7C7B;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x5E76;&#x4E14;&#x4E00;&#x79CD;&#xFF08;<a href="https://learnabout-electronics.org/Digital/dig44.php#better-encoders" target="_blank" rel="noopener">&#x5C3D;&#x7BA1;&#x4E0D;&#x4E00;&#x5B9A;&#x662F;&#x6700;&#x597D;&#x7684;</a>&#xFF09;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#x53EF;&#x4EE5;&#x5728;&#x6570;&#x636E;&#x53EF;&#x80FD;&#x53D1;&#x751F;&#x53D8;&#x5316;&#x7684;&#x65F6;&#x5019;&#x6682;&#x65F6;&#x5C06;ENABLE&#x5F15;&#x811A;&#x8BBE;&#x4E3A;&#x9AD8;&#x7535;&#x5E73;&#x3002;&#x8FD9;&#x4F1A;&#x5728;&#x77ED;&#x65F6;&#x95F4;&#x5185;&#x7981;&#x7528;&#x7F16;&#x7801;&#x5668;&#xFF0C;&#x76F4;&#x5230;&#x4FE1;&#x53F7;&#x6570;&#x636E;&#x7A33;&#x5B9A;&#x5728;&#x5176;&#x65B0;&#x72B6;&#x6001;&#x4E3A;&#x6B62;&#xFF0C;&#x4ECE;&#x800C;&#x5728;&#x8F93;&#x5165;&#x4FE1;&#x53F7;&#x66F4;&#x6539;&#x671F;&#x95F4;&#xFF0C;&#x5728;&#x8F93;&#x51FA;&#x7AEF;&#x4E0D;&#x4F1A;&#x51FA;&#x73B0;&#x566A;&#x58F0;</p>
+<p>:joy</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Arduino/" rel="tag"># Arduino</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/b85c9bb4/" rel="next" title="esp8266 spi设备共用CS">
+                  <i class="fa fa-chevron-left"></i> esp8266 spi设备共用CS
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/cd7d6bbd/" rel="prev" title="齐纳二极管与Mosfet防反接电路">
+                  齐纳二极管与Mosfet防反接电路 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/psa.jpg"
+      alt="过气德国佬">
+  <p class="site-author-name" itemprop="name">过气德国佬</p>
+  <div class="site-description motion-element" itemprop="description">潮起潮落，云卷云舒</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0-Pro-Micro-pins-map"><span class="nav-number">1.</span> <span class="nav-text">0. Pro Micro pins map</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-74LS148-74HC148"><span class="nav-number">2.</span> <span class="nav-text">1. 74LS148 | 74HC148</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Pins-map-Symbolsymbol-and-pin"><span class="nav-number">2.1.</span> <span class="nav-text">Pins map | Symbol</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FUNCTION-TABLE"><span class="nav-number">2.2.</span> <span class="nav-text">FUNCTION TABLE</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-电路"><span class="nav-number">3.</span> <span class="nav-text">2. 电路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#理想电路😎"><span class="nav-number">3.1.</span> <span class="nav-text">理想电路😎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实测电路😂"><span class="nav-number">3.2.</span> <span class="nav-text">实测电路😂</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Arduino-sketch"><span class="nav-number">4.</span> <span class="nav-text">3. Arduino sketch</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Demo"><span class="nav-number">5.</span> <span class="nav-text">4. Demo</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#EI为低电平：demo"><span class="nav-number">5.1.</span> <span class="nav-text">EI为低电平：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EI为高电平："><span class="nav-number">5.2.</span> <span class="nav-text">EI为高电平：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EI高低电平切换："><span class="nav-number">5.3.</span> <span class="nav-text">EI高低电平切换：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配合Arduino示波器："><span class="nav-number">5.4.</span> <span class="nav-text">配合Arduino示波器：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-有关sketch"><span class="nav-number">6.</span> <span class="nav-text">5. 有关sketch</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Line-37-print-byte-as-8bit"><span class="nav-number">6.1.</span> <span class="nav-text">Line: 37 - print_byte_as_8bit()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Line-60-Interrupt"><span class="nav-number">6.2.</span> <span class="nav-text">Line: 60 - Interrupt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Line-154-int-to-byte转换"><span class="nav-number">6.3.</span> <span class="nav-text">Line: 154 -  int to byte转换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#higByte-与lowByte-用法"><span class="nav-number">6.3.1.</span> <span class="nav-text">higByte()与lowByte()用法:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-后记"><span class="nav-number">7.</span> <span class="nav-text">6. 后记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#74HC148门级电路图"><span class="nav-number">7.1.</span> <span class="nav-text">74HC148门级电路图</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-硬核延申阅读"><span class="nav-number">8.</span> <span class="nav-text">7. 硬核延申阅读</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#learn-about-electronics-编码器和解码器"><span class="nav-number">8.1.</span> <span class="nav-text">learn about electronics: 编码器和解码器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑门竞争-开关去抖"><span class="nav-number">8.1.1.</span> <span class="nav-text">逻辑门竞争|开关去抖</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+        
+
+<div id="days"></div>
+<script>
+function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("07/19/2019 15:00:00");
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=setzero(Math.floor(e_hrsold));
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+    seconds=setzero(Math.floor((e_minsold-minsold)*60));
+    document.getElementById('days').innerHTML="(∩•̀ω•́)⊃--*⋆本站由米板1代搭建，已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i) {
+    if (i<10) {
+        i="0" + i
+    };
+    return i;
+}
+show_date_time();
+</script>
+
+
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">过气德国佬</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">66k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        <span>0%</span>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'iWuakuHkkRt5xT7Ct9cyj8nO-gzGzoHsz',
+    appKey: 'PAz23pDzHnucqRDkVMShMp5B',
+    placeholder: '(๑•̀ㅁ•́ฅ✧ 说点什么吧！',
+    avatar: '',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

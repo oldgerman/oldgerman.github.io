@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="ssh + 挂载硬盘 + 文件服务器 + Aria2 + 百度云 + 酸酸乳 + opkg配置">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小娱C5_配置篇">
+<meta property="og:url" content="http://yoursite.com/29c16836/index.html">
+<meta property="og:site_name" content="OldGerman&#39;s Blog">
+<meta property="og:description" content="ssh + 挂载硬盘 + 文件服务器 + Aria2 + 百度云 + 酸酸乳 + opkg配置">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/29c16836/IP-change.png">
+<meta property="og:image" content="http://yoursite.com/29c16836/IP-imge.png">
+<meta property="og:image" content="http://yoursite.com/29c16836/ssh-enable.png">
+<meta property="og:image" content="http://yoursite.com/29c16836/putty-ssh.png">
+<meta property="og:image" content="http://yoursite.com/29c16836/TIM%E6%88%AA%E5%9B%BE20190821214653.png">
+<meta property="og:image" content="http://yoursite.com/29c16836/putty-fonts.png">
+<meta property="og:image" content="http://yoursite.com/29c16836/putty-fonts-%E9%9B%85%E9%BB%91.png">
+<meta property="og:image" content="http://yoursite.com/29c16836/SMB.png">
+<meta property="og:image" content="http://yoursite.com/29c16836/win-smb1.png">
+<meta property="og:image" content="http://yoursite.com/29c16836/win-smb2.png">
+<meta property="og:image" content="http://yoursite.com/29c16836/SMB=win.png">
+<meta property="og:image" content="http://yoursite.com/29c16836/Aria2.png">
+<meta property="og:image" content="http://yoursite.com/29c16836/Aria2-web.png">
+<meta property="og:image" content="http://yoursite.com/29c16836/baiduPCS.png">
+<meta property="og:image" content="http://yoursite.com/29c16836/baiduPCS-error.png">
+<meta property="og:image" content="http://yoursite.com/29c16836/%E9%85%B8%E9%85%B8%E4%B9%B3.png">
+<meta property="og:image" content="http://yoursite.com/29c16836/opt-update.png">
+<meta property="og:image" content="http://yoursite.com/29c16836/df-h.png">
+<meta property="og:image" content="http://yoursite.com/29c16836/nmon-install.png">
+<meta property="og:image" content="http://yoursite.com/29c16836/nmon.png">
+<meta property="og:updated_time" content="2019-08-29T11:07:59.645Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="小娱C5_配置篇">
+<meta name="twitter:description" content="ssh + 挂载硬盘 + 文件服务器 + Aria2 + 百度云 + 酸酸乳 + opkg配置">
+<meta name="twitter:image" content="http://yoursite.com/29c16836/IP-change.png">
+  <link rel="canonical" href="http://yoursite.com/29c16836/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>小娱C5_配置篇 | OldGerman's Blog</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OldGerman's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Refuse to play tickets!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-阅读排名">
+      
+    
+
+    <a href="/rank" rel="section"><i class="menu-item-icon fa fa-fw fa-list"></i> <br>阅读排名</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/29c16836/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过气德国佬">
+      <meta itemprop="description" content="潮起潮落，云卷云舒">
+      <meta itemprop="image" content="/images/psa.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OldGerman's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">小娱C5_配置篇
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-21 18:34:02" itemprop="dateCreated datePublished" datetime="2019-08-21T18:34:02+08:00">2019-08-21</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-08-29 19:07:59" itemprop="dateModified" datetime="2019-08-29T19:07:59+08:00">2019-08-29</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span id="/29c16836/" class="post-meta-item leancloud_visitors" data-flag-title="小娱C5_配置篇" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/29c16836/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/29c16836/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>5.7k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>5 分钟</span>
+            </span>
+          
+            <div class="post-description">ssh + 挂载硬盘 + 文件服务器 + Aria2 + 百度云 + 酸酸乳 + opkg配置</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="1-&#x66F4;&#x6539;IP&#x5730;&#x5740;-&#x53EF;&#x9009;"><a class="header-anchor" href="#1-&#x66F4;&#x6539;IP&#x5730;&#x5740;-&#x53EF;&#x9009;"></a>1. &#x66F4;&#x6539;IP&#x5730;&#x5740;|&#x53EF;&#x9009;</h2>
+<p>&#x68C0;&#x67E5;&#x4F60;&#x4F7F;&#x7528;&#x7684;&#x7F51;&#x7EDC;&#x73AF;&#x5883;&#xFF0C;&#x5982;&#x679C;&#x67D0;&#x4E9B;&#x8BBE;&#x5907;&#x7684;IP&#x5730;&#x5740;&#x4E0E;&#x8001;&#x6BDB;&#x5B50;&#x56FA;&#x4EF6;&#x9ED8;&#x8BA4;&#x7684;IP&#x5730;&#x5740;<code>192.168.123.1</code>&#x4E00;&#x6837;</p>
+<p>&#x8BF7;&#x4FEE;&#x6539;<code>192.168.123.1</code>&#x4E2D;&#x7684;<code>123</code>&#x4E3A;0~254&#x4EFB;&#x610F;&#x6570;&#x503C;</p>
+<p>*&#x6ED1;&#x52A8;&#x5230;&#x9875;&#x9762;&#x5E95;&#x90E8;&#xFF0C;&#x70B9;&#x51FB;<strong>&#x5E94;&#x7528;&#x672C;&#x9875;&#x9762;&#x8BBE;&#x7F6E;</strong></p>
+<p><img src="/29c16836/IP-change.png" alt></p>
+<h4 id="&#x4E3A;&#x4EC0;&#x4E48;&#x4FEE;&#x6539;&#xFF1F;"><a class="header-anchor" href="#&#x4E3A;&#x4EC0;&#x4E48;&#x4FEE;&#x6539;&#xFF1F;"></a>&#x4E3A;&#x4EC0;&#x4E48;&#x4FEE;&#x6539;&#xFF1F;</h4>
+<p><img src="/29c16836/IP-imge.png" alt></p>
+<p>&#x1F604;&#x8BF7;&#x53C2;&#x8003;&#xFF1A;<a href="http://cn.linux.vbird.org/linux_server/0110network_basic_3.php#tcpip_network_netmask" target="_blank" rel="noopener"><strong>2.3.4 Netmask, &#x5B50;&#x7F51;&#x4E0E; CIDR (Classless Interdomain Routing)</strong></a></p>
+<h2 id="2-SSH&#x767B;&#x5F55;&#x5C0F;&#x5A31;C5"><a class="header-anchor" href="#2-SSH&#x767B;&#x5F55;&#x5C0F;&#x5A31;C5"></a>2. SSH&#x767B;&#x5F55;&#x5C0F;&#x5A31;C5</h2>
+<h4 id="&#x4EC0;&#x4E48;&#x662F;SSH"><a class="header-anchor" href="#&#x4EC0;&#x4E48;&#x662F;SSH"></a><a href="https://blog.csdn.net/u012308586/article/details/90599793" target="_blank" rel="noopener">&#x4EC0;&#x4E48;&#x662F;SSH?</a></h4>
+<h4 id="&#x786E;&#x4FDD;SSH&#x670D;&#x52A1;&#x6253;&#x5F00;&#xFF1A;"><a class="header-anchor" href="#&#x786E;&#x4FDD;SSH&#x670D;&#x52A1;&#x6253;&#x5F00;&#xFF1A;"></a>&#x786E;&#x4FDD;SSH&#x670D;&#x52A1;&#x6253;&#x5F00;&#xFF1A;</h4>
+<p>*&#x6ED1;&#x52A8;&#x5230;&#x9875;&#x9762;&#x5E95;&#x90E8;&#xFF0C;&#x70B9;&#x51FB;<strong>&#x5E94;&#x7528;&#x672C;&#x9875;&#x9762;&#x8BBE;&#x7F6E;</strong></p>
+<p><img src="/29c16836/ssh-enable.png" alt></p>
+<h4 id="&#x5B89;&#x88C5;PuTTY&#xFF1A;"><a class="header-anchor" href="#&#x5B89;&#x88C5;PuTTY&#xFF1A;"></a>&#x5B89;&#x88C5;PuTTY&#xFF1A;</h4>
+<p><a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html" target="_blank" rel="noopener">&#x5B98;&#x65B9;&#x4E0B;&#x8F7D;&#x94FE;&#x63A5;</a></p>
+<p><a href="https://pan.baidu.com/s/1gsdQGDlTjmoJt6fQ5ZC9GA" target="_blank" rel="noopener">&#x767E;&#x5EA6;&#x4E91;&#x94FE;&#x63A5;</a> &#x63D0;&#x53D6;&#x7801;&#xFF1A;<code>0qg9</code></p>
+<p>&#x5B89;&#x88C5;&#x4E4B;&#x540E;&#xFF0C;&#x6253;&#x5F00;&#x7A0B;&#x5E8F;</p>
+<h4 id="SSH&#x767B;&#x5F55;&#xFF1A;"><a class="header-anchor" href="#SSH&#x767B;&#x5F55;&#xFF1A;"></a>SSH&#x767B;&#x5F55;&#xFF1A;</h4>
+<p><code>Host Name</code>&#x586B;&#x5165;&#x4E4B;&#x524D;&#x63D0;&#x5230;&#x7684;<code>IP&#x5730;&#x5740;</code></p>
+<p><code>Port(&#x7AEF;&#x53E3;)</code>&#x586B;&#x5199;<code>22</code></p>
+<p><code>Connection type(&#x8FDE;&#x63A5;&#x7C7B;&#x578B;)</code>&#x9009;&#x62E9;<code>SSH</code></p>
+<p>&#x53EF;&#x4EE5;&#x5728;<code>Saved sessons</code>&#x4E2D;&#x4E3A;&#x5F53;&#x524D;&#x5185;&#x5BB9;&#x952E;&#x5165;&#x540D;&#x5B57;&#xFF0C;&#x70B9;&#x51FB;<code>Save</code>&#x4FDD;&#x5B58;&#x5728;&#x5217;&#x8868;&#xFF0C;&#x4E0B;&#x6B21;&#x6253;&#x5F00;&#x7A0B;&#x5E8F;&#x65F6;&#xFF0C;&#x76F4;&#x63A5;&#x9009;&#x4E2D;&#x5DF2;&#x4FDD;&#x5B58;&#x7684;&#x9879;&#x7136;&#x540E;<code>Load</code></p>
+<p><img src="/29c16836/putty-ssh.png" alt></p>
+<p>&#x70B9;&#x51FB;<code>Open</code>&#x542F;&#x52A8;SSH&#x8FDE;&#x63A5;&#xFF0C; &#x82E5;&#x4E00;&#x5207;&#x6B63;&#x5E38;&#xFF0C;&#x4F1A;&#x5F39;&#x51FA;<strong>&#x8B66;&#x544A;</strong>&#x7A97;&#x53E3;&#xFF0C;&#x786E;&#x8BA4;&#x5373;&#x53EF;</p>
+<p>&#x82E5;&#x672A;&#x66F4;&#x6539;&#x521D;&#x59CB;&#x8D26;&#x53F7;&#xFF0C;&#x5219;&#x7528;&#x8D26;&#x53F7;<code>admin</code> &#x5BC6;&#x7801;<code>admin</code>&#x767B;&#x5F55;</p>
+<ul>
+<li>&#x8F93;&#x5165;&#x8D26;&#x53F7;&#xFF0C;&#x56DE;&#x8F66;&#xFF0C;</li>
+<li>&#x8F93;&#x5165;&#x5BC6;&#x7801;&#xFF0C;&#x5BC6;&#x7801;&#x5185;&#x5BB9;&#x4E0D;&#x4F1A;&#x663E;&#x793A;&#xFF0C;&#x56DE;&#x8F66;&#xFF0C;</li>
+<li>&#x6210;&#x529F;&#x767B;&#x5F55;&#xFF1A;</li>
+</ul>
+<p><img src="/29c16836/TIM%E6%88%AA%E5%9B%BE20190821214653.png" alt></p>
+<h4 id="&#x4FEE;&#x6539;PuTTY&#x5B57;&#x4F53;&#xFF1A;"><a class="header-anchor" href="#&#x4FEE;&#x6539;PuTTY&#x5B57;&#x4F53;&#xFF1A;"></a>&#x4FEE;&#x6539;PuTTY&#x5B57;&#x4F53;&#xFF1A;</h4>
+<p>&#x1F625;&#x9ED8;&#x8BA4;&#x7684;&#x5B57;&#x4F53;&#x82E5;&#x6B23;&#x8D4F;&#x4E0D;&#x6765;&#xFF0C;&#x53EF;&#x4EE5;&#x5728; Window &#x2013; Appearance &#x2013; Font settings &#x2013; Change&#x2026; &#x4E2D;&#x4FEE;&#x6539;&#x5B57;&#x4F53;&#x6837;&#x5F0F;&#x53CA;&#x5927;&#x5C0F;</p>
+<p><img src="/29c16836/putty-fonts.png" alt></p>
+<p><img src="/29c16836/putty-fonts-%E9%9B%85%E9%BB%91.png" alt></p>
+<p>&#x1F60D;<a href="https://github.com/yakumioto/YaHei-Consolas-Hybrid-1.12" target="_blank" rel="noopener">&#x793A;&#x4F8B;&#x5B57;&#x4F53;&#x4E0B;&#x8F7D;</a></p>
+<h2 id="3-&#x5BF9;&#x78C1;&#x76D8;&#x8FDB;&#x884C;&#x5206;&#x533A;&#x89C4;&#x5212;-&#x53C2;&#x8003;"><a class="header-anchor" href="#3-&#x5BF9;&#x78C1;&#x76D8;&#x8FDB;&#x884C;&#x5206;&#x533A;&#x89C4;&#x5212;-&#x53C2;&#x8003;"></a>3. &#x5BF9;&#x78C1;&#x76D8;&#x8FDB;&#x884C;&#x5206;&#x533A;&#x89C4;&#x5212;|<a href="http://koolshare.cn/thread-78681-1-38.html" target="_blank" rel="noopener">&#x53C2;&#x8003;</a></h2>
+<h4 id="&#x67E5;&#x770B;&#x78C1;&#x76D8;"><a class="header-anchor" href="#&#x67E5;&#x770B;&#x78C1;&#x76D8;"></a>&#x67E5;&#x770B;&#x78C1;&#x76D8;</h4>
+<p>&#x62C6;&#x5F00;&#x5C0F;&#x5A31;C1&#x7684;&#x673A;&#x58F3;&#xFF0C;&#x5378;&#x4E0B;&#x786C;&#x76D8;&#x6258;&#x67B6;&#xFF0C;&#x88C5;&#x4E0A;&#x4E00;&#x5757;2.5&#x5BF8;SATA&#x76D8;</p>
+<p>SSH&#x767B;&#x5F55;&#xFF0C;&#x8F93;&#x5165;&#x547D;&#x4EE4;<code>fdisk -l</code>&#xFF0C;&#x672B;&#x5C3E;&#x53EF;&#x770B;&#x89C1;&#x786C;&#x76D8;&#x540D;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[RT-N56U_B1 /opt/home/admin]<span class="comment"># fdisk -l</span></span><br><span class="line">......</span><br><span class="line">Device  Boot StartCHS    EndCHS        StartLBA     EndLBA    Sectors  Size Id Type</span><br><span class="line">/dev/sda1    0,32,33     65,101,36         2048    1050623    1048576  512M 82 Linux swap</span><br><span class="line">/dev/sda2    65,101,37   257,80,63      1050624  234441647  233391024  111G 83 Linux</span><br></pre></td></tr></table></figure>
+<p>&#x8FD9;&#x91CC;&#x4E24;&#x4E2A;/dev/sda*&#x5206;&#x533A;&#x662F;&#x6211;&#x7684;&#x4E00;&#x4E2A;&#x5DF2;&#x7ECF;&#x683C;&#x5F0F;&#x5316;&#x597D;&#x7684;128GB&#x786C;&#x76D8;</p>
+<p>&#x4EE5;&#x4E0B;&#x6240;&#x6709;&#x64CD;&#x4F5C;&#x90FD;&#x4EE5;/dev/sda&#x4E3A;&#x4F8B;&#xFF0C;<strong>&#x8BF7;&#x6839;&#x636E;&#x81EA;&#x8EAB;&#x78C1;&#x76D8;&#x663E;&#x793A;&#x7684;&#x540D;&#x5B57;&#x53D8;&#x901A;</strong></p>
+<h4 id="fdisk&#x547D;&#x4EE4;"><a class="header-anchor" href="#fdisk&#x547D;&#x4EE4;"></a>fdisk&#x547D;&#x4EE4;</h4>
+<p>fdisk&#x662F;&#x4E00;&#x4E2A;&#x547D;&#x4EE4;&#x884C;&#x78C1;&#x76D8;&#x7A0B;&#x5E8F;&#xFF0C;&#x53EF;&#x4EE5;&#x5BF9;MBR&#x78C1;&#x76D8;&#x8FDB;&#x884C;&#x5206;&#x533A;&#x64CD;&#x4F5C;&#xFF0C;&#x5177;&#x4F53;&#x4F7F;&#x7528;&#x53EF;&#x4EE5;&#x501F;&#x52A9;&#x641C;&#x7D22;&#x5F15;&#x64CE;</p>
+<p>&#x76F4;&#x63A5;&#x952E;&#x5165;<code>fdisk</code>&#x53EF;&#x67E5;&#x770B;&#x7528;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">First sector (2048-1048575, default 2048): [RT-N56U_B1 /opt/home/admin]<span class="comment"># fdisk</span></span><br><span class="line">BusyBox v1.29.3 (2019-06-08 16:33:16 CST) multi-call binary.</span><br><span class="line"></span><br><span class="line">Usage: fdisk [-ul] [-C CYLINDERS] [-H HEADS] [-S SECTORS] [-b SSZ] DISK</span><br><span class="line"></span><br><span class="line">Change partition table</span><br><span class="line"></span><br><span class="line">        -u              Start and End are <span class="keyword">in</span> sectors (instead of cylinders)</span><br><span class="line">        -l              Show partition table <span class="keyword">for</span> each DISK, <span class="keyword">then</span> <span class="built_in">exit</span></span><br><span class="line">        -b 2048         (<span class="keyword">for</span> certain MO disks) use 2048-byte sectors</span><br><span class="line">        -C CYLINDERS    Set number of cylinders/heads/sectors</span><br><span class="line">        -H HEADS        Typically 255</span><br><span class="line">        -S SECTORS      Typically 63</span><br></pre></td></tr></table></figure>
+<h4 id="&#x8BE6;&#x7EC6;&#x64CD;&#x4F5C;&#x6B65;&#x9AA4;"><a class="header-anchor" href="#&#x8BE6;&#x7EC6;&#x64CD;&#x4F5C;&#x6B65;&#x9AA4;"></a>&#x8BE6;&#x7EC6;&#x64CD;&#x4F5C;&#x6B65;&#x9AA4;</h4>
+<h5 id="0&#xFF09;&#x68C0;&#x67E5;&#x786C;&#x76D8;&#x662F;&#x5426;&#x81EA;&#x52A8;&#x6302;&#x8F7D;"><a class="header-anchor" href="#0&#xFF09;&#x68C0;&#x67E5;&#x786C;&#x76D8;&#x662F;&#x5426;&#x81EA;&#x52A8;&#x6302;&#x8F7D;"></a>0&#xFF09;&#x68C0;&#x67E5;&#x786C;&#x76D8;&#x662F;&#x5426;&#x81EA;&#x52A8;&#x6302;&#x8F7D;</h5>
+<p>&#x786E;&#x4FDD;/dev/sda&#x6CA1;&#x6709;&#x88AB;&#x7CFB;&#x7EDF;&#x81EA;&#x52A8;&#x6302;&#x8F7D;</p>
+<p>&#x5982;&#x679C;&#x786C;&#x76D8;&#x4E3A;NTFS&#xFF0C;FAST32&#x683C;&#x5F0F;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x88AB;&#x81EA;&#x52A8;&#x6302;&#x8F7D;&#xFF0C;&#x7528;umount /dev/sda&#x547D;&#x4EE4;&#x5378;&#x8F7D;&#x6389;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[RT-N56U_B1 /opt/home/admin]<span class="comment"># mount</span></span><br><span class="line">......</span><br><span class="line">[RT-N56U_B1 /opt/home/admin]<span class="comment"># df -h</span></span><br><span class="line">......</span><br><span class="line">[RT-N56U_B1 /opt/home/admin]<span class="comment"># umount /dev/sda</span></span><br></pre></td></tr></table></figure>
+<h5 id="1&#xFF09;&#x521B;&#x5EFA;Swap&#x5206;&#x533A;"><a class="header-anchor" href="#1&#xFF09;&#x521B;&#x5EFA;Swap&#x5206;&#x533A;"></a>1&#xFF09;&#x521B;&#x5EFA;Swap&#x5206;&#x533A;</h5>
+<ul>
+<li><code>fdisk /dev/sda</code>&#xFF0C;(&#x82E5;&#x8F93;&#x5165;&#x5931;&#x8D25;&#x53EF;&#x6309;<code>Ctrl+C</code>&#x9000;&#x51FA;fdisk)</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[RT-N56U_B1 /opt/home/admin]<span class="comment"># fdisk /dev/sda</span></span><br><span class="line">Device contains neither a valid DOS partition table, nor Sun, SGI, OSF or GPT disklabel</span><br><span class="line">Building a new DOS disklabel. Changes will remain <span class="keyword">in</span> memory only,</span><br><span class="line">until you decide to write them. After that the previous content</span><br><span class="line">won<span class="string">&apos;t be recoverable.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Command (m for help):</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>n</code> &#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x5206;&#x533A;</li>
+<li><code>p</code> &#x5206;&#x533A;&#x7C7B;&#x578B;&#x4E3A;&#x4E3B;&#x5206;&#x533A;</li>
+<li><code>1</code> &#x5206;&#x533A;&#x53F7;&#x4E3A;1&#xFF0C;&#x8D77;&#x59CB;&#x6247;&#x533A;&#x4E3A;&#x9ED8;&#x8BA4;&#xFF0C;&#x76F4;&#x63A5;&#x56DE;&#x8F66;&#x6216;&#x8005;1&#x90FD;&#x53EF;&#x4EE5;</li>
+<li>First sector&#xFF1A;<code>&#x4E0D;&#x952E;&#x5165;&#x53C2;&#x6570;</code> &#x76F4;&#x63A5;&#x56DE;&#x8F66;</li>
+<li>Last sector&#xFF1A;<code>+512M</code> &#x7ED3;&#x675F;&#x6247;&#x533A;&#xFF0C;&#x76F4;&#x63A5;&#x5206;&#x914D;512M&#x5206;&#x533A;</li>
+</ul>
+<p>&#x4EE5;&#x4E0A;&#x64CD;&#x4F5C;&#x5982;&#x4E0B;&#xFF0C;&#x6BCF;&#x4E00;&#x6B21;&#x952E;&#x5165;&#x53C2;&#x6570;&#x52A0;&#x4E0A;&#x56DE;&#x8F66;&#xFF1A;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): n</span><br><span class="line">Partition <span class="built_in">type</span></span><br><span class="line">   p   primary partition (1-4)</span><br><span class="line">   e   extended</span><br><span class="line">p</span><br><span class="line">Partition number (1-4): 1</span><br><span class="line">First sector (2048-1048575, default 2048): </span><br><span class="line">Using default value 2048</span><br><span class="line">Last sector or +size{,K,M,G,T} (2048-1048574): +512M</span><br></pre></td></tr></table></figure>
+<h5 id="2&#xFF09;&#x521B;&#x5EFA;ext4&#x5206;&#x533A;"><a class="header-anchor" href="#2&#xFF09;&#x521B;&#x5EFA;ext4&#x5206;&#x533A;"></a>2&#xFF09;&#x521B;&#x5EFA;ext4&#x5206;&#x533A;</h5>
+<p>&#x6211;&#x7684;&#x786C;&#x76D8;&#x662F;1282G&#xFF0C;&#x5176;&#x4E2D;512M&#x505A;swap&#x5206;&#x533A;&#xFF0C;&#x5269;&#x4E0B;&#x7684;&#x505A;/opt&#x5206;&#x533A;&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x6709;&#x5176;&#x4ED6;&#x89C4;&#x5212;&#x6309;&#x7167;&#x81EA;&#x5DF1;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x5C31;&#x53EF;&#x4EE5;&#x3002;&#x4F46;&#x662F;&#x8981;&#x6CE8;&#x610F;MBR&#x78C1;&#x76D8;&#x7684;&#x5206;&#x533A;&#x89C4;&#x5219;&#xFF0C;&#x6700;&#x591A;4&#x4E2A;&#x4E3B;&#x5206;&#x533A;&#xFF0C;&#x5355;&#x76D8;&#x4E0D;&#x8D85;&#x8FC7;2TB&#xFF0C;&#x6709;&#x8D85;&#x8FC7;4&#x4E2A;&#x5206;&#x533A;&#x6570;&#x91CF;&#x7684;&#x9700;&#x6C42;&#x8BF7;&#x5206;&#x4E00;&#x4E2A;&#x6269;&#x5C55;&#x5206;&#x533A;&#x7136;&#x540E;&#x518D;&#x5206;&#x903B;&#x8F91;&#x5206;&#x533A;&#xFF0C;&#x5982;&#x679C;&#x662F;&#x5927;&#x4E8E;2TB&#x7684;&#x78C1;&#x76D8;&#x5C31;&#x4E0D;&#x8981;&#x7528;fdisk&#x8FD9;&#x4E2A;&#x5DE5;&#x5177;&#x4E86;</p>
+<p>&#x1F637;&#x63A5;&#x7740;&#x4EE5;&#x540C;&#x6837;&#x7684;&#x65B9;&#x5F0F;&#x521B;&#x5EFA;&#x7B2C;&#x4E8C;&#x4E2A;&#x5206;&#x533A;:</p>
+<ul>
+<li><code>n</code> &#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x5206;&#x533A;</li>
+<li><code>p</code> &#x5206;&#x533A;&#x7C7B;&#x578B;&#x4E3A;&#x4E3B;&#x5206;&#x533A;</li>
+<li><code>2</code> &#x5206;&#x533A;&#x53F7;&#x4E3A;2</li>
+<li><code>*&#x4E0D;&#x952E;&#x5165;&#x53C2;&#x6570;</code> &#x7ED3;&#x675F;&#x6247;&#x533A;&#x9ED8;&#x8BA4;&#x4E3A;&#x78C1;&#x76D8;&#x672B;&#x5C3E;&#xFF0C;&#x76F4;&#x63A5;&#x56DE;&#x8F66;</li>
+</ul>
+<p>&#x4EE5;&#x4E0A;&#x64CD;&#x4F5C;&#x5982;&#x4E0B;&#xFF0C;&#x6BCF;&#x4E00;&#x6B21;&#x952E;&#x5165;&#x53C2;&#x6570;&#x52A0;&#x4E0A;&#x56DE;&#x8F66;&#xFF1A;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): n</span><br><span class="line">Partition <span class="built_in">type</span></span><br><span class="line">   p   primary partition (1-4)</span><br><span class="line">   e   extended</span><br><span class="line">p</span><br><span class="line">Partition number (1-4): 2</span><br><span class="line">First sector (2048-1048575, default 2048):</span><br><span class="line">Using default value 2048</span><br><span class="line">Last sector or +size{,K,M,G,T} (2048-1048574, default 1048574):/*&#x4E0D;&#x952E;&#x5165;&#x53C2;&#x6570;&#x76F4;&#x63A5;&#x56DE;&#x8F66;*/</span><br><span class="line">Using default value 1048574</span><br></pre></td></tr></table></figure>
+<h5 id="3&#xFF09;&#x67E5;&#x770B;&#x5F85;&#x4FDD;&#x5B58;&#x7684;&#x5206;&#x533A;&#x4FE1;&#x606F;"><a class="header-anchor" href="#3&#xFF09;&#x67E5;&#x770B;&#x5F85;&#x4FDD;&#x5B58;&#x7684;&#x5206;&#x533A;&#x4FE1;&#x606F;"></a>3&#xFF09;&#x67E5;&#x770B;&#x5F85;&#x4FDD;&#x5B58;&#x7684;&#x5206;&#x533A;&#x4FE1;&#x606F;</h5>
+<ul>
+<li><code>p</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): p</span><br><span class="line">Disk /dev/sda1: 512 MB, 536870912 bytes, 1048576 sectors</span><br><span class="line">65 cylinders, 255 heads, 63 sectors/track</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line"></span><br><span class="line">Device    Boot StartCHS    EndCHS        StartLBA     EndLBA    Sectors  Size Id Type</span><br><span class="line">/dev/sda1    65,69,4     65,69,4        1048575    1048575          1   512 83 Linux</span><br><span class="line">/dev/sda1    0,32,33     65,69,3           2048    1048574    1046527  510M 83 Linux</span><br></pre></td></tr></table></figure>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x5DF2;&#x7ECF;&#x521B;&#x5EFA;&#x597D;&#x4E24;&#x4E2A;&#x5206;&#x533A;&#xFF0C;&#x4E0D;&#x8FC7;&#x6211;&#x4EEC;&#x8981;&#x628A;sda1&#x4F5C;&#x4E3A;&#x4EA4;&#x6362;&#x5206;&#x533A;&#x4F7F;&#x7528;&#x6240;&#x4EE5;&#x8FD8;&#x662F;&#x9700;&#x8981;&#x505A;&#x4EE5;&#x4E0B;&#x64CD;&#x4F5C;</p>
+<h5 id="4&#xFF09;sda1&#x66F4;&#x6539;&#x6807;&#x7B7E;&#x7C7B;&#x578B;&#x4E3A;swap"><a class="header-anchor" href="#4&#xFF09;sda1&#x66F4;&#x6539;&#x6807;&#x7B7E;&#x7C7B;&#x578B;&#x4E3A;swap"></a>4&#xFF09;sda1&#x66F4;&#x6539;&#x6807;&#x7B7E;&#x7C7B;&#x578B;&#x4E3A;swap</h5>
+<ul>
+<li><code>t</code> &#x6539;&#x53D8;&#x4E3B;&#x5206;&#x533A;&#x7684;id</li>
+<li><code>1</code> &#x9009;&#x62E9;&#x5206;&#x533A;&#x53F7;1</li>
+<li><code>82</code> &#x66F4;&#x6539;&#x4E3A;82</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): t</span><br><span class="line">Partition number (1-4): 1</span><br><span class="line">Hex code (<span class="built_in">type</span> L to list codes): 82</span><br><span class="line">Changed system <span class="built_in">type</span> of partition 1 to 82 (Linux swap)</span><br></pre></td></tr></table></figure>
+<h5 id="5&#xFF09;&#x518D;&#x6B21;&#x67E5;&#x770B;&#x5206;&#x533A;&#x4FE1;&#x606F;"><a class="header-anchor" href="#5&#xFF09;&#x518D;&#x6B21;&#x67E5;&#x770B;&#x5206;&#x533A;&#x4FE1;&#x606F;"></a>5&#xFF09;&#x518D;&#x6B21;&#x67E5;&#x770B;&#x5206;&#x533A;&#x4FE1;&#x606F;</h5>
+<ul>
+<li><code>p</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): p</span><br><span class="line">Disk /dev/sda1: 512 MB, 536870912 bytes, 1048576 sectors</span><br><span class="line">65 cylinders, 255 heads, 63 sectors/track</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line"></span><br><span class="line">Device    Boot StartCHS    EndCHS        StartLBA     EndLBA    Sectors  Size Id Type</span><br><span class="line">/dev/sda1p1    65,69,4     65,69,4        1048575    1048575          1   512 82 Linux swap</span><br><span class="line">/dev/sda1p2    0,32,33     65,69,3           2048    1048574    1046527  510M 83 Linux</span><br></pre></td></tr></table></figure>
+<h5 id="6&#xFF09;&#x4FDD;&#x5B58;&#x4FEE;&#x6539;&#x5E76;&#x9000;&#x51FA;"><a class="header-anchor" href="#6&#xFF09;&#x4FDD;&#x5B58;&#x4FEE;&#x6539;&#x5E76;&#x9000;&#x51FA;"></a>6&#xFF09;&#x4FDD;&#x5B58;&#x4FEE;&#x6539;&#x5E76;&#x9000;&#x51FA;</h5>
+<ul>
+<li><code>w</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): w</span><br></pre></td></tr></table></figure>
+<h5 id="7&#xFF09;&#x521B;&#x5EFA;&#x4EA4;&#x6362;&#x5206;&#x533A;"><a class="header-anchor" href="#7&#xFF09;&#x521B;&#x5EFA;&#x4EA4;&#x6362;&#x5206;&#x533A;"></a>7&#xFF09;&#x521B;&#x5EFA;&#x4EA4;&#x6362;&#x5206;&#x533A;</h5>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[RT-N56U_B1 /opt/home/admin]<span class="comment"># mkswap /dev/sda1</span></span><br></pre></td></tr></table></figure>
+<h5 id="8&#xFF09;&#x5F00;&#x542F;&#x4EA4;&#x6362;&#x5206;&#x533A;&#x5E76;&#x67E5;&#x770B;Swap"><a class="header-anchor" href="#8&#xFF09;&#x5F00;&#x542F;&#x4EA4;&#x6362;&#x5206;&#x533A;&#x5E76;&#x67E5;&#x770B;Swap"></a>8&#xFF09;&#x5F00;&#x542F;&#x4EA4;&#x6362;&#x5206;&#x533A;&#x5E76;&#x67E5;&#x770B;Swap</h5>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[RT-N56U_B1 /opt/home/admin]<span class="comment"># swapon /dev/sda1</span></span><br><span class="line">[RT-N56U_B1 /opt/home/admin]<span class="comment"># free</span></span><br><span class="line">             total       used       free     shared    buffers     cached</span><br><span class="line">Mem:        450508      62940     387568          0       7388      20172</span><br><span class="line">-/+ buffers/cache:      35380     415128</span><br><span class="line">Swap:       524284          0     524284</span><br></pre></td></tr></table></figure>
+<h5 id="9&#xFF09;ext4&#x5206;&#x533A;&#x683C;&#x5F0F;&#x5316;"><a class="header-anchor" href="#9&#xFF09;ext4&#x5206;&#x533A;&#x683C;&#x5F0F;&#x5316;"></a>9&#xFF09;ext4&#x5206;&#x533A;&#x683C;&#x5F0F;&#x5316;</h5>
+<p>&#x8001;&#x6BDB;&#x5B50;&#x4E2D;&#x6CA1;&#x6709;mkfs&#xFF0C;&#x53EA;&#x80FD;&#x7528;mke2fs&#x521B;&#x5EFA;&#x5206;&#x533A;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[RT-N56U_B1 /opt/home/admin]<span class="comment"># mke2fs -t ext4 /dev/sda2</span></span><br></pre></td></tr></table></figure>
+<h5 id="10&#xFF09;&#x91CD;&#x542F;&#x8DEF;&#x7531;&#xFF0C;&#x67E5;&#x770B;-dev-sda2&#x6302;&#x8F7D;&#x4FE1;&#x606F;"><a class="header-anchor" href="#10&#xFF09;&#x91CD;&#x542F;&#x8DEF;&#x7531;&#xFF0C;&#x67E5;&#x770B;-dev-sda2&#x6302;&#x8F7D;&#x4FE1;&#x606F;"></a>10&#xFF09;&#x91CD;&#x542F;&#x8DEF;&#x7531;&#xFF0C;&#x67E5;&#x770B;/dev/sda2&#x6302;&#x8F7D;&#x4FE1;&#x606F;</h5>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[RT-N56U_B1 /opt/home/admin]<span class="comment"># mount</span></span><br></pre></td></tr></table></figure>
+<h2 id="4-&#x6587;&#x4EF6;&#x670D;&#x52A1;&#x5668;-&#x5185;&#x90E8;&#x7F51;&#x7EDC;"><a class="header-anchor" href="#4-&#x6587;&#x4EF6;&#x670D;&#x52A1;&#x5668;-&#x5185;&#x90E8;&#x7F51;&#x7EDC;"></a>4. &#x6587;&#x4EF6;&#x670D;&#x52A1;&#x5668;(&#x5185;&#x90E8;&#x7F51;&#x7EDC;)</h2>
+<p>&#x1F633;&#x8001;&#x6BDB;&#x5B50;&#x6ECB;&#x78C1;3&#x79CD;&#x7C7B;&#x522B;&#x7684;&#x6587;&#x4EF6;&#x670D;&#x52A1;&#x5668;&#xFF1A;</p>
+<table>
+<thead>
+<tr>
+<th>&#x7C7B;&#x522B;</th>
+<th>&#x5E73;&#x53F0;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ftp&#x670D;&#x52A1;&#x5668;&#xFF08;ftp/tftp&#xFF09;</td>
+<td>&#x4EFB;&#x610F;&#x5E73;&#x53F0;</td>
+</tr>
+<tr>
+<td>Samba&#x670D;&#x52A1;&#x5668;</td>
+<td>windows&#xFF0C;ios</td>
+</tr>
+<tr>
+<td>NFS&#x670D;&#x52A1;&#x5668;</td>
+<td>linux/unix</td>
+</tr>
+</tbody>
+</table>
+<p><strong>&#x6CE8;&#x610F;</strong>&#x867D;&#x7136;samba&#x4F20;&#x8F93;&#x6587;&#x4EF6;&#x5BF9;&#x5C0F;&#x5A31;C5&#x5185;&#x5B58;&#x5360;&#x7528;&#x8F83;&#x9AD8;(&#x5360;180Mb&#x5DE6;&#x53F3;)&#xFF0C;&#x4F46;&#x662F;&#x53EF;&#x4EE5;&#x5728;win10&#x4E0B;&#x770B;&#x89C1;&#x62F7;&#x8D1D;&#x901F;&#x5EA6;&#xFF0C;&#x652F;&#x6301;&#x526A;&#x5207;&#xFF0C;&#x521B;&#x5EFA;&#x5FEB;&#x6377;&#x65B9;&#x5F0F;&#x7B49;(ftp&#x5747;&#x4E0D;&#x652F;&#x6301;&#x4F46;&#x6D88;&#x8017;&#x5185;&#x5B58;&#x5C11;)&#xFF0C;&#x4E3A;&#x4E86;&#x6F14;&#x793A;&#xFF0C;&#x8FD9;&#x91CC;&#x4F7F;&#x7528;Samba</p>
+<h4 id="&#x5F00;&#x542F;Samba&#x670D;&#x52A1;"><a class="header-anchor" href="#&#x5F00;&#x542F;Samba&#x670D;&#x52A1;"></a>&#x5F00;&#x542F;Samba&#x670D;&#x52A1;</h4>
+<p>*&#x5DE5;&#x4F5C;&#x7EC4;&#x4E5F;&#x53EF;&#x4EE5;&#x4E3A;<strong>&#x8D26;&#x53F7;&#x5141;&#x8BB8;</strong>&#x4F46;&#x662F;&#x9700;&#x8981;&#x767B;&#x5F55;&#xFF0C;&#x4E3A;&#x4E86;&#x65B9;&#x4FBF;&#xFF0C;&#x8FD9;&#x91CC;&#x4F7F;&#x7528;<strong>&#x5168;&#x90E8;&#x5141;&#x8BB8;</strong></p>
+<p>*&#x6ED1;&#x52A8;&#x5230;&#x9875;&#x9762;&#x5E95;&#x90E8;&#xFF0C;&#x70B9;&#x51FB;<strong>&#x5E94;&#x7528;&#x672C;&#x9875;&#x9762;&#x8BBE;&#x7F6E;</strong></p>
+<p><img src="/29c16836/SMB.png" alt></p>
+<p>&#x5F00;&#x542F;win10&#x7CFB;&#x7EDF;&#x7684;SMB&#x529F;&#x80FD;&#xFF1A;</p>
+<p><img src="/29c16836/win-smb1.png" alt="win-smb1"></p>
+<p><img src="/29c16836/win-smb2.png" alt="win-smb2"></p>
+<p>&#x70B9;&#x51FB;&#x786E;&#x5B9A;&#xFF0C;&#x7B49;&#x5F85;&#x91CD;&#x542F;</p>
+<p>&#x5728;windows&#x8D44;&#x6E90;&#x7BA1;&#x7406;&#x5668; &#x2013; &#x7F51;&#x7EDC; &#x4E2D;&#x4F1A;&#x81EA;&#x52A8;&#x51FA;&#x73B0;RT-N56_B1&#xFF0C;&#x70B9;&#x51FB;&#x5373;&#x53EF;&#x770B;&#x89C1;AiDisk_a2(&#x5BF9;&#x5E94;/dev/sda2)&#xFF0C;&#x518D;&#x6B21;&#x70B9;&#x51FB;&#x5373;&#x53EF;&#x770B;&#x89C1;sata&#x76D8;&#x5185;&#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x53EF;&#x4EE5;&#x53F3;&#x952E;AiDisk_a2&#x521B;&#x5EFA;&#x5FEB;&#x6377;&#x65B9;&#x5F0F;&#x5728;&#x684C;&#x9762;&#x7136;&#x540E;&#x56FA;&#x5B9A;&#x5230;&#x5F00;&#x59CB;&#x5C4F;&#x5E55;&#xFF0C;&#x6216;&#x8005;&#x56FA;&#x5B9A;&#x5230;&#x5FEB;&#x901F;&#x8BBF;&#x95EE;&#x4E5F;&#x884C;</p>
+<p><img src="/29c16836/SMB=win.png" alt></p>
+<h2 id="5-Aria2&#x4E0B;&#x8F7D;&#x5DE5;&#x5177;"><a class="header-anchor" href="#5-Aria2&#x4E0B;&#x8F7D;&#x5DE5;&#x5177;"></a>5.Aria2&#x4E0B;&#x8F7D;&#x5DE5;&#x5177;</h2>
+<p>&#x8001;&#x6BDB;&#x5B50;&#x81EA;&#x5E26;&#x7684;Aria2&#x662F;&#x4E2A;&#x8F7B;&#x91CF;&#x7EA7;&#x4E0B;&#x8F7D;&#x7A0B;&#x5E8F;&#xFF0C;&#x81EA;&#x5E26;Web UI&#x754C;&#x9762;&#xFF0C;&#x5360;&#x7528;&#x5185;&#x5B58;&#x5C0F;&#xFF0C;&#x652F;&#x6301;&#x7684;&#x4E0B;&#x8F7D;&#x534F;&#x8BAE;&#x6709;http&#x3001;https&#x3001;bt&#x3001;&#x78C1;&#x529B;&#x94FE;&#x63A5;&#xFF0C;&#x80FD;&#x8FD0;&#x884C;&#x4E8E;&#x57FA;&#x672C;&#x4E0A;&#x6240;&#x6709;&#x5E38;&#x7528;&#x5E73;&#x53F0;&#xFF0C;&#x4F8B;&#x5982;&#x5B89;&#x5353;&#x3001;Windows&#x3001;Linux&#x7B49;&#x7B49;&#xFF0C;&#x76F8;&#x6BD4;&#x8FC5;&#x96F7;&#x548C;&#x767E;&#x5EA6;&#x4E91;&#x8FD9;&#x7C7B;&#x5E38;&#x7528;&#x5DE5;&#x5177;&#xFF0C;&#x5360;&#x7528;&#x8D44;&#x6E90;&#x5C11;&#x6CA1;&#x6709;&#x9650;&#x901F;&#xFF0C;&#x662F;&#x4E00;&#x6B3E;&#x514D;&#x8D39;&#x8F6F;&#x4EF6;</p>
+<h4 id="&#x542F;&#x7528;Aria2"><a class="header-anchor" href="#&#x542F;&#x7528;Aria2"></a>&#x542F;&#x7528;Aria2</h4>
+<p>USB&#x5E94;&#x7528;&#x7A0B;&#x5E8F; &#x2013; &#x5176;&#x4ED6;&#x8BBE;&#x7F6E;</p>
+<p>*&#x6ED1;&#x52A8;&#x5230;&#x9875;&#x9762;&#x5E95;&#x90E8;&#xFF0C;&#x70B9;&#x51FB;<strong>&#x5E94;&#x7528;&#x672C;&#x9875;&#x9762;&#x8BBE;&#x7F6E;</strong></p>
+<p><img src="/29c16836/Aria2.png" alt></p>
+<h4 id="&#x8FDB;&#x5165;Web-UI&#x754C;&#x9762;"><a class="header-anchor" href="#&#x8FDB;&#x5165;Web-UI&#x754C;&#x9762;"></a>&#x8FDB;&#x5165;Web UI&#x754C;&#x9762;</h4>
+<p>&#x6D4F;&#x89C8;&#x5668;&#x8BBF;&#x95EE; <a href="http://192.168.124.1/ariaweb/index.html" target="_blank" rel="noopener">http://192.168.124.1/ariaweb/index.html</a></p>
+<p><img src="/29c16836/Aria2-web.png" alt></p>
+<h4 id="&#x4F7F;&#x7528;&#x6559;&#x7A0B;"><a class="header-anchor" href="#&#x4F7F;&#x7528;&#x6559;&#x7A0B;"></a><a href="https://www.jianshu.com/p/011504d11607" target="_blank" rel="noopener">&#x4F7F;&#x7528;&#x6559;&#x7A0B;</a></h4>
+<h2 id="6-&#x767E;&#x5EA6;&#x4E91;"><a class="header-anchor" href="#6-&#x767E;&#x5EA6;&#x4E91;"></a>6. &#x767E;&#x5EA6;&#x4E91;</h2>
+<p>BaiduPCS-Go&#x662F;&#x7EAF;&#x547D;&#x4EE4;&#x884C;&#x7684;&#x7A0B;&#x5E8F;&#xFF0C;&#x64CD;&#x4F5C;&#x4E0D;&#x592A;&#x65B9;&#x4FBF;&#xFF0C;&#x63A8;&#x8350;&#x4F7F;&#x7528;BaiduPCS-Web</p>
+<p>BaiduPCS-Web&#x57FA;&#x4E8E;BaiduPCS-Go&#x5F00;&#x53D1;&#xFF0C;&#x52A0;&#x5165;&#x4E86;Web UI&#x754C;&#x9762;&#xFF0C;&#x81EA;&#x5E26;&#x8DE8;&#x5E73;&#x53F0;&#x5C5E;&#x6027;&#xFF0C;&#x652F;&#x6301;Windows&#xFF0C;Mac&#xFF0C;Linux</p>
+<p>&#x5B98;&#x65B9;&#x4ECB;&#x7ECD;&#x7684;&#x64CD;&#x4F5C;&#x6B65;&#x9AA4;&#x5F88;&#x8BE6;&#x5C3D;&#xFF0C;&#x5728;&#x6B64;&#x4E0D;&#x505A;&#x592A;&#x591A;&#x590D;&#x8FF0;</p>
+<p><a href="https://github.com/liuzhuoling2011/baidupcs-web" target="_blank" rel="noopener">&#x9879;&#x76EE;&#x5730;&#x5740;</a></p>
+<p><a href="https://w.url.cn/s/AdjX09Y" target="_blank" rel="noopener">&#x4F7F;&#x7528;&#x4ECB;&#x7ECD;</a></p>
+<h4 id="&#x4F7F;&#x7528;&#x6CE8;&#x610F;"><a class="header-anchor" href="#&#x4F7F;&#x7528;&#x6CE8;&#x610F;"></a>&#x4F7F;&#x7528;&#x6CE8;&#x610F;</h4>
+<p><img src="/29c16836/baiduPCS.png" alt></p>
+<p>&#x6253;&#x5F00;&#x6D4F;&#x89C8;&#x5668;, &#x8F93;&#x5165; <a href="http://localhost:5299" target="_blank" rel="noopener">http://localhost:5299</a> &#x67E5;&#x770B;&#x6548;&#x679C;&#x7684;localhost&#x662F;&#x4F60;&#x8DEF;&#x7531;&#x5668;&#x7684;IP&#x5730;&#x5740;&#xFF0C;&#x4F8B;&#x5982;&#xB7;&#x6211;&#x8FD9;&#x91CC;&#x662F;http://192.168.124.1:5299</p>
+<p>&#x7B2C;&#x4E00;&#x6B21;&#x4E0B;&#x8F7D;&#x53EF;&#x80FD;&#x6210;&#x529F;&#xFF0C;&#x4F46;&#x767E;&#x5EA6;&#x4E91;&#x6700;&#x8FD1;&#x8D8A;&#x6765;&#x8D8A;&#x4E25;&#x4E86;</p>
+<p>&#x56E0;&#x4E3A;&#x6B64;&#x8F6F;&#x4EF6;&#x4E0D;&#x9650;&#x901F;&#xFF0C;&#x6240;&#x4EE5;&#x5F88;&#x53EF;&#x80FD;&#x68C0;&#x6D4B;&#x5230;&#x4F60;&#x4E0B;&#x8F7D;&#x7684;&#x901F;&#x5EA6;&#x4E0D;&#x6B63;&#x5E38;&#xFF0C;</p>
+<p>&#x6BD4;&#x5982;&#x51FA;&#x73B0;&#xFF1A;</p>
+<p><strong>user is not authorized, hitcode:123</strong></p>
+<p><a href="https://github.com/liuzhuoling2011/baidupcs-web/issues/59" target="_blank" rel="noopener">&#x95EE;&#x9898;&#x8BE6;&#x89C1; </a></p>
+<p>&#x1F625;&#x5EFA;&#x8BAE;&#x5F00;&#x901A;&#x949E;&#x7EA7;&#x4F1A;&#x5458;&#x89E3;&#x51B3;</p>
+<p><img src="/29c16836/baiduPCS-error.png" alt></p>
+<h2 id="6-&#x9178;&#x9178;&#x4E73;"><a class="header-anchor" href="#6-&#x9178;&#x9178;&#x4E73;"></a>6. &#x9178;&#x9178;&#x4E73;</h2>
+<p>&#x53C2;&#x8003;&#xFF1A;<a href="https://www.right.com.cn/forum/forum.php?mod=viewthread&amp;tid=192381" target="_blank" rel="noopener">H&#x5927;&#x8001;&#x6BDB;&#x5B50;&#x56FA;&#x4EF6;&#x642D;&#x5EFA;&#x9178;&#x9178;&#x4E73;&#x670D;&#x52A1;&#x5668;&#x53CA;&#x514D;&#x6D41;&#x65B9;&#x6CD5;</a><br>
+1.&#x56FA;&#x4EF6;&#x4E2D;&#x642D;&#x5EFA;SSR&#xFF0C;&#x9700;&#x8981;&#x5B89;&#x88C5;OPT&#x73AF;&#x5883;&#xFF0C;&#x8BF7;&#x5148;&#x5B8C;&#x6210;&#x672C;&#x6587;&#x7684; <strong>7. &#x4F7F;&#x7528;opkg&#x5728;sata&#x76D8;&#x4E2D;&#x5B89;&#x88C5;&#x7A0B;&#x5E8F;</strong><br>
+2.OPT&#x73AF;&#x5883;&#x5B89;&#x88C5;&#x6210;&#x529F;&#x540E;&#xFF0C;&#x8FDB;&#x5165;&#x5982;&#x4E0B;&#x754C;&#x9762;&#xFF0C;&#x5982;&#x4F55;&#x914D;&#x7F6E;&#x4E00;&#x76EE;&#x4E86;&#x7136;</p>
+<p>*&#x9178;&#x9178;&#x4E73;&#x914D;&#x7F6E;&#x9875;&#x9762;&#xFF0C;<strong>&#x6709;&#x4E24;&#x4E2A;&#x5E94;&#x7528;&#x672C;&#x9875;&#x9762;&#x8BBE;&#x7F6E;</strong>&#xFF0C;&#x4E00;&#x4E2A;&#x662F;&#x5F00;&#x5173;&#xFF0C;&#x53E6;&#x4E00;&#x4E2A;&#x662F;&#x8282;&#x70B9;&#x914D;&#x7F6E;&#x7684;&#x5E94;&#x7528;&#x8BBE;&#x7F6E;<img src="/29c16836/%E9%85%B8%E9%85%B8%E4%B9%B3.png" alt></p>
+<h2 id="7-&#x4F7F;&#x7528;opkg&#x5728;sata&#x76D8;&#x4E2D;&#x5B89;&#x88C5;&#x7A0B;&#x5E8F;"><a class="header-anchor" href="#7-&#x4F7F;&#x7528;opkg&#x5728;sata&#x76D8;&#x4E2D;&#x5B89;&#x88C5;&#x7A0B;&#x5E8F;"></a>7. &#x4F7F;&#x7528;opkg&#x5728;sata&#x76D8;&#x4E2D;&#x5B89;&#x88C5;&#x7A0B;&#x5E8F;</h2>
+<h4 id="&#x6253;&#x5F00;opkg"><a class="header-anchor" href="#&#x6253;&#x5F00;opkg"></a>&#x6253;&#x5F00;opkg</h4>
+<p>opt&#x5B89;&#x88C5;&#x6A21;&#x5F0F;&#x8BBE;&#x7F6E;&#x5982;&#x4E0B;&#x56FE;</p>
+<p><img src="/29c16836/opt-update.png" alt></p>
+<p>*&#x6ED1;&#x52A8;&#x5230;&#x9875;&#x9762;&#x5E95;&#x90E8;&#xFF0C;&#x70B9;&#x51FB;<strong>&#x5E94;&#x7528;&#x672C;&#x9875;&#x9762;&#x8BBE;&#x7F6E;</strong></p>
+<p>&#x91CD;&#x542F;&#x8BBE;&#x5907;&#xFF0C;&#x7B49;&#x5F85;&#x81EA;&#x52A8;&#x5B89;&#x88C5;</p>
+<h4 id="opkg&#x521D;&#x59CB;&#x5316;"><a class="header-anchor" href="#opkg&#x521D;&#x59CB;&#x5316;"></a>opkg&#x521D;&#x59CB;&#x5316;</h4>
+<p><a href="https://openwrt.org/zh/docs/techref/opkg" target="_blank" rel="noopener">opkg&#x662F;&#x4EC0;&#x4E48;&#xFF1F;</a></p>
+<p>SSH&#x767B;&#x5F55;&#x540E;&#xFF0C;&#x6267;&#x884C;<code>df -h</code>&#x67E5;&#x770B;&#x6302;&#x8F7D;&#x7684;/dev/sda2&#x7684;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;</p>
+<p>&#x82E5;/opt&#x76EE;&#x5F55;&#x4E5F;&#x5728;/dev/sda2&#x4E2D;&#x524D;&#x4E00;&#x6B65;&#x5219;opt&#x8DEF;&#x5F84;&#x8BBE;&#x7F6E;&#x6210;&#x529F;&#xFF0C;&#x5982;&#x4E0B;&#x56FE;&#xFF1A;<img src="/29c16836/df-h.png" alt></p>
+<p>&#x82E5;&#x5728;&#x786C;&#x76D8;&#x4E0A;&#x521B;&#x5EFA;/opt&#x8DEF;&#x5F84;&#x5931;&#x8D25;&#xFF0C;<a href="https://zhih.me/Padavan-entware/" target="_blank" rel="noopener">&#x8BF7;&#x53C2;&#x8003;</a></p>
+<p>&#x8FDB;&#x5165;&#x8DEF;&#x5F84;/opt&#xFF0C;&#x521D;&#x59CB;&#x5316;&#x5E76;&#x66F4;&#x65B0;opkg</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[RT-N56U_B1 /opt/home/admin]<span class="comment"># cd /opt</span></span><br><span class="line"></span><br><span class="line">/*&#x521D;&#x59CB;&#x5316;opkg*/</span><br><span class="line">[RT-N56U_B1 /opt]<span class="comment"># opkg.sh</span></span><br><span class="line">......</span><br><span class="line">/*&#x66F4;&#x65B0;opkg&#x6E90;&#xFF0C;&#x53EF;&#x80FD;&#x9700;&#x8981;fq*/</span><br><span class="line">[RT-N56U_B1 /opt]<span class="comment"># opkg update</span></span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<h4 id="opkg&#x6D4B;&#x8BD5;"><a class="header-anchor" href="#opkg&#x6D4B;&#x8BD5;"></a>opkg&#x6D4B;&#x8BD5;</h4>
+<p><strong>&#x67E5;&#x770B;opkg&#x6E90;&#x7684;&#x8F6F;&#x4EF6;&#x5305;&#x5217;&#x8868;</strong></p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[RT-N56U_B1 <span class="meta-keyword">/media/</span>AiDisk_a2]<span class="meta"># opkg list <span class="comment">/*&#x8BF7;&#x7B49;&#x5F85;&#x8F6F;&#x4EF6;&#x6E90;&#x5217;&#x8868;&#x55D6;&#x55D6;&#x4E0A;&#x8E7F;*/</span></span></span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<h4 id="opkg&#x5B89;&#x88C5;nmon-&#x53EF;&#x9009;"><a class="header-anchor" href="#opkg&#x5B89;&#x88C5;nmon-&#x53EF;&#x9009;"></a>opkg&#x5B89;&#x88C5;nmon|&#x53EF;&#x9009;</h4>
+<p>Nmon** &#x662F;&#x4E00;&#x4E2A;&#x53EF;&#x4EE5;&#x76D1;&#x63A7;&#x5F53;&#x524D;&#x7CFB;&#x7EDF;&#x6027;&#x80FD;&#x7684;&#x5C0F;&#x5DE5;&#x5177;&#xFF0C;&#x53EF;&#x4EE5;&#x67E5;&#x770B;&#x7F51;&#x7EDC;&#x3001;CPU&#x3001;&#x5185;&#x5B58;&#x548C;&#x78C1;&#x76D8;&#x7684;&#x4F7F;&#x7528;&#x60C5;&#x51B5;</p>
+<p>&#x4F7F;&#x7528;&#x4E4B;&#x524D;&#x5148;&#x7528;&#x547D;&#x4EE4;<code>opkg install nmon</code>&#x8FDB;&#x884C;&#x5B89;&#x88C5;</p>
+<p>&#x5B89;&#x88C5;&#x597D;&#x540E;&#x6267;&#x884C; <code>nmon</code> &#x547D;&#x4EE4;&#x5373;&#x53EF;&#x6253;&#x5F00;&#xFF1A;</p>
+<p><img src="/29c16836/nmon-install.png" alt></p>
+<p>&#x6253;&#x5F00;&#x4E4B;&#x540E;&#xFF0C;&#x6309; c &#x67E5;&#x770B; CPU &#x4FE1;&#x606F;&#xFF0C;&#x6309; n &#x67E5;&#x770B;&#x7F51;&#x7EDC;&#x4FE1;&#x606F;&#xFF1A;</p>
+<p><img src="/29c16836/nmon.png" alt></p>
+<p>&#x6309;<code>Ctrl+Z</code>&#x9000;&#x51FA;</p>
+<p>opkg&#x8FD8;&#x53EF;&#x4EE5;&#x4E0B;&#x8F7D;gcc&#xFF0C;python3.7&#xFF0C;go&#xFF0C;vim-full&#x7B49;</p>
+<h2 id="&#x5C0F;&#x5A31;C5-&#x5237;&#x673A;&#x7BC7;"><a class="header-anchor" href="#&#x5C0F;&#x5A31;C5-&#x5237;&#x673A;&#x7BC7;"></a><a href="https://oldgerman.github.io/0/" target="_blank" rel="noopener">&#x5C0F;&#x5A31;C5_&#x5237;&#x673A;&#x7BC7;</a></h2>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/linux/" rel="tag"># linux</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/0/" rel="next" title="小娱C5_刷机篇">
+                  <i class="fa fa-chevron-left"></i> 小娱C5_刷机篇
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/f3fd3c5b/" rel="prev" title="esp8266 4线风扇调速测速">
+                  esp8266 4线风扇调速测速 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/psa.jpg"
+      alt="过气德国佬">
+  <p class="site-author-name" itemprop="name">过气德国佬</p>
+  <div class="site-description motion-element" itemprop="description">潮起潮落，云卷云舒</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-更改IP地址-可选"><span class="nav-number">1.</span> <span class="nav-text">1. 更改IP地址|可选</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么修改？"><span class="nav-number">1.0.1.</span> <span class="nav-text">为什么修改？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-SSH登录小娱C5"><span class="nav-number">2.</span> <span class="nav-text">2. SSH登录小娱C5</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是SSH"><span class="nav-number">2.0.1.</span> <span class="nav-text">什么是SSH?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#确保SSH服务打开："><span class="nav-number">2.0.2.</span> <span class="nav-text">确保SSH服务打开：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装PuTTY："><span class="nav-number">2.0.3.</span> <span class="nav-text">安装PuTTY：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SSH登录："><span class="nav-number">2.0.4.</span> <span class="nav-text">SSH登录：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改PuTTY字体："><span class="nav-number">2.0.5.</span> <span class="nav-text">修改PuTTY字体：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-对磁盘进行分区规划-参考"><span class="nav-number">3.</span> <span class="nav-text">3. 对磁盘进行分区规划|参考</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查看磁盘"><span class="nav-number">3.0.1.</span> <span class="nav-text">查看磁盘</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fdisk命令"><span class="nav-number">3.0.2.</span> <span class="nav-text">fdisk命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#详细操作步骤"><span class="nav-number">3.0.3.</span> <span class="nav-text">详细操作步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#0）检查硬盘是否自动挂载"><span class="nav-number">3.0.3.1.</span> <span class="nav-text">0）检查硬盘是否自动挂载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1）创建Swap分区"><span class="nav-number">3.0.3.2.</span> <span class="nav-text">1）创建Swap分区</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2）创建ext4分区"><span class="nav-number">3.0.3.3.</span> <span class="nav-text">2）创建ext4分区</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3）查看待保存的分区信息"><span class="nav-number">3.0.3.4.</span> <span class="nav-text">3）查看待保存的分区信息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4）sda1更改标签类型为swap"><span class="nav-number">3.0.3.5.</span> <span class="nav-text">4）sda1更改标签类型为swap</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5）再次查看分区信息"><span class="nav-number">3.0.3.6.</span> <span class="nav-text">5）再次查看分区信息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6）保存修改并退出"><span class="nav-number">3.0.3.7.</span> <span class="nav-text">6）保存修改并退出</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7）创建交换分区"><span class="nav-number">3.0.3.8.</span> <span class="nav-text">7）创建交换分区</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8）开启交换分区并查看Swap"><span class="nav-number">3.0.3.9.</span> <span class="nav-text">8）开启交换分区并查看Swap</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9）ext4分区格式化"><span class="nav-number">3.0.3.10.</span> <span class="nav-text">9）ext4分区格式化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10）重启路由，查看-dev-sda2挂载信息"><span class="nav-number">3.0.3.11.</span> <span class="nav-text">10）重启路由，查看/dev/sda2挂载信息</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-文件服务器-内部网络"><span class="nav-number">4.</span> <span class="nav-text">4. 文件服务器(内部网络)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#开启Samba服务"><span class="nav-number">4.0.1.</span> <span class="nav-text">开启Samba服务</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Aria2下载工具"><span class="nav-number">5.</span> <span class="nav-text">5.Aria2下载工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#启用Aria2"><span class="nav-number">5.0.1.</span> <span class="nav-text">启用Aria2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进入Web-UI界面"><span class="nav-number">5.0.2.</span> <span class="nav-text">进入Web UI界面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用教程"><span class="nav-number">5.0.3.</span> <span class="nav-text">使用教程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-百度云"><span class="nav-number">6.</span> <span class="nav-text">6. 百度云</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用注意"><span class="nav-number">6.0.1.</span> <span class="nav-text">使用注意</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-酸酸乳"><span class="nav-number">7.</span> <span class="nav-text">6. 酸酸乳</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-使用opkg在sata盘中安装程序"><span class="nav-number">8.</span> <span class="nav-text">7. 使用opkg在sata盘中安装程序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#打开opkg"><span class="nav-number">8.0.1.</span> <span class="nav-text">打开opkg</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#opkg初始化"><span class="nav-number">8.0.2.</span> <span class="nav-text">opkg初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#opkg测试"><span class="nav-number">8.0.3.</span> <span class="nav-text">opkg测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#opkg安装nmon-可选"><span class="nav-number">8.0.4.</span> <span class="nav-text">opkg安装nmon|可选</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小娱C5-刷机篇"><span class="nav-number">9.</span> <span class="nav-text">小娱C5_刷机篇</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+        
+
+<div id="days"></div>
+<script>
+function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("07/19/2019 15:00:00");
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=setzero(Math.floor(e_hrsold));
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+    seconds=setzero(Math.floor((e_minsold-minsold)*60));
+    document.getElementById('days').innerHTML="(∩•̀ω•́)⊃--*⋆本站由米板1代搭建，已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i) {
+    if (i<10) {
+        i="0" + i
+    };
+    return i;
+}
+show_date_time();
+</script>
+
+
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">过气德国佬</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">66k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        <span>0%</span>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'iWuakuHkkRt5xT7Ct9cyj8nO-gzGzoHsz',
+    appKey: 'PAz23pDzHnucqRDkVMShMp5B',
+    placeholder: '(๑•̀ㅁ•́ฅ✧ 说点什么吧！',
+    avatar: '',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

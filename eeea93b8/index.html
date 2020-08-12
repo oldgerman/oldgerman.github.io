@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="插件hexo-asset-image测试">
+<meta name="keywords" content="hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo 如何上传本地图片">
+<meta property="og:url" content="http://yoursite.com/eeea93b8/index.html">
+<meta property="og:site_name" content="OldGerman&#39;s Blog">
+<meta property="og:description" content="插件hexo-asset-image测试">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/eeea93b8/Test.jpg">
+<meta property="og:updated_time" content="2020-02-21T09:12:27.635Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hexo 如何上传本地图片">
+<meta name="twitter:description" content="插件hexo-asset-image测试">
+<meta name="twitter:image" content="http://yoursite.com/eeea93b8/Test.jpg">
+  <link rel="canonical" href="http://yoursite.com/eeea93b8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>hexo 如何上传本地图片 | OldGerman's Blog</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OldGerman's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Refuse to play tickets!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-阅读排名">
+      
+    
+
+    <a href="/rank" rel="section"><i class="menu-item-icon fa fa-fw fa-list"></i> <br>阅读排名</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/eeea93b8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过气德国佬">
+      <meta itemprop="description" content="潮起潮落，云卷云舒">
+      <meta itemprop="image" content="/images/psa.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OldGerman's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">hexo 如何上传本地图片
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-20 19:39:44" itemprop="dateCreated datePublished" datetime="2019-08-20T19:39:44+08:00">2019-08-20</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-21 17:12:27" itemprop="dateModified" datetime="2020-02-21T17:12:27+08:00">2020-02-21</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span id="/eeea93b8/" class="post-meta-item leancloud_visitors" data-flag-title="hexo 如何上传本地图片" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/eeea93b8/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/eeea93b8/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>1k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+            <div class="post-description">插件hexo-asset-image测试</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="1-&#x4FEE;&#x6539;&#x7AD9;&#x70B9;&#x914D;&#x7F6E;&#x6587;&#x4EF6;"><a class="header-anchor" href="#1-&#x4FEE;&#x6539;&#x7AD9;&#x70B9;&#x914D;&#x7F6E;&#x6587;&#x4EF6;"></a>1. &#x4FEE;&#x6539;&#x7AD9;&#x70B9;&#x914D;&#x7F6E;&#x6587;&#x4EF6;</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/* &#x8DEF;&#x5F84; /hexo/_config.yml</span><br><span class="line">post_asset_folder: <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>&#x8FD9;&#x4E4B;&#x540E;&#xFF0C;&#x5F53;&#x4F60; hexo n XXX &#x65F6;&#xFF0C;&#x4F1A;&#x81EA;&#x52A8;&#x5728; /hexo/source/_post &#x4E0B;&#x751F;&#x6210;&#x4E00;&#x4E2A; XXX &#x6587;&#x4EF6;&#x5939;&#xFF1B;</p>
+<p>&#x6211;&#x4EEC;&#x5C06;&#x9700;&#x8981;&#x63D2;&#x5165; XXX &#x535A;&#x6587;&#x7684;&#x56FE;&#x7247; Test.jpg &#x653E;&#x5230;&#x6B64;&#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x7A0D;&#x540E;&#x7528;Typora&#x7F16;&#x8F91;&#x535A;&#x6587;&#x65F6;&#x76F4;&#x63A5;&#x62D6;&#x5165;&#x5373;&#x53EF;</p>
+<h3 id="2-&#x5B89;&#x88C5;&#x8DEF;&#x5F84;&#x8F6C;&#x6362;&#x63D2;&#x4EF6;-&#x8E29;&#x5751;"><a class="header-anchor" href="#2-&#x5B89;&#x88C5;&#x8DEF;&#x5F84;&#x8F6C;&#x6362;&#x63D2;&#x4EF6;-&#x8E29;&#x5751;"></a>2. &#x5B89;&#x88C5;&#x8DEF;&#x5F84;&#x8F6C;&#x6362;&#x63D2;&#x4EF6;|&#x8E29;&#x5751;</h3>
+<h4 id="&#x6CE8;&#x610F;&#xFF0C;&#x4E00;&#x5B9A;&#x8981;&#x4E0B;&#xFF1A;"><a class="header-anchor" href="#&#x6CE8;&#x610F;&#xFF0C;&#x4E00;&#x5B9A;&#x8981;&#x4E0B;&#xFF1A;"></a>&#x6CE8;&#x610F;&#xFF0C;&#x4E00;&#x5B9A;&#x8981;&#x4E0B;&#xFF1A;</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ npm install https://github.com/CodeFalling/hexo-asset-image --save</span><br><span class="line">......</span><br><span class="line">+ hexo-asset-image@0.0.5</span><br></pre></td></tr></table></figure>
+<p>&#x6B63;&#x786E;&#x751F;&#x6210;&#x4E3A;&#xFF1A;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g</span><br><span class="line">INFO  Start processing</span><br><span class="line">update link as:--&gt;/2019/08/20/<span class="built_in">test</span>/Test.jpg</span><br><span class="line">update link as:--&gt;/2019/08/20/<span class="built_in">test</span>/Test.jpg</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<p>&#x5982;&#x6709;&#x751F;&#x6210;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;&#x4E0D;&#x5B8C;&#x6574;&#xFF0C;<a href="https://github.com/xcodebuild/hexo-asset-image/issues/13" target="_blank" rel="noopener">&#x8BF7;&#x53C2;&#x8003;</a></p>
+<h4 id="&#x6CE8;&#x610F;&#xFF0C;&#x4E0D;&#x8981;&#x4E0B;&#xFF1A;"><a class="header-anchor" href="#&#x6CE8;&#x610F;&#xFF0C;&#x4E0D;&#x8981;&#x4E0B;&#xFF1A;"></a>&#x6CE8;&#x610F;&#xFF0C;&#x4E0D;&#x8981;&#x4E0B;&#xFF1A;</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-asset-image --save</span><br><span class="line">......</span><br><span class="line">+ hexo-asset-image@1.0.0</span><br></pre></td></tr></table></figure>
+<p>hexo-asset-image@1.0.0&#x7248;&#x672C;&#x6839;&#x672C;&#x65E0;&#x6CD5;&#x5728; hexo g &#x751F;&#x6210;&#x7684; *.html &#x6587;&#x4EF6;&#x4E2D;&#x751F;&#x6210;&#x6B63;&#x786E;&#x7684; img src &#x7684;&#x8DEF;&#x5F84;</p>
+<p>&#x9519;&#x8BEF;&#x751F;&#x6210;&#x5982;&#x4E0B;&#xFF0C;&#x65E0;&#x6CD5;&#x8F7D;&#x5165;&#x56FE;&#x7247;&#xFF1A;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g</span><br><span class="line">INFO  Start processing</span><br><span class="line">update link as:--&gt;/.com//Test.jpg</span><br><span class="line">update link as:--&gt;/.com//Test.jpg</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<h3 id="3-&#x5B89;&#x88C5;Typora"><a class="header-anchor" href="#3-&#x5B89;&#x88C5;Typora"></a>3. &#x5B89;&#x88C5;Typora</h3>
+<p>&#x5C06;Typora&#x8BBE;&#x7F6E;&#x4E3A;*.md&#x6587;&#x4EF6;&#x7684;&#x9ED8;&#x8BA4;&#x7F16;&#x8F91;&#x5668;</p>
+<p>&#x8FDB;&#x5165; /hexo/source/_post</p>
+<p>&#x6253;&#x5F00;&#x521A;&#x624D;&#x521B;&#x5EFA;&#x7684; <a href="http://XXX.md" target="_blank" rel="noopener">XXX.md</a> &#x6587;&#x4EF6;</p>
+<p>&#x5C06; /hexo/source/_post/XXX/Test.jpg &#x76F4;&#x63A5;&#x62D6;&#x62FD;&#x5230; Typora &#x7F16;&#x8F91;&#x754C;&#x9762;</p>
+<p>&#x4F1A;&#x81EA;&#x52A8;&#x8FDE;&#x5E26;&#x56FE;&#x7247;&#x751F;&#x6210;&#xFF1A;</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">Test</span>](<span class="link">D:\ODG blog\oldgerman.github.io\source\_posts\hexo&#x5982;&#x4F55;&#x4E0A;&#x4F20;&#x672C;&#x5730;&#x56FE;&#x7247;\Test.jpg</span>)</span><br></pre></td></tr></table></figure>
+<p>&#x5C06;&#x5C31;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;&#x5220;&#x9664;&#x90E8;&#x5206;&#xFF0C;&#x4EC5;&#x4FDD;&#x7559;&#xFF1A;</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">Test-Image</span>](<span class="link">\hexo&#x5982;&#x4F55;&#x4E0A;&#x4F20;&#x672C;&#x5730;&#x56FE;&#x7247;\Test.jpg</span>)</span><br></pre></td></tr></table></figure>
+<p>&#x5E76;&#x5C06;&#x4E24;&#x4E2A; \ &#x4FEE;&#x6539;&#x6210;&#xFF1A;</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">Test-Image</span>](<span class="link">/hexo&#x5982;&#x4F55;&#x4E0A;&#x4F20;&#x672C;&#x5730;&#x56FE;&#x7247;/Test.jpg</span>)</span><br></pre></td></tr></table></figure>
+<p>&#x82E5;&#x632A;&#x5F00;&#x9009;&#x4E2D;&#x56FE;&#x7247;&#x7684;&#x9F20;&#x6807;&#xFF0C;&#x81EA;&#x52A8;&#x9690;&#x85CF;&#x5F15;&#x7528;&#x4EE3;&#x7801;&#xFF0C;&#x4EC5;&#x5C06;&#x56FE;&#x7247;&#x663E;&#x793A;&#xFF1A;</p>
+<p><img src="/eeea93b8/Test.jpg" alt="Test-Image"></p>
+<h3 id="4-&#x672C;&#x5730;&#x6D4B;&#x8BD5;-&#x4E0A;&#x4F20;&#x5230;GitHub"><a class="header-anchor" href="#4-&#x672C;&#x5730;&#x6D4B;&#x8BD5;-&#x4E0A;&#x4F20;&#x5230;GitHub"></a>4. &#x672C;&#x5730;&#x6D4B;&#x8BD5;+&#x4E0A;&#x4F20;&#x5230;GitHub</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">hexo</span> <span class="string">g</span></span><br><span class="line"><span class="attr">hexo</span> <span class="string">d</span></span><br></pre></td></tr></table></figure>
+<p>&#x81F3;&#x6B64;&#xFF0C;&#x6D4B;&#x8BD5;&#x5B8C;&#x6BD5;&#xFF01;</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/hexo/" rel="tag"># hexo</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/192f845b/" rel="next" title="小米平板1-ubuntu系统_bluetooth篇">
+                  <i class="fa fa-chevron-left"></i> 小米平板1-ubuntu系统_bluetooth篇
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/0/" rel="prev" title="小娱C5_刷机篇">
+                  小娱C5_刷机篇 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/psa.jpg"
+      alt="过气德国佬">
+  <p class="site-author-name" itemprop="name">过气德国佬</p>
+  <div class="site-description motion-element" itemprop="description">潮起潮落，云卷云舒</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-修改站点配置文件"><span class="nav-number">1.</span> <span class="nav-text">1. 修改站点配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-安装路径转换插件-踩坑"><span class="nav-number">2.</span> <span class="nav-text">2. 安装路径转换插件|踩坑</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注意，一定要下："><span class="nav-number">2.1.</span> <span class="nav-text">注意，一定要下：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意，不要下："><span class="nav-number">2.2.</span> <span class="nav-text">注意，不要下：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-安装Typora"><span class="nav-number">3.</span> <span class="nav-text">3. 安装Typora</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-本地测试-上传到GitHub"><span class="nav-number">4.</span> <span class="nav-text">4. 本地测试+上传到GitHub</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+        
+
+<div id="days"></div>
+<script>
+function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("07/19/2019 15:00:00");
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=setzero(Math.floor(e_hrsold));
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+    seconds=setzero(Math.floor((e_minsold-minsold)*60));
+    document.getElementById('days').innerHTML="(∩•̀ω•́)⊃--*⋆本站由米板1代搭建，已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i) {
+    if (i<10) {
+        i="0" + i
+    };
+    return i;
+}
+show_date_time();
+</script>
+
+
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">过气德国佬</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">66k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        <span>0%</span>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'iWuakuHkkRt5xT7Ct9cyj8nO-gzGzoHsz',
+    appKey: 'PAz23pDzHnucqRDkVMShMp5B',
+    placeholder: '(๑•̀ㅁ•́ฅ✧ 说点什么吧！',
+    avatar: '',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

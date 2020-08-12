@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="附送用电安全指南，高压危险，请注意用电卫生！">
+<meta name="keywords" content="220VAC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="esp8266 控制220V交流电">
+<meta property="og:url" content="http://yoursite.com/aedd6ac2/index.html">
+<meta property="og:site_name" content="OldGerman&#39;s Blog">
+<meta property="og:description" content="附送用电安全指南，高压危险，请注意用电卫生！">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/aedd6ac2/relayx4.png">
+<meta property="og:image" content="http://yoursite.com/aedd6ac2/%E5%8F%8C%E7%82%B9%E9%9A%94%E7%A6%BB.png">
+<meta property="og:image" content="http://yoursite.com/aedd6ac2/9.1.0%E5%8A%9F%E7%8E%87%E6%8D%9F%E8%80%97.png">
+<meta property="og:image" content="http://yoursite.com/aedd6ac2/9.2.0.png">
+<meta property="og:image" content="http://yoursite.com/aedd6ac2/moc606X_%E5%AF%BC%E9%80%9A%E7%94%B5%E6%B5%81.jpg">
+<meta property="og:image" content="http://yoursite.com/aedd6ac2/moc6063_%E5%8F%8D%E5%B9%B6%E8%81%94%E5%85%B8%E5%9E%8B.jpg">
+<meta property="og:image" content="http://yoursite.com/aedd6ac2/moc3063_%E5%8F%8C%E5%90%91%E5%85%B8%E5%9E%8B.jpg">
+<meta property="og:image" content="http://yoursite.com/aedd6ac2/DC_Solid_State_Relay.png">
+<meta property="og:image" content="http://yoursite.com/aedd6ac2/OptoTRIACv1sch.png">
+<meta property="og:image" content="http://yoursite.com/aedd6ac2/%E9%9B%B6%E4%BD%8D%E4%BF%A1%E5%8F%B7%E4%BC%A0%E7%BB%99%E5%8D%95%E7%89%87%E6%9C%BA%E6%8E%A7%E5%88%B6.jpg">
+<meta property="og:image" content="http://yoursite.com/aedd6ac2/%E7%BA%BF%E5%BE%84%E4%B8%8E%E7%94%B5%E6%B5%81%E5%8A%9F%E7%8E%87%E7%9A%84%E5%AE%89%E5%85%A8%E8%B4%9F%E8%BD%BD.jpg">
+<meta property="og:updated_time" content="2020-04-22T05:53:13.079Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="esp8266 控制220V交流电">
+<meta name="twitter:description" content="附送用电安全指南，高压危险，请注意用电卫生！">
+<meta name="twitter:image" content="http://yoursite.com/aedd6ac2/relayx4.png">
+  <link rel="canonical" href="http://yoursite.com/aedd6ac2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>esp8266 控制220V交流电 | OldGerman's Blog</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OldGerman's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Refuse to play tickets!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-阅读排名">
+      
+    
+
+    <a href="/rank" rel="section"><i class="menu-item-icon fa fa-fw fa-list"></i> <br>阅读排名</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/aedd6ac2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过气德国佬">
+      <meta itemprop="description" content="潮起潮落，云卷云舒">
+      <meta itemprop="image" content="/images/psa.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OldGerman's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">esp8266 控制220V交流电
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-21 12:54:37" itemprop="dateCreated datePublished" datetime="2020-02-21T12:54:37+08:00">2020-02-21</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-22 13:53:13" itemprop="dateModified" datetime="2020-04-22T13:53:13+08:00">2020-04-22</time>
+              </span>
+            
+          
+
+          
+            <span id="/aedd6ac2/" class="post-meta-item leancloud_visitors" data-flag-title="esp8266 控制220V交流电" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/aedd6ac2/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/aedd6ac2/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>5.5k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>5 分钟</span>
+            </span>
+          
+            <div class="post-description">附送用电安全指南，高压危险，请注意用电卫生！</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="PID&#xFF1A;&#x4ECE;&#x5F31;&#x7535;&#x5230;&#x5F3A;&#x7535;"><a class="header-anchor" href="#PID&#xFF1A;&#x4ECE;&#x5F31;&#x7535;&#x5230;&#x5F3A;&#x7535;"></a>PID&#xFF1A;&#x4ECE;&#x5F31;&#x7535;&#x5230;&#x5F3A;&#x7535;</h1>
+<p>&#x4E00;&#x4E2A;&#x591A;&#x524D;&#x5728;b&#x7AD9;&#x5B66;&#x4E60;PID&#x6E29;&#x63A7;&#xFF0C;&#x5B9E;&#x73B0;&#x4E86;&#x7EE7;&#x7535;&#x5668;&#x63A7;&#x5236;E3d&#x52A0;&#x70ED;&#x5757;&#x7EF4;&#x6301;&#x5728;100&#x5EA6;(&#x6587;&#x7AE0;&#x6709;&#x65F6;&#x95F4;&#x518D;&#x5199;)&#xFF0C;&#x4F7F;&#x7528;12V&#x76F4;&#x6D41;&#x7535;&#xFF0C;&#x529F;&#x8017;30W&#x5DE6;&#x53F3;&#xFF0C;&#x6CA1;&#x5565;&#x5371;&#x9669;&#x6027;&#x3002;</p>
+<p>&#x540E;&#x6765;&#x56E4;&#x4E86;&#x4E2A;&#x7C73;&#x5BB6;&#x7535;&#x70E4;&#x7BB1;&#xFF0C;&#x62C6;&#x5F97;&#x4E03;&#x96F6;&#x516B;&#x843D;&#x6401;&#x4E66;&#x623F;&#x4E00;&#x4E2A;&#x591A;&#x6708;&#x4E86;&#xFF0C;&#x4E3A;&#x5565;&#x62C6;&#xFF0C;&#x597D;&#x597D;&#x7528;&#x4E0D;&#x884C;&#x5417;&#xFF1F;</p>
+<p>&#x4E8B;&#x60C5;&#x662F;&#x8FD9;&#x6837;&#x7684;&#xFF0C;&#x8BF4;&#x6765;&#x8BDD;&#x957F;&#xFF0C;&#x7B97;&#x4E86;&#x957F;&#x8BDD;&#x77ED;&#x8BF4;&#xFF0C;&#x7528;&#x98CE;&#x67AA;&#x710A;QFN&#x5C01;&#x88C5;&#xFF0C;&#x5F88;&#x5BB9;&#x6613;&#x8BA9;&#x5468;&#x8FB9;&#x7684;&#x5143;&#x4EF6;&#x5439;&#x504F;&#x6216;&#x8005;&#x8131;&#x843D;&#xFF0C;&#x7B80;&#x76F4;&#x5FC3;&#x6001;&#x70B8;&#x88C2;&#x6709;&#x6728;&#x6709;&#xFF1F;smt&#x7684;&#x5382;&#x5BB6;&#x90FD;&#x662F;&#x5237;&#x597D;&#x9521;&#x818F;&#x8FC7;&#x591A;&#x6BB5;&#x56DE;&#x6D41;&#x710A;&#x7089;&#xFF0C;&#x90A3;&#x710A;&#x70B9;&#x715E;&#x662F;&#x9971;&#x6EE1;&#xFF0C;&#x4E8E;&#x662F;&#x7422;&#x78E8;&#x7740;&#x81EA;&#x5DF1;diy&#x56DE;&#x6D41;&#x710A;&#x673A;&#xFF0C;&#x770B;&#x4E86;&#x4E0B;&#x5404;&#x79CD;diy&#x65B9;&#x6848;&#xFF0C;&#x4E3B;&#x8981;&#x9B54;&#x6539;&#x7535;&#x70ED;&#x76D8;&#x6216;&#x7535;&#x70E4;&#x7BB1;</p>
+<p>emmm&#x4EF7;&#x683C;&#x67D0;&#x5B9D;&#x770B;&#x4E86;&#x4E0B;&#xFF0C;&#x4F60;&#x7535;&#x7089;&#x4E0D;&#x5E26;&#x8FD0;&#x8D39;&#x90FD;50&#x591A;&#x4E86;&#xFF0C;&#x54B8;&#x9C7C;100&#x5305;&#x90AE;&#x7684;&#x7334;&#x7C73;&#x70E4;&#x7BB1;&#xFF0C;&#x4E0D;&#x4EC5;&#x5168;&#x5C01;&#x95ED;&#x8FD8;&#x5E26;&#x70ED;&#x98CE;&#x5FAA;&#x73AF;(&#x5C0F;&#x58F0;bb)&#xFF0C;&#x5B83;&#x4E0D;&#x9999;&#x5417;&#x1F602;</p>
+ <div align="center"><span style="color:white;background:black;font-size:20px;">&#x3000;&amp;&#x201C;&#x4E8B;&#x60C5;&#x603B;&#x4F1A;&#x671D;&#x7740;&#x610F;&#x60F3;&#x4E0D;&#x5230;&#x7684;&#x65B9;&#x5411;&#x53D1;&#x5C55;&#x201D;&#x3000;</span></div>
+pid&#x89E3;&#x7B97;&#x51FA;&#x7684;pwm&#x4FE1;&#x53F7;&#xFF0C;&#x8FD8;&#x9700;&#x8981;&#x5B9E;&#x73B0;&#x4ECE;&#x5F31;&#x7535;&#x5230;&#x5F3A;&#x7535;&#x7684;PWM&#x8F6C;&#x6362;&#xFF0C;&#x4EE5;&#x63A7;&#x5236;&#x70E4;&#x7BB1;&#x7684;&#x70ED;&#x7BA1;
+<p>&#x4F7F;&#x80FD;&#x5668;&#x4EF6;&#x53EF;&#x4EE5;&#x7528;&#x7EE7;&#x7535;&#x5668;(&#x673A;&#x68B0;&#x5F0F;)&#xFF0C;mosfet&#xFF0C;&#x6216;&#x8005;TRAIC&#xFF0C;&#x8FD8;&#x6709;SSR&#xFF0C;SSR&#x7684;&#x5185;&#x90E8;&#x4E00;&#x822C;&#x4E5F;&#x662F;&#x7528;mosfet&#x6216;&#x8005;TRAIC&#x5B9E;&#x73B0;&#x5F00;&#x5173;&#xFF0C;&#x535A;&#x4E3B;&#x6700;&#x540E;&#x9009;&#x62E9;&#x4E86;TRAIC+&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;&#x5149;&#x8026;&#xFF0C;&#x5728;&#x56DE;&#x7B54;&#x4E3A;&#x4EC0;&#x4E48;&#x4E4B;&#x524D;&#xFF0C;&#x4F60;&#x4EEC;&#x8FD8;&#x8981;&#x5B66;&#x4E60;&#x4E00;&#x4E2A;&#x5404;&#x79CD;&#x5668;&#x4EF6;&#x7684;&#x4F18;&#x52A3;&#xFF1A;</p>
+<h2 id="&#x7EE7;&#x7535;&#x5668;"><a class="header-anchor" href="#&#x7EE7;&#x7535;&#x5668;"></a>&#x7EE7;&#x7535;&#x5668;</h2>
+<p>&#x6709;&#x4E9B;&#x5BB6;&#x7528;&#x7A7A;&#x8C03;&#x6216;&#x8005;&#x7535;&#x996D;&#x7172;&#x4F7F;&#x7528;&#x7EE7;&#x7535;&#x5668;&#x63A7;&#x5236;&#x6E29;&#x5EA6;&#xFF0C;&#x4F8B;&#x5982;&#x6211;&#x5BB6;&#x7684;&#x9762;&#x5305;&#x673A;&#x70D8;&#x70E4;&#x6863;&#x6BCF;&#x9694;&#x4E00;&#x4E24;&#x5206;&#x949F;&#x5C31;&#x4F1A;&#x542C;&#x5230;&#x7EE7;&#x7535;&#x5668;&#x5438;&#x5408;&#x7684;&#x58F0;&#x97F3;&#x1F61C;&#xFF0C;&#x673A;&#x68B0;&#x7EE7;&#x7535;&#x5668;&#x4FBF;&#x5B9C;&#xFF0C;&#x7F3A;&#x70B9;&#x660E;&#x6446;&#x7740;&#x5C31;&#x662F;&#x871C;&#x6C41;&#x9F13;&#x70B9;&#xFF0C;&#x51FA;&#x4E8E;&#x4FDD;&#x62A4;&#x4F60;&#x7684;&#x56FD;&#x5B9D;&#x7EA7;&#x8033;&#x6735;&#xFF0C;&#x5B8C;&#x5168;&#x53EF;&#x4EE5;&#x4ECE;&#x65B9;&#x6848;&#x4E2D;pass&#x6389;&#x1F923;&#xFF0C;&#x5F53;&#x7136;&#x4ED6;&#x771F;&#x6B63;&#x7684;&#x7F3A;&#x70B9;&#x662F;&#x5E76;&#x4E0D;&#x662F;&#x8FD9;&#x4E2A;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x6765;&#x770B;&#x4E0B;&#x6B27;&#x59C6;&#x9F99;G4A&#x7EE7;&#x7535;&#x5668;&#x548C;&#x677E;&#x4E50;SRD&#x7EE7;&#x7535;&#x5668;&#xFF1A;</p>
+<p><img src="/aedd6ac2/relayx4.png" alt></p>
+<h3 id="&#x7EE7;&#x7535;&#x5668;&#x7684;&#x7F3A;&#x70B9;"><a class="header-anchor" href="#&#x7EE7;&#x7535;&#x5668;&#x7684;&#x7F3A;&#x70B9;"></a>&#x7EE7;&#x7535;&#x5668;&#x7684;&#x7F3A;&#x70B9;</h3>
+<h4 id="&#x5F00;&#x5173;&#x9891;&#x7387;&#xFF0C;&#x5BFF;&#x547D;&#x8F83;&#x4F4E;"><a class="header-anchor" href="#&#x5F00;&#x5173;&#x9891;&#x7387;&#xFF0C;&#x5BFF;&#x547D;&#x8F83;&#x4F4E;"></a>&#x5F00;&#x5173;&#x9891;&#x7387;&#xFF0C;&#x5BFF;&#x547D;&#x8F83;&#x4F4E;</h4>
+<p>&#x6B27;&#x59C6;&#x9F99;G4A 20A 250VAC</p>
+<p>&#x4E0D;&#x63A5;&#x8D1F;&#x8F7D;&#x6BCF;&#x79D2;&#x5F00;&#x5173;10&#x6B21;&#x5BFF;&#x547D;&#x81F3;&#x5C11;200&#x4E07;&#x6B21;&#xFF0C;&#x7535;&#x963B;&#x8D1F;&#x8F7D;&#x4E0B;&#xFF0C;&#x5EFA;&#x8BAE;&#x5F00;&#x5173;&#x5468;&#x671F;2&#x79D2;&#xFF0C;&#x5BFF;&#x547D;&#x81F3;&#x5C11;10&#x4E07;&#x6B21;&#xFF0C;</p>
+<p>&#x677E;&#x4E50;SRD 10A 250VAC</p>
+<p>&#x4E0D;&#x63A5;&#x8D1F;&#x8F7D;&#x6BCF;&#x79D2;&#x5F00;&#x5173;10&#x6B21;&#x5BFF;&#x547D;&#x81F3;&#x5C11;1000&#x4E07;&#x6B21;&#xFF0C;&#x7535;&#x963B;&#x8D1F;&#x8F7D;&#x4E0B;&#xFF0C;&#x5EFA;&#x8BAE;&#x5F00;&#x5173;&#x5468;&#x671F;2&#x79D2;&#xFF0C;&#x5BFF;&#x547D;&#x81F3;&#x5C11;10&#x4E07;&#x6B21;</p>
+<p>&#x7EE7;&#x7535;&#x5668;&#x7684;&#x89E6;&#x70B9;&#x6750;&#x6599;&#x4E3A;&#x94DC;&#xFF0C;&#x94DC;&#x9540;&#x94F6;&#xFF0C;&#x7EAF;&#x94F6;&#xFF0C;&#x5438;&#x5408;&#x7684;&#x77AC;&#x95F4;&#x4F1A;&#x4EA7;&#x751F;&#x7535;&#x706B;&#x82B1;&#xFF0C;&#x957F;&#x671F;&#x4F7F;&#x7528;&#x4F1A;&#x4F7F;&#x89E6;&#x70B9;&#x6C27;&#x5316;&#x964D;&#x4F4E;&#x5BFC;&#x7535;&#x6027;&#x80FD;</p>
+<h4 id="&#x5438;&#x5408;&#xFF0C;&#x65AD;&#x5F00;&#x65F6;&#x95F4;&#x8F83;&#x957F;"><a class="header-anchor" href="#&#x5438;&#x5408;&#xFF0C;&#x65AD;&#x5F00;&#x65F6;&#x95F4;&#x8F83;&#x957F;"></a>&#x5438;&#x5408;&#xFF0C;&#x65AD;&#x5F00;&#x65F6;&#x95F4;&#x8F83;&#x957F;</h4>
+<p>&#x6B27;&#x59C6;&#x9F99;G4A &#x5438;&#x5408; 20ms&#xFF0C;&#x91CA;&#x653E;10ms</p>
+<p>&#x677E;&#x4E50;SRD &#x5438;&#x5408;10ms&#xFF0C;&#x91CA;&#x653E;5ms</p>
+<p>&#x8FD9;&#x4E2A;&#x54CD;&#x5E94;&#x901F;&#x5EA6;&#x589E;&#x52A0;PID&#x7684;&#x6EDE;&#x540E;&#x65F6;&#x95F4;&#xFF0C;&#x4F46;&#x82E5;&#x4F60;&#x63A7;&#x5236;&#x5927;&#x70ED;&#x60EF;&#x91CF;&#x7684;&#x5BB9;&#x5668;&#x52A0;&#x70ED;&#xFF0C;&#x4F8B;&#x5982;&#x70E4;&#x7BB1;&#xFF0C;&#x8FD9;&#x70B9;&#x6EDE;&#x540E;&#x5176;&#x5B9E;&#x4E0D;&#x7B97;&#x4EC0;&#x4E48;</p>
+<h3 id="&#x7EE7;&#x7535;&#x5668;&#x7684;&#x4F18;&#x70B9;"><a class="header-anchor" href="#&#x7EE7;&#x7535;&#x5668;&#x7684;&#x4F18;&#x70B9;"></a>&#x7EE7;&#x7535;&#x5668;&#x7684;&#x4F18;&#x70B9;</h3>
+<h4 id="&#x4FBF;&#x5B9C;"><a class="header-anchor" href="#&#x4FBF;&#x5B9C;"></a>&#x4FBF;&#x5B9C;</h4>
+<p>&#x51E0;&#x5757;&#x94B1;&#x7684;&#x4E1C;&#x897F;</p>
+<h4 id="&#x7535;&#x9694;&#x79BB;"><a class="header-anchor" href="#&#x7535;&#x9694;&#x79BB;"></a>&#x7535;&#x9694;&#x79BB;</h4>
+<p>&#x7EE7;&#x7535;&#x5668;&#x4EA4;&#x6D41;&#x7AEF;&#x548C;&#x4F4E;&#x538B;&#x4F7F;&#x80FD;&#x7AEF;&#x4E0D;&#x9700;&#x8981;&#x5171;&#x5730;&#x7EBF;&#xFF0C;&#x6240;&#x4EE5;&#x5B83;&#x672C;&#x8EAB;&#x5C31;&#x5E26;&#x6709;&#x7535;&#x9694;&#x79BB;&#x4F5C;&#x7528;</p>
+<p>&#x5E38;&#x89C1;&#x7684;&#x7EE7;&#x7535;&#x5668;&#x6A21;&#x5757;&#x4F4E;&#x538B;&#x4F7F;&#x80FD;&#x7AEF;&#x90FD;&#x7528;&#x4E09;&#x6781;&#x7BA1;&#x914D;&#x5408;&#x5149;&#x8026;&#x63A7;&#x5236;&#xFF0C;&#x5149;&#x8026;&#x53C8;&#x5E26;&#x4E00;&#x6B21;&#x9694;&#x79BB;&#xFF0C;&#x52A0;&#x4E0A;&#x7EE7;&#x7535;&#x5668;&#x7684;&#x9694;&#x79BB;&#xFF0C;&#x6784;&#x6210;&#x53CC;&#x7535;&#x9694;&#x79BB;&#xFF0C;&#x80A5;&#x80A0;&#x7684;&#x5B89;&#x5168;&#x554A;:</p>
+<p><img src="/aedd6ac2/%E5%8F%8C%E7%82%B9%E9%9A%94%E7%A6%BB.png" alt></p>
+<p>(&#x6765;&#x81EA;B&#x7AD9;&#x67D0;&#x642C;&#x8FD0; GreatScott! &#x987A;&#x4FBF;&#x70E4;&#x719F;&#x4E86;&#x7684;&#x8F9B;&#x52E4;UP&#x4E3B;)</p>
+<h4 id="&#x51E0;&#x4E4E;&#x65E0;&#x529F;&#x7387;&#x635F;&#x8017;"><a class="header-anchor" href="#&#x51E0;&#x4E4E;&#x65E0;&#x529F;&#x7387;&#x635F;&#x8017;"></a>&#x51E0;&#x4E4E;&#x65E0;&#x529F;&#x7387;&#x635F;&#x8017;</h4>
+<p>&#x89C1;&#x8FC7;&#x7EE7;&#x7535;&#x5668;&#x52A0;&#x98CE;&#x6247;&#x6563;&#x70ED;&#x7684;&#x561B;&#xFF1F;&#x7EE7;&#x7535;&#x5668;&#x8D1F;&#x8F7D;&#x65F6;&#x51E0;&#x4E4E;&#x6CA1;&#x6709;&#x538B;&#x964D;&#x7684;&#xFF0C;&#x7565;&#x3002;</p>
+<h2 id="Mosfet"><a class="header-anchor" href="#Mosfet"></a>Mosfet</h2>
+<p><a href="http://www.kiaic.com/article/detail/1995.html" target="_blank" rel="noopener">mosfet&#x56DB;&#x79CD;&#x7C7B;&#x578B;&#x7684;&#x533A;&#x522B;-KIA</a></p>
+<p>Mosfet&#x7684;&#x6F0F;&#x6781;&#x548C;&#x6E90;&#x6781;&#x4E4B;&#x95F4;&#x7684;&#x538B;&#x964D;&#x6BD4;BJT&#x8981;&#x4F4E;&#x5F97;&#x591A;&#xFF0C;&#x4F8B;&#x5982;&#x4E4B;&#x524D;&#x7EB3;&#x95F7;&#x4E3A;&#x5565;L298&#x4E00;&#x4E2A;H&#x6865;&#x8D1F;&#x8F7D;12V2A&#x53D1;&#x70ED;&#x5C31;&#x4E25;&#x91CD;&#xFF0C;&#x8BF4;&#x597D;&#x7684;&#x53EF;&#x4EE5;&#x5E26;&#x4E24;&#x8DEF;2A&#x5462;&#xFF1F;&#x52B3;&#x8D44;&#x53E6;&#x4E00;&#x4E2A;H&#x6865;&#x8FD8;&#x6CA1;&#x5F00;&#x59CB;&#x8D1F;&#x8F7D;&#x5462;&#x3002;&#x3002;&#x3002;&#x8FD9;&#x4E0D;&#xFF0C;&#x5B66;&#x4E60;&#x4E86;&#x4E00;&#x4E2A;L298N&#x7684;datasheet&#xFF0C;&#x770B;&#x770B;&#x91CC;&#x9762;&#x5230;&#x5E95;&#x662F;&#x5565;&#x5B50;:</p>
+<p>&#x771F;&#x76F8;&#x4E86;&#xFF0C;&#x662F;&#x4E24;&#x8DEF;BJT H&#x6865; - &#x610F;&#x6CD5;&#x534A;&#x5BFC;&#x4F53;&#x63D0;&#x4F9B;&#x7684;&#x7684;&#x539F;&#x7406;&#x56FE;&#x8FD8;&#x662F;2000&#x5E74;&#x7684;&#xFF0C;&#x4F30;&#x8BA1;&#x90A3;&#x4E2A;&#x65F6;&#x5019;&#x57FA;&#x4E8E;Mosfet&#x7684;H&#x6865;&#x8FD8;&#x6CA1;&#x6709;&#x5927;&#x91CF;&#x5E94;&#x7528;&#x5427;</p>
+<p>Mosfet&#x6548;&#x7387;&#x5F88;&#x9AD8;&#xFF0C;&#x4F46;&#x573A;&#x7BA1;&#x8F83;&#x9AD8;&#x8D1F;&#x8F7D;&#x5F00;&#x5173;&#x65F6;&#xFF0C;G&#x6781;&#x548C;D&#x6781;&#x7684;&#x8870;&#x51CF;&#x9707;&#x8361;&#x4EA7;&#x751F;&#x7684;&#x5CF0;&#x503C;&#x7535;&#x538B;&#x4F1A;&#x6BD4;&#x8D1F;&#x8F7D;&#x8981;&#x9AD8;&#x8BB8;&#x591A;&#xFF0C;&#x8FD9;&#x662F;&#x4E3A;&#x5565;&#x5462;&#xFF1F;&#x56E0;&#x4E3A;mosfet&#x5404;&#x5F15;&#x811A;&#x4E4B;&#x95F4;&#x7684;&#x5BC4;&#x751F;&#x7535;&#x5BB9;&#x6BD4;&#x53CC;&#x6781;&#x6676;&#x4F53;&#x7BA1;&#x5927;&#x5F88;&#x591A;</p>
+<p><a href="https://m.sohu.com/a/309841206_486207" target="_blank" rel="noopener">&#x6765;&#x6E90;&#xFF1A;MOS&#x7BA1;&#x5E94;&#x7528;&#x6982;&#x8FF0;</a></p>
+<p>&#x201C; &#x5F53;&#x8FD9;&#x4E2A;&#x7535;&#x5BB9;&#x8DB3;&#x591F;&#x5927;&#xFF0C;&#x5E76;&#x4E14;&#x524D;&#x6BB5;&#x4FE1;&#x53F7;&#x53D8;&#x5316;&#x5FEB;&#xFF0C;&#x540E;&#x7AEF;&#x4F9B;&#x7535;&#x7535;&#x538B;&#x9AD8;&#xFF0C;&#x4E09;&#x8005;&#x7ED3;&#x5408;&#x8D77;&#x6765;&#xFF0C;&#x5C31;&#x4F1A;&#x5F15;&#x8D77;&#x79EF;&#x5206;&#x8FC7;&#x5145;&#x632F;&#x8361;<br>
+&#x8FD9;&#x4E2A;&#x7B49;&#x4EF7;&#x4E8E;&#x6E29;&#x63A7;PID&#x4E2D;&#x7684;I&#x6A21;&#x578B;&#xFF0C;&#x5982;&#x4F55;&#x89E3;&#x51B3;&#x89E3;&#x51B3;&#x8FD9;&#x4E2A;&#x7C73;&#x52D2;&#x632F;&#x8361;&#xFF1F;</p>
+<p>1&#xFE0F;&#x20E3;&#x63D0;&#x9AD8;MOS&#x7BA1;&#x7684;&#x9A71;&#x52A8;&#x7535;&#x963B;&#xFF0C;&#x524D;&#x63D0;&#x9891;&#x7387;&#x548C;&#x7535;&#x538B;&#x4E0D;&#x53D8;&#xFF0C;&#x4EE5;&#x51CF;&#x7F13;&#x5F00;&#x5173;&#x65F6;&#x4E0A;&#x5347;&#x4E0B;&#x964D;&#x6CBF;&#x7684;&#x901F;&#x5EA6;</p>
+<p>2&#xFE0F;&#x20E3; &#x589E;&#x52A0;Cgs&#x7535;&#x5BB9;&#xFF0C;&#x5728;Cds&#x4E4B;&#x95F4;&#x5E76;&#x4E0A;&#x4F4E;&#x5185;&#x963B;&#x6297;&#x51B2;&#x51FB;&#x7684;&#x5C0F;&#x7535;&#x5BB9;&#xFF0C;&#x6216;&#x8005;&#x7528;RC&#x7535;&#x8DEF;&#x6765;&#x505A;&#x5438;&#x6536;&#x7535;&#x8DEF; &#x201D;</p>
+<p>&#x4F8B;&#x5982;&#x5FB7;&#x4EEA;&#x4F18;&#x5316;&#x8FC7;&#x7684;Mosfet&#x529F;&#x7387;&#x5668;&#x4EF6;&#x5E03;&#x5C40;&#x56FE;&#x5BF9;&#x6BD4;&#xFF0C;&#x8F93;&#x5165;&#x7535;&#x5BB9;&#x4F4D;&#x7F6E;&#x8BB2;&#x7A76;:</p>
+<p>![](C:/Users/29209/OneDrive/&#x684C;&#x9762;/3D printer_work/&#x56DE;&#x6D41;&#x710A;&#x7089; 2020-02-19/&#x534A;&#x5BFC;&#x4F53;&#x5F00;&#x5173;&#x5143;&#x4EF6;/MOSFET - &#x91D1;&#x5C5E;-&#x6C27;&#x5316;&#x7269;&#x534A;&#x5BFC;&#x4F53;&#x573A;&#x6548;&#x5E94;&#x6676;&#x4F53;&#x7BA1;/Ti mosfet&#x5E03;&#x5C40;.jpg)</p>
+<p><a href="http://www.ti.com/cn/lit/an/zhca637/zhca637.pdf" target="_blank" rel="noopener">&#x6765;&#x6E90;: &#x51CF;&#x5C0F;NexFET&#x529F;&#x7387;MOSFET&#x9707;&#x8361;&#x7684;&#x65B9;&#x6CD5;</a></p>
+<p>3&#xFE0F;&#x20E3;&#x4F7F;&#x7528;mosfet&#x9A71;&#x52A8;&#x5668;</p>
+<p>&#x4E1C;&#x829D;&#x7684;&#x5206;&#x6790;&#x5341;&#x5206;&#x8BE6;&#x7EC6;&#xFF0C;&#x8DEA;&#x4E86;&#xFF1A;</p>
+<p><a href>&#x529F;&#x7387;Mosfet&#x7684;&#x5BC4;&#x751F;&#x9707;&#x8361;&#x548C;&#x632F;&#x94C3;</a></p>
+<h2 id="IGBT"><a class="header-anchor" href="#IGBT"></a>IGBT</h2>
+<p>IGBT &#x4E00;&#x822C;&#x7528;N-channe</p>
+<p>IGBT(Insulated Gate Bipolar Transistor)&#xFF0C;&#x7EDD;&#x7F18;&#x6805;&#x53CC;&#x6781;&#x578B;&#x6676;&#x4F53;&#x7BA1;&#xFF0C;&#x662F;&#x7531;BJT(&#x53CC;&#x6781;&#x578B;&#x4E09;&#x6781;&#x7BA1;)&#x548C;MOS(&#x7EDD;&#x7F18;&#x6805;&#x578B;&#x573A;&#x6548;&#x5E94;&#x7BA1;)&#x7EC4;&#x6210;&#x7684;&#x590D;&#x5408;&#x5168;&#x63A7;&#x578B;&#x7535;&#x538B;&#x9A71;&#x52A8;&#x5F0F;&#x529F;&#x7387;&#x534A;&#x5BFC;&#x4F53;&#x5668;&#x4EF6;, &#x517C;&#x6709;MOSFET&#x7684;&#x9AD8;&#x8F93;&#x5165;&#x963B;&#x6297;&#x548C;GTR&#x7684;&#x4F4E;&#x5BFC;&#x901A;&#x538B;&#x964D;&#x4E24;&#x65B9;&#x9762;&#x7684;&#x4F18;&#x70B9;&#x3002;GTR&#x9971;&#x548C;&#x538B;&#x964D;&#x4F4E;&#xFF0C;&#x8F7D;&#x6D41;&#x5BC6;&#x5EA6;&#x5927;&#xFF0C;&#x4F46;&#x9A71;&#x52A8;&#x7535;&#x6D41;&#x8F83;&#x5927;&#xFF1B;MOSFET&#x9A71;&#x52A8;&#x529F;&#x7387;&#x5F88;&#x5C0F;&#xFF0C;&#x5F00;&#x5173;&#x901F;&#x5EA6;&#x5FEB;&#xFF0C;&#x4F46;&#x5BFC;&#x901A;&#x538B;&#x964D;&#x5927;&#xFF0C;&#x8F7D;&#x6D41;&#x5BC6;&#x5EA6;&#x5C0F;&#x3002;IGBT&#x7EFC;&#x5408;&#x4E86;&#x4EE5;&#x4E0A;&#x4E24;&#x79CD;&#x5668;&#x4EF6;&#x7684;&#x4F18;&#x70B9;&#xFF0C;&#x9A71;&#x52A8;&#x529F;&#x7387;&#x5C0F;&#x800C;&#x9971;&#x548C;&#x538B;&#x964D;&#x4F4E;&#x3002;&#x975E;&#x5E38;&#x9002;&#x5408;&#x5E94;&#x7528;&#x4E8E;&#x76F4;&#x6D41;&#x7535;&#x538B;&#x4E3A;600V&#x53CA;&#x4EE5;&#x4E0A;&#x7684;&#x53D8;&#x6D41;&#x7CFB;&#x7EDF;&#x5982;&#x4EA4;&#x6D41;&#x7535;&#x673A;&#x3001;&#x53D8;&#x9891;&#x5668;&#x3001;&#x5F00;&#x5173;&#x7535;&#x6E90;&#x3001;&#x7167;&#x660E;&#x7535;&#x8DEF;&#x3001;&#x7275;&#x5F15;&#x4F20;&#x52A8;&#x7B49;&#x9886;&#x57DF; - - &#x6765;&#x81EA;&#x767E;&#x5EA6;&#x767E;&#x79D1;</p>
+<p><img src="/aedd6ac2/9.1.0%E5%8A%9F%E7%8E%87%E6%8D%9F%E8%80%97.png" alt></p>
+<p>&#x867D;&#x7136;&#x538B;&#x964D;&#x5927;&#xFF0C;&#x4F46;IGBT&#x53EF;&#x4EE5;&#x505A;&#x5F97;bimosfet&#x9AD8;&#x5F97;&#x591A;&#x7684;&#x7684;&#x8F7D;&#x6D41;&#xFF0C;&#x9AD8;&#x7535;&#x6D41;&#x4F4E;&#x9891;&#x4E0B;&#x4E0B;&#x4F1A;&#x6BD4;mosfet&#x6548;&#x7387;&#x9AD8;</p>
+<p><img src="/aedd6ac2/9.2.0.png" alt="20200222223243"></p>
+<p>&#x6765;&#x81EA;: GreatScott!</p>
+<p>&#x611F;&#x6027;&#x8D1F;&#x8F7D;&#x4E0B;&#xFF0C;IGBT&#x5173;&#x65AD;&#x77AC;&#x95F4;&#x4EA7;&#x751F;&#x6781;&#x9AD8;&#x7684;&#x81EA;&#x611F;&#x53CD;&#x76F8;&#x7535;&#x538B;&#xFF0C;&#x53EF;&#x80FD;&#x51FB;&#x7A7F;IGBT&#xFF0C;&#x9700;&#x8981;&#x53CD;&#x5E76;&#x8054;&#x5FEB;&#x6062;&#x590D;&#x4E8C;&#x6781;&#x7BA1;&#x7EED;&#x6D41;</p>
+<h2 id="TRAIC"><a class="header-anchor" href="#TRAIC"></a>TRAIC</h2>
+<p>&#x7A0D;&#x540E;&#x8865;&#x5145;</p>
+<h1 id="&#x81EA;&#x5DF1;&#x505A;&#x56FA;&#x6001;&#x7EE7;&#x7535;&#x5668;"><a class="header-anchor" href="#&#x81EA;&#x5DF1;&#x505A;&#x56FA;&#x6001;&#x7EE7;&#x7535;&#x5668;"></a>&#x81EA;&#x5DF1;&#x505A;&#x56FA;&#x6001;&#x7EE7;&#x7535;&#x5668;</h1>
+<p>&#x4E4B;&#x524D;&#x63D0;&#x5230;&#x8FC7;&#xFF0C;&#x56FA;&#x6001;&#x7EE7;&#x7535;&#x5668;&#x5185;&#x90E8;&#x4E00;&#x822C;&#x7528;mosfet&#x6216;&#x8005;TRAIC&#x5B9E;&#x73B0;&#x5F00;&#x5173;&#xFF0C;</p>
+<p>&#x1F44A; &#x4E3A;&#x4E86;&#x7B80;&#x8981;&#x8BF4;&#x660E;TRAIC&#x548C;MOSFET&#x56FA;&#x6001;&#x7EE7;&#x7535;&#x5668;&#x63A7;&#x5236;&#x4EA4;&#x6D41;/&#x76F4;&#x6D41;&#x8D1F;&#x8F7D;&#x7684;&#x533A;&#x522B;&#xFF0C;&#x5F00;&#x7BC7;&#x5B89;&#x5229;&#x4E00;&#x6587;&#xFF1A;</p>
+<p><a href="https://e2e.ti.com/blogs_/b/industrial_strength/archive/2016/07/26/a-modern-approach-to-solid-state-relay-design" target="_blank" rel="noopener">Ti&#xFF1A;&#x56FA;&#x6001;&#x7EE7;&#x7535;&#x5668;&#x8BBE;&#x8BA1;&#x7684;&#x73B0;&#x4EE3;&#x65B9;&#x6CD5;</a></p>
+<h2 id="TRAIC&#x56FA;&#x6001;&#x7EE7;&#x7535;&#x5668;"><a class="header-anchor" href="#TRAIC&#x56FA;&#x6001;&#x7EE7;&#x7535;&#x5668;"></a>TRAIC&#x56FA;&#x6001;&#x7EE7;&#x7535;&#x5668;</h2>
+<p>&#x5E02;&#x9762;&#x4E0A;&#x552E;&#x5356;&#x7684;&#x8FD9;&#x79CD;&#x7EE7;&#x7535;&#x5668;TRAIC&#x4E00;&#x822C;&#x7528;&#x5E26;&#x8FC7;&#x96F6;&#x89E6;&#x53D1;&#x7684;&#x53CC;&#x5411;&#x5149;&#x8026;&#x9A71;&#x52A8;&#xFF0C;&#x8FD9;&#x79CD;&#x5149;&#x8026;&#x53EA;&#x80FD;&#x5728;&#x4EA4;&#x6D41;&#x96F6;&#x4F4D;&#x5F00;&#x5173;&#xFF0C;&#x6240;&#x4EE5;<span style="color:rgb(255, 0, 0);"><strong>&#x53EA;&#x80FD;&#x63A7;&#x5236;&#x4EA4;&#x6D41;&#x901A;&#x65AD;&#xFF0C;&#x4E0D;&#x80FD;&#x5F00;&#x5173;&#x76F4;&#x6D41;</strong></span></p>
+<p>&#x82E5;&#x597D;&#x5947;&#x8BF7;&#x6233;&#xFF1A;<a href="https://www.bilibili.com/video/av53884960/?spm_id_from=trigger_reload" target="_blank" rel="noopener">&#x4EA4;&#x6D41;&#x8D1F;&#x8F7D;&#x7528;&#x56FA;&#x6001;&#x7EE7;&#x7535;&#x5668;&#x662F;&#x5426;&#x53EF;&#x4EE5;&#x63A5;&#x76F4;&#x6D41;&#x8D1F;&#x8F7D;&#xFF1F;&#x5982;&#x679C;&#x63A5;&#x76F4;&#x6D41;&#x8D1F;&#x8F7D;&#x4F1A;&#x600E;&#x6837;</a></p>
+<h3 id="&#x8FC7;&#x96F6;&#x89E6;&#x53D1;&#x7684;&#x53CC;&#x5411;&#x5149;&#x8026;"><a class="header-anchor" href="#&#x8FC7;&#x96F6;&#x89E6;&#x53D1;&#x7684;&#x53CC;&#x5411;&#x5149;&#x8026;"></a>&#x8FC7;&#x96F6;&#x89E6;&#x53D1;&#x7684;&#x53CC;&#x5411;&#x5149;&#x8026;</h3>
+<p>&#x4F8B;&#x5982;MOC304X&#xFF0C;MOC306X&#xFF0C;MOC308X&#xFF0C;&#x2018;X&#x2019;&#x53EF;&#x4EE5;&#x662F;&#x2018;1&#x2019;&#xFF0C;&#x2019;2&#x2018;&#xFF0C;&#x2018;3&#x2019;&#xFF0C;&#x7528;&#x6765;&#x533A;&#x5206;&#x4E0D;&#x540C;&#x578B;&#x53F7;&#x7684;&#x5149;&#x8026;LED&#x7684;&#x5BFC;&#x901A;&#x7535;&#x6D41;:</p>
+<p><img src="/aedd6ac2/moc606X_%E5%AF%BC%E9%80%9A%E7%94%B5%E6%B5%81.jpg" alt></p>
+<h3 id="MOC3063&#x5178;&#x578B;&#x5E94;&#x7528;"><a class="header-anchor" href="#MOC3063&#x5178;&#x578B;&#x5E94;&#x7528;"></a>MOC3063&#x5178;&#x578B;&#x5E94;&#x7528;</h3>
+<p>&#x4EE5;&#x4E0B;&#x662F;MOC3063(&#x5E26;&#x8FC7;&#x96F6;&#x89E6;&#x53D1;&#x7684;&#x5149;&#x8026;)&#x624B;&#x518C;&#x7684;&#xFF0C;&#x63A7;&#x5236;&#x6676;&#x95F8;&#x7BA1;&#x7684;&#x5178;&#x578B;&#x7535;&#x8DEF;&#xFF1A;</p>
+<p>1.&#x53CD;&#x5E76;&#x8054;&#x6676;&#x95F8;&#x7BA1;</p>
+<p>SCR&#x53EF;&#x4EE5;&#x5355;&#x5411;&#x5173;&#x65AD;&#xFF0C;&#x6240;&#x4EE5;&#x4E24;&#x4E2A;SCR&#x53CD;&#x5411;&#x5E76;&#x8054;&#x7684;TRIAC&#x53EF;&#x4EE5;&#x63A7;&#x5236;&#x4EA4;&#x6D41;&#x7535;&#x6D41;</p>
+<p><img src="/aedd6ac2/moc6063_%E5%8F%8D%E5%B9%B6%E8%81%94%E5%85%B8%E5%9E%8B.jpg" alt></p>
+<p>2.&#x53CC;&#x5411;&#x6676;&#x95F8;&#x7BA1;</p>
+<p><img src="/aedd6ac2/moc3063_%E5%8F%8C%E5%90%91%E5%85%B8%E5%9E%8B.jpg" alt></p>
+<p><span style="color:rgb(255, 0, 0);"><strong>&#x7279;&#x522B;&#x63D0;&#x9192;:</strong></span></p>
+<p><span style="color:rgb(255, 0, 0);"> <strong>&#x4E0A;&#x7535;&#x6D4B;&#x8BD5;&#x65F6;&#xFF0C;&#x7BA1;&#x5B50;&#x80CC;&#x9762;&#x91D1;&#x5C5E;&#x7247;&#x4E0A;&#x5E26;&#x9AD8;&#x538B;&#x4EA4;&#x6D41;&#x7535;&#xFF0C;&#x6563;&#x70ED;&#x7247;&#x76F4;&#x89E6;&#x7BA1;&#x5B50;&#xFF0C;&#x4E5F;&#x4F1A;&#x5E26;&#x9AD8;&#x538B;&#x4EA4;&#x6D41;&#x7535;&#xFF0C;&#x5343;&#x4E07;&#x4E0D;&#x8981;&#x7528;&#x624B;&#x6478;&#xFF01;&#xFF01;&#xFF01;</strong></span></p>
+<p><a href="https://www.bilibili.com/video/av16621903?from=search&amp;seid=2207986570359685649" target="_blank" rel="noopener">&#x56FA;&#x6001;&#x7EE7;&#x7535;&#x5668;||&#x81EA;&#x5DF1;&#x505A;&#x8FD8;&#x662F;&#x4E70;</a></p>
+<p><img src alt></p>
+<h2 id="Mosfet&#x56FA;&#x6001;&#x7EE7;&#x7535;&#x5668;"><a class="header-anchor" href="#Mosfet&#x56FA;&#x6001;&#x7EE7;&#x7535;&#x5668;"></a>Mosfet&#x56FA;&#x6001;&#x7EE7;&#x7535;&#x5668;</h2>
+<h3 id="Mosfet&#x76F4;&#x6D41;&#x56FA;&#x6001;&#x7EE7;&#x7535;&#x5668;"><a class="header-anchor" href="#Mosfet&#x76F4;&#x6D41;&#x56FA;&#x6001;&#x7EE7;&#x7535;&#x5668;"></a>Mosfet&#x76F4;&#x6D41;&#x56FA;&#x6001;&#x7EE7;&#x7535;&#x5668;</h3>
+<p><img src="/aedd6ac2/DC_Solid_State_Relay.png" alt></p>
+<p><a href="https://www.electronics-lab.com/wp-content/uploads/2016/01/DC_Solid_State_Relay.pdf" target="_blank" rel="noopener">&#x6765;&#x81EA;&#xFF1A;TWOVOLT1</a></p>
+<p>PS&#xFF1A;Mosfet&#x5B89;&#x88C5;&#x59FF;&#x52BF;&#x597D;&#x8BC4;&#xFF0C;&#x4FBF;&#x4E8E;&#x70ED;&#x7BA1;&#x76F4;&#x89E6;&#x6563;&#x70ED;&#xFF0C;Mark</p>
+<h3 id="Mosfet&#x4EA4;&#x6D41;&#x56FA;&#x6001;&#x7EE7;&#x7535;&#x5668;"><a class="header-anchor" href="#Mosfet&#x4EA4;&#x6D41;&#x56FA;&#x6001;&#x7EE7;&#x7535;&#x5668;"></a>Mosfet&#x4EA4;&#x6D41;&#x56FA;&#x6001;&#x7EE7;&#x7535;&#x5668;</h3>
+<p>&#x53EF;&#x884C;&#xFF0C;&#x548C;&#x4E0A;&#x9762;&#x53CD;&#x5E76;&#x8054;SCR&#x63A7;&#x5236;&#x4EA4;&#x6D41;&#x5DEE;&#x4E0D;&#x591A;</p>
+<p><a href="https://www.amobbs.com/thread-772140-1-1.html" target="_blank" rel="noopener">&#x6765;&#x81EA;&#xFF1A;&#x963F;&#x83AB;&#x7535;&#x5B50;&#x8BBA;&#x575B;&#x963F;&#x7518;&#x8001;&#x5E08;</a></p>
+<p>Mosfet&#x6E90;&#x6781;&#x6F0F;&#x6781;&#x6709;&#x4E2A;&#x53CD;&#x5411;&#x4E8C;&#x6781;&#x7BA1;&#xFF0C;&#x8BE5;&#x4E8C;&#x6781;&#x7BA1;&#x662F;&#x5BC4;&#x751F;&#x5728;&#x6676;&#x5143;&#x91CC;&#xFF0C;&#x4E5F;&#x53EB;&#x5BC4;&#x751F;&#x4E8C;&#x6781;&#x7BA1;</p>
+<p>&#x4F8B;&#x5982;IRFP260&#xFF1A;</p>
+<p>![](C:/Users/29209/OneDrive/&#x684C;&#x9762;/3D printer_work/&#x56DE;&#x6D41;&#x710A;&#x7089; 2020-02-19/&#x534A;&#x5BFC;&#x4F53;&#x5F00;&#x5173;&#x5143;&#x4EF6;/MOSFET - &#x91D1;&#x5C5E;-&#x6C27;&#x5316;&#x7269;&#x534A;&#x5BFC;&#x4F53;&#x573A;&#x6548;&#x5E94;&#x6676;&#x4F53;&#x7BA1;/IRFP260mosfet.jpg)</p>
+<p><a href="https://blog.csdn.net/Gdou_YUN/article/details/74181261" target="_blank" rel="noopener">DC-DC buck</a>&#x7684;&#x4E0B;&#x81C2;MOSFET&#x5C31;&#x662F;&#x5DE5;&#x4F5C;&#x5728;&#x53CD;&#x5411;&#x5BFC;&#x901A;&#x72B6;&#x6001;&#x7684;&#xFF0C;<br>
+&#x53CD;&#x5411;&#x5DE5;&#x4F5C;&#x7684;&#x8BDD;&#x4E5F;&#x662F;&#x9760;GS&#x95F4;&#x7684;&#x7535;&#x538B;&#x6765;&#x63A7;&#x5236;&#xFF0C;&#x6240;&#x4EE5;&#x8981;&#x6CE8;&#x610F;g&#x6781;&#x4E0E;s&#x6781;&#x7684;&#x7535;&#x538B;&#x4E0D;&#x8981;&#x8D85;&#x9650;</p>
+<p>&#x505A;&#x4EA4;&#x6D41;&#x5F00;&#x5173;&#x7684;&#x8BDD;&#x53EF;&#x4EE5;&#x5C06;&#x4E24;&#x4E2A;mosfet&#x53CD;&#x5411;&#x4E32;&#x8054;&#xFF0C;s&#x6781;&#x8FDE;&#x5728;&#x4E00;&#x8D77;&#xFF0C;&#x63A7;&#x5236;&#x4E24;&#x4E2A;g&#x6781;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;</p>
+<p>&#x5B8C;&#x5168;&#x53EF;&#x4EE5;&#x7684;,&#x6211;&#x66FE;&#x7ECF;&#x5C31;&#x8FD9;&#x4E48;&#x4F7F;&#x7528;&#x8FC7;.&#x5206;&#x522B;&#x63A7;&#x5236;&#x4E24;&#x8DEF;500KHz&#x7684;&#x4EA4;&#x6D41;&#x7535;&#x8F93;&#x51FA;.<br>
+&#x4F7F;&#x7528;&#x7684;&#x65B9;&#x6CD5;&#x5C31;&#x662F;&#x4E24;&#x4E2A;mosfet&#x53CD;&#x5411;&#x4E32;&#x8054;&#xFF0C;s&#x6781;&#x8FDE;&#x5728;&#x4E00;&#x8D77;&#xFF0C;&#x63A7;&#x5236;&#x4E24;&#x4E2A;g&#x6781;.</p>
+<p>&#x4EE5;N&#x578B;MOSFET&#x4E3A;&#x4F8B;&#xFF0C;MOSFET&#x5728;&#x5173;&#x65AD;&#x72B6;&#x6001;&#x4E0B;&#x65BD;&#x52A0;D+ S-&#x7684;&#x7535;&#x538B;&#x662F;&#x4E0D;&#x80FD;&#x5F62;&#x6210;&#x901A;&#x8DEF;&#x7684;&#xFF0C;&#x800C;S+D-&#x65F6;&#x7531;&#x4E8E;&#x5BC4;&#x751F;&#x4E8C;&#x6781;&#x7BA1;&#x7684;&#x4F5C;&#x7528;&#x800C;&#x5448;&#x4E8C;&#x6781;&#x7BA1;&#x6B63;&#x5411;&#x7279;&#x6027;&#x3002;MOSFET&#x7684;GS&#x95F4;&#x52A0;&#x6B63;&#x5411;&#x9A71;&#x52A8;&#x7535;&#x538B;&#xFF0C;D&#x6781;&#x4E0E;S&#x6781;&#x4E4B;&#x95F4;&#x5448;&#x4F4E;&#x963B;&#x503C;&#x7535;&#x963B;&#x7279;&#x6027;&#xFF0C;&#x4E0D;&#x7BA1;DS&#x95F4;&#x7535;&#x538B;&#x65B9;&#x5411;&#x5982;&#x4F55;MOSFET&#x90FD;&#x662F;&#x5BFC;&#x901A;&#x7684;&#xFF0C;&#x5728;MOSFET&#x5BFC;&#x901A;&#x72B6;&#x6001;&#x662F;&#x5141;&#x8BB8;&#x7535;&#x6D41;&#x4ECE;S&#x6D41;&#x5411;D&#x7684;&#x3002;<br>
+&#x5982;&#x679C;&#x5C06;&#x4E24;&#x4E2A;N&#x578B;MOSFET&#x7684;S&#x6781;&#x5E76;&#x8054;&#xFF0C;G&#x6781;&#x4E5F;&#x5E76;&#x8054;&#xFF0C;GS&#x95F4;&#x672A;&#x52A0;&#x9A71;&#x52A8;&#x7535;&#x538B;&#x524D;&#xFF0C;&#x4E24;&#x4E2A;MOSFET&#x7684;&#x5BC4;&#x751F;&#x4E8C;&#x6781;&#x7BA1;&#x662F;&#x53CD;&#x5411;&#x4E32;&#x8054;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x4E24;&#x4E2A;MOSFET&#x7684;D&#x6781;&#x4E4B;&#x95F4;&#x662F;&#x4E0D;&#x901A;&#x7684;&#xFF1B;&#x5982;&#x679C;&#x5728;GS&#x95F4;&#x52A0;&#x6B63;&#x5411;&#x9A71;&#x52A8;&#x7535;&#x538B;&#x4F7F;&#x5F97;&#x4E24;&#x4E2A;MOSFET&#x90FD;&#x5BFC;&#x901A;&#xFF0C;&#x5982;&#x679C;&#x4E24;&#x4E2A;D&#x6781;&#x95F4;&#x6709;&#x7535;&#x538B;&#xFF0C;&#x5219;&#x4E00;&#x4E2A;&#x5DE5;&#x4F5C;&#x5728;&#x6B63;&#x5411;&#x5BFC;&#x901A;&#xFF0C;&#x53E6;&#x4E00;&#x4E2A;&#x5DE5;&#x4F5C;&#x5728;&#x53CD;&#x5411;&#x5BFC;&#x901A;&#x72B6;&#x6001;&#x3002;&#x56E0;&#x6B64;&#x53EF;&#x4EE5;&#x63A7;&#x5236;GS&#x95F4;&#x7535;&#x538B;&#x6765;&#x63A7;&#x5236;&#x4E24;&#x4E2A;D&#x6781;&#x4E4B;&#x95F4;&#x7684;&#x901A;&#x65AD;&#x3002;</p>
+<p>&#x770B;&#x573A;&#x6548;&#x5E94;&#x7BA1;&#x7684;&#x7ED3;&#x6784;&#x56FE;&#x53BB;&#x3002;<br>
+&#x53EA;&#x8981;D&#x3001;S&#x95F4;&#x5B58;&#x5728;&#x5BFC;&#x7535;&#x6C9F;&#x9053;&#xFF0C;D&#x5230;S&#x5C31;&#x80FD;&#x901A;&#xFF0C;S&#x5230;D&#x4E5F;&#x80FD;&#x901A;&#x3002;&#x800C;D&#x3001;S&#x5B58;&#x5728;&#x5BFC;&#x7535;&#x6C9F;&#x9053;&#x7684;&#x524D;&#x63D0;&#x662F;&#xFF1A;<br>
+N&#x6C9F;&#x9053;&#x589E;&#x5F3A;&#x578B;&#xFF1A;G&#x4E0E;S&#x4E4B;&#x95F4;&#x52A0;&#x6B63;&#x7535;&#x538B;&#xFF0C;&#x5E76;&#x4E14;&#x591F;&#x9AD8;&#xFF0C;&#x81F3;&#x5C11;&#x9AD8;&#x4E8E;&#x5F00;&#x542F;&#x7535;&#x538B;&#xFF1B;<br>
+N&#x6C9F;&#x9053;&#x8017;&#x5C3D;&#x578B;&#xFF1A;&#x56E0;&#x4E3A;D&#x3001;S&#x95F4;&#x672C;&#x6765;&#x5C31;&#x6709;&#x5BFC;&#x7535;&#x6C9F;&#x9053;&#xFF0C;&#x6240;&#x4EE5;G&#x4E0E;S&#x4E4B;&#x95F4;&#x52A0;&#x7684;&#x8D1F;&#x7535;&#x538B;&#x8981;&#x6BD4;&#x8F83;&#x4F4E;&#xFF0C;&#x4E0D;&#x80FD;&#x9AD8;&#x4E8E;&#x5173;&#x65AD;&#x7535;&#x538B;&#xFF1B;<br>
+P&#x6C9F;&#x9053;&#x7684;&#x5C31;&#x4E0D;&#x8BF4;&#x4E86;&#x3002;<br>
+&#x7F16;&#x8F91;&#x539F;&#x56E0;&#xFF1A;<br>
+&#x52A0;&#x4E00;&#x53E5;&#xFF0C;&#x8981;&#x505A;&#x4EA4;&#x6D41;&#x7684;&#x5F00;&#x5173;&#xFF0C;&#x8981;&#x53C2;&#x8003;&#x963F;&#x7518;&#x610F;&#x89C1;&#xFF0C;&#x8981;&#x7528;&#x4E24;&#x7BA1;&#x5B50;&#x7684;</p>
+<h1 id="zero-crossing-detector"><a class="header-anchor" href="#zero-crossing-detector"></a>zero-crossing detector</h1>
+<p>&#x96F6;&#x4EA4;&#x53C9;&#x70B9;&#xFF0C;&#x662F;&#x6307;&#x5728;&#x6B63;&#x5F26;&#x51FD;&#x6570;&#x56FE;&#x50CF;&#x4E2D;&#x7684;&#x8FC7;&#x96F6;&#x70B9;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x4E0A;&#x4E00;&#x523B;&#x4E3A;&#x6B63;&#xFF0C;&#x4E0B;&#x4E00;&#x523B;&#x5C31;&#x53D8;&#x6210;&#x8D1F;&#x7684;&#x90A3;&#x4E2A;&#x70B9;</p>
+<h3 id="&#x4E3A;&#x4EC0;&#x4E48;&#x9700;&#x8981;&#x96F6;&#x4EA4;&#x53C9;&#xFF1F;"><a class="header-anchor" href="#&#x4E3A;&#x4EC0;&#x4E48;&#x9700;&#x8981;&#x96F6;&#x4EA4;&#x53C9;&#xFF1F;"></a>&#x4E3A;&#x4EC0;&#x4E48;&#x9700;&#x8981;&#x96F6;&#x4EA4;&#x53C9;&#xFF1F;</h3>
+<p>Theremino OptoTriac V1&#x662F; MOC3063+BTA16&#x7684;&#x5178;&#x578B;&#x5E94;&#x7528;&#x7535;&#x8DEF;&#xFF0C;&#x5176;&#x539F;&#x7406;&#x56FE;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p><img src="/aedd6ac2/OptoTRIACv1sch.png" alt></p>
+<p><a href="https://www.store-ino.com/product/theremino-optotriac-v1/" target="_blank" rel="noopener">&#x5B98;&#x65B9;</a>&#x89E3;&#x91CA;&#xFF1A;</p>
+<p>&#x8BE5;&#x5149;&#x7535;&#x53EF;&#x63A7;&#x7845;&#xFF08;&#x6700;&#x5927;&#x529F;&#x7387;3 KW&#xFF09;**</p>
+<p>&#x8BE5;&#x7535;&#x8DEF;&#x4E0E;&#x7535;&#x6E90;&#x5F00;&#x5173;&#x975E;&#x5E38;&#x76F8;&#x4F3C;&#x3002;&#x53EF;&#x4EE5;&#x6253;&#x5F00;&#x548C;&#x5173;&#x95ED;&#x5927;&#x8D1F;&#x8F7D;&#xFF0C;&#x4F8B;&#x5982;&#x7089;&#x5B50;&#x548C;&#x9505;&#x7089;&#x3002;&#x5B83;&#x4E5F;&#x53EF;&#x4EE5;<strong>&#x5F88;&#x597D;&#x5730;&#x4E0E;&#x7535;&#x611F;&#x6027;&#x8D1F;&#x8F7D;&#x914D;&#x5408;&#x4F7F;&#x7528;</strong>&#xFF0C;&#x4F8B;&#x5982;&#x7535;&#x52A8;&#x673A;&#xFF0C;&#x53D8;&#x538B;&#x5668;&#x548C;&#x5927;&#x578B;&#x7535;&#x78C1;&#x4F53;</p>
+<p><span style="color:rgb(255, 0, 0);"><strong>&#x901A;&#x8FC7;&#x5149;&#x8026;&#x5408;&#x5668;&#x201C;&#x96F6;&#x4EA4;&#x53C9;&#x201D;&#xFF0C;&#x59CB;&#x7EC8;&#x5728;&#x7CBE;&#x786E;&#x5730;&#x8FC7;&#x96F6;&#x65F6;&#x523B;&#x6362;&#x5411;&#xFF0C;&#x6CA1;&#x6709;&#x7535;&#x78C1;&#x5E72;&#x6270;&#xFF0C;&#x7535;&#x538B;&#x975E;&#x5E38;&#x5E72;&#x51C0;&#xFF0C;&#x4E0D;&#x4F1A;&#x4EA7;&#x751F;&#x5371;&#x9669;&#x7684;&#x989D;&#x5916;&#x7535;&#x538B;&#xFF08;&#x5C16;&#x5CF0;&#xFF09;</strong></span></p>
+<p>Theremino&#x5F00;&#x53D1;&#x677F;&#x7684;&#x9ED8;&#x8BA4;PWM&#x8109;&#x51B2;&#x5468;&#x671F;&#xFF08;250 Hz&#xFF09;&#x592A;&#x9AD8;&#xFF0C;&#x65E0;&#x6CD5;&#x76F4;&#x63A5;&#x9A71;&#x52A8;50Hz&#x8D1F;&#x8F7D;</p>
+<p>&#x5BF9;&#x4E8E;&#x54CD;&#x5E94;&#x8F83;&#x6162;&#x7684;&#x8BBE;&#x5907;&#xFF08;&#x4F8B;&#x5982;&#x5927;&#x578B;&#x70E4;&#x7BB1;&#xFF09;&#xFF0C;&#x53EF;&#x4EE5;&#x7F16;&#x5199;PID&#x8C03;&#x6E29;&#x8F6F;&#x4EF6;&#xFF0C;&#x751F;&#x6210;&#x975E;&#x5E38;&#x6162;&#x7684;PWM&#xFF08;&#x5468;&#x671F;&#x4E3A;1&#x79D2;&#xFF0C;10&#x79D2;&#x6216;&#x66F4;&#x957F;&#x65F6;&#x95F4;&#x90FD;&#x884C;&#xFF09;&#x5468;&#x671F;&#x4E3A;1&#x79D2;&#xFF0C;&#x7CBE;&#x5EA6;&#x5C06;&#x4E3A;1&#xFF05;&#xFF0C;&#x800C;10&#x79D2;&#x540E;&#xFF0C;&#x7CBE;&#x5EA6;&#x5C06;&#x4E3A;0.1&#xFF05;</p>
+<p>&#x65E0;&#x9700;&#x4EFB;&#x4F55;&#x4FEE;&#x6539;&#xFF0C;Arduino&#x7CFB;&#x7EDF;&#x5C31;&#x53EF;&#x4EE5;&#x8F7B;&#x677E;&#x4F7F;&#x7528;&#x6B64;&#x5149;&#x7535;&#x53EF;&#x63A7;&#x7845;</p>
+<h4 id="&#x6574;&#x6D41;&#x5168;&#x6865;&#x52A0;&#x666E;&#x901A;&#x5149;&#x8026;&#x5B9E;&#x73B0;&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;&#xFF0C;&#x5355;&#x7247;&#x673A;&#x6839;&#x636E;&#x96F6;&#x4F4D;&#x4FE1;&#x53F7;&#x63A7;&#x5236;TRAIC&#x7684;&#x5F00;&#x5173;"><a class="header-anchor" href="#&#x6574;&#x6D41;&#x5168;&#x6865;&#x52A0;&#x666E;&#x901A;&#x5149;&#x8026;&#x5B9E;&#x73B0;&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;&#xFF0C;&#x5355;&#x7247;&#x673A;&#x6839;&#x636E;&#x96F6;&#x4F4D;&#x4FE1;&#x53F7;&#x63A7;&#x5236;TRAIC&#x7684;&#x5F00;&#x5173;"></a>&#x6574;&#x6D41;&#x5168;&#x6865;&#x52A0;&#x666E;&#x901A;&#x5149;&#x8026;&#x5B9E;&#x73B0;&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;&#xFF0C;&#x5355;&#x7247;&#x673A;&#x6839;&#x636E;&#x96F6;&#x4F4D;&#x4FE1;&#x53F7;&#x63A7;&#x5236;TRAIC&#x7684;&#x5F00;&#x5173;</h4>
+<p>&#x6765;&#x6E90;&#xFF1A;<a href="https://create.arduino.cc/projecthub/saulius-bandzevicius/arduino-based-universal-ac-motor-speed-controller-a4ceaf" target="_blank" rel="noopener">Arduino Project Hub</a></p>
+<p><img src="/aedd6ac2/%E9%9B%B6%E4%BD%8D%E4%BF%A1%E5%8F%B7%E4%BC%A0%E7%BB%99%E5%8D%95%E7%89%87%E6%9C%BA%E6%8E%A7%E5%88%B6.jpg" alt></p>
+<p>&#x4F7F;&#x7528;MOC3023&#x89E6;&#x53D1;BTA16(&#x4F5C;&#x8005;&#x5B9E;&#x9645;&#x7528;&#x7684;)&#xFF0C;&#x8BE5;&#x5149;&#x8026;&#x6CA1;&#x6709;&#x96C6;&#x6210;<strong>&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;&#x5668;</strong>&#xFF0C;&#x6240;&#x4EE5;&#x4F5C;&#x8005;&#x53C8;&#x642D;&#x4E86;&#x4E00;&#x4E2A;&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;&#x89E6;&#x53D1;&#x5149;&#x8026;&#x7684;&#x7535;&#x8DEF;&#xFF0C;&#x5C06;&#x96F6;&#x4F4D;&#x4FE1;&#x53F7;&#x4F20;&#x7ED9;&#x5355;&#x7247;&#x673A;&#x63A7;&#x5236;.&#xFF0C;&#x5728;&#x96F6;&#x4F4D;&#x65F6;&#x6362;&#x5411;&#x51CF;&#x5C0F;&#x5C16;&#x5CF0;&#xFF0C;&#x5B9E;&#x73B0;&#x7535;&#x673A;pid&#x8C03;&#x901F;<a href="https://www.elprocus.com/zero-crossing-detector-circuit-and-working/" target="_blank" rel="noopener">&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;&#x5668;(ZCD)&#x7535;&#x8DEF;&#x5982;&#x4F55;&#x5DE5;&#x4F5C;&#xFF1F;</a></p>
+<h1 id="&#x4EBA;&#x4F53;&#x5B89;&#x5168;&#x7535;&#x538B;&#x7535;&#x6D41;"><a class="header-anchor" href="#&#x4EBA;&#x4F53;&#x5B89;&#x5168;&#x7535;&#x538B;&#x7535;&#x6D41;"></a>&#x4EBA;&#x4F53;&#x5B89;&#x5168;&#x7535;&#x538B;&#x7535;&#x6D41;</h1>
+<p>36V &#x56E0;&#x4EBA;&#x800C;&#x5F02;&#xFF0C;&#x6D41;&#x7ECF;&#x4EBA;&#x4F53;de&#x7535;&#x6D41;&#x8FBE;10mA&#x65F6;&#xFF0C;&#x4EBA;&#x5F00;&#x59CB;&#x6709;&#x611F;&#x89C9;&#xFF0C;&#x8D85;&#x8FC7;30mA&#x65F6;&#x6709;&#x751F;&#x547D;&#x5371;&#x9669;&#xFF0C;50mA&#x57FA;&#x672C;&#x6B7B;&#x900F;&#x4E86;</p>
+<h1 id="&#x6F0F;&#x7535;&#x4FDD;&#x62A4;&#x5668;&#x4E0E;&#x7A7A;&#x6C14;&#x5F00;&#x5173;"><a class="header-anchor" href="#&#x6F0F;&#x7535;&#x4FDD;&#x62A4;&#x5668;&#x4E0E;&#x7A7A;&#x6C14;&#x5F00;&#x5173;"></a>&#x6F0F;&#x7535;&#x4FDD;&#x62A4;&#x5668;&#x4E0E;&#x7A7A;&#x6C14;&#x5F00;&#x5173;</h1>
+<h2 id="&#x516C;&#x5236;&#x7EBF;&#x5F84;&#x4E0E;&#x8F7D;&#x6D41;&#x5173;&#x7CFB;"><a class="header-anchor" href="#&#x516C;&#x5236;&#x7EBF;&#x5F84;&#x4E0E;&#x8F7D;&#x6D41;&#x5173;&#x7CFB;"></a>&#x516C;&#x5236;&#x7EBF;&#x5F84;&#x4E0E;&#x8F7D;&#x6D41;&#x5173;&#x7CFB;</h2>
+<p><img src="/aedd6ac2/%E7%BA%BF%E5%BE%84%E4%B8%8E%E7%94%B5%E6%B5%81%E5%8A%9F%E7%8E%87%E7%9A%84%E5%AE%89%E5%85%A8%E8%B4%9F%E8%BD%BD.jpg" alt="510.9=4. 5"></p>
+<h3 id="&#x7279;&#x6C1F;&#x9F99;&#x9540;&#x94F6;&#x7EBF;&#x5BF9;&#x5E94;&#x516C;&#x5236;&#x7EBF;&#x5F84;&#xFF1A;"><a class="header-anchor" href="#&#x7279;&#x6C1F;&#x9F99;&#x9540;&#x94F6;&#x7EBF;&#x5BF9;&#x5E94;&#x516C;&#x5236;&#x7EBF;&#x5F84;&#xFF1A;"></a>&#x7279;&#x6C1F;&#x9F99;&#x9540;&#x94F6;&#x7EBF;&#x5BF9;&#x5E94;&#x516C;&#x5236;&#x7EBF;&#x5F84;&#xFF1A;</h3>
+<p>&#x7279;&#x6C1F;&#x9F99;&#x9540;&#x94F6;&#x7EBF;&#x662F;&#x591A;&#x80A1;&#x94DC;&#x9540;&#x9521;&#x8F6F;&#x7EBF;&#xFF0C;&#x5BF9;&#x5E94;&#x7684;&#x516C;&#x5236;&#x7EBF;&#x662F;&#x786C;&#x7EBF;&#xFF0C;&#x591A;&#x82AF;&#x7EBF;&#x8F83;&#x8F6F;&#xFF0C;&#x65BD;&#x5DE5;&#x5E03;&#x7EBF;&#x65B9;&#x4FBF;&#xFF0C;&#x4E00;&#x822C;&#x7528;&#x4E8E;&#x63A7;&#x5236;&#x56DE;&#x8DEF;&#x5E03;&#x7EBF;&#xFF1B;&#x5355;&#x82AF;&#x7EBF;&#x8F83;&#x786C;&#xFF0C;&#x4E00;&#x822C;&#x7528;&#x4E8E;&#x4E3B;&#x56DE;&#x8DEF;&#x5E03;&#x7EBF;&#x3002;&#x4E0D;&#x7BA1;&#x662F;&#x591A;&#x82AF;&#x7EBF;&#x8FD8;&#x662F;&#x5355;&#x82AF;&#x7EBF;&#xFF0C;&#x53EA;&#x8981;&#x5B83;&#x4EEC;&#x7684;&#x622A;&#x9762;&#x79EF;&#x76F8;&#x540C;&#xFF0C;&#x5219;&#x8F7D;&#x6D41;&#x91CF;&#x5C31;&#x76F8;&#x540C;</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">&#x82F1;&#x5236;&#x7EBF;&#x5F84;(AWG)</th>
+<th style="text-align:center">&#x5BF9;&#x5E94;&#x516C;&#x5236;&#x89C4;&#x683C;(mm<sup>2</sup>)</th>
+<th style="text-align:center">&#x5B89;&#x5168;&#x8F7D;&#x6D41;&#x91CF;(A)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">22</td>
+<td style="text-align:center">0.35</td>
+<td style="text-align:center">1.9</td>
+</tr>
+<tr>
+<td style="text-align:center">20</td>
+<td style="text-align:center">0.5</td>
+<td style="text-align:center">2.7</td>
+</tr>
+<tr>
+<td style="text-align:center">18</td>
+<td style="text-align:center">1.0</td>
+<td style="text-align:center">5.4</td>
+</tr>
+<tr>
+<td style="text-align:center">16</td>
+<td style="text-align:center">1.5</td>
+<td style="text-align:center">8.1</td>
+</tr>
+<tr>
+<td style="text-align:center">14</td>
+<td style="text-align:center">2.0</td>
+<td style="text-align:center">10.8</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://www.diangon.com/thread-36618-1-1.html" target="_blank" rel="noopener">&#x591A;&#x82AF;&#x7EBF;&#x548C;&#x5355;&#x82AF;&#x7EBF;&#x54EA;&#x4E2A;&#x597D;&#xFF1F;&#x5355;&#x80A1;&#x7EBF;&#x548C;&#x591A;&#x80A1;&#x7EBF;&#x7684;&#x533A;&#x522B;</a></p>
+<h2 id="&#x7A7A;&#x6C14;&#x5F00;&#x5173;&#x539F;&#x7406;"><a class="header-anchor" href="#&#x7A7A;&#x6C14;&#x5F00;&#x5173;&#x539F;&#x7406;"></a>&#x7A7A;&#x6C14;&#x5F00;&#x5173;&#x539F;&#x7406;</h2>
+<h3 id="&#x7EBF;&#x5F84;&#x4E0E;&#x7A7A;&#x5F00;&#x9009;&#x914D;"><a class="header-anchor" href="#&#x7EBF;&#x5F84;&#x4E0E;&#x7A7A;&#x5F00;&#x9009;&#x914D;"></a>&#x7EBF;&#x5F84;&#x4E0E;&#x7A7A;&#x5F00;&#x9009;&#x914D;</h3>
+<p>1&#x5E73;&#x65B9;&#x7684;&#x94DC;&#x7EBF;&#xFF0C;&#x8981;&#x770B;&#x82AF;&#x6570;&#x3002;&#x5355;&#x82AF;&#x7684;&#x8BDD;&#xFF0C;&#x53EF;&#x4EE5;&#x8FBE;&#x5230;9A&#x5DE6;&#x53F3;&#x3002;&#x5982;&#x679C;&#x4E24;&#x82AF;&#xFF0C;&#x4E09;&#x82AF;&#x7684;&#x8BDD;&#xFF0C;&#x7535;&#x6D41;&#x6570;&#x4F9D;&#x6B21;&#x9012;&#x51CF;&#x3002;&#x82AF;&#x6570;&#x8D8A;&#x591A;&#xFF0C;&#x7535;&#x6D41;&#x8D8A;&#x5C0F;&#x3002;&#x56E0;&#x4E3A;&#x82AF;&#x6570;&#x8D8A;&#x591A;&#xFF0C;&#x6563;&#x70ED;&#x6027;&#x80FD;&#x8D8A;&#x5DEE;&#xFF0C;&#x8003;&#x8651;&#x5230;&#x7EDD;&#x7F18;&#x5C42;&#x7684;&#x8010;&#x6E29;&#x6027;&#x3002;</p>
+<p>2&#x3001;&#x67D0;&#x6750;&#x6599;(&#x4E00;&#x822C;&#x662F;&#x94DC;&#x6216;&#x94DD;)&#x67D0;&#x622A;&#x9762;j&#x79EF;&#x7684;&#x5BFC;&#x7EBF;&#x80FD;&#x901A;&#x8FC7;&#x591A;&#x5927;&#x7684;&#x7535;&#x6D41;&#x662F;&#x7531;&#x8BB8;&#x591A;&#x5177;&#x4F53;&#x56E0;&#x7D20;&#x51B3;&#x5B9A;&#x7684;&#xFF0C;&#x5DE5;&#x7A0B;&#x4E2D;&#x4E3B;&#x8981;&#x8003;&#x8651;&#x7535;&#x538B;&#x964D;&#x548C;&#x53D1;&#x70ED;&#x4E24;&#x4E2A;&#x56E0;&#x7D20;&#xFF0C;&#x5BB6;&#x5EAD;&#x4E2D;&#x4F7F;&#x7528;&#x7531;&#x4E8E;&#x4E00;&#x822C;&#x957F;&#x5EA6;&#x6BD4;&#x8F83;&#x77ED;&#x5C31;&#x53EA;&#x8003;&#x8651;&#x53D1;&#x70ED;&#x8FD9;&#x4E2A;&#x56E0;&#x7D20;&#x4E86;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x7535;&#x7EBF;&#x5141;&#x8BB8;&#x7684;&#x6700;&#x9AD8;&#x4F7F;&#x7528;&#x6E29;&#x5EA6;&#x662F;&#x51B3;&#x5B9A;&#x6700;&#x5927;&#x8F7D;&#x6D41;&#x91CF;&#x7684;&#x552F;&#x4E00;&#x56E0;&#x7D20;&#x3002;</p>
+<p>&#x5B9E;&#x9645;&#x4F7F;&#x7528;&#x4E2D;&#xFF0C;&#x4E0D;&#x4F46;&#x7535;&#x6D41;&#x5F71;&#x54CD;&#x5BFC;&#x7EBF;&#x6E29;&#x5EA6;&#xFF0C;&#x6563;&#x70ED;&#x6761;&#x4EF6;&#x4E5F;&#x5F71;&#x54CD;&#x5BFC;&#x7EBF;&#x6E29;&#x5EA6;&#x3002;&#x51B3;&#x5B9A;&#x6563;&#x70ED;&#x60C5;&#x51B5;&#x7684;&#x5177;&#x4F53;&#x73AF;&#x5883;&#x6709;&#x5F88;&#x5927;&#x5DEE;&#x5F02;&#xFF0C;&#x6240;&#x4EE5;&#x624D;&#x6709;&#x4E86;&#x8BB8;&#x591A;&#x4E0D;&#x540C;&#x7684;&#x6570;&#x636E;&#x3002;</p>
+<p>&#x4F8B;&#x5982;2.5&#x5E73;&#x65B9;&#x7684;&#x6A61;&#x76AE;&#x94DC;&#x5BFC;&#x7EBF;<a href="https://www.baidu.com/s?wd=%E7%8E%AF%E5%A2%83%E6%B8%A9%E5%BA%A6&amp;tn=SE_PcZhidaonwhc_ngpagmjz&amp;rsv_dl=gh_pc_zhidao" target="_blank" rel="noopener">&#x73AF;&#x5883;&#x6E29;&#x5EA6;</a>25&#x5EA6;c&#x65F6;&#x660E;&#x6577;&#x8BBE;&#x6700;&#x5927;&#x5141;&#x8BB8;&#x7535;&#x6D41;&#x662F;35&#x5B89;&#xFF0C;&#x5851;&#x6599;&#x5BFC;&#x7EBF;&#x662F;32&#x5B89;&#xFF0C;</p>
+<p><a href="https://www.baidu.com/s?wd=%E7%8E%AF%E5%A2%83%E6%B8%A9%E5%BA%A6&amp;tn=SE_PcZhidaonwhc_ngpagmjz&amp;rsv_dl=gh_pc_zhidao" target="_blank" rel="noopener">&#x73AF;&#x5883;&#x6E29;&#x5EA6;</a>30&#x5EA6;c&#x65F6;&#x5C31;&#x53D8;&#x6210;33&#x5B89;&#x548C;30&#x5B89;&#x4E86;&#xFF0C;&#x8FD9;&#x5C31;&#x662F;&#x8BF4;&#x5BFC;&#x7EBF;&#x5916;&#x76AE;&#x6750;&#x6599;&#x548C;<a href="https://www.baidu.com/s?wd=%E7%8E%AF%E5%A2%83%E6%B8%A9%E5%BA%A6&amp;tn=SE_PcZhidaonwhc_ngpagmjz&amp;rsv_dl=gh_pc_zhidao" target="_blank" rel="noopener">&#x73AF;&#x5883;&#x6E29;&#x5EA6;</a>&#x7684;&#x4E0D;&#x540C;&#x53EF;&#x9020;&#x6210;&#x6700;&#x5927;&#x5141;&#x8BB8;&#x7535;&#x6D41;&#x7684;&#x4E0D;&#x540C;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x5C31;&#x53EA;&#x8BF4;2.5&#x5E73;&#x65B9;&#x5851;&#x6599;&#x94DC;&#x5BFC;&#x7EBF;&#x5728;25&#x5EA6;c&#x73AF;&#x5883;&#x6E29;&#x5EA6;&#x7A7F;&#x7BA1;&#x5B50;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x4E86;&#xFF0C;&#x91D1;&#x5C5E;&#x7BA1;&#x5982;&#x679C;&#x7A7F;2&#x6839;&#x5BFC;&#x7EBF;&#x7684;&#x8BDD;&#x6BCF;&#x6839;&#x6700;&#x5927;&#x5141;&#x8BB8;&#x7535;&#x6D41;&#x662F;26&#x5B89;&#xFF0C;4&#x6839;&#x7684;&#x8BDD;&#x5C31;&#x662F;22&#x5B89;&#xFF0C;&#x800C;&#x7A7F;&#x5851;&#x6599;&#x7BA1;&#x53C8;&#x5206;&#x522B;&#x53D8;&#x6210;&#x4E86;24&#x548C;19&#x5B89;&#x4E86;&#xFF0C;&#x8FD9;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x7BA1;&#x5B50;&#x7684;&#x6750;&#x6599;&#x548C;&#x7BA1;&#x5B50;&#x5185;&#x5BFC;&#x7EBF;&#x7684;&#x603B;&#x6839;&#x6570;&#x4E5F;&#x662F;&#x5F71;&#x54CD;&#x6700;&#x5927;&#x5141;&#x8BB8;&#x7535;&#x6D41;&#x7684;&#x56E0;&#x7D20;&#x4E4B;&#x4E00;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x6362;&#x6210;&#x94DD;&#x5BFC;&#x7EBF;&#x5C31;&#x53C8;&#x4E0D;&#x4E00;&#x6837;&#x4E86;&#x3002;&#x4EE5;&#x4E0A;&#x63D0;&#x4F9B;&#x7684;&#x6570;&#x636E;&#x662F;&#x5B9E;&#x7528;&#x6570;&#x636E;&#x800C;&#x4E0D;&#x662F;&#x5047;&#x8BBE;&#x6570;&#x636E;&#x3002;</p>
+<p>3&#x3001;4&#x5E73;&#x65B9;&#x7684;&#x94DC;&#x7EBF;&#xFF0C;&#x4F60;&#x8981;&#x8BF4;&#x660E;&#x662F;&#x591A;&#x5C11;&#x80A1;&#x7684;&#x3002;&#x5355;&#x7EBF;&#x7684;&#xFF0C;&#x53EF;&#x4EE5;&#x8FBE;&#x5230;30A&#xFF0C;&#x540C;&#x7406;&#xFF0C;&#x82AF;&#x6570;&#x8D8A;&#x591A;&#xFF0C;&#x7535;&#x6D41;&#x964D;&#x7684;&#x8D8A;&#x5FEB;&#x3002;&#x56E0;&#x5176;&#x8F7D;&#x6D41;&#x91CF;&#x5927;&#xFF0C;&#x6545;&#x53D1;&#x70ED;&#x66F4;&#x591A;&#x3002;</p>
+<p><a href="https://www.bilibili.com/video/av32148526" target="_blank" rel="noopener">1.5&#x3001;2.5&#x3001;4&#x3001;6&#x3001;10&#x5E73;&#x94DC;&#x7EBF;&#x80FD;&#x627F;&#x8F7D;&#x591A;&#x5927;&#x7535;&#x6D41;&#xFF1F;&#x914D;&#x591A;&#x5927;&#x7684;&#x7A7A;&#x5F00;&#xFF1F;</a></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">&#x7EBF;&#x7C97;(mm<sup>2</sup>)</th>
+<th style="text-align:center">&#x8F7D;&#x6D41;&#x91CF;(A)</th>
+<th style="text-align:center">&#x5B89;&#x5168;&#x8F7D;&#x6D41;&#x91CF;(A)</th>
+<th style="text-align:center">&#x529F;&#x7387;(kw)</th>
+<th style="text-align:center">&#x9009;&#x7528;&#x7A7A;&#x5F00;&#x89C4;&#x683C;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">6-8</td>
+<td style="text-align:center">5.4</td>
+<td style="text-align:center">1.3-1.8</td>
+<td style="text-align:center">C10/C16</td>
+</tr>
+<tr>
+<td style="text-align:center">1.5</td>
+<td style="text-align:center">8-15</td>
+<td style="text-align:center">8.1</td>
+<td style="text-align:center">1.7-3</td>
+<td style="text-align:center">C16/C25</td>
+</tr>
+<tr>
+<td style="text-align:center">2.5</td>
+<td style="text-align:center">16-25</td>
+<td style="text-align:center">13.5</td>
+<td style="text-align:center">3.5-5.5</td>
+<td style="text-align:center">C25/C32</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">25-32</td>
+<td style="text-align:center">19.2</td>
+<td style="text-align:center">5.5-7</td>
+<td style="text-align:center">C32/C40</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">32-40</td>
+<td style="text-align:center">25.2</td>
+<td style="text-align:center">7-9</td>
+<td style="text-align:center">C40/C63</td>
+</tr>
+</tbody>
+</table>
+<p>&#x8F7D;&#x6D41;&#x91CF;&#x8DDF;&#x6577;&#x8BBE;&#x65B9;&#x5F0F;&#xFF08;&#x7A7F;&#x5899;&#xFF0C;&#x57CB;&#x5730;&#x6216;&#x660E;&#x6577;&#x8BBE;&#xFF09;&#xFF0C;&#x5806;&#x53E0;&#x65B9;&#x5F0F;&#xFF0C;&#x73AF;&#x5883;&#x6E29;&#x6E7F;&#x5EA6;&#x4EE5;&#x53CA;&#x662F;&#x5426;&#x786C;&#x5BFC;&#x7EBF;&#x90FD;&#x6709;&#x5173;&#x7CFB;&#xFF0C;&#x4E0D;&#x7EC6;&#x8BF4;</p>
+<h2 id="&#x6F0F;&#x7535;&#x4FDD;&#x62A4;&#x5668;&#x539F;&#x7406;"><a class="header-anchor" href="#&#x6F0F;&#x7535;&#x4FDD;&#x62A4;&#x5668;&#x539F;&#x7406;"></a>&#x6F0F;&#x7535;&#x4FDD;&#x62A4;&#x5668;&#x539F;&#x7406;</h2>
+<p><a href="%5Bhttps://baike.baidu.com/item/%E9%9B%B6%E5%BA%8F%E7%94%B5%E6%B5%81%E4%BA%92%E6%84%9F%E5%99%A8%5D(https://baike.baidu.com/item/%E9%9B%B6%E5%BA%8F%E7%94%B5%E6%B5%81%E4%BA%92%E6%84%9F%E5%99%A8)">&#x96F6;&#x5E8F;&#x7535;&#x6D41;&#x4E92;&#x611F;&#x5668;</a>&#xFF0C;&#x5F53;&#x6F0F;&#x7535;&#x65F6;&#x4E24;&#x4E2A;&#x4E92;&#x611F;&#x5668;&#x7684;&#x7535;&#x6D41;&#x4E0D;&#x5E73;&#x8861;&#x5C31;&#x4F1A;&#x8DF3;&#x95F8;&#xFF0C;&#x975E;&#x5E38;&#x7075;&#x654F;&#xFF0C;&#x5F53;&#x8D1F;&#x8F7D;&#x8D85;&#x8FC7;&#x989D;&#x5B9A;&#x503C;&#x65F6;&#x4E5F;&#x4F1A;&#x8DF3;&#x95F8;</p>
+<p>&#x5BB6;&#x7528;30mA&#x5355;&#x76F8;&#x6F0F;&#x7535;&#x4FDD;&#x62A4;&#x5668;&#x8FDB;&#x7EBF;&#x63A5;&#x53CD;&#x4E86;&#xFF0C;&#x4E5F;&#x6CA1;&#x4EC0;&#x4E48;&#x95EE;&#x9898;&#xFF0C;&#x4E00;&#x6837;&#x8D77;&#x4FDD;&#x62A4;&#x4F5C;&#x7528;&#x3002;&#x4F46;&#x5BF9;&#x6709;&#x6807;&#x8BC6;&#x7684;&#xFF0C;&#x8981;&#x6309;&#x6807;&#x8BC6;&#x6765;&#x63A5;&#x3002;&#x6F0F;&#x7535;&#x4FDD;&#x62A4;&#x5668;&#x8FDB;&#x7EBF;&#x7AEF;&#x5DE6;&#x96F6;&#x53F3;&#x706B; &#xFF0C;&#x5373;&#xFF1A;&#x6807;&#x6709;L&#x7684;&#x63A5;&#x706B;&#x7EBF;&#xFF0C;&#x6807;&#x6709;N&#x7684;&#x63A5;&#x96F6;&#x7EBF;&#x3002;<br>
+&#x6F0F;&#x7535;&#x4FDD;&#x62A4;&#x5668;&#x68C0;&#x6D4B;&#x5230;&#x706B;&#x7EBF;&#x548C;&#x5730;&#x7EBF;&#x6709;&#x7535;&#x6D41;&#x901A;&#x8FC7;&#x65F6;&#xFF0C;&#x4E14;&#x7535;&#x6D41;&#x5F3A;&#x5EA6;&#x5927;&#x4E8E;&#x6F0F;&#x7535;&#x4FDD;&#x62A4;&#x5668;&#x7684;&#x989D;&#x5B9A;&#x503C;&#x65F6;&#xFF0C;&#x6F0F;&#x7535;&#x4FDD;&#x62A4;&#x5668;&#x5C31;&#x4F1A;&#x52A8;&#x4F5C;&#x3002;</p>
+<p>&#x5F3A;&#x70C8;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;220v&#x4EA4;&#x6D41;&#x5B9E;&#x9A8C;&#x65F6;&#x52A0;&#x88C5;2P&#x6F0F;&#x4FDD;&#xFF01;&#xFF01;&#xFF01;</p>
+<p><a href="https://zhuanlan.zhihu.com/p/31551940" target="_blank" rel="noopener">&#x5BB6;&#x7528;&#x6F0F;&#x7535;&#x4FDD;&#x62A4;&#x5668;&#x63A5;&#x7EBF;&#x65B9;&#x6CD5;&#x56FE;&#x89E3;</a></p>
+<h1 id="&#x5173;&#x4E8E;&#x793A;&#x6CE2;&#x5668;&#x6D4B;&#x5E02;&#x7535;"><a class="header-anchor" href="#&#x5173;&#x4E8E;&#x793A;&#x6CE2;&#x5668;&#x6D4B;&#x5E02;&#x7535;"></a>&#x5173;&#x4E8E;&#x793A;&#x6CE2;&#x5668;&#x6D4B;&#x5E02;&#x7535;</h1>
+<p>&#x7A0D;&#x540E;&#x8865;&#x5145;</p>
+<h1 id="IP&#x9632;&#x62A4;&#x7B49;&#x7EA7;"><a class="header-anchor" href="#IP&#x9632;&#x62A4;&#x7B49;&#x7EA7;"></a>IP&#x9632;&#x62A4;&#x7B49;&#x7EA7;</h1>
+<p>&#x897F;&#x95E8;&#x5B50;&#x548C;&#x65BD;&#x8010;&#x5FB7;&#x7684;&#x6F0F;&#x7535;&#x4FDD;&#x62A4;&#x5668;&#x7684;&#x53C2;&#x6570;&#x4E0A;&#x6709;&#x4E2A;&#x201C;<strong>IP20</strong>&#x201D;&#xFF0C;&#x662F;&#x4EC0;&#x4E48;&#x610F;&#x601D;&#xFF1F;</p>
+<p>&#x6211;&#x4EEC;&#x77E5;&#x9053;&#x4E00;&#x4E9B;&#x624B;&#x673A;&#x5382;&#x5BB6;&#x4F1A;&#x65F6;&#x4E0D;&#x65F6;&#x6765;&#x4E2A;&#x201C;<strong>IP68&#x201D;</strong>&#xFF0C;&#x8BF4;&#x4EC0;&#x4E48;&#x624B;&#x673A;&#x53EF;&#x5728;&#x6C34;&#x4E0B;4&#x7C73;&#x5F85;&#x534A;&#x5C0F;&#x65F6;&#x4E0D;&#x8FDB;&#x6C34;&#xFF0C;&#x5176;&#x5B9E;**&#x201D;IP&#x201C;<strong>&#x4FE9;&#x5B57;&#x5C31;&#x662F;&#x6307;&#x201D;</strong>&#x201D;IP&#x9632;&#x62A4;&#x6807;&#x51C6;&#x201C;<strong>&#xFF0C;</strong>&#x201D;IP&#x201C;**&#x540E;&#x4E24;&#x4F4D;&#x5206;&#x522B;&#x6307;&#x9632;&#x5C18;&#x548C;&#x9632;&#x6C34;&#x7B49;&#x7EA7;&#xFF0C;&#x8BE6;&#x89C1;<a href="%5Bhttps://baike.baidu.com/item/IP%E9%98%B2%E6%8A%A4%E7%AD%89%E7%BA%A7%5D(https://baike.baidu.com/item/IP%E9%98%B2%E6%8A%A4%E7%AD%89%E7%BA%A7)">&#x767E;&#x79D1;</a></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/esp8266/" rel="tag"># esp8266</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/6c57f882/" rel="next" title="hexo 博客如何写出彩色字体，能实时预览的那种？">
+                  <i class="fa fa-chevron-left"></i> hexo 博客如何写出彩色字体，能实时预览的那种？
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/b85c9bb4/" rel="prev" title="esp8266 spi设备共用CS">
+                  esp8266 spi设备共用CS <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/psa.jpg"
+      alt="过气德国佬">
+  <p class="site-author-name" itemprop="name">过气德国佬</p>
+  <div class="site-description motion-element" itemprop="description">潮起潮落，云卷云舒</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PID：从弱电到强电"><span class="nav-number">1.</span> <span class="nav-text">PID：从弱电到强电</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#继电器"><span class="nav-number">1.1.</span> <span class="nav-text">继电器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#继电器的缺点"><span class="nav-number">1.1.1.</span> <span class="nav-text">继电器的缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#开关频率，寿命较低"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">开关频率，寿命较低</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#吸合，断开时间较长"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">吸合，断开时间较长</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#继电器的优点"><span class="nav-number">1.1.2.</span> <span class="nav-text">继电器的优点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#便宜"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">便宜</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#电隔离"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">电隔离</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#几乎无功率损耗"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">几乎无功率损耗</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mosfet"><span class="nav-number">1.2.</span> <span class="nav-text">Mosfet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IGBT"><span class="nav-number">1.3.</span> <span class="nav-text">IGBT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TRAIC"><span class="nav-number">1.4.</span> <span class="nav-text">TRAIC</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自己做固态继电器"><span class="nav-number">2.</span> <span class="nav-text">自己做固态继电器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TRAIC固态继电器"><span class="nav-number">2.1.</span> <span class="nav-text">TRAIC固态继电器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#过零触发的双向光耦"><span class="nav-number">2.1.1.</span> <span class="nav-text">过零触发的双向光耦</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MOC3063典型应用"><span class="nav-number">2.1.2.</span> <span class="nav-text">MOC3063典型应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mosfet固态继电器"><span class="nav-number">2.2.</span> <span class="nav-text">Mosfet固态继电器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mosfet直流固态继电器"><span class="nav-number">2.2.1.</span> <span class="nav-text">Mosfet直流固态继电器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mosfet交流固态继电器"><span class="nav-number">2.2.2.</span> <span class="nav-text">Mosfet交流固态继电器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#zero-crossing-detector"><span class="nav-number">3.</span> <span class="nav-text">zero-crossing detector</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么需要零交叉？"><span class="nav-number">3.0.1.</span> <span class="nav-text">为什么需要零交叉？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#整流全桥加普通光耦实现过零检测，单片机根据零位信号控制TRAIC的开关"><span class="nav-number">3.0.1.1.</span> <span class="nav-text">整流全桥加普通光耦实现过零检测，单片机根据零位信号控制TRAIC的开关</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#人体安全电压电流"><span class="nav-number">4.</span> <span class="nav-text">人体安全电压电流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#漏电保护器与空气开关"><span class="nav-number">5.</span> <span class="nav-text">漏电保护器与空气开关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#公制线径与载流关系"><span class="nav-number">5.1.</span> <span class="nav-text">公制线径与载流关系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特氟龙镀银线对应公制线径："><span class="nav-number">5.1.1.</span> <span class="nav-text">特氟龙镀银线对应公制线径：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#空气开关原理"><span class="nav-number">5.2.</span> <span class="nav-text">空气开关原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线径与空开选配"><span class="nav-number">5.2.1.</span> <span class="nav-text">线径与空开选配</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#漏电保护器原理"><span class="nav-number">5.3.</span> <span class="nav-text">漏电保护器原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于示波器测市电"><span class="nav-number">6.</span> <span class="nav-text">关于示波器测市电</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IP防护等级"><span class="nav-number">7.</span> <span class="nav-text">IP防护等级</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+        
+
+<div id="days"></div>
+<script>
+function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("07/19/2019 15:00:00");
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=setzero(Math.floor(e_hrsold));
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+    seconds=setzero(Math.floor((e_minsold-minsold)*60));
+    document.getElementById('days').innerHTML="(∩•̀ω•́)⊃--*⋆本站由米板1代搭建，已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i) {
+    if (i<10) {
+        i="0" + i
+    };
+    return i;
+}
+show_date_time();
+</script>
+
+
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">过气德国佬</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">66k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        <span>0%</span>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'iWuakuHkkRt5xT7Ct9cyj8nO-gzGzoHsz',
+    appKey: 'PAz23pDzHnucqRDkVMShMp5B',
+    placeholder: '(๑•̀ㅁ•́ฅ✧ 说点什么吧！',
+    avatar: '',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

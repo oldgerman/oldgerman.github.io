@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="使用Typora编辑器快速上手，解锁更多功能">
+<meta name="keywords" content="Typora">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo 博客如何写出彩色字体，能实时预览的那种？">
+<meta property="og:url" content="http://yoursite.com/6c57f882/index.html">
+<meta property="og:site_name" content="OldGerman&#39;s Blog">
+<meta property="og:description" content="使用Typora编辑器快速上手，解锁更多功能">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/6c57f882/Typora-logo.png">
+<meta property="og:updated_time" content="2020-07-30T16:20:39.654Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hexo 博客如何写出彩色字体，能实时预览的那种？">
+<meta name="twitter:description" content="使用Typora编辑器快速上手，解锁更多功能">
+<meta name="twitter:image" content="http://yoursite.com/6c57f882/Typora-logo.png">
+  <link rel="canonical" href="http://yoursite.com/6c57f882/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>hexo 博客如何写出彩色字体，能实时预览的那种？ | OldGerman's Blog</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OldGerman's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Refuse to play tickets!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-阅读排名">
+      
+    
+
+    <a href="/rank" rel="section"><i class="menu-item-icon fa fa-fw fa-list"></i> <br>阅读排名</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/6c57f882/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过气德国佬">
+      <meta itemprop="description" content="潮起潮落，云卷云舒">
+      <meta itemprop="image" content="/images/psa.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OldGerman's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">hexo 博客如何写出彩色字体，能实时预览的那种？
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-20 23:26:37" itemprop="dateCreated datePublished" datetime="2020-02-20T23:26:37+08:00">2020-02-20</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-31 00:20:39" itemprop="dateModified" datetime="2020-07-31T00:20:39+08:00">2020-07-31</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span id="/6c57f882/" class="post-meta-item leancloud_visitors" data-flag-title="hexo 博客如何写出彩色字体，能实时预览的那种？" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/6c57f882/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/6c57f882/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>1.6k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+            <div class="post-description">使用Typora编辑器快速上手，解锁更多功能</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Typora&#x7F16;&#x8F91;&#x5668;"><a class="header-anchor" href="#Typora&#x7F16;&#x8F91;&#x5668;"></a>Typora&#x7F16;&#x8F91;&#x5668;</h1>
+<p><img src="/6c57f882/Typora-logo.png" alt></p>
+<p>&#x535A;&#x4E3B;&#x6CA1;&#x5B66;&#x8FC7;&#x5565;web&#x8BED;&#x8A00;&#xFF0C;&#x5076;&#x5C14;&#x5728;&#x535A;&#x5BA2;&#x4E0A;&#x5199;&#x51E0;&#x7BC7;&#x6587;&#x7AE0;&#x5F53;&#x7B14;&#x8BB0;&#xFF0C;&#x4E4B;&#x524D;&#x7C73;&#x677F;&#x5237;&#x4E86;ubuntu&#x4E3A;&#x4E86;&#x5B66;C/C++&#xFF0C;&#x5728;ubuntu&#x7684;Bash&#x91CC;&#x4E00;&#x987F;&#x50BB;&#x74DC;&#x64CD;&#x4F5C;&#xFF0C;&#x672C;&#x5730;&#x90E8;&#x7F72;&#x4E86;hexo&#xFF0C;&#x518D;&#x7528;gedit&#x5199;&#x535A;&#x5BA2;&#xFF0C;&#x4E0A;&#x4F20;&#x81F3;Git Hub&#x1F604;&#xFF0C;&#x540E;&#x6765;&#x5ACC;&#x5C4F;&#x5E55;&#x592A;&#x5C0F;&#xFF0C;&#x53C8;&#x5728;win10&#x4E0A;&#x7528;GitBash&#x91CD;&#x65B0;&#x642D;&#x4E86;&#x4E00;&#x6B21;&#xFF0C;&#x53D1;&#x73B0;<strong>Typora</strong>&#x8FD9;&#x4E2A;&#x6587;&#x672C;&#x7F16;&#x8F91;&#x5668;&#x5341;&#x5206;&#x4E0A;&#x624B;&#xFF0C;&#x9664;&#x4E86;&#x5B9E;&#x65F6;&#x652F;&#x6301;<strong>MarkDown</strong>&#x8BED;&#x6CD5;&#x7684;&#x6E32;&#x67D3;&#x7ED3;&#x679C;&#xFF0C;&#x8FD8;&#x652F;&#x6301;&#x5728;&#x6587;&#x672C;&#x7F16;&#x8F91;&#x6A21;&#x5F0F;&#x4E0B;&#x540C;&#x65F6;&#x663E;&#x793A;&#x56FE;&#x7247;&#xFF0C;&#x90A3;&#x4E48;&#xFF0C;&#x8FD8;&#x6709;&#x6CA1;&#x6709;&#x66F4;&#x591A;&#x7684;&#x529F;&#x80FD;&#x5462;&#xFF1F;&#x6709;&#x7684;&#xFF0C;&#x8FD8;&#x652F;&#x6301;&#x5B9E;&#x65F6;&#x9884;&#x89C8;<strong>html</strong>&#x6807;&#x7B7E;&#x7684;&#x6E32;&#x67D3;&#x7ED3;&#x679C;&#x1F606;</p>
+<p><a href="https://typora.io/" target="_blank" rel="noopener">Typora&#x5B98;&#x7F51;</a></p>
+<h1 id="&#x4E00;&#x4E9B;&#x5B9E;&#x7528;&#x7684;&#x6807;&#x7B7E;"><a class="header-anchor" href="#&#x4E00;&#x4E9B;&#x5B9E;&#x7528;&#x7684;&#x6807;&#x7B7E;"></a>&#x4E00;&#x4E9B;&#x5B9E;&#x7528;&#x7684;&#x6807;&#x7B7E;</h1>
+<h2 id="span-style-&#x8BBE;&#x7F6E;&#x5B57;&#x4F53;&#x5C5E;&#x6027;"><a class="header-anchor" href="#span-style-&#x8BBE;&#x7F6E;&#x5B57;&#x4F53;&#x5C5E;&#x6027;"></a>span - - - style | &#x8BBE;&#x7F6E;&#x5B57;&#x4F53;&#x5C5E;&#x6027;</h2>
+<h3 id="&#x6742;&#x70E9;&#x7528;&#x6CD5;&#xFF1A;"><a class="header-anchor" href="#&#x6742;&#x70E9;&#x7528;&#x6CD5;&#xFF1A;"></a>&#x6742;&#x70E9;&#x7528;&#x6CD5;&#xFF1A;</h3>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&apos;color:&#x6587;&#x5B57;&#x989C;&#x8272;;background:&#x80CC;&#x666F;&#x989C;&#x8272;;font-size:&#x6587;&#x5B57;&#x5927;&#x5C0F;;font-family:&#x5B57;&#x4F53;;&apos;</span>&gt;</span>&#x6587;&#x5B57;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>style&#x540E;&#x4F20;&#x5165;&#x7684;&#x53C2;&#x6570;&#x4EE5;&#x5206;&#x53F7;&#x9694;&#x5F00;&#xFF0C;&#x53C2;&#x6570;&#x6570;&#x91CF;&#x53EF;&#x88C1;&#x526A;</p>
+<p>&#x5176;&#x4E2D;color&#xFF1A;&#x652F;&#x6301;&#x4E09;&#x79CD;&#x683C;&#x5F0F;  &#x989C;&#x8272;&#x540D;&#xFF0C;&#x5341;&#x516D;&#x8FDB;&#x5236;&#x989C;&#x8272;&#x503C;&#xFF0C;RGB&#x53D6;&#x8272;&#x5668;</p>
+<h3 id="&#x793A;&#x4F8B;&#xFF1A;"><a class="header-anchor" href="#&#x793A;&#x4F8B;&#xFF1A;"></a>&#x793A;&#x4F8B;&#xFF1A;</h3>
+<ol>
+<li>&#x4E09;&#x79CD;color&#x683C;&#x5F0F;&#x663E;&#x793A;&#x540C;&#x6837;&#x7684;&#x7EA2;&#x8272;&#x5B57;&#x4F53;&#xFF1A;</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&quot;color:red;&quot;</span>&gt;</span>&#x7EA2;&#x4E0D;&#x7EA2;&#xFF1F;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><span style="color:red;">&#x7EA2;&#x4E0D;&#x7EA2;&#xFF1F;</span></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&quot;color:rgb(255, 0, 0);&quot;</span>&gt;</span>&#x7EA2;&#x4E0D;&#x7EA2;&#xFF1F;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><span style="color:rgb(255, 0, 0);">&#x7EA2;&#x4E0D;&#x7EA2;&#xFF1F;</span></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&quot;color:#FF0000;&quot;</span>&gt;</span>&#x7EA2;&#x4E0D;&#x7EA2;&#xFF1F;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><span style="color:#FF0000;">&#x7EA2;&#x4E0D;&#x7EA2;&#xFF1F;</span></p>
+<ol start="2">
+<li>&#x9ED1;&#x5E95;&#x767D;&#x5B57;&#x4EFF;&#x5B8B;50px&#xFF1A;<span style="color:white;background:black;font-size:23px;font-family:&#x4EFF;&#x5B8B;;">&#x9ED1;&#x767D;&#x914D;</span></li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&apos;color:white;background:black;font-size:50px;font-family:&#x4EFF;&#x5B8B;;&apos;</span>&gt;</span>&#x9ED1;&#x767D;&#x914D;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="b-strong-&#x52A0;&#x7C97;&#x5B57;&#x4F53;"><a class="header-anchor" href="#b-strong-&#x52A0;&#x7C97;&#x5B57;&#x4F53;"></a>b &amp; strong | &#x52A0;&#x7C97;&#x5B57;&#x4F53;</h2>
+<h3 id="&#x7528;&#x6CD5;&#xFF1A;"><a class="header-anchor" href="#&#x7528;&#x6CD5;&#xFF1A;"></a>&#x7528;&#x6CD5;&#xFF1A;</h3>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">b</span>&gt;</span>&#x6211;&#x88AB;B&#x6807;&#x7B7E;&#x52A0;&#x7C97;<span class="tag">&lt;/<span class="name">b</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">strong</span>&gt;</span>&#x6211;&#x88AB;Strong&#x6807;&#x7B7E;&#x52A0;&#x7C97;<span class="tag">&lt;/<span class="name">strong</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="&#x793A;&#x4F8B;&#xFF1A;-v2"><a class="header-anchor" href="#&#x793A;&#x4F8B;&#xFF1A;-v2"></a>&#x793A;&#x4F8B;&#xFF1A;</h3>
+<ol>
+<li>&#x52A0;&#x7C97;&#x5B57;&#x4F53;&#xFF1A;<b>&#x52A0;&#x7C97;</b></li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">b</span>&gt;</span>&#x52A0;&#x7C97;<span class="tag">&lt;/<span class="name">b</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>&#x7D2B;&#x8272;&#x52A0;&#x7C97;&#xFF1A;<b><span style="color:BlueViolet;">&#x9A9A;&#x7D2B;&#x8272;&#x52A0;&#x7C97;</span></b></li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">b</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&quot;color:rgb(255, 0, 255);&quot;</span>&gt;</span>&#x9A9A;&#x7D2B;&#x8272;&#x52A0;&#x7C97;<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">b</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="sup-sub-&#x4E0A;&#x6807;-&#x4E0B;&#x6807;"><a class="header-anchor" href="#sup-sub-&#x4E0A;&#x6807;-&#x4E0B;&#x6807;"></a>sup &amp; sub | &#x4E0A;&#x6807; &amp; &#x4E0B;&#x6807;</h2>
+<h3 id="&#x7528;&#x6CD5;&#xFF1A;-v2"><a class="header-anchor" href="#&#x7528;&#x6CD5;&#xFF1A;-v2"></a>&#x7528;&#x6CD5;&#xFF1A;</h3>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x4E0A;&#x6807;&#xFF1A;<span class="tag">&lt;<span class="name">sup</span>&gt;</span>&#x5185;&#x5BB9;<span class="tag">&lt;/<span class="name">sup</span>&gt;</span></span><br><span class="line">&#x4E0B;&#x6807;&#xFF1A;<span class="tag">&lt;<span class="name">sub</span>&gt;</span>&#x5185;&#x5BB9;<span class="tag">&lt;/<span class="name">sub</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="&#x793A;&#x4F8B;&#xFF1A;-v3"><a class="header-anchor" href="#&#x793A;&#x4F8B;&#xFF1A;-v3"></a>&#x793A;&#x4F8B;&#xFF1A;</h3>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mm<span class="tag">&lt;<span class="name">sup</span>&gt;</span>2<span class="tag">&lt;/<span class="name">sup</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>&#x5E73;&#x65B9;&#x6BEB;&#x7C73;: mm<sup>2</sup></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">y = log<span class="tag">&lt;<span class="name">sub</span>&gt;</span>2&#xA0;<span class="tag">&lt;/<span class="name">sub</span>&gt;</span>x</span><br></pre></td></tr></table></figure>
+<p>&#x5BF9;&#x6570;: y = log<sub>2&#xA0;</sub>x</p>
+<h2 id="div-align-&#x5404;&#x79CD;&#x5BF9;&#x9F50;"><a class="header-anchor" href="#div-align-&#x5404;&#x79CD;&#x5BF9;&#x9F50;"></a>div - - align | &#x5404;&#x79CD;&#x5BF9;&#x9F50;</h2>
+<p>&#x793A;&#x4F8B;&#xFF1A;</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">align</span>=<span class="string">&quot;center&quot;</span>&gt;</span>&#x5947;&#x602A;&#x7684;&#x77E5;&#x8BC6;&#x589E;&#x52A0;&#x4E86;&#xFF01;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<div align="center">&#x5947;&#x602A;&#x7684;&#x77E5;&#x8BC6;&#x589E;&#x52A0;&#x4E86;&#xFF01;</div>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">align</span>=<span class="string">&quot;center&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&apos;color:white;background:black;font-size:20px;&apos;</span>&gt;</span>&amp;#12288&#x201C;&#x4E8B;&#x60C5;&#x603B;&#x4F1A;&#x671D;&#x7740;&#x610F;&#x60F3;&#x4E0D;&#x5230;&#x7684;&#x65B9;&#x5411;&#x53D1;&#x5C55;&#x201D;&amp;#12288<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<div align="center"><span style="color:white;background:black;font-size:20px;">&#x3000;&#x201C;&#x4E8B;&#x60C5;&#x603B;&#x4F1A;&#x671D;&#x7740;&#x610F;&#x60F3;&#x4E0D;&#x5230;&#x7684;&#x65B9;&#x5411;&#x53D1;&#x5C55;&#x201D;&#x3000;</span></div>
+|  &#x53C2;&#x6570;   |      &#x529F;&#x80FD;      |
+| :-----: | :------------: |
+|  left   |     &#x5DE6;&#x5BF9;&#x9F50;     |
+|  right  |     &#x53F3;&#x5BF9;&#x9F50;     |
+| center  |    &#x5C45;&#x4E2D;&#x5BF9;&#x9F50;    |
+| justify | &#x4F38;&#x5C55;&#x884C;&#x6587;&#x5B57;&#x95F4;&#x9694; |
+<h1 id="&#x540E;&#x8BB0;"><a class="header-anchor" href="#&#x540E;&#x8BB0;"></a>&#x540E;&#x8BB0;</h1>
+<p>&#x1F449;&#x8FD9;&#x51E0;&#x5929;&#x5C31;&#x6574;&#x7406;&#x4E86;&#x8FD9;&#x51E0;&#x4E2A;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x65B0;&#x7684;&#x5B9E;&#x7528;&#x6807;&#x7B7E;&#x540E;&#x7EED;&#x518D;&#x8865;&#x5145;&#x54C8;~</p>
+<p><span style="color:#138DE9;">&#x6E56;&#x84DD;&#x8272;</span>&#xFF1A;#138DE9</p>
+<h1 id="&#x53C2;&#x8003;&#x6587;&#x732E;"><a class="header-anchor" href="#&#x53C2;&#x8003;&#x6587;&#x732E;"></a>&#x53C2;&#x8003;&#x6587;&#x732E;</h1>
+<p><a href="https://sspai.com/post/54912" target="_blank" rel="noopener">Typora &#x5B8C;&#x5168;&#x4F7F;&#x7528;&#x8BE6;&#x89E3;</a></p>
+<p><a href="https://www.cnblogs.com/dreamingbaobei/p/5062901.html" target="_blank" rel="noopener">&#x65B0;&#x624B;&#x7406;&#x89E3;HTML&#x3001;CSS&#x3001;javascript&#x4E4B;&#x95F4;&#x7684;&#x5173;&#x7CFB;</a></p>
+<p><a href="%5Bhttps://baike.baidu.com/item/WEB%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%5D(https://baike.baidu.com/item/WEB%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80)">WEB&#x7F16;&#x7A0B;&#x8BED;&#x8A00;</a></p>
+<p><a href="https://blog.csdn.net/u011848617/article/details/72836146" target="_blank" rel="noopener">CSS&#x6587;&#x672C;&#x5C45;&#x4E2D;&#x95EE;&#x9898;</a></p>
+<p><a href="https://blog.csdn.net/testcs_dn/article/details/45719357" target="_blank" rel="noopener">&#x989C;&#x8272;&#x540D;&#x5217;&#x8868;</a></p>
+<p><a href="http://www.divcss5.com/html/h390.shtml" target="_blank" rel="noopener">html&#x4E0A;&#x6807;&#x4E0E;&#x4E0B;&#x6807;&#x6CE8;&#x6807;&#x7B7E;&#x5143;&#x7D20;</a></p>
+<p><a href="https://segmentfault.com/a/1190000017194576" target="_blank" rel="noopener">&#x5B57;&#x7B26;&#x7F16;&#x7801;&#x53CA;&#x7A7A;&#x767D;&#x6C49;&#x5B57;&#x5360;&#x4F4D;&#x7B26;</a></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/html/" rel="tag"># html</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/f3fd3c5b/" rel="next" title="esp8266 4线风扇调速测速">
+                  <i class="fa fa-chevron-left"></i> esp8266 4线风扇调速测速
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/aedd6ac2/" rel="prev" title="esp8266 控制220V交流电">
+                  esp8266 控制220V交流电 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/psa.jpg"
+      alt="过气德国佬">
+  <p class="site-author-name" itemprop="name">过气德国佬</p>
+  <div class="site-description motion-element" itemprop="description">潮起潮落，云卷云舒</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Typora编辑器"><span class="nav-number">1.</span> <span class="nav-text">Typora编辑器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些实用的标签"><span class="nav-number">2.</span> <span class="nav-text">一些实用的标签</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#span-style-设置字体属性"><span class="nav-number">2.1.</span> <span class="nav-text">span - - - style | 设置字体属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#杂烩用法："><span class="nav-number">2.1.1.</span> <span class="nav-text">杂烩用法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例："><span class="nav-number">2.1.2.</span> <span class="nav-text">示例：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#b-strong-加粗字体"><span class="nav-number">2.2.</span> <span class="nav-text">b &amp; strong | 加粗字体</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用法："><span class="nav-number">2.2.1.</span> <span class="nav-text">用法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例：-v2"><span class="nav-number">2.2.2.</span> <span class="nav-text">示例：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sup-sub-上标-下标"><span class="nav-number">2.3.</span> <span class="nav-text">sup &amp; sub | 上标 &amp; 下标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用法：-v2"><span class="nav-number">2.3.1.</span> <span class="nav-text">用法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例：-v3"><span class="nav-number">2.3.2.</span> <span class="nav-text">示例：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#div-align-各种对齐"><span class="nav-number">2.4.</span> <span class="nav-text">div - - align | 各种对齐</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后记"><span class="nav-number">3.</span> <span class="nav-text">后记</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+        
+
+<div id="days"></div>
+<script>
+function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("07/19/2019 15:00:00");
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=setzero(Math.floor(e_hrsold));
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+    seconds=setzero(Math.floor((e_minsold-minsold)*60));
+    document.getElementById('days').innerHTML="(∩•̀ω•́)⊃--*⋆本站由米板1代搭建，已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i) {
+    if (i<10) {
+        i="0" + i
+    };
+    return i;
+}
+show_date_time();
+</script>
+
+
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">过气德国佬</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">66k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        <span>0%</span>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'iWuakuHkkRt5xT7Ct9cyj8nO-gzGzoHsz',
+    appKey: 'PAz23pDzHnucqRDkVMShMp5B',
+    placeholder: '(๑•̀ㅁ•́ฅ✧ 说点什么吧！',
+    avatar: '',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

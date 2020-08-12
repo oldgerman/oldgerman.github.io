@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="OTG使用CSR8510蓝牙适配器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小米平板1-ubuntu系统_bluetooth篇">
+<meta property="og:url" content="http://yoursite.com/192f845b/index.html">
+<meta property="og:site_name" content="OldGerman&#39;s Blog">
+<meta property="og:description" content="OTG使用CSR8510蓝牙适配器">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-20T15:14:25.173Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="小米平板1-ubuntu系统_bluetooth篇">
+<meta name="twitter:description" content="OTG使用CSR8510蓝牙适配器">
+  <link rel="canonical" href="http://yoursite.com/192f845b/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>小米平板1-ubuntu系统_bluetooth篇 | OldGerman's Blog</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OldGerman's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Refuse to play tickets!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-阅读排名">
+      
+    
+
+    <a href="/rank" rel="section"><i class="menu-item-icon fa fa-fw fa-list"></i> <br>阅读排名</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/192f845b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过气德国佬">
+      <meta itemprop="description" content="潮起潮落，云卷云舒">
+      <meta itemprop="image" content="/images/psa.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OldGerman's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">小米平板1-ubuntu系统_bluetooth篇
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-20 09:56:00" itemprop="dateCreated datePublished" datetime="2019-07-20T09:56:00+08:00">2019-07-20</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-08-20 23:14:25" itemprop="dateModified" datetime="2019-08-20T23:14:25+08:00">2019-08-20</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span id="/192f845b/" class="post-meta-item leancloud_visitors" data-flag-title="小米平板1-ubuntu系统_bluetooth篇" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/192f845b/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/192f845b/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>8.2k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>7 分钟</span>
+            </span>
+          
+            <div class="post-description">OTG使用CSR8510蓝牙适配器</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="CSR8510&#x84DD;&#x7259;&#x9002;&#x914D;&#x5668;&#xFF1A;&#x9A71;&#x52A8;&#x6A21;&#x5757;&#x7F16;&#x8BD1;-&#x5F00;&#x673A;&#x81EA;&#x52A8;&#x52A0;&#x8F7D;"><a class="header-anchor" href="#CSR8510&#x84DD;&#x7259;&#x9002;&#x914D;&#x5668;&#xFF1A;&#x9A71;&#x52A8;&#x6A21;&#x5757;&#x7F16;&#x8BD1;-&#x5F00;&#x673A;&#x81EA;&#x52A8;&#x52A0;&#x8F7D;"></a>CSR8510&#x84DD;&#x7259;&#x9002;&#x914D;&#x5668;&#xFF1A;&#x9A71;&#x52A8;&#x6A21;&#x5757;&#x7F16;&#x8BD1;/&#x5F00;&#x673A;&#x81EA;&#x52A8;&#x52A0;&#x8F7D;</h2>
+<h3 id="&#x914D;&#x7F6E;&#x597D;-config&#x6587;&#x4EF6;&#x540E;&#xFF1A;"><a class="header-anchor" href="#&#x914D;&#x7F6E;&#x597D;-config&#x6587;&#x4EF6;&#x540E;&#xFF1A;"></a>&#x914D;&#x7F6E;&#x597D;./config&#x6587;&#x4EF6;&#x540E;&#xFF1A;</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br></pre></td><td class="code"><pre><span class="line">root@tegra-ubuntu:/usr/src/kernel<span class="comment"># make modules</span></span><br><span class="line">  LD [M]  crypto/md4.ko</span><br><span class="line">  LD [M]  crypto/sha256_generic.ko</span><br><span class="line">  LD [M]  crypto/tcrypt.ko</span><br><span class="line">  LD [M]  crypto/twofish_common.ko</span><br><span class="line">  LD [M]  crypto/twofish_generic.ko</span><br><span class="line">  LD [M]  drivers/bluetooth/bcm203x.ko</span><br><span class="line">  LD [M]  drivers/bluetooth/bfusb.ko</span><br><span class="line">  LD [M]  drivers/bluetooth/bpa10x.ko</span><br><span class="line">  LD [M]  drivers/bluetooth/broadcom/bt_protocol_driver/brcm_bt_drv.ko</span><br><span class="line">  LD [M]  drivers/bluetooth/broadcom/v4l2_fm_driver/fm_drv.ko</span><br><span class="line">  LD [M]  drivers/bluetooth/broadcom/line_discipline_driver/brcm_hci_ldisc.ko</span><br><span class="line">  LD [M]  drivers/bluetooth/btusb.ko</span><br><span class="line">  LD [M]  drivers/bluetooth/hci_uart.ko</span><br><span class="line">  LD [M]  drivers/input/joystick/xpad.ko</span><br><span class="line">  LD [M]  drivers/input/joydev.ko</span><br><span class="line">  LD [M]  drivers/media/platform/soc_camera/soc_camera_platform.ko</span><br><span class="line">  LD [M]  drivers/media/usb/gspca/gspca_main.ko</span><br><span class="line">  LD [M]  drivers/media/platform/soc_camera/tegra_camera/tegra_camera.ko</span><br><span class="line">  LD [M]  drivers/media/v4l2-core/videobuf2-dma-contig.ko</span><br><span class="line">  LD [M]  drivers/net/ppp/bsd_comp.ko</span><br><span class="line">  LD [M]  drivers/net/ppp/ppp_async.ko</span><br><span class="line">  LD [M]  drivers/net/ppp/ppp_deflate.ko</span><br><span class="line">  LD [M]  drivers/net/ppp/ppp_generic.ko</span><br><span class="line">  LD [M]  drivers/net/ppp/ppp_mppe.ko</span><br><span class="line">  LD [M]  drivers/net/ppp/ppp_synctty.ko</span><br><span class="line">  LD [M]  drivers/net/ppp/pppolac.ko</span><br><span class="line">  LD [M]  drivers/net/ppp/pppopns.ko</span><br><span class="line">  LD [M]  drivers/net/ppp/pppox.ko</span><br><span class="line">  LD [M]  drivers/net/usb/raw_ip_net.ko</span><br><span class="line">  LD [M]  drivers/net/slip/slhc.ko</span><br><span class="line">  LD [M]  drivers/usb/class/cdc-acm.ko</span><br><span class="line">  LD [M]  drivers/usb/class/cdc-wdm.ko</span><br><span class="line">  LD [M]  drivers/usb/gadget/g_ether.ko</span><br><span class="line">  LD [M]  drivers/usb/gadget/g_mass_storage.ko</span><br><span class="line">  LD [M]  drivers/usb/gadget/libcomposite.ko</span><br><span class="line">  LD [M]  drivers/usb/serial/baseband_usb_chr.ko</span><br><span class="line">  LD [M]  drivers/video/tegra/host/vi/nvhost-vi.ko</span><br><span class="line">  LD [M]  fs/cifs/cifs.ko</span><br><span class="line">  LD [M]  net/bluetooth/bluetooth.ko</span><br><span class="line">  LD [M]  fs/configfs/configfs.ko</span><br><span class="line">  LD [M]  net/bluetooth/bnep/bnep.ko</span><br><span class="line">  LD [M]  net/bluetooth/hidp/hidp.ko</span><br><span class="line">  LD [M]  net/bluetooth/rfcomm/rfcomm.ko</span><br><span class="line">  LD [M]  net/rfkill/rfkill-gpio.ko</span><br><span class="line">root@tegra-ubuntu:/usr/src/kernel<span class="comment"># </span></span><br><span class="line"></span><br><span class="line">root@tegra-ubuntu:/usr/src/kernel<span class="comment"># make modules_install</span></span><br><span class="line">  INSTALL crypto/md4.ko</span><br><span class="line">  INSTALL crypto/sha256_generic.ko</span><br><span class="line">  INSTALL crypto/tcrypt.ko</span><br><span class="line">  INSTALL crypto/twofish_common.ko</span><br><span class="line">  INSTALL crypto/twofish_generic.ko</span><br><span class="line"><span class="comment">#  INSTALL drivers/bluetooth/bcm203x.ko</span></span><br><span class="line"><span class="comment">#  INSTALL drivers/bluetooth/bfusb.ko</span></span><br><span class="line"><span class="comment">#  INSTALL drivers/bluetooth/bpa10x.ko</span></span><br><span class="line"><span class="comment">#  INSTALL drivers/bluetooth/broadcom/bt_protocol_driver/brcm_bt_drv.ko</span></span><br><span class="line"><span class="comment">#  INSTALL drivers/bluetooth/broadcom/line_discipline_driver/brcm_hci_ldisc.ko</span></span><br><span class="line"><span class="comment">#  INSTALL drivers/bluetooth/broadcom/v4l2_fm_driver/fm_drv.ko</span></span><br><span class="line"><span class="comment">#  INSTALL drivers/bluetooth/btusb.ko</span></span><br><span class="line"><span class="comment">#  INSTALL drivers/bluetooth/hci_uart.ko</span></span><br><span class="line">  INSTALL drivers/input/joydev.ko</span><br><span class="line">  INSTALL drivers/input/joystick/xpad.ko</span><br><span class="line">  INSTALL drivers/media/platform/soc_camera/soc_camera_platform.ko</span><br><span class="line">  INSTALL drivers/media/platform/soc_camera/tegra_camera/tegra_camera.ko</span><br><span class="line">  INSTALL drivers/media/usb/gspca/gspca_main.ko</span><br><span class="line">  INSTALL drivers/media/v4l2-core/videobuf2-dma-contig.ko</span><br><span class="line">  INSTALL drivers/net/ppp/bsd_comp.ko</span><br><span class="line">  INSTALL drivers/net/ppp/ppp_async.ko</span><br><span class="line">  INSTALL drivers/net/ppp/ppp_deflate.ko</span><br><span class="line">  INSTALL drivers/net/ppp/ppp_generic.ko</span><br><span class="line">  INSTALL drivers/net/ppp/ppp_mppe.ko</span><br><span class="line">  INSTALL drivers/net/ppp/ppp_synctty.ko</span><br><span class="line">  INSTALL drivers/net/ppp/pppolac.ko</span><br><span class="line">  INSTALL drivers/net/ppp/pppopns.ko</span><br><span class="line">  INSTALL drivers/net/ppp/pppox.ko</span><br><span class="line">  INSTALL drivers/net/slip/slhc.ko</span><br><span class="line">  INSTALL drivers/net/usb/raw_ip_net.ko</span><br><span class="line">  INSTALL drivers/usb/class/cdc-acm.ko</span><br><span class="line">  INSTALL drivers/usb/class/cdc-wdm.ko</span><br><span class="line">  INSTALL drivers/usb/gadget/g_ether.ko</span><br><span class="line">  INSTALL drivers/usb/gadget/g_mass_storage.ko</span><br><span class="line">  INSTALL drivers/usb/gadget/libcomposite.ko</span><br><span class="line">  INSTALL drivers/usb/serial/baseband_usb_chr.ko</span><br><span class="line">  INSTALL drivers/video/tegra/host/vi/nvhost-vi.ko</span><br><span class="line">  INSTALL fs/cifs/cifs.ko</span><br><span class="line">  INSTALL fs/configfs/configfs.ko</span><br><span class="line"><span class="comment">#  INSTALL net/bluetooth/bluetooth.ko</span></span><br><span class="line"><span class="comment">#  INSTALL net/bluetooth/bnep/bnep.ko</span></span><br><span class="line"><span class="comment">#  INSTALL net/bluetooth/hidp/hidp.ko</span></span><br><span class="line"><span class="comment">#  INSTALL net/bluetooth/rfcomm/rfcomm.ko</span></span><br><span class="line"><span class="comment">#?  INSTALL net/rfkill/rfkill-gpio.ko</span></span><br><span class="line">  DEPMOD  3.10.40-gc5d0751</span><br><span class="line"><span class="comment">#         ^^^^^^^^^^^^^^^^</span></span><br><span class="line">--------------------------------------------</span><br><span class="line"><span class="comment"># rc.local&#x811A;&#x672C;:</span></span><br><span class="line"><span class="comment"># &#x52A0;&#x8F7D;&#x987A;&#x5E8F;&#x81EA;&#x4E0B;&#x800C;&#x4E0A;&#xFF1A;</span></span><br><span class="line">insmod <span class="string">&apos;/usr/src/kernel/net/bluetooth/bluetooth.ko&apos;</span></span><br><span class="line">insmod <span class="string">&apos;/usr/src/kernel/net/rfkill/rfkill-gpio.ko&apos;</span></span><br><span class="line">insmod <span class="string">&apos;/usr/src/kernel/net/bluetooth/rfcomm/rfcomm.ko&apos;</span></span><br><span class="line">insmod <span class="string">&apos;/lib/modules/3.10.40-gc5d0751/kernel/drivers/bluetooth/btusb.ko&apos;</span> </span><br><span class="line">insmod <span class="string">&apos;/usr/src/kernel/drivers/bluetooth/hci_uart.ko&apos;</span> </span><br><span class="line">insmod <span class="string">&apos;/usr/src/kernel/drivers/bluetooth/bcm203x.ko&apos;</span></span><br><span class="line">insmod <span class="string">&apos;/usr/src/kernel/drivers/bluetooth/bfusb.ko&apos;</span></span><br><span class="line">insmod <span class="string">&apos;/usr/src/kernel/drivers/bluetooth/bpa10x.ko&apos;</span></span><br><span class="line">insmod <span class="string">&apos;/usr/src/kernel/net/bluetooth/bnep/bnep.ko&apos;</span> </span><br><span class="line">insmod <span class="string">&apos;/usr/src/kernel/net/bluetooth/hidp/hidp.ko&apos;</span></span><br><span class="line">&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;</span><br><span class="line">[&#x53EA;&#x8981;&#x8FD9;&#x51E0;&#x4E2A;&#x5C31;&#x591F;&#x4E86;,&#x4E0D;&#x5B89;&#x88C5;smoke3.10.107&#x5185;&#x6838;&#x91CC;&#x7684;BCM&#x84DD;&#x7259;&#x9A71;&#x52A8;</span><br><span class="line">root@tegra-ubuntu:/home/ubuntu<span class="comment"># lsmod</span></span><br><span class="line">Module                  Size  Used by</span><br><span class="line">hidp                   14086  0 </span><br><span class="line">bnep                   11864  0 </span><br><span class="line">bpa10x                  4858  0 </span><br><span class="line">bfusb                   8138  0 </span><br><span class="line">bcm203x                 3277  0 </span><br><span class="line">hci_uart               26740  0 </span><br><span class="line">btusb                  16048  0 </span><br><span class="line">rfcomm                 46451  0 </span><br><span class="line">rfkill_gpio             2300  0 </span><br><span class="line">bluetooth             279879  11 bnep,hidp,bfusb,btusb,bpa10x,hci_uart,rfcomm,brcm_hci_ldisc,bcm203x</span><br><span class="line"></span><br><span class="line">--------------------------------------------------</span><br><span class="line"></span><br><span class="line">-------------------------------------------------------</span><br><span class="line">[BCM4356]</span><br><span class="line">http://b8807053.pixnet.net/blog/post/347831957-bluez%E7%9B%B8%E9%97%9C%E7%9A%84%E5%90%84%E7%A8%AEtools%E7%9A%84%E4%BD%BF%E7%94%A8</span><br><span class="line">Bluez&#x76F8;&#x95DC;&#x7684;&#x5404;&#x7A2E;tools&#x7684;&#x4F7F;&#x7528;</span><br><span class="line"></span><br><span class="line">1. &#x5B89;&#x88DD;&#x5957;&#x4EF6;</span><br><span class="line"></span><br><span class="line">sudo apt-get update</span><br><span class="line"><span class="comment">#sudo apt-get install bluetooth bluez bluez-hcidump</span></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">&#x5176;&#x4E2D; bluetooth &#x5957;&#x4EF6;&#x5305;&#x542B;&#x4E86;&#x5E95;&#x5C64;&#x7684; hci (host controller interface) &#x548C; sdp (service discovery protocol) &#x5DE5;&#x5177;&#x3002;&#x800C; bluez &#x5247;&#x662F;&#x5B98;&#x65B9;&#x85CD;&#x7259;&#x8EDF;&#x9AD4;&#x5354;&#x5B9A; (Official Linux Bluetooth protocol stack)&#xFF0C;&#x5C6C;&#x65BC;&#x8F03;&#x4E0A;&#x5C64;&#x3002;bluez &#x7684;&#x7DB2;&#x9801;&#x5982;&#x4E0B;: http://www.bluez.org/</span><br><span class="line"></span><br><span class="line">------------------------------------------------------</span><br><span class="line">root@tegra-ubuntu:/home/ubuntu<span class="comment"># proxychains apt-get install bluetooth bluez bluez-hcidump</span></span><br><span class="line">ProxyChains-3.1 (http://proxychains.sf.net)</span><br><span class="line">Reading package lists... Done</span><br><span class="line">Building dependency tree       </span><br><span class="line">Reading state information... Done</span><br><span class="line">bluez is already the newest version.</span><br><span class="line">bluez <span class="built_in">set</span> to manually installed.</span><br><span class="line">The following NEW packages will be installed:</span><br><span class="line">  bluetooth bluez-gstreamer bluez-hcidump</span><br><span class="line">...</span><br><span class="line">Selecting previously unselected package bluetooth.</span><br><span class="line">(Reading database ... 134589 files and directories currently installed.)</span><br><span class="line">Preparing to unpack .../bluetooth_4.101-0ubuntu13_all.deb ...</span><br><span class="line">Unpacking bluetooth (4.101-0ubuntu13) ...</span><br><span class="line">Selecting previously unselected package bluez-gstreamer.</span><br><span class="line">Preparing to unpack .../bluez-gstreamer_4.101-0ubuntu13_armhf.deb ...</span><br><span class="line">Unpacking bluez-gstreamer (4.101-0ubuntu13) ...</span><br><span class="line">Selecting previously unselected package bluez-hcidump.</span><br><span class="line">Preparing to unpack .../bluez-hcidump_2.5-1_armhf.deb ...</span><br><span class="line">Unpacking bluez-hcidump (2.5-1) ...</span><br><span class="line">Processing triggers <span class="keyword">for</span> man-db (2.6.7.1-1ubuntu1) ...</span><br><span class="line">Setting up bluetooth (4.101-0ubuntu13) ...</span><br><span class="line">Setting up bluez-gstreamer (4.101-0ubuntu13) ...</span><br><span class="line">Setting up bluez-hcidump (2.5-1) ...</span><br><span class="line">root@tegra-ubuntu:/home/ubuntu<span class="comment">#</span></span><br><span class="line">---------------------------------------------------</span><br><span class="line"><span class="comment">#&#x4E0D;&#x8981;&#x5B89;&#x88C5;</span></span><br><span class="line">root@tegra-ubuntu:/home/ubuntu<span class="comment">#  apt-get install bluez-utils [&#x65E0;&#x6548;!!!],&#x4F1A;&#x4F7F;hciconfig&#x65E0;&#x6548;,&#x91CD;&#x542F;&#x56DE;&#x590D;&#x6B63;&#x5E38;</span></span><br><span class="line">**************************************************************</span><br><span class="line">&#x5F00;&#x673A;&#x63D2;&#x4E0A;CSR8510&#x6A21;&#x5757;&#x7B49;&#x4E00;&#x4F1A;gnome &#x84DD;&#x7259;&#x8BBE;&#x7F6E;&#x7A97;&#x53E3;&#x81EA;&#x52A8;&#x8BC6;&#x522B;</span><br><span class="line">&#x914D;&#x5BF9;B.O.W&#x9700;&#x8981;&#x6309;&#x4F4F;Fn+Delete&#x521D;&#x59CB;&#x5316;&#x4E86;&#x518D;&#x914D;&#x5BF9;</span><br><span class="line"></span><br><span class="line">------------------&#x6D4B;&#x8BD5;------------------------------------</span><br><span class="line">--------------------------------------------------------------</span><br><span class="line">root@tegra-ubuntu:/etc<span class="comment"># dmesg | grep -i blue</span></span><br><span class="line">[   23.330606] init: bluetooth main process (1080) terminated with status 1</span><br><span class="line">[   23.330650] init: bluetooth main process ended, respawning</span><br><span class="line">[   24.463328] Bluetooth: Core ver 2.16</span><br><span class="line">[   24.463410] Bluetooth: HCI device and connection manager initialized</span><br><span class="line">[   24.463447] Bluetooth: HCI socket layer initialized</span><br><span class="line">[   24.463466] Bluetooth: L2CAP socket layer initialized</span><br><span class="line">[   24.463498] Bluetooth: SCO socket layer initialized</span><br><span class="line">[   24.490456] Bluetooth: RFCOMM TTY layer initialized</span><br><span class="line">[   24.490497] Bluetooth: RFCOMM socket layer initialized</span><br><span class="line">[   24.490506] Bluetooth: RFCOMM ver 1.11</span><br><span class="line">[   24.529249] Bluetooth: HCI UART driver ver 2.2</span><br><span class="line">[   24.529261] Bluetooth: HCI H4 protocol initialized</span><br><span class="line">[   24.529268] Bluetooth: HCI BCSP protocol initialized</span><br><span class="line">[   24.529275] Bluetooth: HCILL protocol initialized</span><br><span class="line">[   24.529281] Bluetooth: HCIATH3K protocol initialized</span><br><span class="line">[   24.529287] Bluetooth: HCI Three-wire UART (H5) protocol initialized</span><br><span class="line">[   24.566516] Bluetooth: BNEP (Ethernet Emulation) ver 1.3</span><br><span class="line">[   24.566533] Bluetooth: BNEP filters: protocol multicast</span><br><span class="line">[   24.566570] Bluetooth: BNEP socket layer initialized</span><br><span class="line">[   24.578784] Bluetooth: HIDP (Human Interface Emulation) ver 1.2</span><br><span class="line">[   24.578827] Bluetooth: HIDP socket layer initialized</span><br><span class="line">[   56.791738] input: B.O.W as /devices/platform/tegra-ehci.0/usb2/2-1/2-1:1.0/bluetooth/hci0/hci0:70/input2</span><br><span class="line">[   56.792059] hid-generic 0005:05AC:023C.0001: input: BLUETOOTH HID v0.01 Keyboard [B.O.W] on 00:1a:7d:da:71:11</span><br><span class="line">-------------------------------------------------------------</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/561a0aca/" rel="next" title="小米平板1-ubuntu系统_刷机篇">
+                  <i class="fa fa-chevron-left"></i> 小米平板1-ubuntu系统_刷机篇
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/eeea93b8/" rel="prev" title="hexo 如何上传本地图片">
+                  hexo 如何上传本地图片 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/psa.jpg"
+      alt="过气德国佬">
+  <p class="site-author-name" itemprop="name">过气德国佬</p>
+  <div class="site-description motion-element" itemprop="description">潮起潮落，云卷云舒</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CSR8510蓝牙适配器：驱动模块编译-开机自动加载"><span class="nav-number">1.</span> <span class="nav-text">CSR8510蓝牙适配器：驱动模块编译/开机自动加载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置好-config文件后："><span class="nav-number">1.1.</span> <span class="nav-text">配置好./config文件后：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+        
+
+<div id="days"></div>
+<script>
+function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("07/19/2019 15:00:00");
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=setzero(Math.floor(e_hrsold));
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+    seconds=setzero(Math.floor((e_minsold-minsold)*60));
+    document.getElementById('days').innerHTML="(∩•̀ω•́)⊃--*⋆本站由米板1代搭建，已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i) {
+    if (i<10) {
+        i="0" + i
+    };
+    return i;
+}
+show_date_time();
+</script>
+
+
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">过气德国佬</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">66k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        <span>0%</span>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'iWuakuHkkRt5xT7Ct9cyj8nO-gzGzoHsz',
+    appKey: 'PAz23pDzHnucqRDkVMShMp5B',
+    placeholder: '(๑•̀ㅁ•́ฅ✧ 说点什么吧！',
+    avatar: '',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

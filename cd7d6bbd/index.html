@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="笔记">
+<meta name="keywords" content="Diode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="齐纳二极管与Mosfet防反接电路">
+<meta property="og:url" content="http://yoursite.com/cd7d6bbd/index.html">
+<meta property="og:site_name" content="OldGerman&#39;s Blog">
+<meta property="og:description" content="笔记">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/cd7d6bbd/test-elemets.JPG">
+<meta property="og:image" content="http://yoursite.com/cd7d6bbd/Zenerdiode%E7%94%B5%E5%8E%8B%E8%8C%83%E5%9B%B4.png">
+<meta property="og:image" content="http://yoursite.com/cd7d6bbd/SOD123_Zener.png">
+<meta property="og:image" content="http://yoursite.com/cd7d6bbd/MMSZ5231BT1G%E4%BC%8F%E5%AE%89%E7%89%B9%E6%80%A7%E6%9B%B2%E7%BA%BF.png">
+<meta property="og:image" content="http://yoursite.com/cd7d6bbd/MMSZ5231BT1G%E5%8F%82%E6%95%B0.png">
+<meta property="og:image" content="http://yoursite.com/cd7d6bbd/ZMM5V1.png">
+<meta property="og:image" content="http://yoursite.com/cd7d6bbd/%E9%BD%90%E7%BA%B3%E5%85%B8%E5%9E%8B%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%BC%8F.png">
+<meta property="og:image" content="http://yoursite.com/cd7d6bbd/ZMM5V1%E4%BC%8F%E5%AE%89%E7%89%B9%E6%80%A7%E6%9B%B2%E7%BA%BF.png">
+<meta property="og:image" content="http://yoursite.com/cd7d6bbd/ZMM5V1%E5%8F%82%E6%95%B0.png">
+<meta property="og:image" content="http://yoursite.com/cd7d6bbd/%E9%BD%90%E7%BA%B3%E4%BA%8C%E6%9E%81%E7%AE%A1%E5%9C%A8P%E6%B2%9F%E9%81%93%E9%98%B2%E5%8F%8D%E6%8E%A5%E7%94%B5%E8%B7%AF%E6%AD%A3%E5%8F%8D%E6%8E%A5%E4%B8%8B%E7%9A%84%E5%B7%A5%E4%BD%9C%E7%8A%B6%E6%80%81.png">
+<meta property="og:image" content="http://yoursite.com/cd7d6bbd/Nmos%E9%98%B2%E5%8F%8D%E6%8E%A5.png">
+<meta property="og:updated_time" content="2020-04-22T13:25:46.212Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="齐纳二极管与Mosfet防反接电路">
+<meta name="twitter:description" content="笔记">
+<meta name="twitter:image" content="http://yoursite.com/cd7d6bbd/test-elemets.JPG">
+  <link rel="canonical" href="http://yoursite.com/cd7d6bbd/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>齐纳二极管与Mosfet防反接电路 | OldGerman's Blog</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OldGerman's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Refuse to play tickets!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-阅读排名">
+      
+    
+
+    <a href="/rank" rel="section"><i class="menu-item-icon fa fa-fw fa-list"></i> <br>阅读排名</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/cd7d6bbd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过气德国佬">
+      <meta itemprop="description" content="潮起潮落，云卷云舒">
+      <meta itemprop="image" content="/images/psa.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OldGerman's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">齐纳二极管与Mosfet防反接电路
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-04-04 21:37:02" itemprop="dateCreated datePublished" datetime="2020-04-04T21:37:02+08:00">2020-04-04</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-22 21:25:46" itemprop="dateModified" datetime="2020-04-22T21:25:46+08:00">2020-04-22</time>
+              </span>
+            
+          
+
+          
+            <span id="/cd7d6bbd/" class="post-meta-item leancloud_visitors" data-flag-title="齐纳二极管与Mosfet防反接电路" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/cd7d6bbd/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/cd7d6bbd/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>1.1k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+            <div class="post-description">笔记</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="&#x6D4B;&#x8BD5;&#x7535;&#x8DEF;&#x53CA;&#x5143;&#x4EF6;&#xFF1A;"><a class="header-anchor" href="#&#x6D4B;&#x8BD5;&#x7535;&#x8DEF;&#x53CA;&#x5143;&#x4EF6;&#xFF1A;"></a>&#x6D4B;&#x8BD5;&#x7535;&#x8DEF;&#x53CA;&#x5143;&#x4EF6;&#xFF1A;</h1>
+<p><img src="/cd7d6bbd/test-elemets.JPG" alt></p>
+<p><a href="http://www.irf.com/product-info/datasheets/data/irf3205.pdf" target="_blank" rel="noopener">N&#x6C9F;&#x9053;&#xFF1A;IRF3205</a></p>
+<p><a href="http://www.irf.com/product-info/datasheets/data/irf9z24n.pdf" target="_blank" rel="noopener">P&#x6C9F;&#x9053;&#xFF1A;IRF9Z24N</a></p>
+<p><a href="https://datasheet.lcsc.com/szlcsc/1809301135_ST-Semtech-ZMM5V1_C8061.pdf" target="_blank" rel="noopener">&#x9F50;&#x7EB3;&#x4E8C;&#x6781;&#x7BA1;&#xFF1A;ZMM5V1</a></p>
+<p>&#x8272;&#x73AF;&#x7535;&#x963B;&#x82E5;&#x5E72;&#xFF0C;&#x4E09;&#x6D0B;4028&#x98CE;&#x6247;</p>
+<h1 id="&#x9F50;&#x7EB3;&#x4E8C;&#x6781;&#x7BA1;"><a class="header-anchor" href="#&#x9F50;&#x7EB3;&#x4E8C;&#x6781;&#x7BA1;"></a>&#x9F50;&#x7EB3;&#x4E8C;&#x6781;&#x7BA1;</h1>
+<p>&#x7A33;&#x538B;&#x4E8C;&#x6781;&#x7BA1;&#xFF0C;&#x82F1;&#x6587;&#x540D;&#x79F0;Zener diode&#xFF0C;&#x53C8;&#x53EB;&#x9F50;&#x7EB3;&#x4E8C;&#x6781;&#x7BA1;&#xFF0C;&#x5229;&#x7528;pn&#x7ED3;&#x53CD;&#x5411;&#x51FB;&#x7A7F;&#x72B6;&#x6001;&#xFF0C;&#x5176;&#x7535;&#x6D41;&#x53EF;&#x5728;&#x5F88;&#x5927;&#x8303;&#x56F4;&#x5185;&#x53D8;&#x5316;&#x800C;&#x7535;&#x538B;&#x57FA;&#x672C;&#x4E0D;&#x53D8;&#x7684;&#x73B0;&#x8C61;&#xFF0C;&#x5236;&#x6210;&#x7684;&#x8D77;&#x7A33;&#x538B;&#x4F5C;&#x7528;&#x7684;&#x4E8C;&#x6781;&#x7BA1;&#xFF0C;&#x666E;&#x901A;&#x4E8C;&#x6781;&#x7BA1;&#x7684;&#x8BBE;&#x8BA1;&#x4E0D;&#x80FD;&#x5728;&#x51FB;&#x7A7F;&#x533A;&#x57DF;&#x5185;&#x5DE5;&#x4F5C;&#xFF0C;&#x5B83;&#x53EF;&#x80FD;&#x5BFC;&#x81F4;&#x8BBE;&#x5907;&#x6C38;&#x4E45;&#x6027;&#x6545;&#x969C;&#x3002;&#x9F50;&#x7EB3;&#x4E8C;&#x6781;&#x7BA1;&#x88AB;&#x5236;&#x9020;&#x4E3A;&#x5728;&#x8BE5;&#x533A;&#x57DF;&#x53EF;&#x9760;&#x4E14;&#x7CBE;&#x786E;&#x5730;&#x5DE5;&#x4F5C;&#xFF0C;&#x53EF;&#x4ECE;&#x51FB;&#x7A7F;&#x4E2D;&#x5B8C;&#x5168;&#x6062;&#x590D;&#x5E76;&#x4E14;&#x5728;&#x6B63;&#x5E38;&#x4F7F;&#x7528;&#x4E2D;&#x4E0D;&#x4F1A;&#x53D7;&#x5230;&#x635F;&#x5BB3;&#x3002;</p>
+<p>&#x4E00;&#x822C;&#x8BF4;&#x6765;&#x7A33;&#x538B;&#x503C;&#x4F4E;&#x4E8E;6V&#x5C5E;&#x4E8E;&#x9F50;&#x7EB3;&#x51FB;&#x7A7F;&#xFF0C;&#x8D1F;&#x6E29;&#x5EA6;&#x7CFB;&#x6570;&#xFF1B;&#x9AD8;&#x4E8E;6V&#x7684;&#x5C5E;&#x96EA;&#x5D29;&#x51FB;&#x7A7F;&#xFF0C;&#x6B63;&#x6E29;&#x5EA6;&#x7CFB;&#x6570;&#xFF0C;&#x7136;&#x800C;&#xFF0C;<strong>&#x8BB8;&#x591A;&#x63CF;&#x8FF0;&#x4E3A;&#x201C;&#x9F50;&#x7EB3;&#x201D;&#x4E8C;&#x6781;&#x7BA1;&#x7684;&#x4E8C;&#x6781;&#x7BA1;&#x53CD;&#x800C;&#x4F9D;&#x8D56;&#x4E8E;<a href="https://en.wikipedia.org/wiki/Avalanche_breakdown" target="_blank" rel="noopener">&#x96EA;&#x5D29;&#x51FB;&#x7A7F;</a>&#x3002;&#x4E24;&#x79CD;&#x51FB;&#x7A7F;&#x7C7B;&#x578B;&#x90FD;&#x7528;&#x5728;&#x9F50;&#x7EB3;&#x4E8C;&#x6781;&#x7BA1;&#x4E2D;&#xFF0C;&#x5728;&#x8F83;&#x4F4E;&#x7535;&#x538B;&#x4E0B;&#x9F50;&#x7EB3;&#x6548;&#x5E94;&#x5360;&#x4E3B;&#x5BFC;&#xFF0C;&#x800C;&#x5728;&#x8F83;&#x9AD8;&#x7535;&#x538B;&#x4E0B;&#x96EA;&#x5D29;&#x51FB;&#x7A7F;</strong></p>
+<p>&#x4F8B;&#x5982;&#x4E0B;&#x56FE;&#x8FD9;&#x4E2A;&#x7A33;&#x538B;&#x4E8C;&#x6781;&#x7BA1;&#xFF0C;&#x5B83;&#x53EB;Zener Voltage Regulators&#xFF0C;&#x5373;&#x9F50;&#x7EB3;&#x7A33;&#x538B;&#x5668;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x8FD9;&#x4E2A;&#x7CFB;&#x5217;&#x63D0;&#x4F9B;&#x9F50;&#x7EB3;&#x7535;&#x538B;&#x4ECE;-2.4V&#x5230;110V&#x8303;&#x56F4;&#x7684;&#x578B;&#x53F7;&#xFF0C;&#x7531;&#x6B64;&#x53EF;&#x89C1;&#xFF0C;6V&#x4EE5;&#x4E0A;&#x7684;&#x5C31;&#x7B97;&#x662F;&#x96EA;&#x5D29;&#x51FB;&#x7A7F;&#xFF0C;&#x4E5F;&#x4E0D;&#x53EB;&#x201C;&#x96EA;&#x5D29;&#x4E8C;&#x6781;&#x7BA1;&#x201D;&#xFF0C;&#x800C;&#x662F;&#x7EDF;&#x79F0;&#x201C;&#x9F50;&#x7EB3;&#x4E8C;&#x7EA7;&#x7BA1;&#x201D;</p>
+<p><img src="/cd7d6bbd/Zenerdiode%E7%94%B5%E5%8E%8B%E8%8C%83%E5%9B%B4.png" alt></p>
+<p>&#x9F50;&#x7EB3;&#x53CD;&#x5411;&#x51FB;&#x7A7F;&#x662F;&#x7531;&#x4E8E;&#x9AD8;&#x5F3A;&#x5EA6;&#x7535;&#x573A;&#x5F15;&#x8D77;&#x7684;&#x7535;&#x5B50;<a href="https://en.wikipedia.org/wiki/Quantum_tunnelling" target="_blank" rel="noopener">&#x91CF;&#x5B50;&#x96A7;&#x7A7F;</a>&#xFF1F;</p>
+<h2 id="MMSZ5231BT1G-5-1V-500mW&#x9F50;&#x7EB3;&#x4E8C;&#x6781;&#x7BA1;"><a class="header-anchor" href="#MMSZ5231BT1G-5-1V-500mW&#x9F50;&#x7EB3;&#x4E8C;&#x6781;&#x7BA1;"></a>MMSZ5231BT1G 5.1V/500mW&#x9F50;&#x7EB3;&#x4E8C;&#x6781;&#x7BA1;</h2>
+<p><img src="/cd7d6bbd/SOD123_Zener.png" alt></p>
+<h3 id="&#x4F0F;&#x5B89;&#x7279;&#x6027;&#x66F2;&#x7EBF;"><a class="header-anchor" href="#&#x4F0F;&#x5B89;&#x7279;&#x6027;&#x66F2;&#x7EBF;"></a>&#x4F0F;&#x5B89;&#x7279;&#x6027;&#x66F2;&#x7EBF;</h3>
+<p><img src="/cd7d6bbd/MMSZ5231BT1G%E4%BC%8F%E5%AE%89%E7%89%B9%E6%80%A7%E6%9B%B2%E7%BA%BF.png" alt></p>
+<h3 id="&#x53C2;&#x6570;"><a class="header-anchor" href="#&#x53C2;&#x6570;"></a>&#x53C2;&#x6570;</h3>
+<p><img src="/cd7d6bbd/MMSZ5231BT1G%E5%8F%82%E6%95%B0.png" alt></p>
+<h2 id="ZMM5V1-5-1V-500mW&#x9F50;&#x7EB3;&#x4E8C;&#x6781;&#x7BA1;"><a class="header-anchor" href="#ZMM5V1-5-1V-500mW&#x9F50;&#x7EB3;&#x4E8C;&#x6781;&#x7BA1;"></a>ZMM5V1 5.1V/500mW&#x9F50;&#x7EB3;&#x4E8C;&#x6781;&#x7BA1;</h2>
+<p><img src="/cd7d6bbd/ZMM5V1.png" alt></p>
+<h3 id="&#x6700;&#x5927;&#x9F50;&#x7EB3;&#x7535;&#x6D41;"><a class="header-anchor" href="#&#x6700;&#x5927;&#x9F50;&#x7EB3;&#x7535;&#x6D41;"></a>&#x6700;&#x5927;&#x9F50;&#x7EB3;&#x7535;&#x6D41;</h3>
+<p>&#x7531;5.1V/500mW&#xFF0C;&#x53EF;&#x7B97;&#x51FA;&#x9F50;&#x7EB3;&#x51FB;&#x7A7F;&#x72B6;&#x6001;&#x6700;&#x5927;&#x5DE5;&#x4F5C;&#x7535;&#x6D41;&#x7EA6;&#x4E3A;&#xFF1A;<br>
+$$<br>
+I_{z(max)}=\frac{P_{tot}}{V_z}=\frac{500mW}{5.1V}\approx98mA<br>
+$$</p>
+<h3 id="&#x67D0;&#x7535;&#x538B;&#x4E0B;&#x7684;&#x6700;&#x5C0F;&#x9650;&#x6D41;&#x7535;&#x963B;"><a class="header-anchor" href="#&#x67D0;&#x7535;&#x538B;&#x4E0B;&#x7684;&#x6700;&#x5C0F;&#x9650;&#x6D41;&#x7535;&#x963B;"></a>&#x67D0;&#x7535;&#x538B;&#x4E0B;&#x7684;&#x6700;&#x5C0F;&#x9650;&#x6D41;&#x7535;&#x963B;</h3>
+<p><img src="/cd7d6bbd/%E9%BD%90%E7%BA%B3%E5%85%B8%E5%9E%8B%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%BC%8F.png" alt></p>
+<p>&#x82E5;&#x8BE5;&#x7BA1;&#x4E32;&#x8054;&#x4E00;&#x4E2A;R&#xFF0C;&#x5728;12V&#x7535;&#x538B;&#x4E0B;&#xFF0C;R&#x6700;&#x5C0F;&#x503C;&#x4E3A;&#xFF1A;<br>
+$$<br>
+R_{min}=\frac{V_{in}-V_{z}}{I_{z(max)}}=\frac{12V-5.1V}{98mA}\approx70.41&#x3A9;<br>
+$$</p>
+<h3 id="&#x4F0F;&#x5B89;&#x7279;&#x6027;&#x66F2;&#x7EBF;-v2"><a class="header-anchor" href="#&#x4F0F;&#x5B89;&#x7279;&#x6027;&#x66F2;&#x7EBF;-v2"></a>&#x4F0F;&#x5B89;&#x7279;&#x6027;&#x66F2;&#x7EBF;</h3>
+<p><img src="/cd7d6bbd/ZMM5V1%E4%BC%8F%E5%AE%89%E7%89%B9%E6%80%A7%E6%9B%B2%E7%BA%BF.png" alt></p>
+<h3 id="&#x53C2;&#x6570;-v2"><a class="header-anchor" href="#&#x53C2;&#x6570;-v2"></a>&#x53C2;&#x6570;</h3>
+<p><img src="/cd7d6bbd/ZMM5V1%E5%8F%82%E6%95%B0.png" alt></p>
+<p>&#x7531;&#x6570;&#x636E;&#x8868;&#xFF0C;&#x9F50;&#x7EB3;&#x5DE5;&#x4F5C;&#x533A;&#x7535;&#x6D41;&#x5728;5mA-50mA&#xFF0C;&#x82E5;&#x63A5;12V&#xFF0C;&#x5219;</p>
+<h1 id="Mosfet&#x9632;&#x53CD;&#x63A5;&#x7535;&#x8DEF;"><a class="header-anchor" href="#Mosfet&#x9632;&#x53CD;&#x63A5;&#x7535;&#x8DEF;"></a>Mosfet&#x9632;&#x53CD;&#x63A5;&#x7535;&#x8DEF;</h1>
+<h2 id="P&#x6C9F;&#x9053;&#x9632;&#x53CD;&#x63A5;&#x7535;&#x8DEF;"><a class="header-anchor" href="#P&#x6C9F;&#x9053;&#x9632;&#x53CD;&#x63A5;&#x7535;&#x8DEF;"></a>P&#x6C9F;&#x9053;&#x9632;&#x53CD;&#x63A5;&#x7535;&#x8DEF;</h2>
+<p>&#x6B63;&#x53CD;&#x63A5;&#x4E0B;&#xFF0C;&#x9F50;&#x7EB3;&#x4E8C;&#x6781;&#x7BA1;&#x7684;&#x5DE5;&#x4F5C;&#x72B6;&#x6001;&#x7684;&#x5B9E;&#x6D4B;&#x6570;&#x636E;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p><img src="/cd7d6bbd/%E9%BD%90%E7%BA%B3%E4%BA%8C%E6%9E%81%E7%AE%A1%E5%9C%A8P%E6%B2%9F%E9%81%93%E9%98%B2%E5%8F%8D%E6%8E%A5%E7%94%B5%E8%B7%AF%E6%AD%A3%E5%8F%8D%E6%8E%A5%E4%B8%8B%E7%9A%84%E5%B7%A5%E4%BD%9C%E7%8A%B6%E6%80%81.png" alt></p>
+<p>&#x6B63;&#x63A5;&#xFF1A;&#x5DE5;&#x4F5C;&#x5728;&#x53CD;&#x5411;&#x7279;&#x6027;&#x7684;&#x9F50;&#x7EB3;&#x51FB;&#x7A7F;&#x72B6;&#x6001;&#xFF0C;&#x94B3;&#x4F4D;P&#x6C9F;&#x9053;mosfet&#x7684;V<sub>GS</sub>&#x4E3A;&#x8D1F;&#x7535;&#x538B;&#xFF1A;-5.17V&#xFF0C;&#x6C9F;&#x9053;&#x5F62;&#x6210;&#xFF0C;&#x5927;&#x90E8;&#x5206;&#x7535;&#x6D41;&#x4ECE;&#x6C9F;&#x9053;&#x8D70;&#xFF0C;&#x6781;&#x5C11;&#x7535;&#x6D41;&#x4ECE;&#x5185;&#x90E8;&#x4E8C;&#x6781;&#x7BA1;&#x8D70;</p>
+<p>&#x53CD;&#x63A5;&#xFF1A;&#x5DE5;&#x4F5C;&#x5728;&#x6B63;&#x5411;&#x7279;&#x6027;&#x7684;&#x6052;&#x538B;&#x5BFC;&#x901A;&#x72B6;&#x6001;&#xFF0C;&#x4E8C;&#x6781;&#x7BA1;&#x4EA7;&#x751F;&#x6B63;&#x5411;&#x538B;&#x964D;&#xFF0C;V<sub>GS</sub>&#x4E3A;&#x6B63;&#x7535;&#x538B;&#xFF1A;0.45V&#xFF0C;P&#x6C9F;&#x9053;mosfet&#x622A;&#x6B62;&#xFF0C;&#x5185;&#x90E8;&#x4E8C;&#x6781;&#x7BA1;&#x4E5F;&#x622A;&#x6B62;</p>
+<h2 id="N&#x6C9F;&#x9053;&#x9632;&#x53CD;&#x63A5;&#x7535;&#x8DEF;"><a class="header-anchor" href="#N&#x6C9F;&#x9053;&#x9632;&#x53CD;&#x63A5;&#x7535;&#x8DEF;"></a>N&#x6C9F;&#x9053;&#x9632;&#x53CD;&#x63A5;&#x7535;&#x8DEF;</h2>
+<p><img src="/cd7d6bbd/Nmos%E9%98%B2%E5%8F%8D%E6%8E%A5.png" alt></p>
+<h2 id="TVS&#x4E8C;&#x6781;&#x7BA1;&#x548C;&#x7A33;&#x538B;&#x4E8C;&#x6781;&#x7BA1;&#x7684;&#x533A;&#x522B;"><a class="header-anchor" href="#TVS&#x4E8C;&#x6781;&#x7BA1;&#x548C;&#x7A33;&#x538B;&#x4E8C;&#x6781;&#x7BA1;&#x7684;&#x533A;&#x522B;"></a><a href="http://www.semiwill.com/zh-cn/?Id=1967" target="_blank" rel="noopener">TVS&#x4E8C;&#x6781;&#x7BA1;&#x548C;&#x7A33;&#x538B;&#x4E8C;&#x6781;&#x7BA1;&#x7684;&#x533A;&#x522B;</a></h2>
+<p>TVS&#x7BA1;&#x8D85;&#x8FC7;&#x5B83;&#x7684;&#x8010;&#x538B;&#x503C;&#x540E;&#xFF0C;&#x4F1A;&#x77AC;&#x95F4;&#x5BFC;&#x901A;&#x77ED;&#x8DEF;&#xFF0C;&#x53CD;&#x5E94;&#x901F;&#x5EA6;&#x5728;ns&#x7EA7;&#xFF0C;</p>
+<p>&#x800C;&#x7A33;&#x538B;&#x7BA1;&#x662F;&#x7A33;&#x538B;&#x4F5C;&#x7528;&#x7684;&#xFF0C;&#x8D85;&#x8FC7;&#x5B83;&#x7684;&#x7A33;&#x538B;&#x503C;&#xFF0C;&#x53EA;&#x8981;&#x529F;&#x7387;&#x4E0D;&#x8D85;&#x8FC7;&#x5B83;&#x7684;&#x8010;&#x53D7;&#x503C;&#xFF0C;&#x5C31;&#x4F1A;&#x7A33;&#x5B9A;&#x5728;&#x5B83;&#x7684;&#x7A33;&#x538B;&#x503C;&#x8303;&#x56F4;&#x5185;</p>
+<h1 id="&#x53C2;&#x8003;&#xFF1A;"><a class="header-anchor" href="#&#x53C2;&#x8003;&#xFF1A;"></a>&#x53C2;&#x8003;&#xFF1A;</h1>
+<p><a href="https://www.youtube.com/watch?v=IrB-FPcv1Dc" target="_blank" rel="noopener">How to protect circuits from reversed voltage polarity!</a></p>
+<p><a href="https://www.bilibili.com/video/av29506419/" target="_blank" rel="noopener">&#x7535;&#x5B50;&#x57FA;&#x7840;#31&#xFF1A;&#x8096;&#x7279;&#x57FA;&#x4E8C;&#x6781;&#x7BA1;&#x548C;&#x7A33;&#x538B;&#x4E8C;&#x6781;&#x7BA1; GreatScott&#xFF01;</a></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/半导体元件/" rel="tag"># 半导体元件</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/844d73b1/" rel="next" title="Pro Micro 模拟74HC148">
+                  <i class="fa fa-chevron-left"></i> Pro Micro 模拟74HC148
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/65fdcd15/" rel="prev" title="OptoTriac V2.0 固态继电器电路设计">
+                  OptoTriac V2.0 固态继电器电路设计 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/psa.jpg"
+      alt="过气德国佬">
+  <p class="site-author-name" itemprop="name">过气德国佬</p>
+  <div class="site-description motion-element" itemprop="description">潮起潮落，云卷云舒</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#测试电路及元件："><span class="nav-number">1.</span> <span class="nav-text">测试电路及元件：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#齐纳二极管"><span class="nav-number">2.</span> <span class="nav-text">齐纳二极管</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MMSZ5231BT1G-5-1V-500mW齐纳二极管"><span class="nav-number">2.1.</span> <span class="nav-text">MMSZ5231BT1G 5.1V/500mW齐纳二极管</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#伏安特性曲线"><span class="nav-number">2.1.1.</span> <span class="nav-text">伏安特性曲线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数"><span class="nav-number">2.1.2.</span> <span class="nav-text">参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ZMM5V1-5-1V-500mW齐纳二极管"><span class="nav-number">2.2.</span> <span class="nav-text">ZMM5V1 5.1V/500mW齐纳二极管</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最大齐纳电流"><span class="nav-number">2.2.1.</span> <span class="nav-text">最大齐纳电流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#某电压下的最小限流电阻"><span class="nav-number">2.2.2.</span> <span class="nav-text">某电压下的最小限流电阻</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伏安特性曲线-v2"><span class="nav-number">2.2.3.</span> <span class="nav-text">伏安特性曲线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数-v2"><span class="nav-number">2.2.4.</span> <span class="nav-text">参数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mosfet防反接电路"><span class="nav-number">3.</span> <span class="nav-text">Mosfet防反接电路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#P沟道防反接电路"><span class="nav-number">3.1.</span> <span class="nav-text">P沟道防反接电路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#N沟道防反接电路"><span class="nav-number">3.2.</span> <span class="nav-text">N沟道防反接电路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TVS二极管和稳压二极管的区别"><span class="nav-number">3.3.</span> <span class="nav-text">TVS二极管和稳压二极管的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考："><span class="nav-number">4.</span> <span class="nav-text">参考：</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+        
+
+<div id="days"></div>
+<script>
+function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("07/19/2019 15:00:00");
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=setzero(Math.floor(e_hrsold));
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+    seconds=setzero(Math.floor((e_minsold-minsold)*60));
+    document.getElementById('days').innerHTML="(∩•̀ω•́)⊃--*⋆本站由米板1代搭建，已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i) {
+    if (i<10) {
+        i="0" + i
+    };
+    return i;
+}
+show_date_time();
+</script>
+
+
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">过气德国佬</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">66k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        <span>0%</span>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'iWuakuHkkRt5xT7Ct9cyj8nO-gzGzoHsz',
+    appKey: 'PAz23pDzHnucqRDkVMShMp5B',
+    placeholder: '(๑•̀ㅁ•́ฅ✧ 说点什么吧！',
+    avatar: '',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

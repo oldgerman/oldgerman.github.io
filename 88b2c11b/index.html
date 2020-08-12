@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="Triac前沿切相调光/Mosfet后沿切相调光，短脉冲过零检测电路，交流输出功率线性化">
+<meta name="keywords" content="固态继电器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="相位调制">
+<meta property="og:url" content="http://yoursite.com/88b2c11b/index.html">
+<meta property="og:site_name" content="OldGerman&#39;s Blog">
+<meta property="og:description" content="Triac前沿切相调光/Mosfet后沿切相调光，短脉冲过零检测电路，交流输出功率线性化">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/%E5%89%8D%E6%B2%BF%E5%88%87%E7%9B%B8%E8%B0%83%E5%85%89%E6%B3%A2%E5%BD%A2.JPG">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/%E5%90%8E%E6%B2%BF%E5%88%87%E7%9B%B8%E8%B0%83%E5%85%89.JPG">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/lm741过零检测电路.JPG">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/lm741过零检测波形.JPG">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/%E9%9D%9E%E9%9A%94%E7%A6%BB%E6%99%B6%E4%BD%93%E7%AE%A1%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B.png">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/%E9%9A%94%E7%A6%BB%E5%9E%8B%E5%85%89%E8%80%A6%E9%95%BF%E8%84%89%E5%86%B2%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B.png">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/H11AA1%E5%8F%8C%E5%90%91%E5%85%89%E8%80%A6%E9%95%BF%E8%84%89%E5%86%B2%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B.png">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/%E5%85%89%E8%80%A6%E7%9F%AD%E8%84%89%E5%86%B2%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B%E7%94%B5%E8%B7%AF1.png">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/%E5%B8%A6%E7%9B%B8%E4%BD%8D%E8%A1%A5%E5%81%BF%E7%9A%84%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B%E7%94%B5%E8%B7%AF.png">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/%E5%87%A0%E7%A7%8D%E8%BF%87%E9%9B%B6%E7%94%B5%E8%B7%AF%E7%9A%84%E6%B3%A2%E5%BD%A2.png">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/%E5%B8%A6%E7%9B%B8%E4%BD%8D%E8%A1%A5%E5%81%BF%E7%9A%84%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B%E7%94%B5%E8%B7%AF2.png">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/ZDCV01.JPG">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/ZDCV01-Uno%E7%A4%BA%E6%B3%A2%E5%99%A8.JPG">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/sin%5E2x.png">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/y=x%E9%99%A4%E4%BB%A52-sin2x%E9%99%A4%E4%BB%A54.png">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/y=x%E9%99%A4%E4%BB%A52-sin2x%E9%99%A4%E4%BB%A54%E5%9C%A80%E5%88%B0pi.png">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/%E8%BE%93%E5%87%BA%E5%8A%9F%E7%8E%87%E9%9A%8F%E7%94%B5%E8%A7%92%E5%BA%A6%E5%8F%98%E5%8C%96%E7%9A%84%E5%85%B3%E7%B3%BB.png">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/毛子py的c.png">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/毛子py的excel.png">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/%E6%AF%9B%E5%AD%90%E7%9A%84conductionAngles%E6%95%B0%E7%BB%84.png">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/Attiny%E6%99%B6%E6%8C%AF%E8%B0%83%E8%B0%90.png">
+<meta property="og:updated_time" content="2020-08-07T11:20:41.533Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="相位调制">
+<meta name="twitter:description" content="Triac前沿切相调光/Mosfet后沿切相调光，短脉冲过零检测电路，交流输出功率线性化">
+<meta name="twitter:image" content="http://yoursite.com/88b2c11b/%E5%89%8D%E6%B2%BF%E5%88%87%E7%9B%B8%E8%B0%83%E5%85%89%E6%B3%A2%E5%BD%A2.JPG">
+  <link rel="canonical" href="http://yoursite.com/88b2c11b/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>相位调制 | OldGerman's Blog</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OldGerman's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Refuse to play tickets!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-阅读排名">
+      
+    
+
+    <a href="/rank" rel="section"><i class="menu-item-icon fa fa-fw fa-list"></i> <br>阅读排名</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/88b2c11b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过气德国佬">
+      <meta itemprop="description" content="潮起潮落，云卷云舒">
+      <meta itemprop="image" content="/images/psa.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OldGerman's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">相位调制
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-04-26 00:21:09" itemprop="dateCreated datePublished" datetime="2020-04-26T00:21:09+08:00">2020-04-26</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-07 19:20:41" itemprop="dateModified" datetime="2020-08-07T19:20:41+08:00">2020-08-07</time>
+              </span>
+            
+          
+
+          
+            <span id="/88b2c11b/" class="post-meta-item leancloud_visitors" data-flag-title="相位调制" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/88b2c11b/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/88b2c11b/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>1.1k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+            <div class="post-description">Triac前沿切相调光/Mosfet后沿切相调光，短脉冲过零检测电路，交流输出功率线性化</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="&#x524D;&#x6CBF;&#x5207;&#x76F8;&#x8C03;&#x5149;"><a class="header-anchor" href="#&#x524D;&#x6CBF;&#x5207;&#x76F8;&#x8C03;&#x5149;"></a>&#x524D;&#x6CBF;&#x5207;&#x76F8;&#x8C03;&#x5149;</h1>
+<p><img src="/88b2c11b/%E5%89%8D%E6%B2%BF%E5%88%87%E7%9B%B8%E8%B0%83%E5%85%89%E6%B3%A2%E5%BD%A2.JPG" alt></p>
+<p>&#x524D;&#x6CBF;&#x8C03;&#x5149;&#x5728;1&#xFF0C;3&#x8C61;&#x9650;&#x5F00;&#x542F;&#x53EF;&#x63A7;&#x7845;&#xFF0C;&#x77AC;&#x65F6;&#x7535;&#x538B;&#x592A;&#x9AD8;&#xFF0C;&#x4F1A;&#x5BFC;&#x81F4;&#x67D0;&#x4E9B;led&#x96C6;&#x6210;&#x7684;EMI&#x6EE4;&#x6CE2;&#x7535;&#x8DEF;&#x7684;&#x7535;&#x611F;&#x751F;&#x6210;&#x5C16;&#x5CF0;&#xFF0C;&#x53EF;&#x80FD;&#x51FB;&#x7A7F;&#x53EF;&#x63A7;&#x7845;</p>
+<p>&#x5728;&#x8FD9;&#x79CD;&#x7C7B;&#x578B;&#x7684;&#x8C03;&#x5149;&#x5668;&#x4E2D;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x4F1A;&#x5207;&#x6389;&#x6B63;&#x5F26;&#x6CE2;&#x5F00;&#x59CB;&#x5904;&#x7684;&#x90E8;&#x5206;&#x3002;&#x8FD9;&#x662F;&#x6700;&#x5E7F;&#x6CDB;&#x4F7F;&#x7528;&#x7684;&#x8C03;&#x5149;&#x5668;&#x7C7B;&#x578B;&#xFF0C;&#x56E0;&#x4E3A;&#x5B83;&#x975E;&#x5E38;&#x9002;&#x5408;TRIAC&#x3002;&#x6BD5;&#x7ADF;&#xFF0C;&#x4E09;&#x7AEF;&#x53CC;&#x5411;&#x53EF;&#x63A7;&#x7845;&#x5F00;&#x5173;&#x5F88;&#x5BB9;&#x6613;&#x63A5;&#x901A;&#xFF0C;&#x8FC7;&#x96F6;&#x65F6;&#x82E5;&#x4E0B;&#x62C9;B&#x6781;&#x5B83;&#x4F1A;&#x81EA;&#x884C;&#x5173;&#x95ED;&#xFF0C;&#x56E0;&#x4E3A;&#x6B64;&#x65F6;&#x7535;&#x6D41;&#x4F1A;&#x5C0F;&#x4E8E;&#x6700;&#x5927;&#x7EF4;&#x6301;&#x5F00;&#x542F;&#x7535;&#x6D41;&#xFF0C;&#x6709;&#x53EF;&#x4EE5;&#x6805;&#x6781;&#x5173;&#x65AD;&#x7684;&#xFF08;GTO&#xFF09;TRIAC&#xFF0C;&#x4F46;&#x4EF7;&#x683C;&#x6602;&#x8D35;</p>
+<p><a href="https://www.youtube.com/watch?v=BhQWOv10Oag" target="_blank" rel="noopener">Great Scott!&#xFF1A;&#x524D;&#x6CBF;&#x5207;&#x76F8;&#x8C03;&#x5149;</a></p>
+<h1 id="&#x540E;&#x6CBF;&#x5207;&#x76F8;&#x8C03;&#x5149;"><a class="header-anchor" href="#&#x540E;&#x6CBF;&#x5207;&#x76F8;&#x8C03;&#x5149;"></a>&#x540E;&#x6CBF;&#x5207;&#x76F8;&#x8C03;&#x5149;</h1>
+<p><img src="/88b2c11b/%E5%90%8E%E6%B2%BF%E5%88%87%E7%9B%B8%E8%B0%83%E5%85%89.JPG" alt></p>
+<p>&#x5B9E;&#x73B0;&#x540E;&#x6CBF;&#x8C03;&#x5149;&#x5668;&#xFF0C;&#x5F00;&#x5173;&#x8BBE;&#x5907;&#x5FC5;&#x987B;&#x4F7F;&#x7528;&#x79F0;&#x4E3A;&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;&#x5668;&#x7684;&#x7535;&#x8DEF;&#x5728;&#x4EA4;&#x6D41;&#x6CE2;&#x5F62;&#x901A;&#x8FC7;&#x96F6;&#x65F6;&#x5BFC;&#x901A;&#x3002;&#x5728;&#x63A7;&#x5236;&#x8BBE;&#x7F6E;&#x7684;&#x9884;&#x5B9A;&#x65F6;&#x95F4;&#x4E4B;&#x540E;&#xFF0C;&#x5F00;&#x5173;&#x8BBE;&#x5907;&#x5C06;&#x5173;&#x95ED;&#xFF0C;&#x5E76;&#x4E14;&#x6CE2;&#x5F62;&#x7684;&#x5176;&#x4F59;&#x90E8;&#x5206;&#x4E0D;&#x4F1A;&#x88AB;&#x8D1F;&#x8F7D;&#x4F7F;&#x7528;&#x3002;<br>
+&#x540E;&#x6CBF;&#x8C03;&#x5149;&#x5668;&#x901A;&#x5E38;&#x4F7F;&#x7528;MOSFET&#xFF0C;&#x56E0;&#x4E3A;&#x5B83;&#x4EEC;&#x51E0;&#x4E4E;&#x4E0D;&#x9700;&#x8981;&#x63A7;&#x5236;&#x7535;&#x6D41;&#xFF0C;&#x5E76;&#x4E14;&#x575A;&#x56FA;&#x53EF;&#x9760;&#x3002;&#x5B83;&#x4EEC;&#x4E5F;&#x76F8;&#x5BF9;&#x4FBF;&#x5B9C;&#xFF0C;&#x5E76;&#x4E14;&#x5728;&#x9002;&#x5408;&#x4E8E;&#x5E02;&#x7535;&#x8FD0;&#x884C;&#x7684;&#x989D;&#x5B9A;&#x7535;&#x538B;&#x4E0B;&#x5BB9;&#x6613;&#x83B7;&#x5F97;&#x3002;&#x53E6;&#x4E00;&#x79CD;&#x9009;&#x62E9;&#x662F;&#x4F7F;&#x7528;IGBT&#xFF08;&#x7EDD;&#x7F18;&#x6805;&#x53CC;&#x6781;&#x578B;&#x6676;&#x4F53;&#x7BA1;&#xFF09;&#xFF0C;&#x5B83;&#x7ED3;&#x5408;&#x4E86;MOSFET&#x548C;&#x53CC;&#x6781;&#x578B;&#x6676;&#x4F53;&#x7BA1;&#x7684;&#x4F18;&#x70B9;&#xFF0C;&#x901A;&#x5E38;&#x6BD4;MOSFET&#x66F4;&#x6602;&#x8D35;&#x3002;&#x540C;&#x6837;&#xFF0C;&#x8BE5;&#x6CE2;&#x5F62;&#x662F;&#x7406;&#x60F3;&#x7684;&#xFF0C;&#x5E76;&#x4E14;&#x4ECE;&#x56FE;9&#x6240;&#x793A;&#x7684;&#x5B9E;&#x9645;&#x6CE2;&#x5F62;&#x4E2D;&#x53EF;&#x4EE5;&#x660E;&#x663E;&#x770B;&#x51FA;&#xFF0C;&#x5B58;&#x5728;&#x660E;&#x663E;&#x7684;&#x504F;&#x5DEE;-&#x7279;&#x522B;&#x662F;&#x5728;&#x6EE1;&#x529F;&#x7387;&#x60C5;&#x51B5;&#x4E0B;&#x3002;&#x8FD9;&#x662F;&#x7531;&#x4E8E;&#x590D;&#x6742;&#x7684;&#x7535;&#x5B50;&#x8BBE;&#x5907;&#x9700;&#x8981;&#x4E00;&#x5B9A;&#x7684;&#x7535;&#x538B;&#x624D;&#x80FD;&#x5DE5;&#x4F5C;&#xFF0C;&#x56E0;&#x6B64;&#x67D0;&#x4E9B;&#x65BD;&#x52A0;&#x7684;&#x7535;&#x538B;&#x5C06;&#x59CB;&#x7EC8;&#x4E22;&#x5931;&#x3002;</p>
+<p>&#x5927;&#x591A;&#x6570;&#x540E;&#x7F18;&#x8C03;&#x5149;&#x5668;&#x4E0E;&#x767D;&#x70BD;&#x706F;&#x4E00;&#x8D77;&#x4F7F;&#x7528;&#x65F6;&#x8FD8;&#x6709;&#x53E6;&#x4E9B;&#x6709;&#x7528;&#x7684;&#x529F;&#x80FD;&#xFF1A;</p>
+<ul>
+<li>&#x8BE5;&#x7535;&#x8DEF;&#x8BBE;&#x8BA1;&#x4E3A;&#x63D0;&#x4F9B;&#x201C;&#x8F6F;&#x542F;&#x52A8;&#x201D;&#xFF0C;&#x4ECE;&#x800C;&#x76F8;&#x5BF9;&#x7F13;&#x6162;&#x5730;&#x589E;&#x52A0;&#x706F;&#x7684;&#x7535;&#x538B;</li>
+<li>&#x5BF9;&#x4E8E;&#x767D;&#x70BD;&#x706F;&#xFF0C;&#x51E0;&#x4E4E;&#x6D88;&#x9664;&#x4E86;&#x201C;&#x70ED;&#x51B2;&#x51FB;&#x201D;&#xFF0C;&#x5373;&#x542F;&#x52A8;&#x65F6;&#x7684;&#x77ED;&#x6682;&#x65F6;&#x95F4;&#xFF0C;&#x8BE5;&#x65F6;&#x95F4;&#x6D88;&#x8017;&#x7684;&#x706F;&#x7535;&#x6D41;&#x7EA6;&#x4E3A;&#x6B63;&#x5E38;&#x5DE5;&#x4F5C;&#x7535;&#x6D41;&#x7684;10&#x500D;&#x3002;&#x70ED;&#x51B2;&#x51FB;&#x662F;&#x9020;&#x6210;&#x5927;&#x591A;&#x6570;&#x65E9;&#x671F;&#x706F;&#x6CE1;&#x6545;&#x969C;&#x7684;&#x539F;&#x56E0;-&#x5B9E;&#x9645;&#x4E0A;&#xFF0C;&#x5F88;&#x5C11;&#x6709;&#x767D;&#x70BD;&#x706F;&#x5728;&#x70B9;&#x4EAE;&#x65F6;&#x53D1;&#x751F;&#x6545;&#x969C;&#x3002;&#x5F00;&#x5173;&#x6253;&#x5F00;&#x65F6;&#x51E0;&#x4E4E;&#x603B;&#x662F;&#x6545;&#x969C;&#x3002;&#x901A;&#x8FC7;&#x5305;&#x542B;&#x8F6F;&#x542F;&#x52A8;&#x529F;&#x80FD;&#xFF0C;&#x53EF;&#x4EE5;&#x5EF6;&#x957F;&#x706F;&#x6CE1;&#x7684;&#x4F7F;&#x7528;&#x5BFF;&#x547D;&#x3002;</li>
+</ul>
+<p><a href="https://www.youtube.com/watch?v=BhQWOv10Oag" target="_blank" rel="noopener">GrearScott! &#xFF1A;&#x540E;&#x6CBF;&#x5207;&#x76F8;&#x8C03;&#x5149;</a></p>
+<h1 id="&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;"><a class="header-anchor" href="#&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;"></a>&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;</h1>
+<p><a href="https://sound-au.com/appnotes/an005.htm" target="_blank" rel="noopener">&#x826F;&#x5FC3;&#x79D1;&#x666E;&#xFF1A;&#x51E0;&#x79CD;&#x5E38;&#x89C1;&#x7684;Zero Crossing Detectors and Comparators</a></p>
+<h3 id="&#x5206;&#x7C7B;"><a class="header-anchor" href="#&#x5206;&#x7C7B;"></a>*&#x5206;&#x7C7B;</h3>
+<ul>
+<li>&#x9694;&#x79BB;&#x578B;&#x548C;&#x975E;&#x9694;&#x79BB;&#x578B;&#xFF0C;&#x9694;&#x79BB;&#x884C;&#x5B9E;&#x73B0;&#x65B9;&#x6CD5;&#x4E3B;&#x8981;&#x662F;&#x53D8;&#x538B;&#x5668;&#x9694;&#x79BB;&#x548C;&#x5149;&#x8026;&#x9694;&#x79BB;</li>
+<li>&#x957F;&#x8109;&#x51B2;&#x578B;&#x548C;&#x77ED;&#x8109;&#x51B2;&#x578B;&#xFF0C;&#x6CE8;&#x610F;&#xFF0C;&#x8109;&#x51B2;&#x662F;&#x5426; &#x201C;&#x77ED;&#x201D; &#x6216; &#x201C;&#x957F;&#x201D;&#x662F;&#x76F8;&#x5BF9;&#x8FC7;&#x96F6;&#x4FE1;&#x53F7;&#x8F93;&#x51FA;&#x7AEF;&#x662F;&#x5426; &#x201C;&#x4E0A;&#x62C9;&#x201D; &#x6216; &#x201C;&#x4E0B;&#x62C9;&#x201D; &#x800C;&#x8A00;&#x7684;&#xFF0C;<s>&#x4F60;&#x5F80;&#x4E0B;&#x770B;&#x5404;&#x79CD;&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;&#x5668;&#x8F93;&#x51FA;&#x7684;&#x6CE2;&#x5F62;&#x5C31;&#x77E5;&#x9053;&#x8FD9;&#x53E5;&#x8BDD;&#x662F;&#x4EC0;&#x4E48;&#x610F;&#x601D;&#xFF0C;&#x8BF7;&#x64E6;&#x4EAE;&#x773C;&#x775B;&#x5343;&#x4E07;&#x522B;&#x641E;&#x6DF7;</s></li>
+<li>&#x76F8;&#x4F4D;&#x8865;&#x507F;&#x548C;&#x975E;&#x76F8;&#x4F4D;&#x8865;&#x507F;&#xFF0C;&#x542C;&#x8D77;&#x6765;&#x5F88;&#x9AD8;&#x7AEF;&#xFF0C;&#x5B9E;&#x9645;&#x5C31;&#x662F;&#x5728;&#x706B;&#x96F6;&#x7EBF;&#x4E4B;&#x95F4;&#x5E76;&#x8054;&#x4E00;&#x4E2A;150pf-1nf&#x7684;&#x9AD8;&#x538B;&#x7535;&#x5BB9;&#x5C06;&#x76F8;&#x4F4D;&#x524D;&#x79FB;&#xFF0C;c&#x4ECE;&#x800C;&#x89E3;&#x51B3;&#x5149;&#x8026;led&#x9700;&#x8981;&#x4E00;&#x5B9A;&#x7684;&#x538B;&#x964D;&#x624D;&#x80FD;&#x5F00;&#x542F;&#x7684;&#x8FC7;&#x96F6;&#x4FE1;&#x53F7;&#x6EDE;&#x540E;&#x95EE;&#x9898;</li>
+</ul>
+<h3 id="&#x5149;&#x8026;&#x9009;&#x578B;"><a class="header-anchor" href="#&#x5149;&#x8026;&#x9009;&#x578B;"></a>*&#x5149;&#x8026;&#x9009;&#x578B;</h3>
+<p>&#x4E3B;&#x8981;&#x7528;&#x975E;&#x7EBF;&#x6027;&#x5149;&#x8026;&#xFF0C;&#x5206;&#x4E24;&#x79CD;&#xFF1A;</p>
+<h4 id="&#x53CC;&#x5411;&#x975E;&#x7EBF;&#x6027;&#x5149;&#x8026;"><a class="header-anchor" href="#&#x53CC;&#x5411;&#x975E;&#x7EBF;&#x6027;&#x5149;&#x8026;"></a>&#x53CC;&#x5411;&#x975E;&#x7EBF;&#x6027;&#x5149;&#x8026;</h4>
+<p>&#x56DB;&#x811A;&#xFF1A;<a href="https://datasheet.lcsc.com/szlcsc/CT-Micro-International-CT354A-V-T1_C191856.pdf" target="_blank" rel="noopener">CT354A</a>&#xFF0C;<a href="https://datasheet.lcsc.com/szlcsc/Lite-On-LTV-814_C10790.pdf" target="_blank" rel="noopener">LTV814</a></p>
+<h4 id="&#x5355;&#x5411;&#x975E;&#x7EBF;&#x6027;&#x5149;&#x8026;"><a class="header-anchor" href="#&#x5355;&#x5411;&#x975E;&#x7EBF;&#x6027;&#x5149;&#x8026;"></a>&#x5355;&#x5411;&#x975E;&#x7EBF;&#x6027;&#x5149;&#x8026;</h4>
+<p>&#x56DB;&#x811A;&#xFF1A;<a href="https://www.farnell.com/datasheets/73758.pdf" target="_blank" rel="noopener">PC817</a>&#xFF0C;<a href="https://www.sparkfun.com/datasheets/Components/ps2501.pdf" target="_blank" rel="noopener">NEC2501</a></p>
+<p>&#x516D;&#x811A;&#xFF1A;<a href="https://www.vishay.com/docs/83725/4n25.pdf" target="_blank" rel="noopener">4N25</a>&#xFF0C;<a href="https://www.vishay.com/docs/83608/h11aa1.pdf" target="_blank" rel="noopener">H11AA1</a></p>
+<h2 id="&#x957F;&#x8109;&#x51B2;&#x578B;"><a class="header-anchor" href="#&#x957F;&#x8109;&#x51B2;&#x578B;"></a>&#x957F;&#x8109;&#x51B2;&#x578B;</h2>
+<h3 id="&#x57FA;&#x4E8E;&#x8FD0;&#x653E;&#x7684;&#x957F;&#x8109;&#x51B2;&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;&#x5668;"><a class="header-anchor" href="#&#x57FA;&#x4E8E;&#x8FD0;&#x653E;&#x7684;&#x957F;&#x8109;&#x51B2;&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;&#x5668;"></a><a href="https://www.elprocus.com/zero-crossing-detector-circuit-and-working/" target="_blank" rel="noopener">&#x57FA;&#x4E8E;&#x8FD0;&#x653E;&#x7684;&#x957F;&#x8109;&#x51B2;&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;&#x5668;</a></h3>
+<p>&#x4E3B;&#x8981;&#x91C7;&#x7528;741&#x8FD0;&#x653E;&#xFF0C;<s>LM741&#x8FD0;&#x653E;&#x6211;&#x624B;&#x5934;&#x6CA1;&#x6709;</s></p>
+<table>
+    <td width="50%"><img src="/88b2c11b/lm741&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;&#x7535;&#x8DEF;.JPG"></td>
+    <td><img src="/88b2c11b/lm741&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;&#x6CE2;&#x5F62;.JPG" < td>
+</td></table>
+<h3 id="&#x57FA;&#x4E8E;&#x6676;&#x4F53;&#x7BA1;&#x7684;&#x957F;&#x8109;&#x51B2;&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;&#x5668;"><a class="header-anchor" href="#&#x57FA;&#x4E8E;&#x6676;&#x4F53;&#x7BA1;&#x7684;&#x957F;&#x8109;&#x51B2;&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;&#x5668;"></a>&#x57FA;&#x4E8E;&#x6676;&#x4F53;&#x7BA1;&#x7684;&#x957F;&#x8109;&#x51B2;&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;&#x5668;</h3>
+<p>&#x6CE8;&#x610F;&#xFF0C;&#x6676;&#x4F53;&#x7BA1;&#x5BFC;&#x901A;&#x65F6;&#x5C06;OUT&#x4FE1;&#x53F7;&#x4E0B;&#x62C9;&#xFF0C;&#x8FC7;&#x96F6;&#x65F6;&#x6676;&#x4F53;&#x7BA1;&#x4E0D;&#x5BFC;&#x901A;&#xFF0C;OUT&#x88AB;R3&#x4E0A;&#x62C9;&#xFF0C;&#x6676;&#x4F53;&#x7BA1;90%&#x4EE5;&#x4E0A;&#x7684;&#x65F6;&#x95F4;&#x90FD;&#x662F;&#x5BFC;&#x901A;&#x7684;</p>
+<p><img src="/88b2c11b/%E9%9D%9E%E9%9A%94%E7%A6%BB%E6%99%B6%E4%BD%93%E7%AE%A1%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B.png" alt="&#x975E;&#x9694;&#x79BB;&#x6676;&#x4F53;&#x7BA1;&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;"></p>
+<h3 id="&#x57FA;&#x4E8E;&#x5149;&#x8026;&#x7684;&#x957F;&#x8109;&#x51B2;&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;&#x5668;"><a class="header-anchor" href="#&#x57FA;&#x4E8E;&#x5149;&#x8026;&#x7684;&#x957F;&#x8109;&#x51B2;&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;&#x5668;"></a>&#x57FA;&#x4E8E;&#x5149;&#x8026;&#x7684;&#x957F;&#x8109;&#x51B2;&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;&#x5668;</h3>
+<h4 id="&#x5355;&#x5411;&#x5149;&#x8026;"><a class="header-anchor" href="#&#x5355;&#x5411;&#x5149;&#x8026;"></a>&#x5355;&#x5411;&#x5149;&#x8026;</h4>
+<p><img src="/88b2c11b/%E9%9A%94%E7%A6%BB%E5%9E%8B%E5%85%89%E8%80%A6%E9%95%BF%E8%84%89%E5%86%B2%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B.png" alt="20200426135135"></p>
+<p>&#x6B64;&#x7C7B;&#x7535;&#x8DEF;&#x7B80;&#x5355;&#x7C97;&#x66B4;&#xFF0C;&#x4E00;&#x822C;&#x90FD;&#x662F;&#x9650;&#x6D41;&#x7535;&#x963B;+&#x6574;&#x6D41;&#x6865;+&#x5355;&#x5411;&#x5149;&#x8026;&#xFF0C;&#x5229;&#x7528;&#x5149;&#x8026;led&#x5F00;&#x542F;&#x65F6;&#x4E24;&#x7AEF;&#x7684;&#x6700;&#x5C0F;&#x538B;&#x964D;&#x5B9E;&#x73B0;</p>
+<p>&#x7F3A;&#x70B9;&#x662F;&#x5149;&#x8026;&#x4E2D;&#x7684;LED&#x81F3;&#x5C11;&#x6709;90&#xFF05;&#x7684;&#x65F6;&#x95F4;&#x901A;&#x7535;&#x3002;&#x7531;&#x4E8E;LED&#x7684;&#x4F7F;&#x7528;&#x5BFF;&#x547D;&#x53D6;&#x51B3;&#x4E8E;&#x5B83;&#x5FC5;&#x987B;&#x901A;&#x8FC7;&#x7684;&#x7535;&#x6D41;&#x91CF;&#x548C;&#x603B;&#x7684;&#x201C;&#x5F00;&#x542F;&#x201D;&#x65F6;&#x95F4;&#xFF0C;&#x56E0;&#x6B64;&#x4F1A;&#x7F29;&#x77ED;LED&#x7684;&#x4F7F;&#x7528;&#x5BFF;&#x547D;</p>
+<p>&#x66F4;&#x591A;&#x7F3A;&#x70B9;&#x8BF7;&#x8F7B;&#x6233;&#xFF1A;<a href="https://www.diangon.com/m419951.html" target="_blank" rel="noopener">&#x4F20;&#x7EDF;&#x5149;&#x8026;&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;&#x7535;&#x8DEF;&#x7684;&#x7F3A;&#x70B9;</a></p>
+<h4 id="&#x53CC;&#x5411;&#x5149;&#x8026;"><a class="header-anchor" href="#&#x53CC;&#x5411;&#x5149;&#x8026;"></a>&#x53CC;&#x5411;&#x5149;&#x8026;</h4>
+<p><img src="/88b2c11b/H11AA1%E5%8F%8C%E5%90%91%E5%85%89%E8%80%A6%E9%95%BF%E8%84%89%E5%86%B2%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B.png" alt="How did I break this optocoupler? - Electrical Engineering Stack ..."></p>
+<p>&#x53CC;&#x5411;&#x5149;&#x8026;&#x7701;&#x6389;&#x4E86;&#x6574;&#x6D41;&#x6865;&#xFF0C;&#x8981;&#x77E5;&#x9053;&#xFF0C;&#x4E00;&#x4E2A;1A/1000V&#x7684;&#x6574;&#x6D41;&#x6865;&#x90FD;&#x4E24;&#x6BDB;&#x4E00;&#x4E2A;&#x4E86;&#xFF0C;&#x800C;&#x53CC;&#x5411;&#x5149;&#x8026;&#x591A;&#x96C6;&#x6210;&#x4E86;&#x4E00;&#x4E2A;led&#x4E5F;&#x5C31;&#x8D35;&#x51E0;&#x5206;&#x94B1;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x5C11;&#x7528;&#x6389;&#x4E00;&#x4E2A;&#x5143;&#x4EF6;</p>
+<h2 id="&#x77ED;&#x8109;&#x51B2;&#x578B;"><a class="header-anchor" href="#&#x77ED;&#x8109;&#x51B2;&#x578B;"></a>&#x77ED;&#x8109;&#x51B2;&#x578B;</h2>
+<h3 id="&#x57FA;&#x4E8E;&#x5149;&#x8026;&#x7684;&#x77ED;&#x8109;&#x51B2;&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;&#x5668;"><a class="header-anchor" href="#&#x57FA;&#x4E8E;&#x5149;&#x8026;&#x7684;&#x77ED;&#x8109;&#x51B2;&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;&#x5668;"></a>&#x57FA;&#x4E8E;&#x5149;&#x8026;&#x7684;&#x77ED;&#x8109;&#x51B2;&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;&#x5668;</h3>
+<h4 id="&#x4F18;&#x70B9;&#xFF1A;"><a class="header-anchor" href="#&#x4F18;&#x70B9;&#xFF1A;"></a>&#x4F18;&#x70B9;&#xFF1A;</h4>
+<p>1&#x3001;&#x5FAE;&#x529F;&#x8017;&#xFF1A;&#x8F93;&#x51FA;&#x8109;&#x51B2;&#x662F;&#x7A84;&#x8109;&#x51B2;&#xFF0C;&#x6240;&#x9700;&#x80FD;&#x91CF;&#x5C0F;&#xFF0C;&#x5927;&#x5927;&#x5EF6;&#x957F;&#x5149;&#x8026;&#x5185;&#x7684;LED&#x4F7F;&#x7528;&#x5BFF;&#x547D;<br>
+2&#x3001;&#x7A84;&#x8109;&#x51B2;&#xFF1A;&#x5DE7;&#x5999;&#x5730;&#x5229;&#x7528;&#x5FAE;&#x5C0F;&#x7535;&#x6D41;&#x5BF9;&#x5E76;&#x8054;&#x5728;&#x4E09;&#x6781;&#x7BA1;EC&#x4E24;&#x6781;&#x7684;&#x7535;&#x5BB9;&#x5145;&#x7535;&#x50A8;&#x80FD;&#xFF0C;&#x8F93;&#x51FA;&#x8109;&#x51B2;&#x65F6;&#x53C8;&#x4ECE;&#x8BE5;&#x7535;&#x5BB9;&#x53D6;&#x7535;&#xFF08;&#x77ED;&#x65F6;&#x95F4;&#x5927;&#x7535;&#x6D41;&#xFF09;&#x3002;&#x65E2;&#x4FDD;&#x8BC1;&#x4E86;&#x8F93;&#x51FA;&#x8109;&#x51B2;&#x65F6;&#x5BF9;&#x9A71;&#x52A8;&#x7535;&#x6D41;&#x7684;&#x9700;&#x6C42;&#xFF0C;&#x53C8;&#x4F7F;&#x5F97;&#x4EA4;&#x6D41;&#x8F93;&#x5165;&#x7535;&#x6D41;&#x6BD4;&#x8F83;&#x5C0F;</p>
+<p>&#x4E0B;&#x9762;&#x4E24;&#x4E2A;&#x7535;&#x8DEF;&#x539F;&#x7406;&#x4E00;&#x6837;&#xFF0C;&#x53EA;&#x4E0D;&#x8FC7;&#x4E00;&#x4E2A;&#x7528;&#x7535;&#x963B;&#x5206;&#x538B;+PNP&#xFF0C;&#x4E00;&#x4E2A;&#x7528;&#x7A33;&#x538B;&#x4E8C;&#x6781;&#x7BA1;+NPN&#xFF0C;<s>&#x4E00;&#x4E2A;&#x8001;&#x5916;&#x7684;&#x4E00;&#x4E2A;&#x56FD;&#x5185;&#x7684;</s></p>
+<h4 id="&#x7B2C;&#x4E00;&#x79CD;&#xFF1A;"><a class="header-anchor" href="#&#x7B2C;&#x4E00;&#x79CD;&#xFF1A;"></a>&#x7B2C;&#x4E00;&#x79CD;&#xFF1A;</h4>
+<p><a href="https://d1.amobbs.com/bbs_upload782111/files_40/ourdev_643643NSY57M.pdf" target="_blank" rel="noopener">DIY - Isolated High Quality Mains Voltage Zero Crossing Detector</a></p>
+<p><img src="/88b2c11b/%E5%85%89%E8%80%A6%E7%9F%AD%E8%84%89%E5%86%B2%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B%E7%94%B5%E8%B7%AF1.png" alt="&#x5149;&#x8026;&#x77ED;&#x8109;&#x51B2;&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;&#x7535;&#x8DEF;1"></p>
+<h4 id="&#x7B2C;&#x4E8C;&#x79CD;&#xFF1A;"><a class="header-anchor" href="#&#x7B2C;&#x4E8C;&#x79CD;&#xFF1A;"></a>&#x7B2C;&#x4E8C;&#x79CD;&#xFF1A;</h4>
+<p><a href="http://www.crystalradio.cn/thread-918182-1-1.html" target="_blank" rel="noopener">&#x77FF;&#x77F3;&#x6536;&#x97F3;&#x673A;&#x8BBA;&#x575B;&#x539F;&#x5E16;</a>&#xFF1A;</p>
+<p><img src="/88b2c11b/%E5%B8%A6%E7%9B%B8%E4%BD%8D%E8%A1%A5%E5%81%BF%E7%9A%84%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B%E7%94%B5%E8%B7%AF.png" alt="&#x5E26;&#x76F8;&#x4F4D;&#x8865;&#x507F;&#x7684;&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;&#x7535;&#x8DEF;"></p>
+<p>&#x548C;&#x524D;&#x51E0;&#x79CD;&#x7535;&#x8DEF;&#x5BF9;&#x6BD4;&#x5982;&#x4E0B;&#xFF08;&#x9ED8;&#x8BA4;&#x5149;&#x8026;&#x4E09;&#x6781;&#x7BA1;&#x7684;C&#x6781;&#x4E0A;&#x62C9;VCC&#xFF0C;&#x8FC7;&#x96F6;&#x4FE1;&#x53F7;&#x63A5;&#x5149;&#x8026;&#x4E09;&#x6781;&#x7BA1;&#x7684;E&#x6781;&#xFF0C;&#x5373;&#x65E0;&#x8FC7;&#x96F6;&#x4FE1;&#x53F7;&#x65F6;&#x4E0B;&#x62C9;&#x5230;GND&#xFF09;<img src="/88b2c11b/%E5%87%A0%E7%A7%8D%E8%BF%87%E9%9B%B6%E7%94%B5%E8%B7%AF%E7%9A%84%E6%B3%A2%E5%BD%A2.png" alt="IMG_7533"></p>
+<p>&#x5BF9;&#x6B64;&#x7535;&#x8DEF;&#x7A0D;&#x52A0;&#x4FEE;&#x6539;&#xFF0C;&#x63D0;&#x9AD8;&#x5B89;&#x5168;&#x7CFB;&#x6570;&#xFF0C;&#x624B;&#x5934;&#x6CA1;&#x6709;12V&#x9F50;&#x7EB3;&#x4E8C;&#x6781;&#x7BA1;&#xFF0C;&#x7528;&#x4E09;&#x4E2A;5.1V&#x7684;&#x4EE3;&#x66FF;</p>
+<p><img src="/88b2c11b/%E5%B8%A6%E7%9B%B8%E4%BD%8D%E8%A1%A5%E5%81%BF%E7%9A%84%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B%E7%94%B5%E8%B7%AF2.png" alt="&#x5E26;&#x76F8;&#x4F4D;&#x8865;&#x507F;&#x7684;&#x8FC7;&#x96F6;&#x68C0;&#x6D4B;&#x7535;&#x8DEF;2"></p>
+<p>&#x710A;&#x63A5;&#x5B9E;&#x7269;&#xFF1A;</p>
+<p><img src="/88b2c11b/ZDCV01.JPG" alt="IMG_7423"></p>
+<p>&#x7528;arduino oscilloscope&#x793A;&#x6CE2;&#x5668;&#x6D4B;&#x8BD5;OK</p>
+<p><img src="/88b2c11b/ZDCV01-Uno%E7%A4%BA%E6%B3%A2%E5%99%A8.JPG" alt="20200424093310"></p>
+<h1 id="&#x8F93;&#x51FA;&#x529F;&#x7387;&#x7EBF;&#x6027;&#x5316;"><a class="header-anchor" href="#&#x8F93;&#x51FA;&#x529F;&#x7387;&#x7EBF;&#x6027;&#x5316;"></a>&#x8F93;&#x51FA;&#x529F;&#x7387;&#x7EBF;&#x6027;&#x5316;</h1>
+<h2 id="&#x57FA;&#x672C;&#x6982;&#x5FF5;"><a class="header-anchor" href="#&#x57FA;&#x672C;&#x6982;&#x5FF5;"></a>&#x57FA;&#x672C;&#x6982;&#x5FF5;</h2>
+<h3 id="&#x6B63;&#x5F26;&#x51FD;&#x6570;"><a class="header-anchor" href="#&#x6B63;&#x5F26;&#x51FD;&#x6570;"></a>&#x6B63;&#x5F26;&#x51FD;&#x6570;</h3>
+<p>&#x5F62;&#x5982;<br>
+$$<br>
+y=Asin(&#x3C9;x+&#x3C6;)+k<br>
+$$<br>
+&#x5176;&#x4E2D;A&#xFF0C;&#x3C9;&#xFF0C;&#x3C6;&#xFF0C;k&#x662F;&#x5E38;&#x6570;&#xFF0C;&#x4E14;&#x3C9;&#x2260;0</p>
+<ul>
+<li>A&#x8868;&#x793A;&#x632F;&#x5E45;</li>
+<li>&#x5468;&#x671F;&#xFF1A;&#x5F80;&#x590D;&#x632F;&#x52A8;&#x4E00;&#x6B21;&#x6240;&#x9700;&#x8981;&#x7684;&#x65F6;&#x95F4;&#xFF0C;T=2&#x3C0;/&#x3C9;</li>
+<li>&#x9891;&#x7387;&#xFF1A;&#x5355;&#x4F4D;&#x65F6;&#x95F4;&#x5185;&#x5F80;&#x590D;&#x632F;&#x52A8;&#x7684;&#x6B21;&#x6570;&#xFF0C;f=1/T=&#x3C9;/2&#x3C0;</li>
+<li>&#x76F8;&#x4F4D;&#xFF1A;&#x3C9;x+&#x3C6;</li>
+<li>&#x521D;&#x76F8;&#xFF1A;&#x3C6; (&#x5F53;x=0&#x65F6;&#x7684;&#x76F8;&#x4F4D; )</li>
+</ul>
+<h3 id="&#x5F27;&#x5EA6;"><a class="header-anchor" href="#&#x5F27;&#x5EA6;"></a>&#x5F27;&#x5EA6;</h3>
+<p>&#x4E00;&#x4E2A;&#x5B8C;&#x6574;&#x7684;&#x5706;&#x7684;&#x5F27;&#x5EA6;&#x662F;2&#x3C0;&#xFF0C;&#x5373;2&#x3C0;= 360&#xB0;&#xFF0C;<span style="color:Blue;">&#x5F27;&#x5EA6;&#x4E0E;&#x89D2;&#x5EA6;&#x7684;&#x533A;&#x522B;&#x4EC5;&#x4EC5;&#x662F;&#x63CF;&#x8FF0;&#x4E00;&#x5708;&#x7684;&#x4E24;&#x79CD;&#x91CF;&#x5EA6;</span></p>
+<h3 id="&#x89D2;&#x9891;&#x7387;"><a class="header-anchor" href="#&#x89D2;&#x9891;&#x7387;"></a>&#x89D2;&#x9891;&#x7387;</h3>
+<p><strong>&#x89D2;&#x9891;&#x7387;</strong>&#x3C9;&#x6709;&#x65F6;&#x4E5F;&#x53EB;&#x505A;<strong>&#x89D2;&#x901F;&#x7387;</strong>&#x3001;<strong>&#x89D2;&#x901F;&#x5EA6;&#x6807;&#x91CF;</strong>&#xFF0C;&#x662F;&#x5BF9;&#x65CB;&#x8F6C;&#x5FEB;&#x6162;&#x7684;&#x5EA6;&#x91CF;&#xFF0C;&#x5B83;&#x662F;<a href="https://zh.wikipedia.org/wiki/%E8%A7%92%E9%80%9F%E5%BA%A6" target="_blank" rel="noopener">&#x89D2;&#x901F;&#x5EA6;</a>&#x7684;&#x7EDD;&#x5BF9;&#x503C;</p>
+<p>&#x89D2;&#x9891;&#x7387;&#x7684;<a href="https://zh.wikipedia.org/wiki/%E5%9B%BD%E9%99%85%E5%8D%95%E4%BD%8D%E5%88%B6" target="_blank" rel="noopener">&#x56FD;&#x9645;&#x5355;&#x4F4D;</a>&#x662F;<a href="https://zh.wikipedia.org/wiki/%E5%BC%A7%E5%BA%A6%E6%AF%8F%E7%A7%92" target="_blank" rel="noopener">&#x5F27;&#x5EA6;&#x6BCF;&#x79D2;</a></p>
+<p>&#x5F27;&#x5EA6;&#x662F;&#x65E0;&#x91CF;&#x7EB2;&#x7684;&#xFF0C;&#x89D2;&#x9891;&#x7387;&#x7684;<a href="https://zh.wikipedia.org/wiki/%E9%87%8F%E7%BA%B2" target="_blank" rel="noopener">&#x91CF;&#x7EB2;</a>&#x4E3A;T<sup>-1</sup></p>
+<p>&#x56E0;&#x4E3A;&#x65CB;&#x8F6C;360&#xB0;&#x7684;&#x5F27;&#x5EA6;&#x662F;2&#x3C0;&#xFF0C;&#x6240;&#x4EE5;<br>
+$$<br>
+&#x3C9;=\frac{2&#x3C0;}{T}=2&#x3C0; f=\frac{v}{r}=\frac{ds}{dt}\cdot\frac{1}{r}=\frac{d&#x3B8;}{dt}<br>
+$$<br>
+&#x5176;&#x4E2D;</p>
+<p>&#x3C9;&#x662F;&#x89D2;&#x9891;&#x7387;&#xFF08;&#x5355;&#x4F4D;&#x4E3A;&#x5F27;&#x5EA6;&#x6BCF;&#x79D2;&#xFF09;</p>
+<p>T&#x662F;<a href="https://zh.wikipedia.org/wiki/%E5%91%A8%E6%9C%9F" target="_blank" rel="noopener">&#x5468;&#x671F;</a>&#xFF08;&#x5355;&#x4F4D;&#x4E3A;&#x79D2;&#xFF09;</p>
+<p>f&#x662F;<a href="https://zh.wikipedia.org/wiki/%E9%A2%91%E7%8E%87" target="_blank" rel="noopener">&#x9891;&#x7387;</a>&#xFF08;&#x5355;&#x4F4D;&#x4E3A;<a href="https://zh.wikipedia.org/wiki/%E8%B5%AB%E5%85%B9" target="_blank" rel="noopener">&#x8D6B;&#x5179;</a>&#xFF09;</p>
+<p>v&#x662F;&#x7EBF;&#x901F;&#x5EA6;&#xFF08;&#x5355;&#x4F4D;&#x4E3A;&#x7C73;&#x6BCF;&#x79D2;&#xFF09;</p>
+<p>r&#x662F;&#x65CB;&#x8F6C;&#x7684;<a href="https://zh.wikipedia.org/wiki/%E5%8D%8A%E5%BE%84" target="_blank" rel="noopener">&#x534A;&#x5F84;</a>&#xFF08;&#x5355;&#x4F4D;&#x4E3A;<a href="https://zh.wikipedia.org/wiki/%E7%B1%B3" target="_blank" rel="noopener">&#x7C73;</a>&#xFF09;</p>
+<h3 id="&#x7535;&#x89D2;&#x5EA6;"><a class="header-anchor" href="#&#x7535;&#x89D2;&#x5EA6;"></a>&#x7535;&#x89D2;&#x5EA6;</h3>
+<p>&#x6B63;&#x5F26;&#x4EA4;&#x6D41;&#x7535;&#x7684;&#x7535;&#x6D41;&#x6216;&#x7535;&#x538B;&#x7684;&#x5927;&#x5C0F;&#x548C;&#x65B9;&#x5411;&#x968F;&#x65F6;&#x95F4;&#x6309;&#x6B63;&#x5F26;&#x51FD;&#x6570;&#x53D8;&#x5316;&#xFF0C;&#x5206;&#x522B;&#x8868;&#x793A;&#x4E3A;</p>
+<p>i=I<sub>m</sub>sin(&#x3C9;t+&#x3B1;)&#x6216;u= U<sub>m</sub>sin(&#x3C9;t+&#x3C6;)</p>
+<p>&#x5176;&#x4E2D;&#xFF1A;<br>
+$$<br>
+i=I_m\cdot sin(&#x3C9;t+&#x3C6;)<br>
+$$<br>
+i&#xFF1A;&#x4EA4;&#x6D41;&#x7535;&#x7535;&#x6D41;&#x7684;&#x77AC;&#x65F6;&#x503C;&#xFF0C;</p>
+<p>I<sub>m</sub>&#xFF1A;&#x4EA4;&#x6D41;&#x7535;&#x7535;&#x6D41;&#x7684;&#x5CF0;&#x503C;&#xFF0C;</p>
+<p>&#x3C9;&#xFF1A;&#x4EA4;&#x6D41;&#x7535;&#x7684;&#x89D2;&#x9891;&#x7387;</p>
+<p>&#x3C6;&#xFF1A;&#x4EA4;&#x6D41;&#x7535;&#x7684;&#x521D;&#x76F8;&#x4F4D;</p>
+<p>&#x3C9;t+&#x3C6;&#xFF1A;i &#x5BF9;&#x5E94;&#x7684;<span style="color:Blueviolet;"><strong>&#x7535;&#x89D2;&#x5EA6;</strong></span><span style="color:Blue;">&#xFF08;&#x7535;&#x89D2;&#x5EA6;&#x662F;&#x4E00;&#x4E2A;&#x968F;&#x65F6;&#x95F4;t&#x53D8;&#x5316;&#x7684;&#x8868;&#x8FBE;&#x5F0F;&#xFF09;</span></p>
+<h3 id="&#x6B63;&#x5F26;&#x51FD;&#x6570;&#x7684;&#x79EF;&#x5206;"><a class="header-anchor" href="#&#x6B63;&#x5F26;&#x51FD;&#x6570;&#x7684;&#x79EF;&#x5206;"></a>&#x6B63;&#x5F26;&#x51FD;&#x6570;&#x7684;&#x79EF;&#x5206;</h3>
+<h4 id="sin-x"><a class="header-anchor" href="#sin-x"></a>sin(x)</h4>
+<p>&#x793A;&#x4F8B;&#xFF0C;&#x6C42;&#x8BE5;&#x51FD;&#x6570;&#x5728;[0, &#x3C0;]&#x7684;&#x5B9A;&#x79EF;&#x5206;&#xFF1A;<br>
+$$<br>
+&#x222B;<sup>&#x3C0;_0sinxdx=-&#x222B;</sup>&#x3C0;_0cosxdx=\left|-cosx\right|^&#x3C0;_0=-(cos&#x3C0;-cos0)=2<br>
+$$</p>
+<h4 id="sin-sup-2-sup-x"><a class="header-anchor" href="#sin-sup-2-sup-x"></a>sin<sup>2</sup>(x)</h4>
+<p>&#x56FE;&#x50CF;&#xFF1A;</p>
+<p><img src="/88b2c11b/sin%5E2x.png" alt="20200425203832"></p>
+<p><a href="%5Bhttps://baike.baidu.com/item/%E7%A7%AF%E5%88%86%E5%85%AC%E5%BC%8F%5D(https://baike.baidu.com/item/%E7%A7%AF%E5%88%86%E5%85%AC%E5%BC%8F)">&#x79EF;&#x5206;&#x516C;&#x5F0F;</a>&#x63A8;&#x5BFC;&#xFF08;&#x5B9A;&#x79EF;&#x5206;&#x53EF;&#x4E0D;&#x52A0;&#x5E38;&#x6570;C&#xFF09;:<br>
+$$<br>
+&#x222B; sin^2xdx=&#x222B; \frac{1}{2}(1-cos2x)dx=\frac{1}{2}&#x222B;(1-cos2x)dx=\frac{1}{2}(x-\frac{1}{2}sin2x)=\frac{x}{2}-\frac{sin2x}{4}+C<br>
+$$<br>
+sin<sup>2</sup>(x)&#x79EF;&#x5206;x/2-sin2x/4&#x7684;&#x56FE;&#x50CF;&#xFF1A;</p>
+<p><img src="/88b2c11b/y=x%E9%99%A4%E4%BB%A52-sin2x%E9%99%A4%E4%BB%A54.png" alt="312BA14B1A4AB4E7B149616E7AF0CE88"></p>
+<h2 id="&#x7531;&#x7EBF;&#x6027;&#x5316;&#x7684;&#x8F93;&#x51FA;&#x529F;&#x7387;&#x6C42;&#x7535;&#x89D2;&#x5EA6;&#x7684;&#x6570;&#x636E;"><a class="header-anchor" href="#&#x7531;&#x7EBF;&#x6027;&#x5316;&#x7684;&#x8F93;&#x51FA;&#x529F;&#x7387;&#x6C42;&#x7535;&#x89D2;&#x5EA6;&#x7684;&#x6570;&#x636E;"></a>&#x7531;&#x7EBF;&#x6027;&#x5316;&#x7684;&#x8F93;&#x51FA;&#x529F;&#x7387;&#x6C42;&#x7535;&#x89D2;&#x5EA6;&#x7684;&#x6570;&#x636E;</h2>
+<h3 id="&#x725B;&#x987F;-&#x83B1;&#x5E03;&#x5C3C;&#x5179;&#x516C;&#x5F0F;&#x6C42;&#x89E3;"><a class="header-anchor" href="#&#x725B;&#x987F;-&#x83B1;&#x5E03;&#x5C3C;&#x5179;&#x516C;&#x5F0F;&#x6C42;&#x89E3;"></a>&#x725B;&#x987F;-&#x83B1;&#x5E03;&#x5C3C;&#x5179;&#x516C;&#x5F0F;&#x6C42;&#x89E3;</h3>
+<p>&#x53EA;&#x987B;&#x8981;&#x6309;&#x7167;&#x4E0A;&#x9762;&#x7684;x/2-sin2x/4&#x51FD;&#x6570;&#x5728;[0, &#x3C0;]&#x533A;&#x95F4;&#x4E0A;&#x7684;&#x56FE;&#x50CF;&#x5F00;&#x542F;&#x53EF;&#x63A7;&#x7845;&#x5373;&#x53EF;&#x4F7F;&#x8F93;&#x51FA;&#x529F;&#x7387;&#x7EBF;&#x6027;&#x5316;&#xFF1A;</p>
+<p><img src="/88b2c11b/y=x%E9%99%A4%E4%BB%A52-sin2x%E9%99%A4%E4%BB%A54%E5%9C%A80%E5%88%B0pi.png" alt="20200425212031"></p>
+<p>&#x56E0;&#x4E3A;&#x4EA4;&#x6D41;&#x7535;&#x538B;&#x662F;&#x6B63;&#x5F26;&#x6CE2;&#xFF0C;&#x6240;&#x4EE5;&#x8F93;&#x51FA;&#x529F;&#x7387;&#x4E0E;&#x4EA4;&#x6D41;&#x7535;&#x538B;&#x7684;&#x5E73;&#x65B9;&#x6210;&#x6B63;&#x6BD4;&#xFF0C;&#x5373;&#x9700;&#x8981;&#x6C42;&#x6B63;&#x5F26;&#x5E73;&#x65B9;&#x7684;&#x79EF;&#x5206;&#xFF1A;</p>
+<p>$$<br>
+P=\frac{U<sup>2}{R}=\frac{[U_m\cdot&#x222B;</sup>{t_1}<em>{t_0}sin(&#x3C9;t+&#x3C6;)]<sup>2}{R}&#x221D;&#x222B;</sup>{t_1}</em>{t_0}sin^2(&#x3C9;t+&#x3C6;)=\left|\frac{&#x3C9;t+&#x3C6;}{2}-\frac{sin2(&#x3C9;t+&#x3C6;)}{4} \right|^{t_1}_{t_0}<br>
+$$<br>
+&#x521D;&#x76F8;&#x4F4D;&#x8FC7;&#x96F6;&#x89E6;&#x53D1;&#x70B9;&#xFF0C;&#x5373;&#x3C6;=0&#xB0;&#xFF1A;</p>
+<p>$$<br>
+P&#x221D; =\left|\frac{&#x3C9;t}{2}-\frac{sin2&#x3C9;t}{4}\right|^{t_1}_{t_0}<br>
+$$</p>
+<p>&#x89D2;&#x9891;&#x7387;&#x3C9;&#x662F;&#x4E00;&#x4E2A;&#x5E38;&#x91CF;&#xFF08;&#x662F;&#x9891;&#x7387;&#x7684; 2&#x3C0; &#x500D;&#xFF09;</p>
+<p>$$<br>
+&#x3C9;=\frac{2&#x3C0;}{T}=\frac{2&#x3C0;}{\frac{1s}{50Hz}}=\frac{2&#x3C0;}{0.02s}=100rad/s<br>
+$$</p>
+<p>&#x7531;&#x7535;&#x89D2;&#x5EA6;&#x3C9;t+&#x3C6;&#x53EF;&#x8BA1;&#x7B97;&#x51FA;&#x67D0;&#x4E00;P&#x529F;&#x7387;&#x4E0B;&#x6676;&#x95F8;&#x7BA1;&#x9700;&#x8981;&#x5F00;&#x542F;&#x7684;&#x65F6;&#x95F4;t</p>
+<p>&#x90A3;&#x4E48;&#x524D;&#x4E00;&#x5F20;&#x56FE;&#x50CF;&#x53EF;&#x770B;&#x4F5C;&#x8F93;&#x51FA;&#x529F;&#x7387;&#x968F;&#x7535;&#x89D2;&#x5EA6;&#x7684;&#x5173;&#x7CFB;&#xFF08;&#x6B63;&#x534A;&#x5468;&#x8D1F;&#x534A;&#x5468;&#x90FD;&#x4E00;&#x6837;&#xFF09;&#xFF1A;</p>
+<p><img src="/88b2c11b/%E8%BE%93%E5%87%BA%E5%8A%9F%E7%8E%87%E9%9A%8F%E7%94%B5%E8%A7%92%E5%BA%A6%E5%8F%98%E5%8C%96%E7%9A%84%E5%85%B3%E7%B3%BB.png" alt></p>
+<p>&#xFF08;&#x6B64;&#x6CD5;&#x6C42;&#x89E3;&#x6B64;&#x65B9;&#x7A0B;&#x592A;&#x8D39;&#x65F6;&#xFF0C;&#x4E0D;&#x63A8;&#x8350;&#xFF09;</p>
+<h3 id="&#x725B;&#x987F;&#x8FED;&#x4EE3;&#x6CD5;&#x6C42;&#x89E3;"><a class="header-anchor" href="#&#x725B;&#x987F;&#x8FED;&#x4EE3;&#x6CD5;&#x6C42;&#x89E3;"></a>&#x725B;&#x987F;&#x8FED;&#x4EE3;&#x6CD5;&#x6C42;&#x89E3;</h3>
+<p><a href="https://github.com/Miceuz/triac-bloc" target="_blank" rel="noopener">&#x6765;&#x81EA;&#xFF1A;&#x8001;&#x6BDB;&#x5B50;&#x7684;Attiny Triac&#x5DE5;&#x7A0B;</a></p>
+<p><a href="http://xn--Pythonx-sinx-w76sa1288bwpn6o1aqeit2rdtemu0bijuna65wm0k8m2dw3yfgf5b.py" target="_blank" rel="noopener">&#x8001;&#x6BDB;&#x5B50;&#x7684;Python&#x725B;&#x987F;&#x8FED;&#x4EE3;&#x6CD5;&#x4EE3;&#x7801;&#x662F;&#x6839;&#x76EE;&#x5F55;&#x7684;x-sinx.py</a></p>
+<p>&#x7136;&#x540E;&#xFF0C;&#x8001;&#x6BDB;&#x5B50;&#x6839;&#x76EE;&#x5F55;&#x7684;firmware&#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x653E;Attiny&#x7684;arduino&#x4EE3;&#x7801;&#x7684;&#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x6709;&#x4E00;&#x4E2A;conductionAngles.c&#x6587;&#x4EF6;&#xFF0C;&#x5C31;&#x662F;&#x4E0A;&#x9762;python&#x4EE3;&#x7801;&#x8BA1;&#x7B97;&#x7684;&#x7ED3;&#x679C;&#x9884;&#x89C8;&#x5982;&#x4E0B;&#xFF1A;</p>
+<table>
+    <td width="50%"><img src="/88b2c11b/&#x6BDB;&#x5B50;py&#x7684;c.png"></td>
+    <td><img src="/88b2c11b/&#x6BDB;&#x5B50;py&#x7684;excel.png"></td>
+</table>
+<p><code>conductionAngles</code>&#x6570;&#x7EC4;&#x7528;<code>PROGMEM</code>&#x5B8F;&#x50A8;&#x5B58;&#x5728;ATTiny&#x63A7;&#x5236;&#x5668;&#x7684;EEPROM&#x91CC;&#xFF0C;&#x53EF;&#x4EE5;&#x51CF;&#x5C11;&#x5360;&#x7528;&#x7684;&#x52A8;&#x6001;&#x5185;&#x5B58;</p>
+<p>&#x6BDB;&#x5B50;&#x7684;&#x5BFC;&#x901A;&#x65F6;&#x95F4;&#x53D6;&#x503C;&#x8303;&#x56F4;&#x662F;[0, 10000]&#xFF0C;&#x5373;&#x628A;&#x4EA4;&#x6D41;&#x7684;&#x6B63;/&#x8D1F;&#x534A;&#x5468;&#x65F6;&#x95F4;10ms&#x6539;&#x7528;ns&#x8BA1;&#x65F6;&#xFF0C;&#x7136;&#x540E;&#xFF0C;&#x8FD9;&#x4E2A;<code>conductionAngles</code>&#x6570;&#x7EC4;&#x6709;256&#x4E2A;&#x5143;&#x7D20;&#xFF0C;&#x76F8;&#x5F53;&#x4E8E;&#x628A;1-100%&#x7684;&#x7EBF;&#x6027;&#x529F;&#x7387;&#x5206;&#x6210;256&#x4EFD;&#xFF1A;</p>
+<p><img src="/88b2c11b/%E6%AF%9B%E5%AD%90%E7%9A%84conductionAngles%E6%95%B0%E7%BB%84.png" alt="20200425223201"></p>
+<p>&#xFF08;&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x6210;&#x79FB;&#x5411;&#x8C03;&#x5236;&#x67D0;&#x4E00;&#x4E2A;&#x706F;&#x6CE1;&#xFF0C;&#x4EAE;&#x5EA6;&#x4ECE;0&#x5230;100&#xFF0C;&#x5747;&#x5300;&#x5206;&#x6210;&#x4E86;256&#x9636;&#x7070;&#x5EA6;&#xFF09;</p>
+<p>Excel&#x663E;&#x793A;&#x7684;&#x56FE;&#x50CF;&#x5C31;&#x662F;&#x628A;&#x4E0A;&#x9762;&#x7684;&#x8F93;&#x51FA;&#x529F;&#x7387;&#x968F;&#x7535;&#x89D2;&#x5EA6;&#x7684;&#x56FE;&#x50CF;&#x7684;xy&#x5BF9;&#x8C03;&#xFF0C;&#x518D;&#x5C06;&#x6A2A;&#x8F74;&#x5355;&#x4F4D;&#x6362;&#x6210;&#x4E86;ns&#xFF08;&#x4F60;&#x53EF;&#x4EE5;&#x7531;&#x7535;&#x89D2;&#x5EA6;&#x7B97;&#x5F97;ns&#xFF0C;&#x6BD5;&#x7ADF;&#x3C9;&#x662F;&#x4E00;&#x4E2A;&#x5E38;&#x91CF;&#xFF09;&#xFF0C;&#x7EB5;&#x8F74;&#x6362;&#x6210;&#x4E86;1-256&#x9636;&#xFF08;&#x5BF9;&#x5E94;0&#xB7;100%&#x529F;&#x7387;&#xFF09;</p>
+<p><a href="http://aicdg.com/oldblog/math/2017/03/13/carmark-qsqrt.html" target="_blank" rel="noopener">*&#x5361;&#x9A6C;&#x514B;&#x5FEB;&#x901F;&#x5E73;&#x65B9;&#x6839;&#xFF1A;0x5f3759df</a></p>
+<h2 id="&#x6676;&#x632F;&#x8C03;&#x8C10;"><a class="header-anchor" href="#&#x6676;&#x632F;&#x8C03;&#x8C10;"></a>&#x6676;&#x632F;&#x8C03;&#x8C10;</h2>
+<p>&#x6BDB;&#x5B50;&#x7684;&#x9AD8;&#x9636;&#x73A9;&#x6CD5;&#xFF0C;esp8266&#x7684;SDK&#x8C8C;&#x4F3C;&#x6CA1;&#x6709;&#x7C7B;&#x4F3C;&#x7684;&#x529F;&#x80FD;&#x3002;&#x3002;&#x3002;</p>
+<p><img src="/88b2c11b/Attiny%E6%99%B6%E6%8C%AF%E8%B0%83%E8%B0%90.png" alt="20200425230351"></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/半导体元件/" rel="tag"># 半导体元件</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/65fdcd15/" rel="next" title="OptoTriac V2.0 固态继电器电路设计">
+                  <i class="fa fa-chevron-left"></i> OptoTriac V2.0 固态继电器电路设计
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/b216a5e8/" rel="prev" title="机智屏补焊ESP32模组刷wifi固件">
+                  机智屏补焊ESP32模组刷wifi固件 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/psa.jpg"
+      alt="过气德国佬">
+  <p class="site-author-name" itemprop="name">过气德国佬</p>
+  <div class="site-description motion-element" itemprop="description">潮起潮落，云卷云舒</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前沿切相调光"><span class="nav-number">1.</span> <span class="nav-text">前沿切相调光</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后沿切相调光"><span class="nav-number">2.</span> <span class="nav-text">后沿切相调光</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#过零检测"><span class="nav-number">3.</span> <span class="nav-text">过零检测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分类"><span class="nav-number">3.0.1.</span> <span class="nav-text">*分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#光耦选型"><span class="nav-number">3.0.2.</span> <span class="nav-text">*光耦选型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#双向非线性光耦"><span class="nav-number">3.0.2.1.</span> <span class="nav-text">双向非线性光耦</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单向非线性光耦"><span class="nav-number">3.0.2.2.</span> <span class="nav-text">单向非线性光耦</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#长脉冲型"><span class="nav-number">3.1.</span> <span class="nav-text">长脉冲型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于运放的长脉冲过零检测器"><span class="nav-number">3.1.1.</span> <span class="nav-text">基于运放的长脉冲过零检测器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于晶体管的长脉冲过零检测器"><span class="nav-number">3.1.2.</span> <span class="nav-text">基于晶体管的长脉冲过零检测器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于光耦的长脉冲过零检测器"><span class="nav-number">3.1.3.</span> <span class="nav-text">基于光耦的长脉冲过零检测器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单向光耦"><span class="nav-number">3.1.3.1.</span> <span class="nav-text">单向光耦</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双向光耦"><span class="nav-number">3.1.3.2.</span> <span class="nav-text">双向光耦</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#短脉冲型"><span class="nav-number">3.2.</span> <span class="nav-text">短脉冲型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于光耦的短脉冲过零检测器"><span class="nav-number">3.2.1.</span> <span class="nav-text">基于光耦的短脉冲过零检测器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点："><span class="nav-number">3.2.1.1.</span> <span class="nav-text">优点：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第一种："><span class="nav-number">3.2.1.2.</span> <span class="nav-text">第一种：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二种："><span class="nav-number">3.2.1.3.</span> <span class="nav-text">第二种：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#输出功率线性化"><span class="nav-number">4.</span> <span class="nav-text">输出功率线性化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">4.1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正弦函数"><span class="nav-number">4.1.1.</span> <span class="nav-text">正弦函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#弧度"><span class="nav-number">4.1.2.</span> <span class="nav-text">弧度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#角频率"><span class="nav-number">4.1.3.</span> <span class="nav-text">角频率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#电角度"><span class="nav-number">4.1.4.</span> <span class="nav-text">电角度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正弦函数的积分"><span class="nav-number">4.1.5.</span> <span class="nav-text">正弦函数的积分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sin-x"><span class="nav-number">4.1.5.1.</span> <span class="nav-text">sin(x)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sin-sup-2-sup-x"><span class="nav-number">4.1.5.2.</span> <span class="nav-text">sin2(x)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#由线性化的输出功率求电角度的数据"><span class="nav-number">4.2.</span> <span class="nav-text">由线性化的输出功率求电角度的数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#牛顿-莱布尼兹公式求解"><span class="nav-number">4.2.1.</span> <span class="nav-text">牛顿-莱布尼兹公式求解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#牛顿迭代法求解"><span class="nav-number">4.2.2.</span> <span class="nav-text">牛顿迭代法求解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#晶振调谐"><span class="nav-number">4.3.</span> <span class="nav-text">晶振调谐</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+        
+
+<div id="days"></div>
+<script>
+function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("07/19/2019 15:00:00");
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=setzero(Math.floor(e_hrsold));
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+    seconds=setzero(Math.floor((e_minsold-minsold)*60));
+    document.getElementById('days').innerHTML="(∩•̀ω•́)⊃--*⋆本站由米板1代搭建，已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i) {
+    if (i<10) {
+        i="0" + i
+    };
+    return i;
+}
+show_date_time();
+</script>
+
+
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">过气德国佬</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">66k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        <span>0%</span>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'iWuakuHkkRt5xT7Ct9cyj8nO-gzGzoHsz',
+    appKey: 'PAz23pDzHnucqRDkVMShMp5B',
+    placeholder: '(๑•̀ㅁ•́ฅ✧ 说点什么吧！',
+    avatar: '',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>
