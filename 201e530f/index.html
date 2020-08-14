@@ -55,7 +55,7 @@
 </script>
 
   <meta name="description" content="设计一块USB-C的stm32最小系统板，其名为“DarkPill”，记录在Arduino环境使用STM32duino-bootloader以及Keil MDK环境使用的坑">
-<meta name="keywords" content="stm32,type-c">
+<meta name="keywords" content="type-c,stm32">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DarkPill使用非8MHz晶振">
 <meta property="og:url" content="http://yoursite.com/201e530f/index.html">
@@ -96,7 +96,7 @@
 <meta property="og:image" content="http://yoursite.com/201e530f/setupCLK.png">
 <meta property="og:image" content="http://yoursite.com/201e530f/USBCLK.png">
 <meta property="og:image" content="http://yoursite.com/201e530f/config_add.png">
-<meta property="og:updated_time" content="2020-08-14T16:12:21.023Z">
+<meta property="og:updated_time" content="2020-08-14T16:13:23.137Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DarkPill使用非8MHz晶振">
 <meta name="twitter:description" content="设计一块USB-C的stm32最小系统板，其名为“DarkPill”，记录在Arduino环境使用STM32duino-bootloader以及Keil MDK环境使用的坑">
@@ -320,7 +320,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-15 00:12:21" itemprop="dateModified" datetime="2020-08-15T00:12:21+08:00">2020-08-15</time>
+                <time title="修改时间：2020-08-15 00:13:23" itemprop="dateModified" datetime="2020-08-15T00:13:23+08:00">2020-08-15</time>
               </span>
             
           
@@ -408,7 +408,7 @@
 <p>SWD&#x63A5;&#x53E3;&#x76F4;&#x63A5;&#x8FDE;&#x63A5;Cortex-M3&#x5185;&#x6838;&#xFF0C;&#x65E0;&#x9700;&#x590D;&#x4F4D;&#x64CD;&#x4F5C;&#xFF0C;&#x76F4;&#x63A5;&#x63A5;&#x4E0A;ST-LINK&#x70E7;&#x5F55;</p>
 <h3 id="DFU&#x5237;&#x673A;"><a class="header-anchor" href="#DFU&#x5237;&#x673A;"></a>DFU&#x5237;&#x673A;</h3>
 <p><a href="#DFU%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%BC%8F">DFU&#x7684;&#x4E24;&#x79CD;&#x7F16;&#x7A0B;&#x6A21;&#x5F0F;</a></p>
-<h2 id="&#x5916;&#x90E8;&#x9AD8;&#x901F;&#x6676;&#x632F;&#x9891;&#x7387;&#x4E0E;USB&#x603B;&#x7EBF;&#x65F6;&#x949F;"><a class="header-anchor" href="#&#x5916;&#x90E8;&#x9AD8;&#x901F;&#x6676;&#x632F;&#x9891;&#x7387;&#x4E0E;USB&#x603B;&#x7EBF;&#x65F6;&#x949F;"></a>&#x5916;&#x90E8;&#x9AD8;&#x901F;&#x6676;&#x632F;&#x9891;&#x7387;&#x4E0E;USB&#x603B;&#x7EBF;&#x65F6;&#x949F;</h2>
+<h2 id="&#x5916;&#x90E8;&#x9AD8;&#x901F;&#x6676;&#x632F;-HSE-&#x4E0E;USB&#x603B;&#x7EBF;&#x65F6;&#x949F;"><a class="header-anchor" href="#&#x5916;&#x90E8;&#x9AD8;&#x901F;&#x6676;&#x632F;-HSE-&#x4E0E;USB&#x603B;&#x7EBF;&#x65F6;&#x949F;"></a>&#x5916;&#x90E8;&#x9AD8;&#x901F;&#x6676;&#x632F;(HSE)&#x4E0E;USB&#x603B;&#x7EBF;&#x65F6;&#x949F;</h2>
 <p>P1:</p>
 <p><img src="/201e530f/f103_datasheet_page1.jpg" alt="f103_datasheet_page1"></p>
 <p>P12:</p>
@@ -440,7 +440,7 @@
 <td>4</td>
 </tr>
 <tr>
-<td></td>
+<td>72</td>
 <td>16</td>
 <td>48</td>
 <td>4</td>
@@ -703,9 +703,9 @@ uint32_t ![20200811222427](C:/Users/29209/OneDrive/&#x6587;&#x6863;/Tencent File
           
           <div class="post-tags">
             
-              <a href="/tags/stm32/" rel="tag"># stm32</a>
-            
               <a href="/tags/type-c/" rel="tag"># type-c</a>
+            
+              <a href="/tags/stm32/" rel="tag"># stm32</a>
             
           </div>
         
@@ -867,7 +867,7 @@ uint32_t ![20200811222427](C:/Users/29209/OneDrive/&#x6587;&#x6863;/Tencent File
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#STM32的启动模式"><span class="nav-number">1.</span> <span class="nav-text">STM32的启动模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DarkPill的BOOT0，BOOT1，Reset"><span class="nav-number">1.1.</span> <span class="nav-text">DarkPill的BOOT0，BOOT1，Reset</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STM32的刷机方式"><span class="nav-number">2.</span> <span class="nav-text">STM32的刷机方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#串口芯片刷机"><span class="nav-number">2.1.</span> <span class="nav-text">串口芯片刷机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SWD刷机"><span class="nav-number">2.2.</span> <span class="nav-text">SWD刷机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DFU刷机"><span class="nav-number">2.3.</span> <span class="nav-text">DFU刷机</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#外部高速晶振频率与USB总线时钟"><span class="nav-number">3.</span> <span class="nav-text">外部高速晶振频率与USB总线时钟</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DFU的两种编程模式"><span class="nav-number">4.</span> <span class="nav-text">DFU的两种编程模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Aduino-IDE下使用"><span class="nav-number">5.</span> <span class="nav-text">在Aduino IDE下使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Arduino-STM32"><span class="nav-number">5.1.</span> <span class="nav-text">Arduino_STM32</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#STM32duino-bootloader"><span class="nav-number">5.2.</span> <span class="nav-text">STM32duino-bootloader</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#烧录stm32duino-bootloader"><span class="nav-number">5.2.1.</span> <span class="nav-text">烧录stm32duino-bootloader</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#连接"><span class="nav-number">5.2.1.1.</span> <span class="nav-text">连接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#烧录"><span class="nav-number">5.2.1.2.</span> <span class="nav-text">烧录</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#若晶振频率不匹配"><span class="nav-number">5.3.</span> <span class="nav-text">若晶振频率不匹配</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Keil-MDK环境下使用"><span class="nav-number">6.</span> <span class="nav-text">在Keil MDK环境下使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置MDK工程模板"><span class="nav-number">6.1.</span> <span class="nav-text">配置MDK工程模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置过程中与视频中正点原子战舰的区别"><span class="nav-number">6.2.</span> <span class="nav-text">配置过程中与视频中正点原子战舰的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#启动文件"><span class="nav-number">6.2.1.</span> <span class="nav-text">启动文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#全局宏定义"><span class="nav-number">6.2.2.</span> <span class="nav-text">全局宏定义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首次编译问题"><span class="nav-number">6.3.</span> <span class="nav-text">首次编译问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#晶振及倍频修改"><span class="nav-number">6.4.</span> <span class="nav-text">晶振及倍频修改</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#STM32系列修改外部晶振以及代码的修改"><span class="nav-number">6.4.1.</span> <span class="nav-text">STM32系列修改外部晶振以及代码的修改</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决stm32duino-bootloader晶振频率不匹配"><span class="nav-number">7.</span> <span class="nav-text">解决stm32duino-bootloader晶振频率不匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重新编译stm32duino-bootloader"><span class="nav-number">8.</span> <span class="nav-text">重新编译stm32duino-bootloader</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考："><span class="nav-number">8.1.</span> <span class="nav-text">参考：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#STM32的启动模式"><span class="nav-number">1.</span> <span class="nav-text">STM32的启动模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DarkPill的BOOT0，BOOT1，Reset"><span class="nav-number">1.1.</span> <span class="nav-text">DarkPill的BOOT0，BOOT1，Reset</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STM32的刷机方式"><span class="nav-number">2.</span> <span class="nav-text">STM32的刷机方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#串口芯片刷机"><span class="nav-number">2.1.</span> <span class="nav-text">串口芯片刷机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SWD刷机"><span class="nav-number">2.2.</span> <span class="nav-text">SWD刷机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DFU刷机"><span class="nav-number">2.3.</span> <span class="nav-text">DFU刷机</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#外部高速晶振-HSE-与USB总线时钟"><span class="nav-number">3.</span> <span class="nav-text">外部高速晶振(HSE)与USB总线时钟</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DFU的两种编程模式"><span class="nav-number">4.</span> <span class="nav-text">DFU的两种编程模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Aduino-IDE下使用"><span class="nav-number">5.</span> <span class="nav-text">在Aduino IDE下使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Arduino-STM32"><span class="nav-number">5.1.</span> <span class="nav-text">Arduino_STM32</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#STM32duino-bootloader"><span class="nav-number">5.2.</span> <span class="nav-text">STM32duino-bootloader</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#烧录stm32duino-bootloader"><span class="nav-number">5.2.1.</span> <span class="nav-text">烧录stm32duino-bootloader</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#连接"><span class="nav-number">5.2.1.1.</span> <span class="nav-text">连接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#烧录"><span class="nav-number">5.2.1.2.</span> <span class="nav-text">烧录</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#若晶振频率不匹配"><span class="nav-number">5.3.</span> <span class="nav-text">若晶振频率不匹配</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Keil-MDK环境下使用"><span class="nav-number">6.</span> <span class="nav-text">在Keil MDK环境下使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置MDK工程模板"><span class="nav-number">6.1.</span> <span class="nav-text">配置MDK工程模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置过程中与视频中正点原子战舰的区别"><span class="nav-number">6.2.</span> <span class="nav-text">配置过程中与视频中正点原子战舰的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#启动文件"><span class="nav-number">6.2.1.</span> <span class="nav-text">启动文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#全局宏定义"><span class="nav-number">6.2.2.</span> <span class="nav-text">全局宏定义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首次编译问题"><span class="nav-number">6.3.</span> <span class="nav-text">首次编译问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#晶振及倍频修改"><span class="nav-number">6.4.</span> <span class="nav-text">晶振及倍频修改</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#STM32系列修改外部晶振以及代码的修改"><span class="nav-number">6.4.1.</span> <span class="nav-text">STM32系列修改外部晶振以及代码的修改</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决stm32duino-bootloader晶振频率不匹配"><span class="nav-number">7.</span> <span class="nav-text">解决stm32duino-bootloader晶振频率不匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重新编译stm32duino-bootloader"><span class="nav-number">8.</span> <span class="nav-text">重新编译stm32duino-bootloader</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考："><span class="nav-number">8.1.</span> <span class="nav-text">参考：</span></a></li></ol></li></ol></div>
             
 
           </div>
