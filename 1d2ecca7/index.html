@@ -103,7 +103,7 @@
 <meta property="og:image" content="http://yoursite.com/1d2ecca7/20240320-1521_mR-71_RE6_shell_link_parts%EF%BC%9A%E5%9F%8B%E7%83%AD%E7%86%94%E6%BB%9A%E8%8A%B1%E8%9E%BA%E6%AF%8D%EF%BC%9A1.png">
 <meta property="og:image" content="http://yoursite.com/1d2ecca7/20240320-1521_mR-71_RE6_shell_link_parts%EF%BC%9A%E5%9F%8B%E7%83%AD%E7%86%94%E6%BB%9A%E8%8A%B1%E8%9E%BA%E6%AF%8D%EF%BC%9A2.png">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png">
-<meta property="og:updated_time" content="2024-03-28T09:37:54.908Z">
+<meta property="og:updated_time" content="2024-03-28T09:56:14.706Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mR-71-RE组装指南">
 <meta name="twitter:description" content="俄罗斯radiokot论坛Andrey_B的作品交流欧姆表mR-71重制版，欢迎DIY">
@@ -316,7 +316,7 @@
                 
               
 
-              <time title="创建时间：2024-03-28 15:58:36 / 修改时间：17:37:54" itemprop="dateCreated datePublished" datetime="2024-03-28T15:58:36+08:00">2024-03-28</time>
+              <time title="创建时间：2024-03-28 15:58:36 / 修改时间：17:56:14" itemprop="dateCreated datePublished" datetime="2024-03-28T15:58:36+08:00">2024-03-28</time>
             </span>
           
             
@@ -421,7 +421,7 @@
 </table>
 <h2 id="关于原版mR-71"><a class="header-anchor" href="#关于原版mR-71"></a>关于原版mR-71</h2>
 <h3 id="作者"><a class="header-anchor" href="#作者"></a>作者</h3>
-<p><a href="https://radiokot.ru/artfiles/6673/" target="_blank" rel="noopener">原版mR-71</a>由 <a href="https://www.radiokot.ru/forum/memberlist.php?mode=viewprofile&amp;u=21307" target="_blank" rel="noopener">Andrey_B</a> 设计硬件和软件，在radiokot论坛发布</p>
+<p><a href="https://radiokot.ru/artfiles/6673/" target="_blank" rel="noopener">原版mR-71</a> 由 <a href="https://www.radiokot.ru/forum/memberlist.php?mode=viewprofile&amp;u=21307" target="_blank" rel="noopener">Andrey_B</a> 设计，在radiokot论坛发布</p>
 <h3 id="PCB和固件"><a class="header-anchor" href="#PCB和固件"></a>PCB和固件</h3>
 <p>截至2024/03/19</p>
 <ul>
@@ -474,7 +474,6 @@
 <p>增加一路AC耦合：DAC2_OS增加AC耦合，以适配正负5V供电的运放</p>
 </li>
 </ul>
-<p>其余部分的修改影响不大，详见<a href="https://github.com/oldgerman/mR-71-RE/tree/master/Schematic" target="_blank" rel="noopener">原理图</a></p>
 <table>
 <thead>
 <tr>
@@ -491,10 +490,12 @@
 <li>焊盘总数：700</li>
 <li>软件：Altium 23.3.1</li>
 <li>版本：v1.1</li>
+<li><a href="https://github.com/oldgerman/mR-71-RE/tree/master/Gerber/mR-71-RE" target="_blank" rel="noopener">Gerber</a></li>
+<li><a href="https://github.com/oldgerman/mR-71-RE/tree/master/Schematic" target="_blank" rel="noopener">原理图</a></li>
 </ul>
 <h3 id="PCB：开尔文焊盘电阻测试板"><a class="header-anchor" href="#PCB：开尔文焊盘电阻测试板"></a>PCB：开尔文焊盘电阻测试板</h3>
 <p>方便开尔文夹子测试低阻值采样电阻，可焊接校准的3R、1K电阻，该板是明显的拼版，通常是不能免费打样的</p>
-<p>这些电阻的焊盘设计来自ADI的文章：<a href="https://www.analog.com/en/resources/analog-dialogue/articles/optimize-high-current-sensing-accuracy.html" target="_blank" rel="noopener">Optimize High-Current Sensing Accuracy by Improving Pad Layout of Low-Value Shunt Resistors</a></p>
+<p>这些电阻的焊盘设计参考了ADI的文章：<a href="https://www.analog.com/en/resources/analog-dialogue/articles/optimize-high-current-sensing-accuracy.html" target="_blank" rel="noopener">Optimize High-Current Sensing Accuracy by Improving Pad Layout of Low-Value Shunt Resistors</a></p>
 <table>
 <thead>
 <tr>
@@ -510,9 +511,10 @@
 <li>尺寸：9.70 x 6.78 cm</li>
 <li>软件：JLCEDA-Pro</li>
 <li>版本：v1.0</li>
+<li><a href="https://github.com/oldgerman/mR-71-RE/tree/master/Gerber/Kelvin_RES" target="_blank" rel="noopener">Gerber</a></li>
 </ul>
 <h3 id="PCB：RG316转接板"><a class="header-anchor" href="#PCB：RG316转接板"></a>PCB：RG316转接板</h3>
-<p>制作一套RG316线的开尔文夹子需要两片该PCB</p>
+<p>制作一套RG316线的开尔文夹子需要两片该PCB，用于连接开尔文夹子的接触片和RG316线</p>
 <table>
 <thead>
 <tr>
@@ -528,6 +530,7 @@
 <li>尺寸：3.04 x 0.6 cm</li>
 <li>软件：JLCEDA-Pro</li>
 <li>版本：没有版本</li>
+<li><a href="https://github.com/oldgerman/mR-71-RE/tree/master/Gerber/Kelvin_Clip_RG316_To_PCB" target="_blank" rel="noopener">Gerber</a></li>
 </ul>
 <h3 id="外壳"><a class="header-anchor" href="#外壳"></a>外壳</h3>
 <p>盒盖设计，壳厚2mm，确保经久耐用</p>
@@ -540,16 +543,20 @@
 </thead>
 <tbody></tbody>
 </table>
+<ul>
+<li><a href="https://github.com/oldgerman/mR-71-RE/tree/master/STL/" target="_blank" rel="noopener">STL</a></li>
+</ul>
 <h2 id="采购"><a class="header-anchor" href="#采购"></a>采购</h2>
 <h3 id="主机电子元件-BOM"><a class="header-anchor" href="#主机电子元件-BOM"></a>主机电子元件 BOM</h3>
-<p><a href="https://github.com/oldgerman/mR-71-RE/blob/master/BOM/20240317_MR-71_RE6_BOM.xlsx" target="_blank" rel="noopener">MR-71_RE6_BOM.xlsx</a>：EXCEL格式的BOM文件，灰色条覆盖的是不用焊接的器件，原理图可能与该BOM表格某些器件的值不一样，请以BOM表格的值为准！</p>
-<p><a href="https://github.com/oldgerman/mR-71-RE/blob/master/BOM/20240317_MR-71_RE6_BOM.pdf" target="_blank" rel="noopener">MR-71_RE6_BOM.pdf</a>：EXCEL格式的BOM文件导出的PDF文件</p>
-<p><a href="https://github.com/oldgerman/mR-71-RE/blob/master/BOM/20240317_MR-71_RE6_BOM.html" target="_blank" rel="noopener">MR-71_RE6_BOM.html</a>：交互式BOM，浏览器打开即可，该交互BOM不清楚的器件型号请参照上面的EXCEL文件</p>
-<p>BOM预览：</p>
-<blockquote>
-<p>电子元件突破80种，一套（电阻电容算到每颗）按照全新原装报价，费用约111元，不包括邮费</p>
-</blockquote>
+<p><a href="https://github.com/oldgerman/mR-71-RE/tree/master/BOM" target="_blank" rel="noopener">BOM</a>文件夹下的不同文件说明：</p>
+<ul>
+<li>MR-71_RE6_BOM.xlsx：EXCEL格式的BOM文件，灰色条覆盖的是不用焊接的器件，原理图可能与该BOM表格某些器件的值不一样，请以BOM表格的值为准！</li>
+<li>MR-71_RE6_BOM.pdf：EXCEL格式的BOM文件导出的PDF文件</li>
+<li>MR-71_RE6_BOM.html：交互式BOM，浏览器打开即可，该交互BOM不清楚的器件型号请参照上面的EXCEL文件</li>
+</ul>
+<p>预览：</p>
 <p><img src="/1d2ecca7/20240317_MR-71_RE6_BOM.jpg" alt="20240317_MR-71_RE6_BOM"></p>
+<p>电子元件突破80种，一套（电阻电容算到每颗）按照全新原装报价，费用约111元，不包括邮费</p>
 <p>元件参数打斜杠的，以第一个为准</p>
 <p>元件参数有的是DNP，不用焊接，DNP是Do Not Populate的缩写，意思是不用贴装的元件</p>
 <p>仪表放大器的增益电阻可以用3.57K 0.1%（增益误差±0.1% -0.34%），如果要求高可以用3.6K 0.1% 叠焊 300K 0.1%（增益误差±0.2% ）</p>
@@ -605,7 +612,7 @@
 <p>请用壁纸刀沿着PCB分板的两条白线中间正反面多划几下，掰断分板后，用锉刀+砂纸打磨至分板的白线消失</p>
 <p><img src="/1d2ecca7/mR-71-RE%EF%BC%9APCB%E5%88%86%E6%9D%BF.JPG" alt="mR-71-RE：PCB分板"></p>
 <h4 id="钢网"><a class="header-anchor" href="#钢网"></a>钢网</h4>
-<p>请把用于开钢网的<a href="https://github.com/oldgerman/mR-71-RE/tree/master/Gerber/mR-71_RE_Stencil" target="_blank" rel="noopener">GTP文件</a>发给厂家开10x10cm的钢片</p>
+<p>请把用于开钢网的<a href="https://github.com/oldgerman/mR-71-RE/tree/master/Gerber/mR-71_RE_Stencil" target="_blank" rel="noopener">GTP</a>文件发给厂家开10x10cm的钢片</p>
 <p>此钢网还拼了开尔文焊盘电阻测试板的钢网，方便焊接</p>
 <p><img src="/1d2ecca7/20240321_mR-71_RE6_Stencil_10x10cm.png" alt></p>
 <p>刷锡膏前，用多余的板垫在四周，防止钢网翘曲</p>
@@ -701,7 +708,7 @@
 </tbody>
 </table>
 <h3 id="外壳-v3"><a class="header-anchor" href="#外壳-v3"></a>外壳</h3>
-<p><a href="https://github.com/oldgerman/mR-71-RE/tree/master/STL/" target="_blank" rel="noopener">STL模型路径</a></p>
+<p><a href="https://github.com/oldgerman/mR-71-RE/tree/master/STL/" target="_blank" rel="noopener">STL</a></p>
 <h4 id="独立零件"><a class="header-anchor" href="#独立零件"></a>独立零件</h4>
 <p>提供独立的各个零件，装配图如下</p>
 <p><img src="/1d2ecca7/20240320-1521_mR-71_RE6_shell_single_parts.png" alt></p>
