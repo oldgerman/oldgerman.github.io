@@ -1,0 +1,2724 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="魔改一块过气的5轴数控主板">
+<meta name="keywords" content="type-c,贴片机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="冰沙主板10x10设计&amp;制作笔记">
+<meta property="og:url" content="http://yoursite.com/6722c02f/index.html">
+<meta property="og:site_name" content="OldGerman&#39;s Blog">
+<meta property="og:description" content="魔改一块过气的5轴数控主板">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E5%8E%9F%E7%89%88vs10x10-1021.jpg">
+<meta property="og:image" content="http://yoursite.com/6722c02f/Smoothie-10x10-pinout-map-mini.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/Smoothie-10x10-pin-capabilities-mini.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E4%B8%89%E5%91%A8%E7%9B%AE%E6%88%90%E5%93%81(1).jpg">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E4%B8%89%E5%91%A8%E7%9B%AE%E6%88%90%E5%93%81(2).jpg">
+<meta property="og:image" content="http://yoursite.com/6722c02f/redbean.JPG">
+<meta property="og:image" content="http://yoursite.com/6722c02f/PCB-INFO(1).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/PCB-INFO(2).png.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/smoothieboard-10x10-%E5%8A%9F%E8%83%BD%E5%8C%BA.jpg">
+<meta property="og:image" content="http://yoursite.com/6722c02f/lpc1768_mbed_pinout.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E4%BD%9C%E6%A1%88%E5%B7%A5%E5%85%B7.jpg">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E4%BD%9C%E6%A1%88%E7%8E%B0%E5%9C%BA.jpg">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E4%BD%9C%E6%A1%88ok.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E5%88%AE%E9%92%A2%E7%BD%91%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA(1).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E5%88%AE%E9%92%A2%E7%BD%91%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA(2).png.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E5%88%AE%E9%92%A2%E7%BD%91%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA(3).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E5%88%AE%E9%92%A2%E7%BD%91%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA(4).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E5%88%AE%E9%92%A2%E7%BD%91%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA(5).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E5%88%AE%E9%92%A2%E7%BD%91%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA(7).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E5%88%AE%E9%92%A2%E7%BD%91%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA(9).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E5%88%AE%E9%92%A2%E7%BD%91%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA(10).jpg">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E5%88%AE%E9%92%A2%E7%BD%91%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA(10).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/smoothieboard-10x10-%E6%9C%80%E5%B0%8F%E7%B3%BB%E7%BB%9F.jpg">
+<meta property="og:image" content="http://yoursite.com/6722c02f/MinimumSystemCircuit(3).png.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/CH340_ISP(1).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/CH340_ISP(2).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/CH340_ISP(3).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/FlashMagic(0).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/FlashMagic(1).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/FlashMagic(2).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/FlashMagic(5).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/LED1-4notBlink.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/Serial-_info.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/smoothieboard-10x10-%E4%BB%A5%E5%A4%AA%E7%BD%91.jpg">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E4%BB%A5%E5%A4%AA%E7%BD%91.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E6%AD%A5%E8%BF%9BM5%E6%B5%8B%E8%AF%953-%E5%90%8C%E6%97%B6%E4%BD%BF%E7%94%A8webui%E5%92%8Cpronterface.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/smoothieboard-10x10-Mos+DCDC.jpg">
+<meta property="og:image" content="http://yoursite.com/6722c02f/MOSFET%E9%85%8D%E5%9B%BE%E4%B8%BA%E4%BA%8C%E5%91%A8%E7%9B%AE.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E5%A4%A7%E5%8A%9F%E7%8E%87MixedMosfet(1).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E5%A4%A7%E5%8A%9F%E7%8E%87MixedMosfet(2).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E5%A4%A7%E5%8A%9F%E7%8E%87MixedMosfet(3).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E8%BD%BD%E6%B5%81%E8%AE%A1%E7%AE%97%E5%99%A8(2).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E8%BD%BD%E6%B5%81%E8%AE%A1%E7%AE%97%E5%99%A8.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E8%BD%BD%E6%B5%81%E8%AE%A1%E7%AE%97%E5%99%A8(3).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E8%BD%BD%E6%B5%81%E8%AE%A1%E7%AE%97%E5%99%A8.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/EEV523(2).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/EEV523(1).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/TO-220-PASTE(1).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/TO-220-PASTE(3).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/TO-220-PASTE(2).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/panel-1.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/panel-2.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/panel-3.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/panel-4.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/smoothieboard-10x10-%E6%AD%A5%E8%BF%9B%E9%A9%B1%E5%8A%A8%E5%99%A8.jpg">
+<meta property="og:image" content="http://yoursite.com/6722c02f/Step-motor-connect.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E4%B9%90%E6%B8%85%E7%94%B5%E6%9C%BA%E5%8E%82%E5%92%A8%E8%AF%A2(1).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E4%B9%90%E6%B8%85%E7%94%B5%E6%9C%BA%E5%8E%82%E5%92%A8%E8%AF%A2(2).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E4%B9%90%E6%B8%85%E7%94%B5%E6%9C%BA%E5%8E%82%E5%92%A8%E8%AF%A2(3).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E4%B9%90%E6%B8%85%E7%94%B5%E6%9C%BA%E5%8E%82%E5%92%A8%E8%AF%A2(4).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E4%B9%90%E6%B8%85%E7%94%B5%E6%9C%BA%E5%8E%82%E5%92%A8%E8%AF%A2(5).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/2040%E6%AD%A5%E8%BF%9B%E7%94%B5%E6%9C%BA%E5%8A%9B%E7%9F%A9%E4%B8%8E%E8%BD%AC%E9%80%9F%E6%9B%B2%E7%BA%BF%E5%9B%BE-%E6%96%AF%E6%B3%B0%E6%99%AE%E6%9C%BA%E7%94%B5%E7%A7%91%E6%8A%80(2).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/4240%E6%AD%A5%E8%BF%9B%E7%94%B5%E6%9C%BA%E5%8A%9B%E7%9F%A9%E4%B8%8E%E8%BD%AC%E9%80%9F%E6%9B%B2%E7%BA%BF%E5%9B%BE-%E6%96%AF%E6%B3%B0%E6%99%AE%E6%9C%BA%E7%94%B5%E7%A7%91%E6%8A%80(1).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/5776%E6%AD%A5%E8%BF%9B%E7%94%B5%E6%9C%BA%E5%8A%9B%E7%9F%A9%E4%B8%8E%E8%BD%AC%E9%80%9F%E6%9B%B2%E7%BA%BF%E5%9B%BE-%E6%96%AF%E6%B3%B0%E6%99%AE%E6%9C%BA%E7%94%B5%E7%A7%91%E6%8A%80(3).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E4%B9%90%E6%B8%85%E7%94%B5%E6%9C%BA%E5%8E%82%E5%92%A8%E8%AF%A2(4).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/A5984%E7%BB%86%E5%88%86%E8%B7%B3%E7%BA%BF.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/A5984%E6%A1%A5%E8%87%82.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E4%B9%90%E6%B8%85%E7%94%B5%E6%9C%BA%E5%8E%82%E5%92%A8%E8%AF%A2(5).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E6%96%AF%E6%B3%B0%E6%99%AE%E6%9C%BA%E7%94%B5%E7%A7%91%E6%8A%8020%E4%B8%AD%E7%A9%BA%E6%AD%A5%E8%BF%9B%E5%8F%82%E6%95%B0.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/A5984_Rs.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/smoothieboard-10x10-%E9%99%90%E5%88%B6%E7%94%B5%E9%98%BB.jpg">
+<meta property="og:image" content="http://yoursite.com/6722c02f/smoothieboard-10x10-%E9%99%90%E5%88%B6%E7%94%B5%E9%98%BB(2).jpg">
+<meta property="og:image" content="http://yoursite.com/6722c02f/smoothieboard-10x10-%E9%99%90%E5%88%B6%E7%94%B5%E9%98%BB(3).jpg">
+<meta property="og:image" content="http://yoursite.com/6722c02f/R-limit(2).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/R-limit(1).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/R-limit(1).jpg">
+<meta property="og:image" content="http://yoursite.com/6722c02f/R-limit(2).jpg">
+<meta property="og:image" content="http://yoursite.com/6722c02f/digipot_max_current.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E7%94%B5%E4%BD%8D%E5%99%A8%E7%9A%84%E9%98%BB%E5%80%BC%E4%B8%8EVef(2).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E7%94%B5%E4%BD%8D%E5%99%A8%E7%9A%84%E9%98%BB%E5%80%BC%E4%B8%8EVef(3).png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/config_extruder_2.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E6%AD%A5%E8%BF%9BM5%E6%B5%8B%E8%AF%952.PNG">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E5%A5%87%E5%A5%87%E6%80%AA%E6%80%AA%E7%9A%84%E7%84%8A%E6%8E%A5%E9%97%AE%E9%A2%98(1).jpg">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E5%A5%87%E5%A5%87%E6%80%AA%E6%80%AA%E7%9A%84%E7%84%8A%E6%8E%A5%E9%97%AE%E9%A2%98(3).jpg">
+<meta property="og:image" content="http://yoursite.com/6722c02f/%E5%A5%87%E5%A5%87%E6%80%AA%E6%80%AA%E7%9A%84%E7%84%8A%E6%8E%A5%E9%97%AE%E9%A2%98(2).jpg">
+<meta property="og:image" content="http://yoursite.com/6722c02f/kicad-InteractiveHtmlBom.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/kicad-InteractiveHtmlBom-view.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/kicad-offset%E7%84%8A%E7%9B%98%E4%B8%A2%E5%A4%B1.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/EaglePCB%E7%9A%84gerber%E6%96%87%E4%BB%B6JLC%E5%8A%A9%E6%89%8B%E8%A7%A3%E6%9E%90.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/JLC%E9%A2%84%E8%A7%88%E6%95%88%E6%9E%9C.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/JLC%E9%A2%84%E8%A7%88%E6%95%88%E6%9E%9C2.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/Mixed-Big-Fet-VBB-2.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/Mixed-Big-Fet-VBB.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/Mixed-Big-Fet-gnd.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/Mixed-Big-Fet-gnd-2.png">
+<meta property="og:image" content="http://yoursite.com/6722c02f/Oshw-logo.png">
+<meta property="og:updated_time" content="2022-08-17T04:19:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="冰沙主板10x10设计&amp;制作笔记">
+<meta name="twitter:description" content="魔改一块过气的5轴数控主板">
+<meta name="twitter:image" content="http://yoursite.com/6722c02f/%E5%8E%9F%E7%89%88vs10x10-1021.jpg">
+  <link rel="canonical" href="http://yoursite.com/6722c02f/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>冰沙主板10x10设计&制作笔记 | OldGerman's Blog</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OldGerman's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Refuse to play tickets!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-阅读排名">
+      
+    
+
+    <a href="/rank" rel="section"><i class="menu-item-icon fa fa-fw fa-list"></i> <br>阅读排名</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/6722c02f/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过气德国佬">
+      <meta itemprop="description" content="潮起潮落，云卷云舒">
+      <meta itemprop="image" content="/images/psa.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OldGerman's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">冰沙主板10x10设计&制作笔记
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-12-12 16:49:27" itemprop="dateCreated datePublished" datetime="2020-12-12T16:49:27+08:00">2020-12-12</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-17 12:19:47" itemprop="dateModified" datetime="2022-08-17T12:19:47+08:00">2022-08-17</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PCB设计/" itemprop="url" rel="index"><span itemprop="name">PCB设计</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span id="/6722c02f/" class="post-meta-item leancloud_visitors" data-flag-title="冰沙主板10x10设计&制作笔记" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/6722c02f/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/6722c02f/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>30k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>28 分钟</span>
+            </span>
+          
+            <div class="post-description">魔改一块过气的5轴数控主板</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="目录"><a class="header-anchor" href="#目录"></a>目录</h2>
+<ul>
+<li>
+<p><a href="#%E5%89%8D%E8%A8%80">前言</a></p>
+</li>
+<li>
+<p><a href="#%E5%86%B0%E6%B2%9910x10%E4%BB%8B%E7%BB%8D">冰沙10x10介绍</a></p>
+</li>
+<li>
+<p><a href="#%E7%84%8A%E6%8E%A5%E6%8C%87%E5%8D%97">焊接指南</a></p>
+</li>
+<li>
+<p><a href="#%E6%B5%8B%E8%AF%95%E5%92%8C%E4%BD%BF%E7%94%A8">测试和使用</a></p>
+</li>
+<li>
+<p><a href="#%E9%99%84">附</a></p>
+</li>
+</ul>
+<h2 id="前言"><a class="header-anchor" href="#前言"></a>前言</h2>
+<p>本文档以<a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC Attribution-Share Alike 4.0 International</a>发行</p>
+<details> <summary>展开查看</summary> <pre><code><br>
+创建时间： 2020/08/25 17:40:56 UTC+8
+由过气德国佬（github：oldgerman）于 2020/12/12 UTC+8 最后一次编辑
+</code></pre></details>
+<h3 id="项目地址"><a class="header-anchor" href="#项目地址"></a>项目地址</h3>
+<p><a href="https://github.com/oldgerman/Smoothieboard-10x10-5driver" target="_blank" rel="noopener">Git仓库：含所有相关文件, 制作前请打包下载、检查是否有新版本</a></p>
+<h3 id="关于本文档"><a class="header-anchor" href="#关于本文档"></a>关于本文档</h3>
+<p>本文档面向有意<strong>低成本</strong>diy冰沙板的大侠，内容按照diy的一般顺序排序，向你展示Smoothie 10x10 的：</p>
+<ul>
+<li>相比<a href="http://smoothieware.org/smoothieboard-v1" target="_blank" rel="noopener">smoothieboard-v1.1</a>改动的地方、技术规格</li>
+<li>钢网+风枪焊接技巧、</li>
+<li>基本功能的使用，使用的注意事项。具体的高级功能还请详见官方文档（世界各地许多人齐心协力构建的文档）</li>
+<li>文档的大多数配图滞后于10x10开源版本，是<a href="#%E8%BF%9B%E5%BA%A6%E4%B8%80%E8%A7%88">进度一览</a>中的二、三周目版本</li>
+</ul>
+<p>本文档不含手把手教你做3D机、激光机、雕刻机、贴片机…因为怎么做博主也纳闷😳</p>
+<h3 id="为什么要将冰沙主板缩小为10x10？"><a class="header-anchor" href="#为什么要将冰沙主板缩小为10x10？"></a>为什么要将冰沙主板缩小为10x10？</h3>
+<details> <summary>展开查看</summary> <pre><code><br>由于10x10的四层板打样的价格越来越低，而大于10x10的四层板价格仍居高不下，相信不少尝试制作原版冰沙板的大侠一开始就被昂贵的打样费用劝退，因此设计出10x10的冰沙板很有意义，但冰沙主板作为开源了4年以上的开源硬件，其他大佬也设计过不少衍生版本，这些就包括：C3D Remix Board、SKR V-1.3、Cohesion3D Mini、Tiny Smoothie等，似乎我们的选择有很多，然而就如同官方所说的一样，尽管替代形状的数量越来越多，但是原始设计（[Smoohieboard v1.1）能为中小型CNC机器（包括但不限于3D打印机，激光切割机和CNC铣床）供电和控制所需的所有电子零件：步进电机驱动器（5通道），加热器/冷却器驱动器（6通道Mosfet PWM），温度传感器（4通道），限位开关，SPI，I2C和用于硬件扩展的其他I / O，其中包括USB，UART，以太网和SD卡。替代设计也应包括这些元素或它们的类似物，或说明如何轻松添加它们。（实际上衍生的设计或多或少都打了折扣）几年来衍生的设计与冰沙板的相似性并不太好，对初次接触衍生的主板、阅读原版的文档来学习如何使用冰沙板的朋友们不太友好，因为你需要知道衍生版相比原版的区别（引脚图变动、电子元件变动、布局变动等），因此博主不另起炉灶，索性直接修改原版的Eagle工程，保留了官方原版（Smoohieboard v1.1）所有的元件和引出的连接器，并适度优化，设计出了Smoothieboard v1.3（10x10），与原版极其相似。
+</code></pre></details>
+<h3 id="Duet2-wifi-VS-冰沙"><a class="header-anchor" href="#Duet2-wifi-VS-冰沙"></a>Duet2 wifi VS 冰沙</h3>
+<p><a href="https://forum.duet3d.com/topic/9223/duet-3d-wifi-vs-smoothieware/3" target="_blank" rel="noopener">这里的讨论</a>看起来冰沙已经过气了，为啥还要修改冰沙? 咱们看看价格再谈性能，芯片取自深水宝最低价，PCB取自JLC，不包括邮费：</p>
+<table>
+<thead>
+<tr>
+<th>主板</th>
+<th>主芯片</th>
+<th>步进驱动器</th>
+<th>PCB</th>
+<th>diy起步成本</th>
+<th>附：钢网成本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Duet2 wifi</td>
+<td>ATSAM4E8E：25￥<br>(剪板拆机片)</td>
+<td>256细分；TMC2660：<br>13x5 = 65￥</td>
+<td>12.3x10.0cm 四层板：5片240￥<br>（44板费+200工程费）<br>或 JP领券免费+22运费</td>
+<td>112~330￥</td>
+<td>40+运费</td>
+</tr>
+<tr>
+<td>Smoothieboard v1.1</td>
+<td>LPC1769：14￥</td>
+<td>32细分；A5984：4x5=20￥</td>
+<td>12.9x10.5cm 四层板：5片244￥<br>（44板费+200工程费）<br>或 JP领券免费+22运费</td>
+<td>56~278￥</td>
+<td>40+运费</td>
+</tr>
+<tr>
+<td>Smoothieboard 10x10</td>
+<td>LPC1769：14￥</td>
+<td>32细分；A5984：4x5=20￥</td>
+<td>10.0x10.0cm 四层板：5片50￥ <br>或 JP领券免费</td>
+<td>34~84￥</td>
+<td>15+运费</td>
+</tr>
+</tbody>
+</table>
+<p>Smoothie因为过气才有一定的性价比，以及openpnp的官方指定主板（对于diy贴片机而言十分好上手），才费尽心思做修改</p>
+<h3 id="如果…那么不建议使用冰沙"><a class="header-anchor" href="#如果…那么不建议使用冰沙"></a>如果…那么不建议使用冰沙</h3>
+<p>相信各位大侠因为想做贴片机才自远方来，除非你想做基于openpnp的贴片机才建议使用冰沙（32细分最高可能是稳定贴0402阻容，0201就不好说了），但如果你想做3D打印机，相比现在TMC2208步进驱动器基本成为3D打印机的标配（1.4A/36V 256细分 参考价7￥），冰沙的A5984步进驱动器（2.0A/40V 32细分 深水价4￥，但是2A电流香啊）显得过时，因此若冰沙固件的无需编译即可配置的功能对你做机器的帮助不大，或你预算充足，对256细分以及静音有要求，那么不建议使用冰沙主板diy 3D打印机。可以选购常见的基于STM32F407的五轴主板配TMC2208（细分更高且更静音但电流较小），若你想驱动更大电流的例如57步进，或对delta 3D机型的精度有刚需，那么十分推荐diy或购买成品的Duet2 wifi（使用5路TMC2660步进驱动器 4.0A/30V 256细分，深水价13）。</p>
+<h3 id="冰沙主板简介"><a class="header-anchor" href="#冰沙主板简介"></a>冰沙主板简介</h3>
+<p>项目创始人：<em>Arthur Wolf</em>（亚瑟·沃尔夫）</p>
+<p><strong>历史</strong></p>
+<ul>
+<li>
+<p>Smoothie最早期的<a href="http://smoothieware.org/smoothie-on-a-breadboard" target="_blank" rel="noopener">面包板版本</a>基于<a href="http://www.embeddedartists.com/products/lpcxpresso/lpc1769_xpr.php" target="_blank" rel="noopener">LPCXpresso 1769</a> breakout board搭建</p>
+</li>
+<li>
+<p>Smoothie社区最早的<a href="http://smoothieware.org/smoothieboard-beta" target="_blank" rel="noopener">beta冰沙板</a></p>
+</li>
+<li>
+<p>2013年<a href="https://www.kickstarter.com/projects/logxen/smoothieboard-the-future-of-cnc-motion-control?fbclid=IwAR3p6yq5UywppQh38nAqqtlnclIN4z0dtqtKcVALAKv71L_h7LvgYeH1cW8" target="_blank" rel="noopener">Smoothie V1众筹地址</a></p>
+</li>
+</ul>
+<p><a href="https://www.reprap.org/wiki/Smoothieboard" target="_blank" rel="noopener">RepRap wiki</a>👈强烈建议在阅读此篇博文前先浏览这个，以对冰沙板有一个总体的认识</p>
+<p><a href="http://smoothieware.org/smoothieboard-v1" target="_blank" rel="noopener">官方文档</a></p>
+<p><a href="https://github.com/Smoothieware/Smoothieboard" target="_blank" rel="noopener">git仓库</a></p>
+<p>上面的<a href="https://www.reprap.org/wiki/Smoothieboard" target="_blank" rel="noopener">ReppRap wiki</a>指明冰沙主板共有3个版本：</p>
+<ul>
+<li><a href="https://shop.uberclock.com/collections/smoothie/products/smoothieboard" target="_blank" rel="noopener">Smoothieboard_5x</a>具有5个步进电机驱动器，3个小型mosfet，3个大型mosfet和以太网支持，通常用于具有两个或更多挤出机的3D打印机</li>
+<li><a href="https://shop.uberclock.com/products/smoothieboard-4x" target="_blank" rel="noopener">Smoothieboard_4x</a>具有4个步进电机驱动器，2个小型mosfet，2个大型mosfet和以太网支持，通常用于单挤出机3D打印机</li>
+<li><a href="https://shop.uberclock.com/products/smoothieboard-3x" target="_blank" rel="noopener">Smoothieboard_3x</a>具有3个步进电机驱动器，2个小型mosfet，并且<strong>不</strong>支持以太网，通常用于激光切割机/绘图仪</li>
+</ul>
+<p>实际上他们的区别就是少贴装相应的元件，PCB都是同一块（Smoothieboard v1.1），<s>毕竟正规渠道的A5984可要20RMB左右一片</s></p>
+<h3 id="冰沙固件简介"><a class="header-anchor" href="#冰沙固件简介"></a>冰沙固件简介</h3>
+<p>模块化，开源，高性能G代码解释器、用面向对象的C ++编写的CNC控制器</p>
+<p><a href="http://smoothieware.org/" target="_blank" rel="noopener">官方文档</a></p>
+<p><a href="https://github.com/Smoothieware/Smoothieware" target="_blank" rel="noopener">git仓库</a></p>
+<p>语言：<a href="https://libraries.io/languages/C++" target="_blank" rel="noopener">C ++</a></p>
+<p><a href="http://smoothieware.org/smoothie-accessory-protocol" target="_blank" rel="noopener">冰沙附件的许可协议</a></p>
+<p><a href="http://smoothieware.org/supported-g-codes" target="_blank" rel="noopener">Smoothie官方的G代码文档</a></p>
+<p><a href="https://marlinfw.org/meta/gcode/" target="_blank" rel="noopener">Marlin的G代码文档</a></p>
+<h2 id="冰沙10x10介绍"><a class="header-anchor" href="#冰沙10x10介绍"></a>冰沙10x10介绍</h2>
+<h3 id="改动"><a class="header-anchor" href="#改动"></a>改动</h3>
+<h4 id="图片对比版："><a class="header-anchor" href="#图片对比版："></a>图片对比版：</h4>
+<p>（等比例）</p>
+<p><img src="/6722c02f/%E5%8E%9F%E7%89%88vs10x10-1021.jpg" alt="原版vs10x10"></p>
+<h4 id="文字描述版："><a class="header-anchor" href="#文字描述版："></a>文字描述版：</h4>
+<p>由于博主从设计到定稿过程中打样了三次板，分别叫…</p>
+<table>
+<thead>
+<tr>
+<th>板子</th>
+<th>优化的地方</th>
+<th>失败的地方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一周目</td>
+<td>USB-C 、丝印位置、安装孔、线距、部分覆铜、优化所有的阻焊开窗使阻焊桥&gt;8mil，即使杂色板最密集引脚处的阻焊桥也能百分百存在</td>
+<td>内层的Y限位信号线将3V3的过孔和PLA的过孔短接，限位一单触发就关机，紧急按钮也无法使用，另外，原版的大4P封装的孔位有问题，无法安装</td>
+</tr>
+<tr>
+<td>二周目</td>
+<td>PCB缩小至最经济的10x10cm，保留了原版所有的功能和引脚，增加了DCDC电路，增加数字/机械电位器二选一电路，修改一周目的所有问题，优化所有连接器的位置（对齐）和丝印</td>
+<td>所有线路部分正常，但是KF2510连接器和插拔式接线端子的的间距偏小，5V电源轨的防反灌的肖特基二极管位置给错，从USB-C_5V上电时会倒灌到12V电源轨，TC4427丝印位错</td>
+</tr>
+<tr>
+<td>三周目</td>
+<td>优化二周目的所有问题，在L1 L2层密集过孔区增加了铜皮，L1层增加了小功率MOS管的电源轨铜皮，Bottom层restrict了MOS管和大电流端子的pin与pin之间的铜皮，防止焊接时误损阻焊层造成连锡短路，增加了用于散热片定位丝印</td>
+<td>0 error<br>1 warning: C13的位置不对劲</td>
+</tr>
+<tr>
+<td>开源20201013</td>
+<td>调整C13，稍微对齐R108~R111<br>去除Smoothie相关的商标s</td>
+<td></td>
+</tr>
+<tr>
+<td>开源20201021</td>
+<td>加宽A5984 OUT的部分铜箔从33mil加宽到60mil</td>
+<td></td>
+</tr>
+<tr>
+<td>开源20201210</td>
+<td>优化dcdc电感走线</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="取舍"><a class="header-anchor" href="#取舍"></a>取舍</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">舍</th>
+<th>得</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">PCB面积减少 &gt; 1/4，板面散热性能有损失<br>大功率MOSFET推荐载流减少30%</td>
+<td>对称，整齐，紧凑的布局<br>PCB和激光钢网的打样费用前所未有地减少</td>
+</tr>
+<tr>
+<td style="text-align:left">PCB没有空余的位置放置元件名字的丝印</td>
+<td>用交互式BOM查找元件位置</td>
+</tr>
+<tr>
+<td style="text-align:left">500mA <a href="https://shop.uberclock.com/collections/smoothie/products/switching-regulator-dc-to-dc-5v" target="_blank" rel="noopener">DCDC模块</a></td>
+<td>板载 2.5A <a href="https://www.monolithicpower.com/en/mp2565.html" target="_blank" rel="noopener">MP2565</a> DCDC电路，物料(仅这部分)有所增加</td>
+</tr>
+<tr>
+<td style="text-align:left">N/A</td>
+<td>数字/机械电位器二选一，若对电流一致性要求不高，<br>用机械电位器相比前者成本降低15~20元</td>
+</tr>
+<tr>
+<td style="text-align:left">2512 0.05R 3W 合金采样电阻</td>
+<td>1206 0.05R 1W合金采样电阻 (实测最大2A时才1/5W)</td>
+</tr>
+<tr>
+<td style="text-align:left">D+的上拉SOT363 MOSFET-P</td>
+<td>换为常见的SOT23 MOSFET-P</td>
+</tr>
+<tr>
+<td style="text-align:left">USB方口</td>
+<td>USB-C (16p) + <a href="https://www.st.com/resource/en/datasheet/usblc6-2.pdf" target="_blank" rel="noopener">USBLC6</a></td>
+</tr>
+<tr>
+<td style="text-align:left">N/A</td>
+<td>增加1812自恢复保险丝保护AMS1117-3.3</td>
+</tr>
+<tr>
+<td style="text-align:left">将所有的默认连线的焊接跳线盘改为未连线</td>
+<td>更自由地跳线</td>
+</tr>
+</tbody>
+</table>
+<h3 id="技术规格"><a class="header-anchor" href="#技术规格"></a>技术规格</h3>
+<p>恩智浦LPC1769微控制器</p>
+<ul>
+<li>96MHz-120MHz 32位ARM Cortex-M3内核，64KB RAM，512KB闪存</li>
+</ul>
+<p>Allegro A5984双极步进驱动器</p>
+<ul>
+<li>
+<p>高达40V 2A 32x微步进，数字/机械式电流控制</p>
+</li>
+<li>
+<p>5个步进驱动器</p>
+</li>
+</ul>
+<p>多达6个FET</p>
+<ul>
+<li>3个最高可支持24V 5A的电流，另外3个最高可支持24V 10A(原版为12A)的电流，以控制外部设备，如热水袋，风扇和加热床。</li>
+</ul>
+<p>扩展：4个热敏电阻端口，6个终端挡板端口，SPI，I2C，UART，USB，MicroSD插槽，以太网</p>
+<p>轻松配置！</p>
+<ul>
+<li>基于文件的配置（无需重新编译）</li>
+<li>基于文件的升级（提供了二进制文件，升级无需编译）</li>
+<li>通过USB同时进行文件和串行访问</li>
+</ul>
+<h3 id="引脚定义"><a class="header-anchor" href="#引脚定义"></a>引脚定义</h3>
+<p>官方抽不出人手绘制fritzing风格的pinout，我就当一次美工哈，根据<a href="http://smoothieware.org/pinout" target="_blank" rel="noopener">Smoothieboard v1.1的pinout</a>乾坤大挪移，可以与原版对比着看</p>
+<table>
+<thead>
+<tr>
+<th>pin out</th>
+<th>pin capabilities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/Smoothie-10x10-pinout-map-mini.png" alt="Smoothie-10x10-pinout-map-mini"></td>
+<td><img src="/6722c02f/Smoothie-10x10-pin-capabilities-mini.png" alt="Smoothie-10x10-pin-capabilities-mini"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="成品展示"><a class="header-anchor" href="#成品展示"></a>成品展示</h3>
+<p><strong>2020-10-13 版本之前的三周目</strong></p>
+<table>
+<thead>
+<tr>
+<th>正</th>
+<th>反</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/%E4%B8%89%E5%91%A8%E7%9B%AE%E6%88%90%E5%93%81(1).jpg" alt="三周目成品(1)"></td>
+<td><img src="/6722c02f/%E4%B8%89%E5%91%A8%E7%9B%AE%E6%88%90%E5%93%81(2).jpg" alt="三周目成品(2)"></td>
+</tr>
+</tbody>
+</table>
+<p><strong>2020-10-21版本</strong></p>
+<p><a href="https://oshwhub.com/red_bean" target="_blank" rel="noopener">红豆</a>和烂尾侠制作的2020-10-21成品，基本功能测试OK</p>
+<p><img src="/6722c02f/redbean.JPG" alt="redbean"></p>
+<p><strong>2020-12-10版本</strong></p>
+<p>其实我把二周目板上的元件搬了个家。。。</p>
+<table>
+    <td><image src="冰沙主板制作笔记/2020-12-10版冰沙_成品tp_small.JPG"></image></td>
+    <td><image src="冰沙主板制作笔记/2020-12-10版冰沙_成品bk_small.JPG"></image></td>
+</table>
+<h3 id="元件，焊盘，过孔数量"><a class="header-anchor" href="#元件，焊盘，过孔数量"></a>元件，焊盘，过孔数量</h3>
+<table>
+<thead>
+<tr>
+<th>10x10 三周目</th>
+<th>原版</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/PCB-INFO(1).png" alt="20201015004022"></td>
+<td><img src="/6722c02f/PCB-INFO(2).png.png" alt="20201015004138"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="物料清单、成本"><a class="header-anchor" href="#物料清单、成本"></a>物料清单、成本</h3>
+<p>Excel  <a href="Smoothieboard_10x10-v1.3-BOM.xlsx">Smoothieboard_10x10-v1.3-BOM.xlsx</a> （付报价）</p>
+<p>交互式BOM，见BOM文件夹的Smoothie-10x10_ibom.html文件，对应的区块如下图，附LPC1769 引脚：</p>
+<table>
+<thead>
+<tr>
+<th>功能区</th>
+<th>LPC1768/LPC1769引脚定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/smoothieboard-10x10-%E5%8A%9F%E8%83%BD%E5%8C%BA.jpg" alt="smoothieboard-10x10-功能区"></td>
+<td><img src="/6722c02f/lpc1768_mbed_pinout.png" alt="lpc1768_mbed_pinout"></td>
+</tr>
+</tbody>
+</table>
+<p>LPC1768与LPC1769是pin to pin的，但1768的主频只有100MHz，而1769的主频是120MHz，文档说冰沙固件针对120Mhz做了特定的优化，所以在diy时注意芯片型号</p>
+<h2 id="焊接指南"><a class="header-anchor" href="#焊接指南"></a>焊接指南</h2>
+<h3 id="电烙铁"><a class="header-anchor" href="#电烙铁"></a>电烙铁</h3>
+<p><s>乃神人也</s></p>
+<p>建议按上图分功能区焊接，边焊接边测试</p>
+<h3 id="回流焊"><a class="header-anchor" href="#回流焊"></a>回流焊</h3>
+<p>若你使用无铅锡膏，建议PCB打样时选择TG温度&gt;150℃的基材</p>
+<p><a href="https://www.researchmfg.com/2013/04/solder-paste/" target="_blank" rel="noopener">介紹並認識【錫膏(solder paste)】的基本知識(含助焊劑)</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/72950962" target="_blank" rel="noopener">回流曲线的四大温区：【晨日•技术篇】教你理解回流温度曲线</a></p>
+<p><a href="https://www.researchmfg.com/2010/07/reflow-profile/" target="_blank" rel="noopener">SMT回流焊的溫度曲線(Reflow Profile)解說與注意事項</a></p>
+<p><a href="https://www.coilcraft.com/getmedia/36ca91a6-36bc-418b-88e0-7c318b2bed9b/Doc755_Solder_Reflow_Profile.pdf" target="_blank" rel="noopener">典型的RoHS回流焊曲线</a></p>
+<h3 id="锡膏"><a class="header-anchor" href="#锡膏"></a>锡膏</h3>
+<p><a href="http://www.jlc-gw.com/info/12.988.html" target="_blank" rel="noopener">SMT无铅焊料简介</a></p>
+<p><a href="http://bbs.smthome.net/simple/t236956.html" target="_blank" rel="noopener">锡膏回温和搅拌时间</a></p>
+<p>冷藏的锡膏需要回温，不然会有太多水蒸汽冷凝，回焊的时候水汽会沸腾，导致炸锡</p>
+<p><a href="https://www.sohu.com/a/400612384_120150490" target="_blank" rel="noopener">锡膏使用前的准备</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/108971614" target="_blank" rel="noopener">SMT贴片加工中常用的锡膏类型</a></p>
+<p><strong>手工点锡膏</strong></p>
+<p>21号不锈钢针头配1ml注射器，记得放锡膏稀释剂不然分分钟堵头，若堵头建议来一支0.4mm喷嘴疏通针</p>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>挤锡膏放元件</th>
+<th>风枪焊接效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/%E4%BD%9C%E6%A1%88%E5%B7%A5%E5%85%B7.jpg" alt="作案工具"></td>
+<td><img src="/6722c02f/%E4%BD%9C%E6%A1%88%E7%8E%B0%E5%9C%BA.jpg" alt="作案现场"></td>
+<td><img src="/6722c02f/%E4%BD%9C%E6%A1%88ok.png" alt="img"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="激光钢网"><a class="header-anchor" href="#激光钢网"></a>激光钢网</h3>
+<p>转好钢网gerber文件在steel-mesh文件夹内</p>
+<p><s>人生第一次给了</s>10x10冰沙主板，博主在宝钢电子开的10x10小钢片，<s>晒图朋友们觉得钢网很可爱？<br>
+其实我觉得性价比挺高的，毕竟开了900+焊盘，逃）</s></p>
+<p>三周目开钢网焊接，推荐飞鹰牌保安刀片刮锡膏。</p>
+<p><strong>钢网四角需不需要螺丝固定孔</strong></p>
+<p>因为是第一次开钢网，所以把能尝试的都尝试了，我将PCB四角的M3孔也开了，方便定位（似乎大家都用胶带固定钢片？）</p>
+<p><strong>刮锡膏的角度</strong></p>
+<p>45度贴紧，慢慢刮，<s>让巧克力慢慢融化</s></p>
+<p><strong>是否可以来回反复刮锡膏</strong></p>
+<p>可能一次刮后会有部分焊盘锡膏不完整，想再刮一次<br>
+原则上不可以，但我实测之后，对于此PCB，用保安刀片来回刮并不会有多大影响，<s>淦就完事了</s></p>
+<p><strong>钢网脱模</strong></p>
+<p><s>手起刀落</s></p>
+<p><strong>步骤演示</strong></p>
+<table>
+<thead>
+<tr>
+<th>准备工具</th>
+<th>挑出足量的稀释后的锡膏</th>
+<th>压紧45度刮至均匀</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/%E5%88%AE%E9%92%A2%E7%BD%91%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA(1).png" alt="img"></td>
+<td><img src="/6722c02f/%E5%88%AE%E9%92%A2%E7%BD%91%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA(2).png.png" alt="img"></td>
+<td><img src="/6722c02f/%E5%88%AE%E9%92%A2%E7%BD%91%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA(3).png" alt="img"></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>小心脱模</th>
+<th>锡膏效果：</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/%E5%88%AE%E9%92%A2%E7%BD%91%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA(4).png" alt="img"></td>
+<td><img src="/6722c02f/%E5%88%AE%E9%92%A2%E7%BD%91%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA(5).png" alt="img"></td>
+<td><img src="/6722c02f/%E5%88%AE%E9%92%A2%E7%BD%91%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA(7).png" alt="img"></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>小心摆放元件</th>
+<th>风枪回流焊接</th>
+<th>检查连锡，虚焊后测试</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/%E5%88%AE%E9%92%A2%E7%BD%91%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA(9).png" alt="img"></td>
+<td><img src="/6722c02f/%E5%88%AE%E9%92%A2%E7%BD%91%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA(10).jpg" alt="IMG_2816"></td>
+<td><img src="/6722c02f/%E5%88%AE%E9%92%A2%E7%BD%91%E6%AD%A5%E9%AA%A4%E5%B1%95%E7%A4%BA(10).png" alt="img"></td>
+</tr>
+</tbody>
+</table>
+<p><strong>锡膏如何清洗</strong></p>
+<p>原则上要专用的钢网清洗剂，但实测用PCB的洗板水效果极佳，注意75%的酒精清洗8太行</p>
+<h2 id="测试和使用"><a class="header-anchor" href="#测试和使用"></a>测试和使用</h2>
+<p>若你使用烙铁或者逐区锡膏焊接，那么所有功能测试前需要焊接最小系统</p>
+<h2 id="电源要求"><a class="header-anchor" href="#电源要求"></a>电源要求</h2>
+<h3 id="USB取电"><a class="header-anchor" href="#USB取电"></a>USB取电</h3>
+<p>冰沙主板仅通过USB供电时，无法使用MOS管和步进驱动（通过主电源供电时，才能使用），主电源供电时，可以不从USB取电</p>
+<p>引脚定义的VBB IN，就是主电源输入，冰沙文档中VBB指主电源，以下节选自<a href="http://smoothieware.org/main-power-input" target="_blank" rel="noopener">官方文档：主电源供电</a></p>
+<h3 id="VBB供应"><a class="header-anchor" href="#VBB供应"></a>VBB供应</h3>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Voltage" target="_blank" rel="noopener">电压</a>（V）：<span style="color:blue;">VBB可以为12至24V</span>。尽管Smoothieboard上的大多数组件的额定电压均高达32V，但不建议或不建议使用该高电压。12V PSU更常见，并且通常更便宜。但是，<span style="color:blue;">电压越高，步进电机的性能就越高</span>。这就是某些设计师使用24V PSU的原因。但是，<span style="color:red;">请注意，使用24V PSU时，您将需要24V风扇，并且需要减少加热元件的PWM设置，或者（最好，更安全）使用24V加热元件。</span></li>
+<li><a href="http://en.wikipedia.org/wiki/Electric_current" target="_blank" rel="noopener">电流</a>（A）：所需的总电流是每个步进电机的电流，加上机器上Smoothieboard将控制的每个外围设备的电流。这取决于您的机器类型。
+<ul>
+<li>在典型的3D打印机上，您可以安全地认为10A对于加热床是足够的，而对于其余的负载则是10A或更少。</li>
+<li>如果您有加热床，请使用17至20A PSU。</li>
+<li>如果没有加热床（或者正在安装CNC铣床或激光切割机），则7A至10可能就足够了。</li>
+<li>如果您以套件形式购买机器，则很可能会提供具有适当电流的PSU（或建议使用一个）。</li>
+<li>如果您通过自行采购来自行构建机器，则该机器型号的文档也很可能会推荐当前等级。能够提供比所需电流更多的电流的电源不是问题。没有足够的电流来驱动热端，加热器床或电动机是一个问题。</li>
+</ul>
+</li>
+<li>某些品牌外电源的额定功率可能超出其实际功率能力（动机：写出更大的数字会增加售价），可能未达到UL或CE额定值（如果起火，保险可能无法弥补损失），或可能很好。较低的售价意味着成本以某种方式被挤出了设计。最好了解如何。</li>
+<li>电源效率不是100％，并且会发热。热量会缩短电子设备的寿命。如果它们包含冷却风扇，请确保入口和出口的气流不受限制。布置好入口，防止掉落物品和细丝；最好离开地板或桌子，以免吸入灰尘。</li>
+</ul>
+<h3 id="MOS外部供电"><a class="header-anchor" href="#MOS外部供电"></a>MOS外部供电</h3>
+<p>对于大功率和小功率MOS，若不使用跳线帽从主电源取电，而是从VIN 1，VIN 2 取电，电压最高为24V</p>
+<h2 id="最小系统"><a class="header-anchor" href="#最小系统"></a>最小系统</h2>
+<p>红色框内的最小系统部分可以顺带焊接把绿框内的限位开关电路</p>
+<table>
+<thead>
+<tr>
+<th>电路</th>
+<th>配图为二周目</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/smoothieboard-10x10-%E6%9C%80%E5%B0%8F%E7%B3%BB%E7%BB%9F.jpg" alt="smoothieboard-10x10-最小系统"></td>
+<td><img src="/6722c02f/MinimumSystemCircuit(3).png.png" alt="img"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="烧录Bootloader"><a class="header-anchor" href="#烧录Bootloader"></a>烧录Bootloader</h3>
+<p>下载git仓库的Smoothieware的zip包解压</p>
+<p>下载NXP LPC芯片专用的烧录工具：Flash Magic，并安装</p>
+<p>下载烧录器的win驱动。安装，博主使用D1 mini开发板上的CH340(事先需要将8266烧一个空程序防止占用串口)，<a href="https://sparks.gogo.co.nz/assets/_site_/downloads/CH34x_Install_Windows_v3_4.zip" target="_blank" rel="noopener">CH340驱动下载</a></p>
+<p>串口烧录器(ch340，cp2102等)，接冰沙的Serial口的TX，RX，GND，Seria口的V+接烧录器的5V，使冰沙板直接从烧录器取电（从烧录器取电时，要将冰沙10x10 PCB背面的SJ1二选一跳线焊盘焊接跳线到5V），注意USB和VBB都不要上电，否则Flashmagic会报错&quot;Failed to autobuad&quot;(自动波特率匹配失败)，原因可能是RXTX参考电压不一致<br>
+博主接线如下：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/CH340_ISP(1).png" alt="img"></td>
+<td><img src="/6722c02f/CH340_ISP(2).png" alt="img"></td>
+<td><img src="/6722c02f/CH340_ISP(3).png" alt="img"></td>
+</tr>
+</tbody>
+</table>
+<p>短接ISP和GND再将Serial的V+上5V电，保证100%进入ISP烧录模式（官方的四部曲我试了很多次都没成功）</p>
+<p>进入ISP模式后，电源LED正常，但LED1~4非常暗淡，是正常的，在此模式下，打开Flash Magic</p>
+<p>烧录Bootloader步骤如下</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/FlashMagic(0).png" alt="FlashMagic(0)"></td>
+<td><img src="/6722c02f/FlashMagic(1).png" alt="FlashMagic(1)"></td>
+</tr>
+<tr>
+<td>Device栏选择LPC1759，在ISP栏中点击Read Signature读取芯片信息</td>
+<td>Firmware栏的File路径里选择刚下载Smoothieware固件包的bootloader文件夹里的DFU-Bootloader.hex</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>3</th>
+<th>4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/FlashMagic(2).png" alt="FlashMagic(2)"></td>
+<td><img src="/6722c02f/FlashMagic(5).png" alt="FlashMagic(5)"></td>
+</tr>
+<tr>
+<td>Preference中默认的晶振频率为12MHz，与原理图相符<br>下方的3行DTR RTS配置选不选都不影响</td>
+<td>Erase栏的Erase里选Entrie device或者Selectors by file都行，点击Start等待烧录结束</td>
+</tr>
+</tbody>
+</table>
+<p>烧录完hex文件RESET后，LED1~4会一直常亮，说明符合官方描述的无固件状态：</p>
+<p><img src="/6722c02f/LED1-4notBlink.png" alt="LED1-4notBlink"></p>
+<h3 id="烧录firmware-bin"><a class="header-anchor" href="#烧录firmware-bin"></a>烧录firmware.bin</h3>
+<p>找一张FAT32格式的SD卡</p>
+<p>将Smoothieware固件包的FirmwareBin文件夹里的<strong>firmware.bin</strong>、ConfigSamples/Smoothieboard文件夹里的<strong>config</strong>放入SD卡（这两个文件仅作测试用）</p>
+<p>将SD卡插入冰沙板卡槽。按一次Reset等待LPC1769自己升级固件</p>
+<h2 id="Serial串口"><a class="header-anchor" href="#Serial串口"></a>Serial串口</h2>
+<p>Serial串口除了在ISP模式下使用，跑冰沙固件时也可以显示一些信息，将波特率设为115200，打开串口并复位冰沙主板，会显示一些信息，若以太网使用还会显示网络的配置信息，还可以显示Kill按钮状态，可以执行从此串口收到的G代码和终端命令</p>
+<p><img src="/6722c02f/Serial-_info.png" alt="20201002214041"></p>
+<h2 id="USB-C串口"><a class="header-anchor" href="#USB-C串口"></a>USB-C串口</h2>
+<h3 id="安装冰沙串口驱动"><a class="header-anchor" href="#安装冰沙串口驱动"></a>安装冰沙串口驱动</h3>
+<p><a href="http://smoothieware.org/windows-drivers" target="_blank" rel="noopener">官方文档：Smoothie drivers for Windows</a></p>
+<h4 id="Windows-2000-Vista-7-8-64bit-32bit"><a class="header-anchor" href="#Windows-2000-Vista-7-8-64bit-32bit"></a>Windows 2000 / Vista / 7/8 64bit / 32bit</h4>
+<p><a href="http://smoothieware.org/_media/windows-drivers/smoothieware-usb-driver-v1.1.exe" target="_blank" rel="noopener">smoothieware-usb-driver-v1.1.exe</a>（git仓库资料中有）</p>
+<h4 id="Windows-10"><a class="header-anchor" href="#Windows-10"></a>Windows 10</h4>
+<p>无需在Windows 10上安装驱动程序，应该可以立即使用。在Windows 10上安装驱动程序可能会引起麻烦</p>
+<p>但是我的win10测试，win10需要装驱动，设备管理器才能识别为Smoothie，win10安装了smoohieboard驱动务必重启，不然pernterface发命令会显示超时</p>
+<h2 id="以太网"><a class="header-anchor" href="#以太网"></a>以太网</h2>
+<table>
+<thead>
+<tr>
+<th>电路</th>
+<th>配图为二周目</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/smoothieboard-10x10-%E4%BB%A5%E5%A4%AA%E7%BD%91.jpg" alt="smoothieboard-10x10-以太网"></td>
+<td><img src="/6722c02f/%E4%BB%A5%E5%A4%AA%E7%BD%91.png" alt="img"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="470pF是必须的"><a class="header-anchor" href="#470pF是必须的"></a>470pF是必须的</h3>
+<p>8720的Pin6 VDDCR输出1.2V，需要外部连接1uF和470pF电容是必须的！！不要用其它电容替代否则电压会不正常</p>
+<h3 id="基础型Webui"><a class="header-anchor" href="#基础型Webui"></a>基础型Webui</h3>
+<p><a href="http://smoothieware.org/network" target="_blank" rel="noopener">官方文档：Network interface</a></p>
+<p>Smoothieboard firmware.bin内实现了一个基本的webui(PC端的Pronterface阉割版，没有3D预览)，将冰沙主板接入路由器使用在同一局域网的PC访问</p>
+<h3 id="增强型Webui"><a class="header-anchor" href="#增强型Webui"></a>增强型Webui</h3>
+<p><a href="http://smoothieware.org/install-web-interface" target="_blank" rel="noopener">官方文档：Installing the web interface to the SD card</a><br>
+若使用Chrome无法加载webui，试试在浏览器页面按Ctrl +Shift+Delete。勾选缓存的图片及文件，清除数据后再尝试</p>
+<h3 id="同时使用Webui和pronterface以及Serial"><a class="header-anchor" href="#同时使用Webui和pronterface以及Serial"></a>同时使用Webui和pronterface以及Serial</h3>
+<p>可以正常接收三处的G代码，板上SD卡也能正常挂载win10</p>
+<p><img src="/6722c02f/%E6%AD%A5%E8%BF%9BM5%E6%B5%8B%E8%AF%953-%E5%90%8C%E6%97%B6%E4%BD%BF%E7%94%A8webui%E5%92%8Cpronterface.png" alt="步进M5测试3-同时使用webui和pronterface"></p>
+<h2 id="Kill-button"><a class="header-anchor" href="#Kill-button"></a>Kill button</h2>
+<p><a href="http://smoothieware.org/killbutton" target="_blank" rel="noopener">官方文档：Kill button</a></p>
+<p>冰沙板板载可爱的的12x12带灯开关，<s>一直觉得这是冰沙板的灵魂有木有？</s>，执行步进G代码的过程中黄都会长亮，异常状态会闪烁。长按使程序退出异常，等效于发送M999</p>
+<h2 id="NTC温度"><a class="header-anchor" href="#NTC温度"></a>NTC温度</h2>
+<p>默认是NTC100K，选择其他型号的热敏电阻见<a href="http://smoothieware.org/temperaturecontrol" target="_blank" rel="noopener">官方文档：温度控制</a>]的热敏电阻选择部分</p>
+<h3 id="异常"><a class="header-anchor" href="#异常"></a>异常</h3>
+<p>若NTC电阻接触不良若未安装，则在执行需要加热的G代码时，会报错：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Temperature reading <span class="keyword">is</span> unreliable <span class="keyword">on</span> T HALT asserted - reset <span class="keyword">or</span> M999 required</span><br></pre></td></tr></table></figure>
+<p>此时Killbutton会快速闪烁，长按它可以结束</p>
+<h3 id="读取温度"><a class="header-anchor" href="#读取温度"></a>读取温度</h3>
+<p>使用M105读取，默认仅返回TH1（喷头0），TH2（热床）通道的温度</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; M105</span><br><span class="line">SENDING:M105</span><br><span class="line">ok T:<span class="number">25.2</span> /<span class="number">0.0</span> @<span class="number">0</span> B:<span class="number">25.4</span> /<span class="number">0.0</span> @<span class="number">0</span> T:inf /<span class="number">0.0</span> @<span class="number">0</span> T:inf /<span class="number">0.0</span> @<span class="number">0</span></span><br></pre></td></tr></table></figure>
+<h3 id="读取TH3和TH4"><a class="header-anchor" href="#读取TH3和TH4"></a>读取TH3和TH4</h3>
+<p>（默认TH4未跳线，记得跳线）</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">冰沙板热敏电阻输入引脚名称</th>
+<th style="text-align:left">T0（th1）</th>
+<th style="text-align:left">T1（th2）</th>
+<th style="text-align:left">T2（th3）</th>
+<th style="text-align:left">T3（th4）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">引脚号</td>
+<td style="text-align:left">0.23</td>
+<td style="text-align:left">0.24</td>
+<td style="text-align:left">0.25</td>
+<td style="text-align:left">0.26</td>
+</tr>
+</tbody>
+</table>
+<p>可以在config中增加以下或注释掉原有的，来使用TH3、TH4</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">temperature_control.th3.enable</span> <span class="literal">true</span>						<span class="comment"># Whether to activate this ( "th3" ) module at all.</span></span><br><span class="line"><span class="string">temperature_control.th3.thermistor_pin</span> 		<span class="number">0.25</span>		<span class="comment"># Pin for the thermistor to read</span></span><br><span class="line"><span class="string">temperature_control.bed.heater_pin</span>           <span class="number">2.4</span>         <span class="comment"># Pin that controls the heater</span></span><br></pre></td></tr></table></figure>
+<p>之后M105会返回TH3、TH4</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">SENDING</span>:M105</span><br><span class="line">k <span class="attribute">T</span>:<span class="number">25.2</span> /<span class="number">0.0</span> <span class="variable">@0</span> <span class="attribute">B</span>:<span class="number">25.4</span> /<span class="number">0.0</span> <span class="variable">@0</span> <span class="attribute">T</span>:<span class="number">25.6</span> /<span class="number">0.0</span> <span class="variable">@0</span> <span class="attribute">T</span>:<span class="number">25.5</span> /<span class="number">0.0</span> <span class="variable">@0</span></span><br></pre></td></tr></table></figure>
+<p>注意：例如加热12V 5A的60W陶瓷芯最好使用大功率MOS，不要用小功率MOS，这里使用P2.4控制的小功率MOS仅作演示</p>
+<h2 id="Mosfet"><a class="header-anchor" href="#Mosfet"></a>Mosfet</h2>
+<p>在焊接蓝色框内MOS部分前，建议先把黄框内的DCDC和VBB电源MOS焊接，测试VBB输入12~24V时，DCDC的5V是否正常</p>
+<table>
+<thead>
+<tr>
+<th>电路</th>
+<th>配图为二周目</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/smoothieboard-10x10-Mos+DCDC.jpg" alt="smoothieboard-10x10-Mos+DCDC"></td>
+<td><img src="/6722c02f/MOSFET%E9%85%8D%E5%9B%BE%E4%B8%BA%E4%BA%8C%E5%91%A8%E7%9B%AE.png" alt="img"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="每一路Jumper的Current-rating"><a class="header-anchor" href="#每一路Jumper的Current-rating"></a>每一路Jumper的Current rating</h3>
+<p>However, <strong><a href="http://www.obscureinternet.com/wp-content/uploads/1268330310152.jpg" target="_blank" rel="noopener">WARNING</a></strong>, each jumper is rated for only 2A of current. This means you can not use this way of powering your MOSFETS if you are going to use more than 2A ( for the small MOSFETS ) or 4A ( for the big MOSFETS, with both jumpers used, for 2 x 2A ).</p>
+<p>Do not use the jumpers to power a heated bed for example, as it uses much more than 4A.</p>
+<p>LPC1769支持PWM的GPIO有6路原生PWM用于6个MOS输出， 可能需要舍弃congif里的bltouch和misc，将其改为false (占用P2.4)：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span>.misc.enable                          <span class="literal">false</span>             <span class="comment"># Enable this module</span></span><br><span class="line"><span class="keyword">switch</span>.misc.input_on_command                M42              <span class="comment"># Command that will turn this switch on</span></span><br><span class="line"><span class="keyword">switch</span>.misc.input_off_command               M43              <span class="comment"># Command that will turn this switch off</span></span><br><span class="line"><span class="keyword">switch</span>.misc.output_pin                      <span class="number">2.4</span>              <span class="comment"># Pin this module controls</span></span><br><span class="line"><span class="keyword">switch</span>.misc.output_type                     digital          <span class="comment"># Digital means this is just an on or off pin</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">switch</span>.bltouch.enable                    <span class="literal">false</span>         <span class="comment">#</span></span><br><span class="line"><span class="keyword">switch</span>.bltouch.output_pin                <span class="number">2.4</span>          <span class="comment"># sw pwm can use any digital pin</span></span><br><span class="line"><span class="keyword">switch</span>.bltouch.input_on_command          M280         <span class="comment">#</span></span><br><span class="line"><span class="keyword">switch</span>.bltouch.input_off_command         M281         <span class="comment">#</span></span><br><span class="line"><span class="keyword">switch</span>.bltouch.output_type               swpwm        <span class="comment"># sw pwm must be low frequency</span></span><br><span class="line"><span class="keyword">switch</span>.bltouch.pwm_period_ms             <span class="number">20</span>           <span class="comment"># 50Hz</span></span><br><span class="line"><span class="keyword">switch</span>.bltouch.startup_state             <span class="literal">false</span>        <span class="comment"># start up in the stow state</span></span><br><span class="line"><span class="keyword">switch</span>.bltouch.startup_value             <span class="number">7.43</span>         <span class="comment"># On boot it will go into stow mode, also set with the M281</span></span><br><span class="line"><span class="keyword">switch</span>.bltouch.default_on_value          <span class="number">3.3</span>          <span class="comment"># if M280 is issued without S this is the value it will set it to</span></span><br></pre></td></tr></table></figure>
+<p>在config中加入博主的测试段文字方便测试：</p>
+<figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">## Switch modules</span><br><span class="line"># See http:<span class="comment">//smoothieware.org/switch</span></span><br><span class="line"></span><br><span class="line"># Switch <span class="keyword">module</span> <span class="keyword">for</span> fan control</span><br><span class="line"><span class="keyword">switch</span>.fan24.enable                            <span class="literal">true</span>             # Enable <span class="keyword">this</span> <span class="keyword">module</span></span><br><span class="line"><span class="keyword">switch</span>.fan24.input_on_command                  M246             # Command that will turn <span class="keyword">this</span> <span class="keyword">switch</span> on</span><br><span class="line"><span class="keyword">switch</span>.fan24.input_off_command                 M247             # Command that will turn <span class="keyword">this</span> <span class="keyword">switch</span> off</span><br><span class="line"><span class="keyword">switch</span>.fan24.output_pin                        <span class="number">2.4</span>              # Pin <span class="keyword">this</span> <span class="keyword">module</span> controls</span><br><span class="line"><span class="keyword">switch</span>.fan24.output_type                       pwm              # PWM output settable <span class="keyword">with</span> S parameter <span class="keyword">in</span> the input_on_comand</span><br><span class="line">#<span class="keyword">switch</span>.fan24.max_pwm                          <span class="number">255</span>              # Set max pwm <span class="keyword">for</span> the pin <span class="keyword">default</span> <span class="keyword">is</span> <span class="number">255</span></span><br><span class="line"></span><br><span class="line"># Switch <span class="keyword">module</span> <span class="keyword">for</span> fan control</span><br><span class="line"><span class="keyword">switch</span>.fan25.enable                            <span class="literal">true</span>             # Enable <span class="keyword">this</span> <span class="keyword">module</span></span><br><span class="line"><span class="keyword">switch</span>.fan25.input_on_command                  M256             # Command that will turn <span class="keyword">this</span> <span class="keyword">switch</span> on</span><br><span class="line"><span class="keyword">switch</span>.fan25.input_off_command                 M257             # Command that will turn <span class="keyword">this</span> <span class="keyword">switch</span> off</span><br><span class="line"><span class="keyword">switch</span>.fan25.output_pin                        <span class="number">2.5</span>              # Pin <span class="keyword">this</span> <span class="keyword">module</span> controls</span><br><span class="line"><span class="keyword">switch</span>.fan25.output_type                       pwm              # PWM output settable <span class="keyword">with</span> S parameter <span class="keyword">in</span> the input_on_comand</span><br><span class="line">#<span class="keyword">switch</span>.fan25.max_pwm                          <span class="number">255</span>              # Set max pwm <span class="keyword">for</span> the pin <span class="keyword">default</span> <span class="keyword">is</span> <span class="number">255</span></span><br><span class="line"></span><br><span class="line"># Switch <span class="keyword">module</span> <span class="keyword">for</span> fan control</span><br><span class="line"><span class="keyword">switch</span>.fan26.enable                            <span class="literal">true</span>             # Enable <span class="keyword">this</span> <span class="keyword">module</span></span><br><span class="line"><span class="keyword">switch</span>.fan26.input_on_command                  M266             # Command that will turn <span class="keyword">this</span> <span class="keyword">switch</span> on</span><br><span class="line"><span class="keyword">switch</span>.fan26.input_off_command                 M267             # Command that will turn <span class="keyword">this</span> <span class="keyword">switch</span> off</span><br><span class="line"><span class="keyword">switch</span>.fan26.output_pin                        <span class="number">2.6</span>              # Pin <span class="keyword">this</span> <span class="keyword">module</span> controls</span><br><span class="line"><span class="keyword">switch</span>.fan26.output_type                       pwm              # PWM output settable <span class="keyword">with</span> S parameter <span class="keyword">in</span> the input_on_comand</span><br><span class="line">#<span class="keyword">switch</span>.fan26.max_pwm                          <span class="number">255</span>              # Set max pwm <span class="keyword">for</span> the pin <span class="keyword">default</span> <span class="keyword">is</span> <span class="number">255</span></span><br><span class="line"></span><br><span class="line"># Switch <span class="keyword">module</span> <span class="keyword">for</span> fan control</span><br><span class="line"><span class="keyword">switch</span>.fan27.enable                            <span class="literal">true</span>             # Enable <span class="keyword">this</span> <span class="keyword">module</span></span><br><span class="line"><span class="keyword">switch</span>.fan27.input_on_command                  M276             # Command that will turn <span class="keyword">this</span> <span class="keyword">switch</span> on</span><br><span class="line"><span class="keyword">switch</span>.fan27.input_off_command                 M277             # Command that will turn <span class="keyword">this</span> <span class="keyword">switch</span> off</span><br><span class="line"><span class="keyword">switch</span>.fan27.output_pin                        <span class="number">2.7</span>              # Pin <span class="keyword">this</span> <span class="keyword">module</span> controls</span><br><span class="line"><span class="keyword">switch</span>.fan27.output_type                       pwm              # PWM output settable <span class="keyword">with</span> S parameter <span class="keyword">in</span> the input_on_comand</span><br><span class="line">#<span class="keyword">switch</span>.fan27.max_pwm                          <span class="number">255</span>              # Set max pwm <span class="keyword">for</span> the pin <span class="keyword">default</span> <span class="keyword">is</span> <span class="number">255</span></span><br><span class="line"></span><br><span class="line"># Switch <span class="keyword">module</span> <span class="keyword">for</span> fan control</span><br><span class="line"><span class="keyword">switch</span>.fan122.enable                            <span class="literal">true</span>             # Enable <span class="keyword">this</span> <span class="keyword">module</span></span><br><span class="line"><span class="keyword">switch</span>.fan122.input_on_command                  M226             # Command that will turn <span class="keyword">this</span> <span class="keyword">switch</span> on</span><br><span class="line"><span class="keyword">switch</span>.fan122.input_off_command                 M227             # Command that will turn <span class="keyword">this</span> <span class="keyword">switch</span> off</span><br><span class="line"><span class="keyword">switch</span>.fan122.output_pin                        <span class="number">1.22</span>              # Pin <span class="keyword">this</span> <span class="keyword">module</span> controls</span><br><span class="line"><span class="keyword">switch</span>.fan122.output_type                       pwm              # PWM output settable <span class="keyword">with</span> S parameter <span class="keyword">in</span> the input_on_comand</span><br><span class="line">#<span class="keyword">switch</span>.fan122.max_pwm                          <span class="number">255</span>              # Set max pwm <span class="keyword">for</span> the pin <span class="keyword">default</span> <span class="keyword">is</span> <span class="number">255</span></span><br><span class="line"></span><br><span class="line"># Switch <span class="keyword">module</span> <span class="keyword">for</span> fan control</span><br><span class="line"><span class="keyword">switch</span>.fan123.enable                            <span class="literal">true</span>             # Enable <span class="keyword">this</span> <span class="keyword">module</span></span><br><span class="line"><span class="keyword">switch</span>.fan123.input_on_command                  M236             # Command that will turn <span class="keyword">this</span> <span class="keyword">switch</span> on</span><br><span class="line"><span class="keyword">switch</span>.fan123.input_off_command                 M237             # Command that will turn <span class="keyword">this</span> <span class="keyword">switch</span> off</span><br><span class="line"><span class="keyword">switch</span>.fan123.output_pin                        <span class="number">1.23</span>              # Pin <span class="keyword">this</span> <span class="keyword">module</span> controls</span><br><span class="line"><span class="keyword">switch</span>.fan123.output_type                       pwm              # PWM output settable <span class="keyword">with</span> S parameter <span class="keyword">in</span> the input_on_comand</span><br><span class="line">#<span class="keyword">switch</span>.fan123.max_pwm                          <span class="number">255</span>              # Set max pwm <span class="keyword">for</span> the pin <span class="keyword">default</span> <span class="keyword">is</span> <span class="number">255</span></span><br></pre></td></tr></table></figure>
+<p>使用<br>
+M226 M236 M246 M256 M266 M276<br>
+M226 S100 M236 S100 M246 S100 M256 S100 M266 S100 M276 S100<br>
+M227 M237 M247 M257 M267 M277<br>
+测试六个PWM通道<br>
+PS：附加S参数可调制脉宽，例如M226 S120</p>
+<p>注意：大部分TO-220 MOSFET 的衬底与D极相通，即<span style="color:red;">TO-220封装的铜底散热片带VBB的电压</span></p>
+<h3 id="大功率Mixed-Mosfet无法使能"><a class="header-anchor" href="#大功率Mixed-Mosfet无法使能"></a>大功率Mixed Mosfet无法使能</h3>
+<p>该管由P1_23通过TC4427栅极驱动器控制，但由于TC4427的12VREG电压来自78L12的VOUT，而78L12的VIIN从MOSFET_DRIVE电源取得(大功率MOS管的外接电源)，如果MOSFET_DRIVE无供电，那么大功率Mixed Mosfet就无法使能，使能的方式有两种，一种是通过插拔式连接器取电，另外一种是通过Jumper从VBB取电</p>
+<table>
+<thead>
+<tr>
+<th>SCH</th>
+<th>MOSFET_DRIVE电源轨</th>
+<th>78L12的VOUT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/%E5%A4%A7%E5%8A%9F%E7%8E%87MixedMosfet(1).png" alt="20201014120733"></td>
+<td><img src="/6722c02f/%E5%A4%A7%E5%8A%9F%E7%8E%87MixedMosfet(2).png" alt="20201014120949"></td>
+<td><img src="/6722c02f/%E5%A4%A7%E5%8A%9F%E7%8E%87MixedMosfet(3).png" alt="20201014121031"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="10x10冰沙缩小了这么多，功率部分铜箔会不会太窄？"><a class="header-anchor" href="#10x10冰沙缩小了这么多，功率部分铜箔会不会太窄？"></a>10x10冰沙缩小了这么多，功率部分铜箔会不会太窄？</h3>
+<p>&quot;Never use the big MOSFETS for more than 12.5A ( and monitor connector and MOSFET temperatures at that current use, too much heating can be a sign of a bad wire connection ), and the small MOSFETS should never be used for more than 3A&quot;<a href="http://smoothieware.org/mosfets" target="_blank" rel="noopener">官方原档：mosfets</a></p>
+<p>使用Kicad自带的PCB Calculator计算，该计算器相比Saturn，计算内层载流明小1/3，外层大1/3，就很离谱，所以我优先用Kicad计算，两种计算器的对比如下：</p>
+<table>
+<thead>
+<tr>
+<th>Kicad</th>
+<th>Saturn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/%E8%BD%BD%E6%B5%81%E8%AE%A1%E7%AE%97%E5%99%A8(2).png" alt="载流计算器(2)"></td>
+<td><img src="/6722c02f/%E8%BD%BD%E6%B5%81%E8%AE%A1%E7%AE%97%E5%99%A8.png" alt="载流计算器"></td>
+</tr>
+<tr>
+<td>内层0.5oz 100mil 10温升 1.4A</td>
+<td>内层0.5oz 100mil 10温升 2.1A</td>
+</tr>
+<tr>
+<td><img src="/6722c02f/%E8%BD%BD%E6%B5%81%E8%AE%A1%E7%AE%97%E5%99%A8(3).png" alt="载流计算器(3)"></td>
+<td><img src="/6722c02f/%E8%BD%BD%E6%B5%81%E8%AE%A1%E7%AE%97%E5%99%A8.png" alt="载流计算器"></td>
+</tr>
+<tr>
+<td>外层1oz 100mil 10温升 4.6A</td>
+<td>外层1oz 100mil 10温升 3.3A</td>
+</tr>
+</tbody>
+</table>
+<p>若内层的结果过小的影响实在太离谱（说的就是A5984 VBB的最窄处，我明明走的比原版还宽100mil），就用Saturn再计算一遍😅</p>
+<p>各个流径最窄铜箔宽度（单位：mil）如下表，”X“表示没有，&quot;N/A&quot;表示该段流径不经过连接器，若在某温升下达不到原版冰沙给出的标称值，我会使用<span style="color:red;">红色字体</span>警示<br>
+取主要路径最窄的走线宽度，电流为各层单独计算载流之和，若某一层流经多条铜箔合并宽度的计算结果偏小，则分条计算，结果如下</p>
+<table>
+<thead>
+<tr>
+<th>铜箔流径</th>
+<th>Top</th>
+<th>L1<br>(0.5oz)</th>
+<th>L2<br>(0.5oz)</th>
+<th>Bottom</th>
+<th>温升10℃载流(A)</th>
+<th>温升20℃载流(A)</th>
+<th>原版冰沙板<br>标称值(A)</th>
+<th>连接器额定电流(A)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>【VBB】</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>VBB_IN连接器<br>to 电源MOS-P的D极</td>
+<td>137</td>
+<td>X</td>
+<td>X</td>
+<td>137</td>
+<td><span style="color:red;">11.67</span></td>
+<td>15.83</td>
+<td>15</td>
+<td>15</td>
+</tr>
+<tr>
+<td>VBB_IN连接器<br>的GND</td>
+<td>104+64=168</td>
+<td>40+60+110+380</td>
+<td>40+60</td>
+<td>330+140</td>
+<td>26</td>
+<td>（不用算肯定有多的）</td>
+<td>15</td>
+<td></td>
+</tr>
+<tr>
+<td>【小功率MOS】</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>小功率MOS电源IN<br>to小功率MOS连接器</td>
+<td>X</td>
+<td>93</td>
+<td>93+57=150</td>
+<td>57+16=73</td>
+<td>6.91</td>
+<td>9.38</td>
+<td>6</td>
+<td>8</td>
+</tr>
+<tr>
+<td>小功率MOS连接器<br>to 小功率MOS的D极(单路)</td>
+<td>110</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>4.97</td>
+<td>6.75</td>
+<td>3</td>
+<td>8</td>
+</tr>
+<tr>
+<td>小功率MOS的S极<br>to小功率MOS电源IN的GND</td>
+<td>110</td>
+<td>144</td>
+<td>X</td>
+<td>X</td>
+<td>6.80</td>
+<td>9.23</td>
+<td>6</td>
+<td>8</td>
+</tr>
+<tr>
+<td>【大功率MOS】</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>大功率MOS电源IN<br>to大功率MOS连接器</td>
+<td>X</td>
+<td>X</td>
+<td>160</td>
+<td>148</td>
+<td><span style="color:red;">8.14</span></td>
+<td><span style="color:red;">11.05</span></td>
+<td>12.5</td>
+<td>15</td>
+</tr>
+<tr>
+<td>大功率MOS连接器<br>to 大功率MOS的D极(单路)</td>
+<td>102(最窄)<br>190(最宽)</td>
+<td>105(最窄)<br>190(最宽)</td>
+<td>X</td>
+<td>X</td>
+<td><span style="color:red;">6.16</span>(最窄)<br>11.97(最宽)<br>10.08(原版最窄)</td>
+<td><span style="color:red;">8.36</span>(最窄)<br>12.72(最宽)<br>14.11(原版最窄)</td>
+<td>12.5</td>
+<td>15</td>
+</tr>
+<tr>
+<td>大功率MOS的S极<br>大功率MOS电源IN的GND</td>
+<td>80</td>
+<td>80</td>
+<td>80</td>
+<td>80</td>
+<td><span style="color:red;">10.29</span></td>
+<td>13.96</td>
+<td>12.5</td>
+<td>15</td>
+</tr>
+<tr>
+<td>【Jumper】</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>VBB连接器<br>to MOS管jumper(x3)</td>
+<td>X</td>
+<td>X</td>
+<td>137</td>
+<td>137</td>
+<td>7.60</td>
+<td>11.67</td>
+<td>2x3=6.0<br>jumper(x3)</td>
+<td>2*3=6.0</td>
+</tr>
+<tr>
+<td>【混合大功率Fet】</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>混合大功率Fet 连接器to 电源MOS-P的S极</td>
+<td>155</td>
+<td>X</td>
+<td>X</td>
+<td>195</td>
+<td><span style="color:red;">13.91</span></td>
+<td>18.87</td>
+<td>12.5</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>混合大功率Fet D极to 混合大功率Fet 连接器</td>
+<td>108(最窄)<br>295(最宽)</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td><span style="color:red;">4.91</span>(最窄)<br>10.17(最宽)</td>
+<td><span style="color:red;">6.66</span>(最窄)<br>13.80(最宽)</td>
+<td>12.5</td>
+<td>15</td>
+</tr>
+<tr>
+<td>混合大功率Fet S极to VBB连接器的GND<br><span style="color:blue;">第一种取电方式</span></td>
+<td>X</td>
+<td>60+40+56=156(最窄)</td>
+<td>60+40+56=156(最窄)</td>
+<td>150</td>
+<td><span style="color:red;">10.11</span></td>
+<td>13.71</td>
+<td>12.5</td>
+<td>15</td>
+</tr>
+<tr>
+<td>混合大功率Fet S极to 大功率MOS电源IN的GND<br><span style="color:blue;">第二种取电方式</span></td>
+<td>80</td>
+<td>80</td>
+<td>80</td>
+<td>80</td>
+<td><span style="color:red;">10.29</span></td>
+<td>13.96</td>
+<td>12.5</td>
+<td>15</td>
+</tr>
+<tr>
+<td>【混合小功率Fet】</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>混合小功率Fet to 电源MOS-P的S极</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>195</td>
+<td>7.53</td>
+<td>10.22</td>
+<td>3</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>混合小功率Fet D极to 混合小功率Fet 连接器</td>
+<td>110</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>4.97</td>
+<td>6.75</td>
+<td>3</td>
+<td>8</td>
+</tr>
+<tr>
+<td>混合小功率Fet S极to VBB连接器的GND</td>
+<td>X</td>
+<td>60+40+56=156(最窄)</td>
+<td>62+40+56=158(最窄)</td>
+<td>150</td>
+<td>10.12</td>
+<td>13.73</td>
+<td>3</td>
+<td>15</td>
+</tr>
+<tr>
+<td>【A5984】</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>VBB<br>to 5路A5984</td>
+<td>X</td>
+<td>X</td>
+<td>142+23+170+73=408<br>(原版最窄处是150+150=300)</td>
+<td>X</td>
+<td>Kicad计算<br><span style="color:red;">5.48</span><br>Saturn计算：<span style="color:red;">8.42</span></td>
+<td>Kicad计算<br><span style="color:red;">7.43</span><br>Saturn计算：11.42</td>
+<td>0.7x5=3.5<br>1.5x5=7.5<br>2.0x5=10</td>
+<td>4(1pin)</td>
+</tr>
+<tr>
+<td>5路A5984 to VBB连接器GND</td>
+<td>60</td>
+<td>360</td>
+<td>X</td>
+<td>325</td>
+<td>17.67</td>
+<td>（不用算肯定有多的）</td>
+<td>10</td>
+<td>15</td>
+</tr>
+<tr>
+<td>A5984<br>步进电机母座pin</td>
+<td>17.7(最窄)<br>90(最宽)</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td><span style="color:red;">1.32</span>(最窄)<br>4.30(最宽)</td>
+<td><span style="color:red;">1.79</span>(最窄)<br>5.83(最宽)</td>
+<td>2A(1pin)</td>
+<td>4(1pin)</td>
+</tr>
+</tbody>
+</table>
+<p>由上表，下表是建议使用的电流大小，四舍五入，注意共用同一连接器的多条电源流径的载流不要超过连接器在某温升下的最大使用电流</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>温升10℃(A)</th>
+<th>温升20℃(A)</th>
+<th>10温升下是否达到官方标准</th>
+<th>20温升下是否达到官方标准</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VBB连接器取电</td>
+<td>11.7</td>
+<td>15.0</td>
+<td><span style="color:red;">No</span></td>
+<td><span style="color:green;">Yes</span></td>
+</tr>
+<tr>
+<td>混合大功率FET从VBB取电+VBB连接器GND回流</td>
+<td>10.1</td>
+<td>13.7</td>
+<td><span style="color:red;">No</span></td>
+<td><span style="color:green;">Yes</span></td>
+</tr>
+<tr>
+<td>混合大功率FET从VBB取电+大功率FET连接器的GND回流<span style="color:blue;">(不推荐)</span></td>
+<td>10.3</td>
+<td>14.0</td>
+<td><span style="color:red;">No</span></td>
+<td><span style="color:green;">Yes</span></td>
+</tr>
+<tr>
+<td>2x大功率FET合计从VBB取电++VBB连接器GND回流<br>（MOS管jumperx2）</td>
+<td>4</td>
+<td>6</td>
+<td><span style="color:green;">Yes</span></td>
+<td><span style="color:green;">Yes</span></td>
+</tr>
+<tr>
+<td>2x小功率FET合计从VBB取电++VBB连接器GND回流<br>（MOS管jumperx1）</td>
+<td>2</td>
+<td>3</td>
+<td><span style="color:green;">Yes</span></td>
+<td><span style="color:green;">Yes</span></td>
+</tr>
+<tr>
+<td>2x大功率FET合计从大功率FET连接器取电</td>
+<td>8.1</td>
+<td>11.1</td>
+<td><span style="color:red;">No</span></td>
+<td><span style="color:red;">No</span></td>
+</tr>
+<tr>
+<td>2x小功率FET合计从小功率FET连接器取电</td>
+<td>6.9</td>
+<td>9.4</td>
+<td><span style="color:green;">Yes</span></td>
+<td><span style="color:green;">Yes</span></td>
+</tr>
+<tr>
+<td>A5984单路</td>
+<td>1.3</td>
+<td>1.8</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>A5984x5路总和<span style="color:blue;">（取Saturn计算结果）</span></td>
+<td>8.4</td>
+<td>10</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>A5984x5路时平均单路<span style="color:blue;">（取Saturn计算结果）</span></td>
+<td>1.7</td>
+<td>2</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<p>插拔式接线端子的取电额定电压是12~24V</p>
+<ul>
+<li>有条件十分建议在A5984表面贴装散热片，并用风扇对整个主板散热</li>
+</ul>
+<h3 id="小功率MOS管的选择"><a class="header-anchor" href="#小功率MOS管的选择"></a>小功率MOS管的选择</h3>
+<p>冰沙主板三个小功率MOS管是SOT223封装的，此封装的最大导通电压一般分为4.0V和2.0V，例如IR<span style="color:red;">L</span>024NTRPBF的VGS(th)MAX为4.0V，而冰沙板的LPC1769的GPIO的高电平只有3.3V，会无法驱动或驱动不佳，所以我们需要选择例如IR<span style="color:red;">LL</span>024NTRPBF的VGS(th)MAX为2.0V的MOS管</p>
+<table>
+<thead>
+<tr>
+<th>品牌</th>
+<th>型号</th>
+<th>VDS</th>
+<th>VGS(th)MAX</th>
+<th>RDS(on)</th>
+<th>ID/耗散功率</th>
+<th>Rth(j-a)</th>
+<th>Rth(j-sp)</th>
+<th>ΔTj</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>安世</td>
+<td>BUK9832-55A</td>
+<td>55V</td>
+<td>2.0V</td>
+<td>VGS =3.2 V; 35mΩ</td>
+<td>4.78A/0.8W<br>5.34A/1.0W</td>
+<td>70</td>
+<td>15</td>
+<td>56<br>70</td>
+</tr>
+<tr>
+<td>英飞凌</td>
+<td>IRLL024NTRPBF</td>
+<td>55V</td>
+<td>2.0V</td>
+<td>约115mΩ<br>（VGS =4.0V; 100mΩ）</td>
+<td>2.63A/0.8W<br>2.95A/1W</td>
+<td>90~120</td>
+<td>50~60</td>
+<td>84<br>105</td>
+</tr>
+</tbody>
+</table>
+<p>如果你的小功率MOS管愿意使用比如BUK9832-55A，则5A电流可正常工作，其在G极3.2V时RDS<sub>(on)</sub>仅35mΩ，若使用一般的低  VGS(th)例如IRLL024NTRPBF，那么工作电流就不要官方的超过3A了</p>
+<h3 id="增加大功率MOSFET过孔的载流值"><a class="header-anchor" href="#增加大功率MOSFET过孔的载流值"></a>增加大功率MOSFET过孔的载流值</h3>
+<p>由于大功率MOS的每个pin仅有一个40mil（1.016mm）的过孔，温升10摄氏度在两层板之间的载流能力仅2.5A(过孔壁厚0.7mil)、3.1A（过孔壁厚1mil），因此要达到上文的单管载流6.5A~9A，我们在焊接时需要一些技巧</p>
+<p>根据 <a href="https://www.bilibili.com/video/BV1uz4y1o7Pm" target="_blank" rel="noopener">EEVBlog #543 - PCB过孔载流能力调查</a> 提到的 <a href="https://www.st.com/resource/en/technical_note/dm00238320-mounting-instructions-for-thd-through-hole-device-packages-stmicroelectronics.pdf" target="_blank" rel="noopener">TN1225：THD（通孔设备）封装的安装说明：P20</a></p>
+<table>
+<thead>
+<tr>
+<th>直插焊盘填锡-压降测试</th>
+<th>直插焊盘填锡-剖面</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/EEV523(2).png" alt="EEV523(2)"></td>
+<td><img src="/6722c02f/EEV523(1).png" alt="EEV523(1)"></td>
+</tr>
+</tbody>
+</table>
+<p>在穿过过孔的铜导线两侧焊盘与孔内加锡，可以显著增加载流能力，因此，在未焊接5.08插拔式接线端子前，可以先在正面的TO-220焊盘做这样处理</p>
+<p>若不这样处理，至少也要保证TO220的倒角与正面焊盘是紧密接触状态，如图2，3</p>
+<table>
+<thead>
+<tr>
+<th>未紧密接触</th>
+<th>紧密接触</th>
+<th>紧密接触-剖面</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/TO-220-PASTE(1).png" alt="TO-220-PASTE(1)"></td>
+<td><img src="/6722c02f/TO-220-PASTE(3).png" alt="TO-220-PASTE(3)"></td>
+<td><img src="/6722c02f/TO-220-PASTE(2).png" alt="TO-220-PASTE(2)"></td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://www.mr-wu.cn/saturn-pcb-toolkit-install/" target="_blank" rel="noopener">PCB参数计算神器-Saturn PCB Design</a></p>
+<p><a href="https://www.eet-china.com/mp/a9746.html" target="_blank" rel="noopener">破坏性实验：PCB走线与过孔的电流承载能力到底有多强？</a></p>
+<p>使用IRLL024NTRPBF时，建议最大单管电流小于2.5A</p>
+<h3 id="大功率MOS管并联二极管"><a class="header-anchor" href="#大功率MOS管并联二极管"></a>大功率MOS管并联二极管</h3>
+<p>感性负载下例如电机，需要在电机并联瓷片104电容，或<span style="color:red;">反并联</span>肖特基或开关二极管（1N4148）防止电机的尖峰电压击穿MOS管，小功率MOS管PCB上本身就并联了肖特基二极管，为了保险起见我们可以再<span style="color:red;">反并联</span>一个，大功率MOS管可以<span style="color:red;">反并联</span>两个</p>
+<h3 id="PID温控"><a class="header-anchor" href="#PID温控"></a>PID温控</h3>
+<p><a href="http://smoothieware.org/temperaturecontrol" target="_blank" rel="noopener">官方文档：温度控制</a></p>
+<p>待测试，忘带发热芯了</p>
+<h2 id="限位开关"><a class="header-anchor" href="#限位开关"></a>限位开关</h2>
+<p><a href="http://smoothieware.org/endstops" target="_blank" rel="noopener">官方文档：限位开关</a></p>
+<p>使用限位开关时，要将冰沙10x10 PCB背面的SJ2二选一跳线焊盘焊接跳线到5V</p>
+<p>冰沙主板有6通道限位开关，使用<code>M119</code> 返回如下,如触发则为1</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">min_x:<span class="number">0</span> min_y:<span class="number">0</span> min_z:<span class="number">0</span> max_x:<span class="number">0</span> max_y:<span class="number">0</span> max_z:<span class="number">0</span></span><br><span class="line">ok</span><br></pre></td></tr></table></figure>
+<h2 id="屏幕面板"><a class="header-anchor" href="#屏幕面板"></a>屏幕面板</h2>
+<p><a href="http://smoothieware.org/panel" target="_blank" rel="noopener">官方文档：面板</a></p>
+<p>完整的面板至少包括屏幕和编码器，指示灯，蜂鸣器，按钮，sd卡，esp8266(跑esp3D)为可选</p>
+<p><a href="http://smoothieware.org/panel" target="_blank" rel="noopener">官方文档：Using Panel controllers with Smoothieboard</a></p>
+<p><a href="http://smoothieware.org/panel-options" target="_blank" rel="noopener">官方文档：panel-options</a></p>
+<p>Supported SPI chips:- ST7565, ST7920, SSD1306</p>
+<p>博主使用SSD1306+编码器测试：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#对于5驱动程序冰沙板<span class="selector-tag">NOT</span> <span class="selector-tag">Azteeg</span> <span class="selector-tag">X5</span></span><br><span class="line"><span class="selector-tag">panel</span><span class="selector-class">.enable</span> <span class="selector-tag">true</span> #设置为<span class="selector-tag">true</span>以启用面板代码</span><br><span class="line"><span class="selector-tag">panel</span><span class="selector-class">.lcd</span> <span class="selector-tag">ssd1306_oled</span> #设置面板类型</span><br><span class="line"><span class="selector-tag">panel</span><span class="selector-class">.spi_channel</span> 0	#设置<span class="selector-tag">spi</span>通道使用<span class="selector-tag">P0_18</span>，<span class="selector-tag">P0_15</span> <span class="selector-tag">MOSI</span>，<span class="selector-tag">SCLK</span></span><br><span class="line"><span class="selector-tag">panel</span><span class="selector-class">.spi_cs_pin</span> 0<span class="selector-class">.16</span>	#设置<span class="selector-tag">spi</span>芯片选择</span><br><span class="line"><span class="selector-tag">panel</span><span class="selector-class">.encoder_a_pin</span> 3<span class="selector-class">.25</span>!^	#编码器引脚</span><br><span class="line"><span class="selector-tag">panel</span><span class="selector-class">.encoder_b_pin</span> 3<span class="selector-class">.26</span>!^	#编码器引脚</span><br><span class="line"><span class="selector-tag">panel</span><span class="selector-class">.click_button_pin</span> 1<span class="selector-class">.30</span>!^	#单击按钮</span><br><span class="line"><span class="selector-tag">panel</span><span class="selector-class">.a0_pin</span> 2<span class="selector-class">.11</span>	<span class="selector-id">#ssd1306</span>需要一个<span class="selector-tag">a0</span></span><br><span class="line"><span class="selector-id">#panel</span><span class="selector-class">.contrast</span> 8	#一些面板需要对比度设置，这是针对<span class="selector-tag">viki2</span>的</span><br><span class="line"><span class="selector-id">#panel</span><span class="selector-class">.encoder_resolution</span> 4	#移动1个项目的点击次数</span><br><span class="line"><span class="selector-id">#panel</span><span class="selector-class">.buzz_pin</span> 1<span class="selector-class">.31</span>	#蜂鸣器的引脚（同时使用红色<span class="selector-tag">LED</span>或蜂鸣器）</span><br><span class="line"><span class="selector-tag">panel</span><span class="selector-class">.red_led_pin</span> 1<span class="selector-class">.31</span>	#在<span class="selector-tag">viki2</span>上红色指示灯的引脚</span><br><span class="line"><span class="selector-id">#panel</span><span class="selector-class">.blue_led_pin</span> 1<span class="selector-class">.23</span>	<span class="selector-id">#viki2</span>上的蓝色<span class="selector-tag">LED</span>引脚（5个驱动程序不能使用）</span><br><span class="line"><span class="selector-id">#panel</span><span class="selector-class">.back_button_pin</span> 1<span class="selector-class">.30</span>!^	#（可选）使用红色按钮作为后退按钮（5驱动程序不可用）</span><br><span class="line">#在<span class="selector-tag">viki2</span>上设置外部<span class="selector-tag">SD</span>卡</span><br><span class="line"><span class="selector-tag">panel</span><span class="selector-class">.external_sd</span> <span class="selector-tag">true</span>	#如果面板上有外部<span class="selector-tag">sdcard</span>，则设置为<span class="selector-tag">true</span></span><br><span class="line"><span class="selector-tag">panel</span><span class="selector-class">.external_sd</span><span class="selector-class">.spi_channel</span> 0	#设置<span class="selector-tag">sdcard</span>所在的<span class="selector-tag">spi</span>通道</span><br><span class="line"><span class="selector-tag">panel</span><span class="selector-class">.external_sd</span><span class="selector-class">.spi_cs_pin</span> 0<span class="selector-class">.27</span>	#设置<span class="selector-tag">SD</span>卡的<span class="selector-tag">SPI</span>芯片选择</span><br><span class="line"><span class="selector-tag">panel</span><span class="selector-class">.external_sd</span><span class="selector-class">.sdcd_pin</span> 0<span class="selector-class">.28</span>!^	<span class="selector-id">#sd</span>检测信号（如果没有检测到<span class="selector-tag">sdcard</span>则设置为<span class="selector-tag">nc</span>）</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>welcome</th>
+<th>home page</th>
+<th>menu</th>
+<th>running gcode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/panel-1.png" alt="img"></td>
+<td><img src="/6722c02f/panel-2.png" alt="img"></td>
+<td><img src="/6722c02f/panel-3.png" alt="img"></td>
+<td><img src="/6722c02f/panel-4.png" alt="img"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="步进电机"><a class="header-anchor" href="#步进电机"></a>步进电机</h2>
+<p><a href="https://www.jianshu.com/p/a64f98afb965" target="_blank" rel="noopener">小技巧：步进电机如何确定相线?</a></p>
+<h3 id="我需要多少轴？"><a class="header-anchor" href="#我需要多少轴？"></a>我需要多少轴？</h3>
+<ul>
+<li>4~5个轴用于3D打印(单，双挤出机)，不支持双独立喷头的BC3D Sigma(6轴)</li>
+<li>3个用于Z轴激光切割，2个用于简单激光切割</li>
+<li>3 for CNC milling</li>
+</ul>
+<h3 id="重要文档"><a class="header-anchor" href="#重要文档"></a>重要文档</h3>
+<p>此节的几乎所有内容都从下面第一个文档<strong>机翻整理</strong>：（不要小瞧机翻，Kora!）</p>
+<p><a href="https://duet3d.dozuki.com/Wiki/Choosing_and_connecting_stepper_motors" target="_blank" rel="noopener">Duet3D文档：选择和连接步进电机（十分深入的文章，几乎回答了步进电机选型，参数计算的所有问题）</a></p>
+<p><a href="http://smoothieware.org/motion-control" target="_blank" rel="noopener">Smoothie官方文档：运动控制</a></p>
+<table>
+<thead>
+<tr>
+<th>电路</th>
+<th><a href="http://smoothieware.org/stepper-motors" target="_blank" rel="noopener">官方文档：Stepper_Motors</a>的接线图如下，仅第一种正确：</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/smoothieboard-10x10-%E6%AD%A5%E8%BF%9B%E9%A9%B1%E5%8A%A8%E5%99%A8.jpg" alt="smoothieboard-10x10-步进驱动器"></td>
+<td><img src="/6722c02f/Step-motor-connect.png" alt="Step-motor-connect"></td>
+</tr>
+</tbody>
+</table>
+<p>注意，A/B相用颜色标出，仅第一种接法正确，后两种错误的接法测试时步进会震动或抖动，且无法锁相</p>
+<h3 id="步进电机怎么选择"><a class="header-anchor" href="#步进电机怎么选择"></a>步进电机怎么选择?</h3>
+<p>对于冰沙主板，由于步进驱动芯片A5984的最大驱动能力为2A/40V，最好使用42步进电机，57步进电机就不建议了，42步进电机指的是步进电机的长宽都是42mm，但是42步进机身会有很多种长度，例如34mm，40mm，48mm，60mm，长度越长，扭矩越大，但相电阻，相电流（额定电流），相电感 似乎与长度没有多大的关系，这个我也不太懂</p>
+<p>于是先请教<a href="https://m.tb.cn/h.4bfKvhd?sm=be5b2c" target="_blank" rel="noopener">乐清步进电机自动化店</a>，看看厂家怎么说：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/%E4%B9%90%E6%B8%85%E7%94%B5%E6%9C%BA%E5%8E%82%E5%92%A8%E8%AF%A2(1).png" alt="乐清电机厂咨询(1)"></td>
+<td><img src="/6722c02f/%E4%B9%90%E6%B8%85%E7%94%B5%E6%9C%BA%E5%8E%82%E5%92%A8%E8%AF%A2(2).png" alt="乐清电机厂咨询(2)"></td>
+<td><img src="/6722c02f/%E4%B9%90%E6%B8%85%E7%94%B5%E6%9C%BA%E5%8E%82%E5%92%A8%E8%AF%A2(3).png" alt="乐清电机厂咨询(3)"></td>
+</tr>
+</tbody>
+</table>
+<p>聊天中的42 60mm长电机参数如下：</p>
+<p><img src="/6722c02f/%E4%B9%90%E6%B8%85%E7%94%B5%E6%9C%BA%E5%8E%82%E5%92%A8%E8%AF%A2(4).png" alt="img"></p>
+<p>常见的42 40mm长电机参数如下：</p>
+<p><img src="/6722c02f/%E4%B9%90%E6%B8%85%E7%94%B5%E6%9C%BA%E5%8E%82%E5%92%A8%E8%AF%A2(5).png" alt="img"></p>
+<p>电机的相电阻越小，相电流就越大（例如两相四线，有两相，一个相线的电流就是额定电流，一个相线的电阻就是相电阻），所以大家在选择步进电机的时候，选择额定电流接近2A步进电机的可以最大程度地体现扭矩，例如40mm长的电机就选1.7A的，60mm长的电机就选1.65A的</p>
+<p>通常，电动机越长，在额定电流下的保持转矩就越大。较长的步进电机具有较大的转子惯性</p>
+<p>以上是淘宝厂家的解释，下面看看写Duet3D文档的大牛们怎么说：</p>
+<h3 id="额定电流"><a class="header-anchor" href="#额定电流"></a>额定电流</h3>
+<p>建议使每个步进电机在其额定电流的50％到85％之间运行</p>
+<p>额定电流通常指同时通过两个绕组的最大电流，不是用通过一个绕组的最大电流（这在使用微步进时确实很重要）来定义额定电流，即使该电流会比前者更高一些。那我们用前者定义额定电流会不会太小？不会，因为即使以额定电流驱动一个绕组，电动机也会变得非常热。</p>
+<p>因此，通常的做法是将电动机电流设置为<strong>不超过额定电流的85％</strong>。要在不使电动机过热的情况下获得最大扭矩，建议应选择额定电流**不超过步进驱动器最大电流高25％**的电动机。这给出：</p>
+<ul>
+<li>Duet 0.6和Duet 0.8.5（建议最大电机电流1.5A RMS）=&gt;步进电机额定电流&lt;= 1.9A</li>
+<li>Duet 2 WiFi和Duet 2 Ethernet（最大电机电流2.4A RMS）=&gt;步进电机额定电流&lt;= 3.0A</li>
+<li>Duet 2 Maestro（建议的最大电动机电流1.4A RMS，风扇散热良好）=&gt;步进电动机的额定电流&lt;= 1.7A。但是，如果使用额定电流较低（例如1.0至1.2A）和24V电源的电动机，则驱动器将以较低的温度运行。</li>
+<li>Duet 3主板6HC和扩展板3HC（建议的最大电动机电流4.45A RMS）=&gt;步进电动机的额定电流&lt;= 5.5A</li>
+<li>Duet 3 Tooboard（建议最大电动机电流1.4A RMS）=&gt;步进电动机额定电流&lt;= 1.75A</li>
+</ul>
+<p>可见，如果按Duet3D的文档选电机，为了压榨A5984的性能（各位散热一定要跟上啊），居然可以选电流比驱动器还大25%，也就是2*1.25=2.5A的步进电机，以发挥驱动器最大的性能的同时，又不会让电机过热，还能获得最大扭矩，所以，如果预算充足，对于上表60mm长的42步进电机，可以选择 2.3A驱动电流的，holyshit !</p>
+<h3 id="步进电机的速度与力矩的关系"><a class="header-anchor" href="#步进电机的速度与力矩的关系"></a>步进电机的速度与力矩的关系</h3>
+<p>下方表格测试数据来自<a href="ttps://sitaipu.taobao.com/?spm=2013.1.0.0.541d79e1QijAc5" target="_blank" rel="noopener">东莞市斯泰普机电科技有限公司</a></p>
+<table>
+<thead>
+<tr>
+<th>20步进 机身长40mm</th>
+<th>42步进 机身长40mm</th>
+<th>57步进 机身长76mm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/2040%E6%AD%A5%E8%BF%9B%E7%94%B5%E6%9C%BA%E5%8A%9B%E7%9F%A9%E4%B8%8E%E8%BD%AC%E9%80%9F%E6%9B%B2%E7%BA%BF%E5%9B%BE-%E6%96%AF%E6%B3%B0%E6%99%AE%E6%9C%BA%E7%94%B5%E7%A7%91%E6%8A%80(2).png" alt="2040步进电机力矩与转速曲线图-斯泰普机电科技(2)"></td>
+<td><img src="/6722c02f/4240%E6%AD%A5%E8%BF%9B%E7%94%B5%E6%9C%BA%E5%8A%9B%E7%9F%A9%E4%B8%8E%E8%BD%AC%E9%80%9F%E6%9B%B2%E7%BA%BF%E5%9B%BE-%E6%96%AF%E6%B3%B0%E6%99%AE%E6%9C%BA%E7%94%B5%E7%A7%91%E6%8A%80(1).png" alt="4240步进电机力矩与转速曲线图-斯泰普机电科技(1)"></td>
+<td><img src="/6722c02f/5776%E6%AD%A5%E8%BF%9B%E7%94%B5%E6%9C%BA%E5%8A%9B%E7%9F%A9%E4%B8%8E%E8%BD%AC%E9%80%9F%E6%9B%B2%E7%BA%BF%E5%9B%BE-%E6%96%AF%E6%B3%B0%E6%99%AE%E6%9C%BA%E7%94%B5%E7%A7%91%E6%8A%80(3).png" alt="5776步进电机力矩与转速曲线图-斯泰普机电科技(3)"></td>
+</tr>
+</tbody>
+</table>
+<p>步进电机的速度增加，力矩会迅速降低；转速到1000RPM/min已经相当高速，再提速容易堵转；<br>
+（步进电机适合低速场合，需高速应用，建议上直流伺服电机）</p>
+<h3 id="保持扭矩（保持转矩）"><a class="header-anchor" href="#保持扭矩（保持转矩）"></a>保持扭矩（保持转矩）</h3>
+<p>上面的电机参数表中，40mm**长的42步进的扭矩一般为 $$0.45N\cdot m$$，这个参数受什么影响呢？</p>
+<p>这是电动机在开始跳跃步骤之前，两个绕组都以全电流通电时可以提供的最大转矩。在额定电流下通电的一个绕组的保持转矩约为其的1 / sqrt（2）倍。转矩与电流成正比（在极低电流下除外），因此，例如，如果将驱动器设置为电动机额定电流的85％，则最大转矩将为指定保持转矩的85％* 0.707 = 60％。</p>
+<h3 id="转矩如何产生"><a class="header-anchor" href="#转矩如何产生"></a>转矩如何产生?</h3>
+<p>当转子角度与对应于其绕组电流的理想角度不同时，就会产生转矩。当步进电机（转子）做加速运动时，它必须产生转矩（以获得切向加速度）以克服其自身的转子惯性和所驱动负载的质量。为了产生该转矩，转子角必须<strong>滞后</strong>于理想角。反过来，负载将<strong>滞后</strong>于固件命令的位置。</p>
+<h3 id="微步"><a class="header-anchor" href="#微步"></a>微步</h3>
+<p>微步会降低扭矩。这的真正含义是，假定滞后角等于一个微步的角度（因为您希望位置精确到一个微步之内）时，较高的微步距意味着较小的滞后角，因此扭矩较小。随着微步距的增加，单位滞后角的扭矩（这才是真正重要的）不会降低。换句话说，向电动机发送一个1/16微步会产生与发送两个1/32微步或四个1/64微步完全相同的相电流（并因此产生相同的力），依此类推。</p>
+<h3 id="丢步"><a class="header-anchor" href="#丢步"></a><a href="https://blog.csdn.net/mao_hui_fei/article/details/78715530" target="_blank" rel="noopener">丢步</a></h3>
+<p>在启动或加速时如果步进脉冲变化太快，转子由于惯性而跟随不上电信号的变化，会产生堵转或失步，在停止或减速时由于同样原因则可能产生超步。为防止堵转、失步和超步，需要对步进电机进行加速度控制。</p>
+<h3 id="步距角"><a class="header-anchor" href="#步距角"></a>步距角</h3>
+<p>共有两种常见的步进角：每整步0.9度和1.8度，分别对应于每转400和200步。大多数3D打印机使用1.8度/步进电机。</p>
+<p>除了步距角明显不同之外：</p>
+<ul>
+<li>0.9deg电机的<strong>保持转矩</strong>比同一制造商的类似1.8deg电机的保持转矩稍低</li>
+<li>但是，为了产生给定的扭矩，0.9deg电动机所需的滞后角略大于类似1.8deg电动机的滞后角的一半。换句话说，<strong>在较小的滞后角下，对于相同的滞后角，0.9deg电动机的扭矩几乎是1.8deg电动机的两倍。</strong></li>
+<li>在给定的转速下，0.9度的电机产生的感应反电动势是1.8度的电机的两倍。因此，通常需要使用24V电源来实现0.9deg电机的高速运转。</li>
+<li>0.9度电机需要以1.8度电机两倍的速度将步进脉冲传递到驱动器。如果您使用高微步进，那么速度可能会受到电子设备产生步进脉冲的速率的限制。Duet 2 WiFi / Ethernet上TMC2660驱动程序以16倍微步进的<strong>插值模式</strong>可以用来解决此问题。Duet 2 Maestro和Duet 3上的驱动程序可以在任何微步设置下进行插值。</li>
+</ul>
+<h3 id="电感"><a class="header-anchor" href="#电感"></a>电感</h3>
+<p>电机的电感会影响步进电机驱动器在转矩下降之前可以驱动电机的速度。如果由于旋转而暂时忽略<strong>反电动势</strong>（请参阅下文），并且电动机的额定电压远小于驱动器电源电压，那么<strong>转矩下降之前的 最大转速/秒</strong>(r/s)为：<br>
+$$<br>
+每秒转速 =\frac{2\cdot电源电压}{每转步数\cdot\pi\cdot电感\cdot电流}<br>
+$$<br>
+如果电动机通过皮带轮驱动GT2皮带，则以mm / sec为单位的最大速度为：<br>
+$$<br>
+速度=\frac{4\cdot皮带轮齿\cdot电源电压}{每转步数\cdot\pi\cdot电感\cdot电流}<br>
+$$<br>
+示例：<br>
+$$<br>
+速度=\frac{4\cdot20(齿)\cdot12(V)}{200(步)\cdot\pi\cdot4\cdot10^{-3}(H)\cdot1.5(A)}=254.78(mm/s)<br>
+$$<br>
+使用12V电源在1.5A下运行具有4mH电感的1.8deg / step（即200 step / rev）电动机(上表的42HB40A)，并用20齿皮带轮驱动GT2皮带：<br>
+以约250mm / sec的速度将开始损失扭矩。这是纯粹的一个轴的皮带速度，在CoreXY或增量打印机上与皮带速度不同。</p>
+<p>实际上，由于运动引起的反电动势，并且由于上述原因不允许绕组电阻，因此转矩会比这更快地下降。由于旋转，低电感电动机的反电动势也较低。</p>
+<p>这意味着如果要实现高速，就需要低电感电动机和高电源电压。Duet 2 WiFi /以太网的最大建议电源电压为25V，Duet 2 Maestro的最大建议电源电压为28V，Duet 3的最大建议电源电压为32V。</p>
+<h3 id="使用电桥测量步进电机的电阻和电感并计算"><a class="header-anchor" href="#使用电桥测量步进电机的电阻和电感并计算"></a>使用电桥测量步进电机的电阻和电感并计算</h3>
+<p>测试的电机万用表的相直流电阻为4.9Ω，126Hz下轻轻转动轴使其稳定在一步(1.8°)内的某一处，最低电阻为4.9Ω，电感为9.8mH，与上面的电机参数表40mm长 42步进的参数呈线性关系，使用12V电源在1A下运行此具有9.8mH电感的1.8deg / step（即200 step / rev）电动机，并用20齿皮带轮驱动GT2皮带：<br>
+$$<br>
+速度=\frac{4\cdot20(齿)\cdot12(V)}{200(步)\cdot\pi\cdot9.8\cdot10^{-3}(H)\cdot 1.0(A)}=155.9(mm/s)<br>
+$$<br>
+以约155mm / sec的速度将开始损失扭矩</p>
+<h3 id="旋转产生反电动势"><a class="header-anchor" href="#旋转产生反电动势"></a>旋转产生反电动势</h3>
+<p>步进电机旋转时会产生反电动势。在理想的零滞后角下，这与驱动电压异相90度，并且由于电感与反电动势同相。当电动机产生最大转矩并处于跳过步骤的边缘时，它与电流同相。</p>
+<p>数据表通常没有指定由于旋转而产生的反电动势，但是我们可以根据以下公式进行估算：<br>
+$$<br>
+旋转反向电动势 = sqrt（2）\cdot pi \cdot 额定保持扭矩 \cdot 每秒转速 /额定电流<br>
+$$<br>
+该公式假定在两相均以额定电流通电的情况下指定了保持转矩。如果仅指定一相通电，则将sqrt（2）替换为2。</p>
+<p>示例：</p>
+<p>考虑一个200步的电动机，该电动机通过20齿皮带轮和GT2皮带驱动托架，算得每转40mm的运动。要达到200mm / sec的速度，我们需要5转/秒。如果在两相均以1.68A驱动时使用保持转矩为 $$0.55N\cdot m$$ 的电动机，则由于旋转而产生的反电动势峰值为1.414 * 3.142 * 0.55 * 5 / 1.68 = 7.3V</p>
+<p>测试用的200步的电动机，该电动机通过20齿皮带轮和GT2皮带驱动托架，算得每转40mm的运动。要达到155mm / sec的速度，我们需要3.1转/秒。如果在两相均以1.0A驱动时使用保持转矩为 $$0.45N\cdot m$$ 的电动机，则由于旋转而产生的反电动势峰值为1.414 * 3.142 * 0.45 * 3.1/ 1.0 = 6.20V</p>
+<h3 id="如何计算电机所需的电源电压"><a class="header-anchor" href="#如何计算电机所需的电源电压"></a>如何计算电机所需的电源电压</h3>
+<p>如果您有打印机的目标行进速度，则可以估算出至少大约需要给电动机驱动器供电的电压。计算方法如下：</p>
+<ol>
+<li>
+<p>确定您的目标行驶速度。对于此示例，我将使用200mm / sec。</p>
+</li>
+<li>
+<p>根据目标行驶速度，计算出最坏情况下的最大皮带速度：</p>
+<p>对于笛卡尔打印机，最坏的情况是纯X或Y运动，因此最坏情况的皮带速度与行进速度相同。</p>
+<p>对于CoreXY打印机，最坏的情况是对角线运动，相应的皮带速度是sqrt（2）乘以行进速度。</p>
+<p>对于增量打印机，最坏的情况是靠近床边缘的径向移动，最坏的情况是皮带速度是行进速度除以tan（θ），其中θ是对角杆与水平方向的最小角度。</p>
+<p>实际上，由于加速或减速所需的距离，我们无法将目标行进速度用于径向移动直至床身的边缘，因此，当喷嘴距床身边缘约10mm时，将θ作为角度在塔对面。对</p>
+<p>于我的三角洲，这是30度，</p>
+</li>
+<li>
+<p>通过将皮带速度除以皮带齿距（对于GT2皮带为2mm）和皮带轮上的齿数，得出最大皮带速度下的电机转速。我的三角洲使用20齿皮带轮，因此每秒的最大转速为346 /（2 * 20）= 8.7。</p>
+</li>
+<li>
+<p>计算出由于电感引起的峰值反电动势。</p>
+<p>公式：$$反电动势= 每秒转速\cdot \pi \cdot 电流 \cdot 电感 \cdot N / 2$$</p>
+<p>其中N是每转的整步数（对于1.8deg电动机为200，对于0.9deg电动机为400）。我的电机为0.9度，电感为4.1mH，我通常以1A的电流运行。因此由于电感引起的反电动势为8.7 * 3.142 * 1.0 * 4.1e-3 * 400/2 = 22.4V。</p>
+</li>
+<li>
+<p>计算出由于旋转引起的近似反电动势。</p>
+<p>根据前面给出的公式：$$旋转反向电动势 = sqrt（2）\cdot pi \cdot 额定保持扭矩 \cdot 每秒转速 / 额定电流$$ 。我的电机的额定电流为1.68A，保持转矩为0.44Nm，因此结果为1.414 * 3.142 * 0.44 * 8.7 / 1.68 = 10.1V</p>
+</li>
+<li>
+<p><strong>最好，驱动器电源电压应至少为这两个反电动势之和，再加上几个伏特</strong>。如果您有两个串联的电动机，则所需电压将增加一倍。</p>
+</li>
+</ol>
+<p>在我的示例中，这提供了32.5V，高于Duet 2推荐的25V输入电压。但是至少我们知道，对于最坏情况下的增量移动速度为200mm / sec的移动，如果使用24V电源，则大于理论值的2/3，因此该移动可用的扭矩下降的幅度不应超过常规可用扭矩的1/3。另一方面，显然12V电源不足–这解释了为什么在我将打印机升级到24V之前我只能达到150mm / sec。</p>
+<p><a href="https://www.reprapfirmware.org/" target="_blank" rel="noopener">这里</a>有一个在线计算器可以反过来执行此操作（即确定扭矩开始下降的速度）。</p>
+<p><strong>计算例子</strong></p>
+<p>博主测试的步进按保持转矩的最大速度155mm/s，以上述计算依次为155mm/s、3.1r/s、18.83V、6.20V、25V(需要再高几V)，而冰沙的建议VBB为24V，因此我们降低4V后取20V进行逆运算：<br>
+$$<br>
+每秒转速\cdot \pi \cdot 1.0A \cdot 9.8_{(H)} \cdot 10^{-3}\cdot 200_{(步)}+sqrt(2)\cdot \pi \cdot 0.45_{(N\cdot m)} \cdot 每秒转速/ 1.0A=20_{(V)}<br>
+$$<br>
+得出1.0A电流下，笛卡尔打印机结构的每秒转速为为2.45转（最大），目标行驶速度为2.45*（2 * 20）= 98mm/s（最快）</p>
+<p><strong>那如果换2.3A的60mm长 42步进呢？</strong></p>
+<p><img src="/6722c02f/%E4%B9%90%E6%B8%85%E7%94%B5%E6%9C%BA%E5%8E%82%E5%92%A8%E8%AF%A2(4).png" alt="img"></p>
+<p>我们同样取20V，工作电流为最大的2A，进行逆运算：<br>
+$$<br>
+每秒转速\cdot \pi \cdot 2.0A \cdot 4.0_{(H)} \cdot 10^{-3}\cdot 200_{(步)}+sqrt(2)\cdot \pi \cdot 0.89_{(N\cdot m)} \cdot 每秒转速/2.0A=20_{(V)}<br>
+$$<br>
+得出未损失扭矩并且电源电压合适的情况下，笛卡尔打印机结构的每秒转速为为2.86转（最大），目标行驶速度为2.86*（2 * 20）= 114mm/s（最快）</p>
+<h3 id="理论最高速度计算"><a class="header-anchor" href="#理论最高速度计算"></a>理论最高速度计算</h3>
+<p>下段节选于Smoothieware的主要开发者wolfmanjm的博客：</p>
+<p>基于Makerslide的增量3D打印机，吉姆·莫里斯（JIM MORRIS）（地区：英国牛津）发表 <strong>于2012年12月16日16:47:33 -0800</strong></p>
+<p><a href="http://blog.wolfman.com/articles/2012/12/16/a-makerslide-based-delta-3d-printer" target="_blank" rel="noopener">http://blog.wolfman.com/articles/2012/12/16/a-makerslide-based-delta-3d-printer</a></p>
+<p>每转行进距离和最大速度的计算非常简单，这里是一个总结…</p>
+<p>经过大量试验，似乎大多数步进电机的绝对最大速度（在任何微步设置下）均为<strong>10转/秒</strong>。那似乎<strong>是所有扭矩消失之前的最高峰</strong>。系统中的摩擦力或重量越大，行程越小。</p>
+<p>对于设置为16微步的标准<strong>Nema 17</strong>(42步进)，即每转3,200微步。</p>
+<p>假设Arduino类MCU可以以大约30kHz或更高的速度步进，即16微步每秒9.375转，这几乎接近步进器可以执行的最大速度。</p>
+<p>速度取决于每转可移动多少毫米。对于大多数设置，这似乎在每转25至50mm之间，因此对于两个极端情况，最大速度往往在250mm / sec至500mm / sec之间。（毫米/转 * 10转/秒）。</p>
+<p>对于笛卡尔打印机的同步带和同步轮，可以通过将同步带的节距乘以驱动皮带轮上的齿数来计算每转的毫米数。</p>
+<p>因此，对于2mm * 20齿的GT2皮带（如果您有20齿的驱动轮），每转40mm，则最大理论速度(扭矩完全消失之前)为400mm / sec</p>
+<h3 id="加速度？"><a class="header-anchor" href="#加速度？"></a>加速度？</h3>
+<p>上面讲了这么多，为啥不谈加速度? 因为我也不知道啊，按照</p>
+<p><a href="http://smoothieware.org/motion-control" target="_blank" rel="noopener">官方文档：运动控制</a></p>
+<p>中的说法，加速度要自己根据负载多次测试调到最优，无法单独由步进的参数计算</p>
+<h2 id="步进驱动器"><a class="header-anchor" href="#步进驱动器"></a>步进驱动器</h2>
+<p><a href="https://blog.csdn.net/qq_20553613/article/details/78868801" target="_blank" rel="noopener">常见几款步进电机驱动IC对比</a></p>
+<h3 id="细分"><a class="header-anchor" href="#细分"></a>细分</h3>
+<p>冰沙主板使用的是Allegro MicroSystems公司的<a href="https://www.allegromicro.com/~/media/files/datasheets/a5984-datasheet.ashx" target="_blank" rel="noopener">A5984步进驱动芯片</a>，支持32细分下2A/40V的驱动能力，<s>就是做A4988的那家公司</s></p>
+<p>根据A5984芯片的datasheet P8的表格，我们将MS1和MS2跳线焊盘焊接跳线，MS3空着，从而设置为最精细的32细分模式</p>
+<p><img src="/6722c02f/A5984%E7%BB%86%E5%88%86%E8%B7%B3%E7%BA%BF.png" alt="A5984细分跳线"></p>
+<p>对于步距角为1.8°的42步进电机，通过32细分，我们可以算出每1.8°细分为32份，但使用时我们需要通过同步轮将轴向运动转换为切向运动，对于步进电机的精度的计算，请观看Alan的<a href="https://www.bilibili.com/video/BV1jZ4y1H79a" target="_blank" rel="noopener">从零开始动手制作双视觉全自动贴片机第二集</a></p>
+<h3 id="通过V-sub-REF-sub-引脚计算最大电流："><a class="header-anchor" href="#通过V-sub-REF-sub-引脚计算最大电流："></a>通过V<sub>REF</sub>引脚计算最大电流：</h3>
+<p><a href="https://reprap.org/forum/read.php?160,821843" target="_blank" rel="noopener">使用Vref引脚计算电流（a4982，a4988，a5984）</a></p>
+<p>a4982，a4988，a5984等步进驱动器具有相同的公式，可通过V REF引脚计算最大电流：<br>
+$$<br>
+I_{trip_{MAX}} = V_{REF}/(8×R_S)<br>
+$$</p>
+<h3 id="最大电流是一个桥式驱动器的还是俩个的总和？"><a class="header-anchor" href="#最大电流是一个桥式驱动器的还是俩个的总和？"></a>最大电流是一个桥式驱动器的还是俩个的总和？</h3>
+<p>问题：<br>
+一个步进驱动器具有2个桥（如下图），每个桥的R<sub>S</sub> = 0.05ohm，因此我认为方程式为0.05或0.1欧姆？<br>
+步进电机可以处理2A的电流，这意味着我tripMAX不应超过1A（因为有2个电桥）？</p>
+<p>PS：步进驱动器V<sub>REF</sub> 为0.65V</p>
+<p>电流设置和步进额定值分别适用于每个电机线圈。电机可以在每个线圈上传递2A电流，驱动器基于两个独立的并联电阻器调节电流，不必将值减半。根据计算，0.65V表示1.65A，1.65A对于步进电机来说很好，但对于驱动器来说可能偏大了，需要装风扇+散热片</p>
+<p><img src="/6722c02f/A5984%E6%A1%A5%E8%87%82.png" alt="A5984桥臂"></p>
+<h3 id="电流设置"><a class="header-anchor" href="#电流设置"></a>电流设置</h3>
+<p>A5984的输出驱动能力高达40V/±2A(实际要达到此标准需要很好的散热)</p>
+<p>博主测试用的42步进长度是40mm的，两相四线)相线圈电阻4.9R左右，33K电阻配50K机械式电位器和50K数字电位器测试如下</p>
+<table>
+<thead>
+<tr>
+<th>限制电阻(R<sub>limit</sub>)</th>
+<th>50K可调电阻(POT)的值</th>
+<th>PW引脚的电压(V)</th>
+<th>步进电机理论电流(A)<br>$I_{trip_{MAX}} = V_{REF}/(8×R_S)$</th>
+<th>使能状态待机(motor on)<br>驱动器表面温度</th>
+<th>使能状态待机(motor on)<br>步进电机温度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>33K</td>
+<td>3/40</td>
+<td>0.15</td>
+<td>0.375</td>
+<td>温热 50度</td>
+<td>温热</td>
+</tr>
+<tr>
+<td>33K</td>
+<td>6/40</td>
+<td>0.30</td>
+<td>0.750(推荐)</td>
+<td>发烫 80度</td>
+<td>热</td>
+</tr>
+<tr>
+<td>33K</td>
+<td>9/40</td>
+<td>0.45</td>
+<td>1.125</td>
+<td>不能摸 100度+</td>
+<td>烫</td>
+</tr>
+<tr>
+<td>33K</td>
+<td>12/40</td>
+<td>0.60</td>
+<td>1.500<br>(与config文件相符)</td>
+<td>不能摸 100度+</td>
+<td>滚烫</td>
+</tr>
+<tr>
+<td>33K</td>
+<td>16/40</td>
+<td>0.80</td>
+<td>2.000<br>极限值</td>
+<td>极限值</td>
+<td>极限值</td>
+</tr>
+<tr>
+<td>33K</td>
+<td>40/40</td>
+<td>2.00</td>
+<td>5.000</td>
+<td>灰飞烟灭</td>
+<td>灰飞烟灭</td>
+</tr>
+</tbody>
+</table>
+<p>根据乐清42 40mm长步进的参数：</p>
+<p><img src="/6722c02f/%E4%B9%90%E6%B8%85%E7%94%B5%E6%9C%BA%E5%8E%82%E5%92%A8%E8%AF%A2(5).png" alt="img"></p>
+<p>估计我测试使用的步进电机的额定电流为1.0A，因此冰沙config文件的默认1.5A实在是高得离谱，1.5A下驱动和步进都烫得不行</p>
+<p>Alan使用42步进电机的长度是60mm的，实测跑到2A步进电机也不太热</p>
+<h3 id="20中空步进电机"><a class="header-anchor" href="#20中空步进电机"></a>20中空步进电机</h3>
+<p>相比42步进，这类电机十分昂贵，<br>
+有些大侠做贴片机会用到，<a href="https://item.taobao.com/item.htm?id=21576359963" target="_blank" rel="noopener">斯泰普机电科技的 20中空步进电机</a>参数如下，<span style="color:red;">额定电流只有0.6A，如果用默认的1.5A过一会儿就烧毁了，一定要注意！</span></p>
+<p><img src="/6722c02f/%E6%96%AF%E6%B3%B0%E6%99%AE%E6%9C%BA%E7%94%B5%E7%A7%91%E6%8A%8020%E4%B8%AD%E7%A9%BA%E6%AD%A5%E8%BF%9B%E5%8F%82%E6%95%B0.png" alt="斯泰普机电科技20中空步进参数"></p>
+<h3 id="默认数字电位器电流设置："><a class="header-anchor" href="#默认数字电位器电流设置："></a>默认数字电位器电流设置：</h3>
+<p><a href="http://smoothieware.org/currentcontrol" target="_blank" rel="noopener">官方文档：数字电流控制</a></p>
+<p>M503查看：</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Digipot Motor currents:</span><br><span class="line">M907 X<span class="number">1.50000</span> Y<span class="number">1.50000</span> Z<span class="number">1.50000</span> <span class="keyword">A</span><span class="number">1.50000</span> B<span class="number">1.50000</span></span><br></pre></td></tr></table></figure>
+<p>官方文档的currentcontrol里解释是用数字电位器比机械式调节更精确，MCP4451数字电位器支持256阶，然而物料需要两种数字电位器没有必要(MCP4451-503和103，实测MCP4451-103(10K)配6.65K电阻与MCP4451-503(50K)配33.2K电阻等效，完全没必要多采购一种物料(RS 5个起售了解一下，两种一共买10个100大洋没了，提刀，提刀)</p>
+<p><strong>修改数字电位器电流：</strong></p>
+<p>M1~M5 默认都为1.5A，V<sub>REF</sub>的电压为0.60V左右，电机和驱动都发热严重，我将其都改为0.75，此时V<sub>REF</sub>的电压为0.30V左右</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">alpha_current</span>                                <span class="number">1.5</span>              <span class="comment"># X stepper motor current</span></span><br><span class="line"><span class="string">beta_current</span>                                 <span class="number">1.5</span>              <span class="comment"># Y stepper motor current</span></span><br><span class="line"><span class="string">gamma_current</span>                                <span class="number">1.5</span>              <span class="comment"># Z stepper motor current</span></span><br><span class="line"><span class="string">delta_current</span>                                <span class="number">1.5</span>              <span class="comment"># First extruder stepper motor current</span></span><br><span class="line"><span class="string">epsilon_current</span>                              <span class="number">1.5</span>              <span class="comment"># Second extruder stepper motor current</span></span><br></pre></td></tr></table></figure>
+<p><strong>修改后：</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">alpha_current</span>                                <span class="number">0.75</span>              <span class="comment"># X stepper motor current</span></span><br><span class="line"><span class="string">beta_current</span>                                 <span class="number">0.75</span>              <span class="comment"># Y stepper motor current</span></span><br><span class="line"><span class="string">gamma_current</span>                                <span class="number">0.75</span>              <span class="comment"># Z stepper motor current</span></span><br><span class="line"><span class="string">delta_current</span>                                <span class="number">0.75</span>              <span class="comment"># First extruder stepper motor current</span></span><br><span class="line"><span class="string">epsilon_current</span>                              <span class="number">0.75</span>              <span class="comment"># Second extruder stepper motor current</span></span><br></pre></td></tr></table></figure>
+<p>博主的步进电机在该电流下外壳约50度，用过A4988或者TMC2208的大侠可能会有疑问，之前用A4988或TMC2208的电位器调到0.6V~0.7V很合适，为啥A5984只要0.3V？因为冰沙主板的A5984的R<sub>S1</sub>和R<sub>S2</sub>是50mΩ，而市面上常见的A4988，TMC2208驱动模块用的是100mΩ</p>
+<p><img src="/6722c02f/A5984_Rs.png" alt="A5984_Rs"></p>
+<p>对于R<sub>s</sub>，推荐華得電子 STE1206S1W0R050F 1% 50ppm的采样电阻</p>
+<h3 id="限制电阻"><a class="header-anchor" href="#限制电阻"></a>限制电阻</h3>
+<table>
+<thead>
+<tr>
+<th>数字电位器的限制电阻</th>
+<th>机械电位器的限制电阻</th>
+<th>通过MJP1~MJP5跳线焊盘选择使用<br>MCP44X1数字电位器或3X3机械电位器</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/smoothieboard-10x10-%E9%99%90%E5%88%B6%E7%94%B5%E9%98%BB.jpg" alt="smoothieboard-10x10-限制电阻"></td>
+<td><img src="/6722c02f/smoothieboard-10x10-%E9%99%90%E5%88%B6%E7%94%B5%E9%98%BB(2).jpg" alt="smoothieboard-10x10-限制电阻(2)"></td>
+<td><img src="/6722c02f/smoothieboard-10x10-%E9%99%90%E5%88%B6%E7%94%B5%E9%98%BB(3).jpg" alt="smoothieboard-10x10-限制电阻(3)"></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>MCP4451的温度系数是50ppm</th>
+<th>各个阶精度大约1%左右</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/R-limit(2).png" alt="R-limit(2)"></td>
+<td><img src="/6722c02f/R-limit(1).png" alt="R-limit(1)"></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>对于MCP4451-503 配合33.2K 建议使用1% 25PPM低温漂</th>
+<th>对于MCP4451-103 配合6.65K 建议使用1% 25PPM低温漂</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/R-limit(1).jpg" alt="R-limit(1)"></td>
+<td><img src="/6722c02f/R-limit(2).jpg" alt="R-limit(2)"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="设置最大电流"><a class="header-anchor" href="#设置最大电流"></a>设置最大电流</h3>
+<p>（我很好奇为啥冰沙的50K数字电位器在A5984最大电流为2A的情况下仅仅使用到10.2K(256阶仅用了52阶，0.03A/阶)，计算了一下，限制电阻从33.2K变为158K时，50K才是满量程，对应的电流也要按2/0.8倍放大）</p>
+<p>冰沙固件通过CHECKSUM宏抓取config文件里的关键字，在Smoothieware/ConfigSamples/Smoothieboard/config里找了一圈并没发现限制最大电流的关键字，于是到git仓库找找，发现位置在CurrenControl.cpp中，在AzteegX5Mini的config使用了该关键字做电流限制，为了保险建议在原版的config文件里加上</p>
+<p><img src="/6722c02f/digipot_max_current.png" alt="20201011091446"></p>
+<h3 id="电位器的阻值与Vef是非线性的"><a class="header-anchor" href="#电位器的阻值与Vef是非线性的"></a>电位器的阻值与Vef是非线性的</h3>
+<p>$$<br>
+驱动电流=电位器的阻值/(电位器电阻+限制电阻)/cdot电源电压/(系数/cdot采样电阻)////<br>
+y(x)=x/(x+33.2)/cdot3.3/(8/cdot0.05R)<br>
+$$</p>
+<table>
+<thead>
+<tr>
+<th>将y(x)放大10倍，电位器阻值与驱动电流的关系</th>
+<th>将y(x)放大10倍，电位器阻值与Ref引脚电压的关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/%E7%94%B5%E4%BD%8D%E5%99%A8%E7%9A%84%E9%98%BB%E5%80%BC%E4%B8%8EVef(2).png" alt="20201011101034"></td>
+<td><img src="/6722c02f/%E7%94%B5%E4%BD%8D%E5%99%A8%E7%9A%84%E9%98%BB%E5%80%BC%E4%B8%8EVef(3).png" alt="20201015162818">=</td>
+</tr>
+<tr>
+<td>个人建议用50K机械式电位器时，Rs1,Rs2用100m欧，R Limit用53.6K欧，这样当电位器最大时，驱动电流刚好为2A，即绿线与紫色直线的交叉点</td>
+<td>原版用50K+33.2K限制电阻时，Ref最大刚好为2V，个人建议用50K机械式电位器时，R Limit用53.6K欧，Ref最大时为1.59V</td>
+</tr>
+</tbody>
+</table>
+<p><a href="http://fooplot.com/?lang=zh_hans" target="_blank" rel="noopener">线上数学函数绘图器: FooPlot</a></p>
+<h3 id="M1-M4如何使能"><a class="header-anchor" href="#M1-M4如何使能"></a>M1~M4如何使能</h3>
+<p>打开Pronterface，连接机器后，XYZ分别对应M1~M3，点击圆盘上的位移量即可，默认Extrude按钮就是M4，我们点击它即可测试M4，附加参数可自行修改，Pronterface使用教程有很多，这里就不细说了</p>
+<h3 id="M5如何使能"><a class="header-anchor" href="#M5如何使能"></a>M5如何使能</h3>
+<p>M5步进在config文件中定义为extruder 2（2号挤出机），测试需要将此段的#号全部删除</p>
+<p><img src="/6722c02f/config_extruder_2.png" alt="20200827221802"></p>
+<p>打开Pronterface，连接机器，写一段测试用的gcode发出</p>
+<p>G1 F1800 X100.000 Y100.000 E100.00000</p>
+<p>但是M5步进没反应，因为双挤出机系统下，当前挤出机默认为T0（M4），我们通过发送以下gcode更改为T1并测试它：</p>
+<p>G6 T1		<span style="color:green;">注：使能T1（M5）为当前挤出机，</span></p>
+<p>G1 F1800 X100.000 Y100.000 E100.00000	  <span style="color:green;">注：测试用</span></p>
+<p>或者</p>
+<p>G6 T1 然后点击左边的Extrude按钮测试</p>
+<p><img src="/6722c02f/%E6%AD%A5%E8%BF%9BM5%E6%B5%8B%E8%AF%952.PNG" alt="20200828124319"></p>
+<p>测试时XYZ步进电机只沿着一个方向旋转，E1.E2步进电机正反转正常</p>
+<h2 id="附"><a class="header-anchor" href="#附"></a>附</h2>
+<h2 id="DeBug"><a class="header-anchor" href="#DeBug"></a>DeBug</h2>
+<p><a href="http://smoothieware.org/troubleshooting" target="_blank" rel="noopener">官方文档：troubleshooting</a></p>
+<p>仅列举出博主遇到的问题</p>
+<h3 id="只有电源LED亮-3-3VLED和VBB-LED"><a class="header-anchor" href="#只有电源LED亮-3-3VLED和VBB-LED"></a>只有电源LED亮 (3.3VLED和VBB LED)</h3>
+<h4 id="第一种情况"><a class="header-anchor" href="#第一种情况"></a>第一种情况</h4>
+<p>刚烧录完bootloaderDFU文件，将firmware.bin文件放入FAT32格式的SD卡，reboot后出现此情况</p>
+<p>可能的原因：sd卡槽的盘下式焊盘未有效焊接</p>
+<h4 id="第二种情况"><a class="header-anchor" href="#第二种情况"></a>第二种情况</h4>
+<p>做最小系统测试时，如果未焊接LAN8720及其外围电路，而将sd卡中的config文件的以太网部分的network.enable配置为true，则开机LED1~4均不亮，程序卡在某处死循环</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span></span><br><span class="line"><span class="comment">## Network settings</span></span><br><span class="line"><span class="comment"># See http://smoothieware.org/network</span></span><br><span class="line">network.<span class="builtin-name">enable</span>               <span class="literal">false</span>     # <span class="builtin-name">Enable</span> the<span class="built_in"> ethernet network </span>services  #default: <span class="literal">false</span></span><br><span class="line"><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span></span><br></pre></td></tr></table></figure>
+<h3 id="上电后，电源LED不亮，LED1-4也不亮"><a class="header-anchor" href="#上电后，电源LED不亮，LED1-4也不亮"></a>上电后，电源LED不亮，LED1~4也不亮</h3>
+<p>焊完供电/任何功能部分的元件建议不要立即通电，先用万用表检查3.3V，5V、VBB的对地电阻是否接近0R，（不要用电桥测试，这样会得到电容的内阻）</p>
+<ul>
+<li>万用表测3.3V对地电阻在0.5k以上，因为AMS1117的3.3V与GND的电阻为1KΩ左右，再加上几颗并联的2.2K~10K的上拉电阻，博主将MCP44X1的I2C总线的2颗2.2K上拉电阻换为4.7K了，测得二周目是0.78K，三周目是0.76K，</li>
+<li>万用表红接电源轨，黑接GND,，测5V对地电阻从几K慢慢变为50KΩ以上，30秒内测得稳定读数：二周目是100K，三周目是84K</li>
+<li>万用表红接电源轨，黑接GND,，测VBB对地电阻从60K左右慢慢变大，30秒内测得稳定读数：二周目是130K，三周目是122K</li>
+</ul>
+<p>若焊接了供电电路，未做以上检查就上电，则自恢复保险丝保住了你的1117，检查某处5V与GND、3.3V与GND短路了</p>
+<p>另外，千万不要尝试将VBB与GND短路，或将VBB接入5V，3.3V，和任何耐压低于12V的引脚，😥 黑人抬棺</p>
+<h3 id="仅LED3不亮"><a class="header-anchor" href="#仅LED3不亮"></a>仅LED3不亮</h3>
+<p>检查SD卡座子盘下引脚的焊接以及LPC1769这边的SD卡SPI的GPIO</p>
+<h3 id="MOS管的LED指示灯长亮-并没有使能"><a class="header-anchor" href="#MOS管的LED指示灯长亮-并没有使能"></a>MOS管的LED指示灯长亮 (并没有使能)</h3>
+<p>MOS管的D极与GND连锡</p>
+<h3 id="电机仅朝一个方向旋转？"><a class="header-anchor" href="#电机仅朝一个方向旋转？"></a>电机仅朝一个方向旋转？</h3>
+<p>步进电机只向一个方向旋转且config在DIR引脚后添加&quot;!&quot;旋转方向还是不变，那么百分百是DIR与相邻的引脚连锡了</p>
+<p>博主检查的DIR焊接问题：</p>
+<table>
+<thead>
+<tr>
+<th>A5984的DIR与GND连锡</th>
+<th>DIR1与SD_CS连锡</th>
+<th>DIR3与EN3连锡</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/%E5%A5%87%E5%A5%87%E6%80%AA%E6%80%AA%E7%9A%84%E7%84%8A%E6%8E%A5%E9%97%AE%E9%A2%98(1).jpg" alt="奇奇怪怪的焊接问题(1)"></td>
+<td><img src="/6722c02f/%E5%A5%87%E5%A5%87%E6%80%AA%E6%80%AA%E7%9A%84%E7%84%8A%E6%8E%A5%E9%97%AE%E9%A2%98(3).jpg" alt="奇奇怪怪的焊接问题(3)"></td>
+<td><img src="/6722c02f/%E5%A5%87%E5%A5%87%E6%80%AA%E6%80%AA%E7%9A%84%E7%84%8A%E6%8E%A5%E9%97%AE%E9%A2%98(2).jpg" alt="奇奇怪怪的焊接问题(2)"></td>
+</tr>
+</tbody>
+</table>
+<p>另外，我i发现DIR1是低电平时，发现上拉电阻不起作用，强行直连了3.3V测试，马上板子掉电了，于是知道DIR与GND短路😅，如果10x10没加自恢复保险丝，1117将会升起一缕青烟😅</p>
+<h3 id="温度异常"><a class="header-anchor" href="#温度异常"></a>温度异常</h3>
+<p>例如pronterface报错：</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ERROR: </span>MINTEMP or MAXTEMP triggered on B. Check your temperature sensors!</span><br><span class="line">HALT asserted - reset or M999 required</span><br><span class="line">Print paused at: 21:26:24</span><br></pre></td></tr></table></figure>
+<p>可以长按killbutton待指示灯熄灭即可恢复</p>
+<h3 id="DCDC倒灌"><a class="header-anchor" href="#DCDC倒灌"></a>DCDC倒灌?</h3>
+<p>二周目省略了DCDC VIN二极管出现的问题，三周目补回来解决了</p>
+<p><a href="https://www.amobbs.com/thread-5720124-1-1.html" target="_blank" rel="noopener">https://www.amobbs.com/thread-5720124-1-1.html</a></p>
+<p>DCDC供电，同时也有电池供电的设备都有这个电源倒灌的问题，对于一些电压敏感的应用场合，不能简单地串个二极管解决。一般处理是mos管搭理想二极管电路或电源切换电路解决。</p>
+<h2 id="Eagle制作交互式B-O-M"><a class="header-anchor" href="#Eagle制作交互式B-O-M"></a>Eagle制作交互式B.O.M</h2>
+<p><a href="https://github.com/openscopeproject/InteractiveHtmlBom" target="_blank" rel="noopener">InteractiveHtmlBom</a>是kicad的插件，kicad可以导入Eagle工程</p>
+<h3 id="安装"><a class="header-anchor" href="#安装"></a>安装</h3>
+<p>下载整个项目压缩包，解压，例如安装路径为D:/Program Files/KiCad，那么将根目录的InteractiveHtmlBom整个文件夹放在D:/Program Files/KiCad/ <span style="color:red;">share</span> /kicad/scripting/plugins，不要放到D:/Program Files/KiCad/ <span style="color:red;">bin</span> /scripting/plugins，</p>
+<h3 id="使用"><a class="header-anchor" href="#使用"></a>使用</h3>
+<p>Pcbnew打开导入的eagle工程，工程导入后要先保存，再找到下图位置：</p>
+<p><img src="/6722c02f/kicad-InteractiveHtmlBom.png" alt="kicad-InteractiveHtmlBom"></p>
+<p>一键生成html文件，即可浏览器打开，效果如下：</p>
+<p><img src="/6722c02f/kicad-InteractiveHtmlBom-view.png" alt="kicad-InteractiveHtmlBom-view"></p>
+<h3 id="BUG"><a class="header-anchor" href="#BUG"></a>BUG</h3>
+<p>kicad导入Eagle后，offset焊盘丢失了：</p>
+<p><img src="/6722c02f/kicad-offset%E7%84%8A%E7%9B%98%E4%B8%A2%E5%A4%B1.png" alt="20201013153503"></p>
+<h3 id="AD也想整一个！"><a class="header-anchor" href="#AD也想整一个！"></a>AD也想整一个！</h3>
+<p>对于AD，我们按照<a href="https://www.cnblogs.com/zhiqiang_zhang/p/11107818.html" target="_blank" rel="noopener">AD转换为KiCAD的方法</a>将其导出为P-CAD 200x ASCII PCB（*.pcb）文件使用Kicad的Pcbnew导入也行</p>
+<h2 id="Eagle输出的gerber文件JLC助手解析超时"><a class="header-anchor" href="#Eagle输出的gerber文件JLC助手解析超时"></a>Eagle输出的gerber文件JLC助手解析超时</h2>
+<p>将Eagle PCB 4layer CAM处理器输出的gerber及drill文件按AD的风格命名即可，1分钟左右的解析时间，仓库的Eagle目录中有我调好的AD命名方式的Eagle四层板 CAM处理器预设文件，和钢网层CAM处理器预设文件</p>
+<p><a href="https://www.cnblogs.com/mr-bike/p/3524222.html" target="_blank" rel="noopener">Altium Designer怎样输出Gerber文件和钻孔文件</a></p>
+<p><img src="/6722c02f/EaglePCB%E7%9A%84gerber%E6%96%87%E4%BB%B6JLC%E5%8A%A9%E6%89%8B%E8%A7%A3%E6%9E%90.png" alt="20201005123115"></p>
+<h3 id="JLC预览效果："><a class="header-anchor" href="#JLC预览效果："></a>JLC预览效果：</h3>
+<p>若报没有外形层叉掉无视即可，GKO层都正常识别了问题不大，可能需要备注USB-C的槽孔做金属化</p>
+<table>
+<thead>
+<tr>
+<th>仿真图</th>
+<th>Gerber自动识别各个层</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/JLC%E9%A2%84%E8%A7%88%E6%95%88%E6%9E%9C.png" alt="20201020040833"></td>
+<td><img src="/6722c02f/JLC%E9%A2%84%E8%A7%88%E6%95%88%E6%9E%9C2.png" alt="20201020040823"></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="在10x10冰沙板上添加Mark点"><a class="header-anchor" href="#在10x10冰沙板上添加Mark点"></a>在10x10冰沙板上添加Mark点</h2>
+<p>待续</p>
+<h2 id="对原版冰沙板回流路径的建议"><a class="header-anchor" href="#对原版冰沙板回流路径的建议"></a>对原版冰沙板回流路径的建议</h2>
+<p>冰沙主板有两个混合MOSFET（一个小功率和一个大功率FET），官方文档中，对于混合大FET，给出了电流小于12.5A的限制，但是没有提及是在什么取电的方式下才能达到12.5A，因为混合式MOS管有两种可能的取电方式：</p>
+<ol>
+<li>从VBB连接器取电并从VBB连接器的GND返回</li>
+<li>从VBB连接器取电从Large Fets IN连接器的的GND返回</li>
+</ol>
+<p>但是，通常情况，我们不会用第二种，因此，对于第一种的取电方式，相应流经的铜箔如下</p>
+<table>
+<thead>
+<tr>
+<th>Mixed Large Fet VBB</th>
+<th>Mixed Large Fet VBB（局部）</th>
+<th>Mixed Large Fet to VBB connector’s GND</th>
+<th>Mixed Large Fet to VBB connector’s GND（局部）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/6722c02f/Mixed-Big-Fet-VBB-2.png" alt="Mixed-Big-Fet-VBB-2"></td>
+<td><img src="/6722c02f/Mixed-Big-Fet-VBB.png" alt="Mixed-Big-Fet-VBB"></td>
+<td><img src="/6722c02f/Mixed-Big-Fet-gnd.png" alt="Mixed-Big-Fet-gnd"></td>
+<td><img src="/6722c02f/Mixed-Big-Fet-gnd-2.png" alt="Mixed-Big-Fet-gnd-2"></td>
+</tr>
+<tr>
+<td></td>
+<td>0.5oz 137mil = 1oz 68.5mil<br>载流2.9A (10温升)</td>
+<td></td>
+<td>0.5oz 18mil = 1oz 9mil<br>载流1A （10温升）</td>
+</tr>
+</tbody>
+</table>
+<p>所以，对于原版冰沙主板大功率混合FET，要想达到12.5A，建议采用第2种取电方式，用第1种小心烧板子哈</p>
+<p>对于10x10，第一种方式取电回流10A是完全没问题的</p>
+<h2 id="开源硬件-OSHW"><a class="header-anchor" href="#开源硬件-OSHW"></a>开源硬件(OSHW)</h2>
+<p>原版冰沙主板v1.1 和 修改的冰沙主板10x10 都是<a href="http://www.oshwa.org/definition/" target="_blank" rel="noopener">开源硬件</a></p>
+<table>     <tr><td><img width="100px" height="100px" src="/6722c02f/Oshw-logo.png"></td></tr> </table>
+## Acknowledgments
+<ul>
+<li>
+<p>The Smoothieboard creators and the <a href="http://smoothieware.org/" target="_blank" rel="noopener">Smoothieware</a> team.</p>
+</li>
+<li>
+<p><a href="https://space.bilibili.com/479375532?from=search&amp;seid=14974028502933777239" target="_blank" rel="noopener">JP小可爱小路路</a></p>
+</li>
+</ul>
+<h2 id="进度一览"><a class="header-anchor" href="#进度一览"></a>进度一览</h2>
+<table>
+<thead>
+<tr>
+<th>日期</th>
+<th>活动</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一周目</td>
+<td></td>
+</tr>
+<tr>
+<td>20200820</td>
+<td>提交JP打样</td>
+</tr>
+<tr>
+<td>20200824</td>
+<td>收到板子及物料，开始撰写此文</td>
+</tr>
+<tr>
+<td>20200826</td>
+<td>最小系统，以太网，限位，Mosfet，步进驱动测试正常，测试时烧坏了P1.22，P1.23</td>
+</tr>
+<tr>
+<td>20200827</td>
+<td>发现致命线路错误，play信号线短接了y限位和3.3V，遂弃坑</td>
+</tr>
+<tr>
+<td>二周目</td>
+<td></td>
+</tr>
+<tr>
+<td>20200911</td>
+<td>开始尝试修改冰沙原版为10x10</td>
+</tr>
+<tr>
+<td>20200922</td>
+<td>测试版修改完毕</td>
+</tr>
+<tr>
+<td>20200923</td>
+<td>提交JP打样</td>
+</tr>
+<tr>
+<td>20200927</td>
+<td>收到板子及物料，连接器间距有亿点点问题</td>
+</tr>
+<tr>
+<td>20200930</td>
+<td>完成焊接和基本测试，未发现致命问题</td>
+</tr>
+<tr>
+<td>20201001</td>
+<td>完成5个步进电机驱动器的测试 ，连锡实属坑爹</td>
+</tr>
+<tr>
+<td>20201002</td>
+<td>替换了14包邮的LPC1769，测试一切正常</td>
+</tr>
+<tr>
+<td>三周目</td>
+<td></td>
+</tr>
+<tr>
+<td>20201005</td>
+<td>板子定稿，打样PCB，和钢网</td>
+</tr>
+<tr>
+<td>20201011</td>
+<td>收到板子及物料</td>
+</tr>
+<tr>
+<td>20201013</td>
+<td>完成焊接和基本测试，未发现问题</td>
+</tr>
+<tr>
+<td>20201014</td>
+<td>完成所有测试，0 error 1 warning</td>
+</tr>
+<tr>
+<td>后续</td>
+<td></td>
+</tr>
+<tr>
+<td>20201015</td>
+<td>写笔记</td>
+</tr>
+<tr>
+<td>20201016</td>
+<td>给<em>Arthur Wolf</em>发邮件🍰（石沉大海）</td>
+</tr>
+<tr>
+<td>20201018</td>
+<td>重新计算功率部分铜箔载流，并给出推荐负载电流的表格</td>
+</tr>
+<tr>
+<td>20201019</td>
+<td>继续完善步进部分</td>
+</tr>
+<tr>
+<td>20201020</td>
+<td>【添加2020-10-13版本】，开源到本<a href="https://github.com/oldgerman/Smoothieboard-10x10-5driver" target="_blank" rel="noopener">仓库</a></td>
+</tr>
+<tr>
+<td>20201021</td>
+<td>给<a href="https://space.bilibili.com/429600313?from=search&amp;seid=3338546101582822227" target="_blank" rel="noopener">Alan</a>寄了块板子测试</td>
+</tr>
+<tr>
+<td>20201022</td>
+<td>【添加2020-10-21版本】，加宽步进驱器走线</td>
+</tr>
+<tr>
+<td>20201212</td>
+<td>【添加2020-12-10版本】，优化dcdc电感走线（我回家啦，终于可以到博客发这篇了wwww）</td>
+</tr>
+<tr>
+<td>20201227</td>
+<td>焊接测试完2020-12-10版本</td>
+</tr>
+</tbody>
+</table>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/type-c/" rel="tag"># type-c</a>
+            
+              <a href="/tags/贴片机/" rel="tag"># 贴片机</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/4fafac1b/" rel="next" title="STM32CubeIDE踩坑记录">
+                  <i class="fa fa-chevron-left"></i> STM32CubeIDE踩坑记录
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/c57b1704/" rel="prev" title="STM32常见英文单词、术语、缩写等">
+                  STM32常见英文单词、术语、缩写等 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/psa.jpg"
+      alt="过气德国佬">
+  <p class="site-author-name" itemprop="name">过气德国佬</p>
+  <div class="site-description motion-element" itemprop="description">潮起潮落，云卷云舒</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/oldgerman" title="GitHub &rarr; https://github.com/oldgerman" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:2920956602@qq.com" title="E-Mail &rarr; mailto:2920956602@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">2.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#项目地址"><span class="nav-number">2.1.</span> <span class="nav-text">项目地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于本文档"><span class="nav-number">2.2.</span> <span class="nav-text">关于本文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要将冰沙主板缩小为10x10？"><span class="nav-number">2.3.</span> <span class="nav-text">为什么要将冰沙主板缩小为10x10？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Duet2-wifi-VS-冰沙"><span class="nav-number">2.4.</span> <span class="nav-text">Duet2 wifi VS 冰沙</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果…那么不建议使用冰沙"><span class="nav-number">2.5.</span> <span class="nav-text">如果…那么不建议使用冰沙</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#冰沙主板简介"><span class="nav-number">2.6.</span> <span class="nav-text">冰沙主板简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#冰沙固件简介"><span class="nav-number">2.7.</span> <span class="nav-text">冰沙固件简介</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#冰沙10x10介绍"><span class="nav-number">3.</span> <span class="nav-text">冰沙10x10介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#改动"><span class="nav-number">3.1.</span> <span class="nav-text">改动</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#图片对比版："><span class="nav-number">3.1.1.</span> <span class="nav-text">图片对比版：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文字描述版："><span class="nav-number">3.1.2.</span> <span class="nav-text">文字描述版：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#取舍"><span class="nav-number">3.2.</span> <span class="nav-text">取舍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#技术规格"><span class="nav-number">3.3.</span> <span class="nav-text">技术规格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引脚定义"><span class="nav-number">3.4.</span> <span class="nav-text">引脚定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#成品展示"><span class="nav-number">3.5.</span> <span class="nav-text">成品展示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#元件，焊盘，过孔数量"><span class="nav-number">3.6.</span> <span class="nav-text">元件，焊盘，过孔数量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#物料清单、成本"><span class="nav-number">3.7.</span> <span class="nav-text">物料清单、成本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#焊接指南"><span class="nav-number">4.</span> <span class="nav-text">焊接指南</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#电烙铁"><span class="nav-number">4.1.</span> <span class="nav-text">电烙铁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回流焊"><span class="nav-number">4.2.</span> <span class="nav-text">回流焊</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#锡膏"><span class="nav-number">4.3.</span> <span class="nav-text">锡膏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#激光钢网"><span class="nav-number">4.4.</span> <span class="nav-text">激光钢网</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试和使用"><span class="nav-number">5.</span> <span class="nav-text">测试和使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#电源要求"><span class="nav-number">6.</span> <span class="nav-text">电源要求</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#USB取电"><span class="nav-number">6.1.</span> <span class="nav-text">USB取电</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VBB供应"><span class="nav-number">6.2.</span> <span class="nav-text">VBB供应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MOS外部供电"><span class="nav-number">6.3.</span> <span class="nav-text">MOS外部供电</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最小系统"><span class="nav-number">7.</span> <span class="nav-text">最小系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#烧录Bootloader"><span class="nav-number">7.1.</span> <span class="nav-text">烧录Bootloader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#烧录firmware-bin"><span class="nav-number">7.2.</span> <span class="nav-text">烧录firmware.bin</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Serial串口"><span class="nav-number">8.</span> <span class="nav-text">Serial串口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#USB-C串口"><span class="nav-number">9.</span> <span class="nav-text">USB-C串口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装冰沙串口驱动"><span class="nav-number">9.1.</span> <span class="nav-text">安装冰沙串口驱动</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Windows-2000-Vista-7-8-64bit-32bit"><span class="nav-number">9.1.1.</span> <span class="nav-text">Windows 2000 / Vista / 7/8 64bit / 32bit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Windows-10"><span class="nav-number">9.1.2.</span> <span class="nav-text">Windows 10</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太网"><span class="nav-number">10.</span> <span class="nav-text">以太网</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#470pF是必须的"><span class="nav-number">10.1.</span> <span class="nav-text">470pF是必须的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基础型Webui"><span class="nav-number">10.2.</span> <span class="nav-text">基础型Webui</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增强型Webui"><span class="nav-number">10.3.</span> <span class="nav-text">增强型Webui</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同时使用Webui和pronterface以及Serial"><span class="nav-number">10.4.</span> <span class="nav-text">同时使用Webui和pronterface以及Serial</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kill-button"><span class="nav-number">11.</span> <span class="nav-text">Kill button</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NTC温度"><span class="nav-number">12.</span> <span class="nav-text">NTC温度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#异常"><span class="nav-number">12.1.</span> <span class="nav-text">异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读取温度"><span class="nav-number">12.2.</span> <span class="nav-text">读取温度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读取TH3和TH4"><span class="nav-number">12.3.</span> <span class="nav-text">读取TH3和TH4</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mosfet"><span class="nav-number">13.</span> <span class="nav-text">Mosfet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#每一路Jumper的Current-rating"><span class="nav-number">13.1.</span> <span class="nav-text">每一路Jumper的Current rating</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大功率Mixed-Mosfet无法使能"><span class="nav-number">13.2.</span> <span class="nav-text">大功率Mixed Mosfet无法使能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10x10冰沙缩小了这么多，功率部分铜箔会不会太窄？"><span class="nav-number">13.3.</span> <span class="nav-text">10x10冰沙缩小了这么多，功率部分铜箔会不会太窄？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小功率MOS管的选择"><span class="nav-number">13.4.</span> <span class="nav-text">小功率MOS管的选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增加大功率MOSFET过孔的载流值"><span class="nav-number">13.5.</span> <span class="nav-text">增加大功率MOSFET过孔的载流值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大功率MOS管并联二极管"><span class="nav-number">13.6.</span> <span class="nav-text">大功率MOS管并联二极管</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PID温控"><span class="nav-number">13.7.</span> <span class="nav-text">PID温控</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#限位开关"><span class="nav-number">14.</span> <span class="nav-text">限位开关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#屏幕面板"><span class="nav-number">15.</span> <span class="nav-text">屏幕面板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#步进电机"><span class="nav-number">16.</span> <span class="nav-text">步进电机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#我需要多少轴？"><span class="nav-number">16.1.</span> <span class="nav-text">我需要多少轴？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重要文档"><span class="nav-number">16.2.</span> <span class="nav-text">重要文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步进电机怎么选择"><span class="nav-number">16.3.</span> <span class="nav-text">步进电机怎么选择?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#额定电流"><span class="nav-number">16.4.</span> <span class="nav-text">额定电流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步进电机的速度与力矩的关系"><span class="nav-number">16.5.</span> <span class="nav-text">步进电机的速度与力矩的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保持扭矩（保持转矩）"><span class="nav-number">16.6.</span> <span class="nav-text">保持扭矩（保持转矩）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转矩如何产生"><span class="nav-number">16.7.</span> <span class="nav-text">转矩如何产生?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#微步"><span class="nav-number">16.8.</span> <span class="nav-text">微步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#丢步"><span class="nav-number">16.9.</span> <span class="nav-text">丢步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步距角"><span class="nav-number">16.10.</span> <span class="nav-text">步距角</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#电感"><span class="nav-number">16.11.</span> <span class="nav-text">电感</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用电桥测量步进电机的电阻和电感并计算"><span class="nav-number">16.12.</span> <span class="nav-text">使用电桥测量步进电机的电阻和电感并计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#旋转产生反电动势"><span class="nav-number">16.13.</span> <span class="nav-text">旋转产生反电动势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何计算电机所需的电源电压"><span class="nav-number">16.14.</span> <span class="nav-text">如何计算电机所需的电源电压</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#理论最高速度计算"><span class="nav-number">16.15.</span> <span class="nav-text">理论最高速度计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加速度？"><span class="nav-number">16.16.</span> <span class="nav-text">加速度？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#步进驱动器"><span class="nav-number">17.</span> <span class="nav-text">步进驱动器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#细分"><span class="nav-number">17.1.</span> <span class="nav-text">细分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过V-sub-REF-sub-引脚计算最大电流："><span class="nav-number">17.2.</span> <span class="nav-text">通过VREF引脚计算最大电流：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最大电流是一个桥式驱动器的还是俩个的总和？"><span class="nav-number">17.3.</span> <span class="nav-text">最大电流是一个桥式驱动器的还是俩个的总和？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#电流设置"><span class="nav-number">17.4.</span> <span class="nav-text">电流设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#20中空步进电机"><span class="nav-number">17.5.</span> <span class="nav-text">20中空步进电机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#默认数字电位器电流设置："><span class="nav-number">17.6.</span> <span class="nav-text">默认数字电位器电流设置：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#限制电阻"><span class="nav-number">17.7.</span> <span class="nav-text">限制电阻</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置最大电流"><span class="nav-number">17.8.</span> <span class="nav-text">设置最大电流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#电位器的阻值与Vef是非线性的"><span class="nav-number">17.9.</span> <span class="nav-text">电位器的阻值与Vef是非线性的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#M1-M4如何使能"><span class="nav-number">17.10.</span> <span class="nav-text">M1~M4如何使能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#M5如何使能"><span class="nav-number">17.11.</span> <span class="nav-text">M5如何使能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附"><span class="nav-number">18.</span> <span class="nav-text">附</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DeBug"><span class="nav-number">19.</span> <span class="nav-text">DeBug</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#只有电源LED亮-3-3VLED和VBB-LED"><span class="nav-number">19.1.</span> <span class="nav-text">只有电源LED亮 (3.3VLED和VBB LED)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一种情况"><span class="nav-number">19.1.1.</span> <span class="nav-text">第一种情况</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二种情况"><span class="nav-number">19.1.2.</span> <span class="nav-text">第二种情况</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上电后，电源LED不亮，LED1-4也不亮"><span class="nav-number">19.2.</span> <span class="nav-text">上电后，电源LED不亮，LED1~4也不亮</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#仅LED3不亮"><span class="nav-number">19.3.</span> <span class="nav-text">仅LED3不亮</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MOS管的LED指示灯长亮-并没有使能"><span class="nav-number">19.4.</span> <span class="nav-text">MOS管的LED指示灯长亮 (并没有使能)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#电机仅朝一个方向旋转？"><span class="nav-number">19.5.</span> <span class="nav-text">电机仅朝一个方向旋转？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#温度异常"><span class="nav-number">19.6.</span> <span class="nav-text">温度异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DCDC倒灌"><span class="nav-number">19.7.</span> <span class="nav-text">DCDC倒灌?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Eagle制作交互式B-O-M"><span class="nav-number">20.</span> <span class="nav-text">Eagle制作交互式B.O.M</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">20.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">20.2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BUG"><span class="nav-number">20.3.</span> <span class="nav-text">BUG</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AD也想整一个！"><span class="nav-number">20.4.</span> <span class="nav-text">AD也想整一个！</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Eagle输出的gerber文件JLC助手解析超时"><span class="nav-number">21.</span> <span class="nav-text">Eagle输出的gerber文件JLC助手解析超时</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JLC预览效果："><span class="nav-number">21.1.</span> <span class="nav-text">JLC预览效果：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在10x10冰沙板上添加Mark点"><span class="nav-number">22.</span> <span class="nav-text">在10x10冰沙板上添加Mark点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对原版冰沙板回流路径的建议"><span class="nav-number">23.</span> <span class="nav-text">对原版冰沙板回流路径的建议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开源硬件-OSHW"><span class="nav-number">24.</span> <span class="nav-text">开源硬件(OSHW)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进度一览"><span class="nav-number">25.</span> <span class="nav-text">进度一览</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+        
+
+<div id="days"></div>
+<script>
+function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("07/19/2019 15:00:00");
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=setzero(Math.floor(e_hrsold));
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+    seconds=setzero(Math.floor((e_minsold-minsold)*60));
+    document.getElementById('days').innerHTML="(∩•̀ω•́)⊃--*⋆本站由米板1代搭建，已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i) {
+    if (i<10) {
+        i="0" + i
+    };
+    return i;
+}
+show_date_time();
+</script>
+
+
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">过气德国佬</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">118k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:47</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        <span>0%</span>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'iWuakuHkkRt5xT7Ct9cyj8nO-gzGzoHsz',
+    appKey: 'PAz23pDzHnucqRDkVMShMp5B',
+    placeholder: '(๑•̀ㅁ•́ฅ✧ 说点什么吧！',
+    avatar: '',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="Triac前沿切相调光/Mosfet后沿切相调光，短脉冲过零检测电路，交流输出功率线性化">
+<meta name="keywords" content="固态继电器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="相位调制">
+<meta property="og:url" content="http://yoursite.com/88b2c11b/index.html">
+<meta property="og:site_name" content="OldGerman&#39;s Blog">
+<meta property="og:description" content="Triac前沿切相调光/Mosfet后沿切相调光，短脉冲过零检测电路，交流输出功率线性化">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/%E5%89%8D%E6%B2%BF%E5%88%87%E7%9B%B8%E8%B0%83%E5%85%89%E6%B3%A2%E5%BD%A2.JPG">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/%E5%90%8E%E6%B2%BF%E5%88%87%E7%9B%B8%E8%B0%83%E5%85%89.JPG">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/lm741过零检测电路.JPG">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/lm741过零检测波形.JPG">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/%E9%9D%9E%E9%9A%94%E7%A6%BB%E6%99%B6%E4%BD%93%E7%AE%A1%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B.png">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/%E9%9A%94%E7%A6%BB%E5%9E%8B%E5%85%89%E8%80%A6%E9%95%BF%E8%84%89%E5%86%B2%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B.png">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/H11AA1%E5%8F%8C%E5%90%91%E5%85%89%E8%80%A6%E9%95%BF%E8%84%89%E5%86%B2%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B.png">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/%E5%85%89%E8%80%A6%E7%9F%AD%E8%84%89%E5%86%B2%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B%E7%94%B5%E8%B7%AF1.png">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/%E5%B8%A6%E7%9B%B8%E4%BD%8D%E8%A1%A5%E5%81%BF%E7%9A%84%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B%E7%94%B5%E8%B7%AF.png">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/%E5%87%A0%E7%A7%8D%E8%BF%87%E9%9B%B6%E7%94%B5%E8%B7%AF%E7%9A%84%E6%B3%A2%E5%BD%A2.png">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/%E5%B8%A6%E7%9B%B8%E4%BD%8D%E8%A1%A5%E5%81%BF%E7%9A%84%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B%E7%94%B5%E8%B7%AF2.png">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/ZDCV01.JPG">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/ZDCV01-Uno%E7%A4%BA%E6%B3%A2%E5%99%A8.JPG">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/sin%5E2x.png">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/y=x%E9%99%A4%E4%BB%A52-sin2x%E9%99%A4%E4%BB%A54.png">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/y=x%E9%99%A4%E4%BB%A52-sin2x%E9%99%A4%E4%BB%A54%E5%9C%A80%E5%88%B0pi.png">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/%E8%BE%93%E5%87%BA%E5%8A%9F%E7%8E%87%E9%9A%8F%E7%94%B5%E8%A7%92%E5%BA%A6%E5%8F%98%E5%8C%96%E7%9A%84%E5%85%B3%E7%B3%BB.png">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/毛子py的c.png">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/毛子py的excel.png">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/%E6%AF%9B%E5%AD%90%E7%9A%84conductionAngles%E6%95%B0%E7%BB%84.png">
+<meta property="og:image" content="http://yoursite.com/88b2c11b/Attiny%E6%99%B6%E6%8C%AF%E8%B0%83%E8%B0%90.png">
+<meta property="og:updated_time" content="2022-08-17T04:19:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="相位调制">
+<meta name="twitter:description" content="Triac前沿切相调光/Mosfet后沿切相调光，短脉冲过零检测电路，交流输出功率线性化">
+<meta name="twitter:image" content="http://yoursite.com/88b2c11b/%E5%89%8D%E6%B2%BF%E5%88%87%E7%9B%B8%E8%B0%83%E5%85%89%E6%B3%A2%E5%BD%A2.JPG">
+  <link rel="canonical" href="http://yoursite.com/88b2c11b/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>相位调制 | OldGerman's Blog</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OldGerman's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Refuse to play tickets!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-阅读排名">
+      
+    
+
+    <a href="/rank" rel="section"><i class="menu-item-icon fa fa-fw fa-list"></i> <br>阅读排名</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/88b2c11b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过气德国佬">
+      <meta itemprop="description" content="潮起潮落，云卷云舒">
+      <meta itemprop="image" content="/images/psa.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OldGerman's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">相位调制
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-04-26 00:21:09" itemprop="dateCreated datePublished" datetime="2020-04-26T00:21:09+08:00">2020-04-26</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-17 12:19:47" itemprop="dateModified" datetime="2022-08-17T12:19:47+08:00">2022-08-17</time>
+              </span>
+            
+          
+
+          
+            <span id="/88b2c11b/" class="post-meta-item leancloud_visitors" data-flag-title="相位调制" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/88b2c11b/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/88b2c11b/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>1.1k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+            <div class="post-description">Triac前沿切相调光/Mosfet后沿切相调光，短脉冲过零检测电路，交流输出功率线性化</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="前沿切相调光"><a class="header-anchor" href="#前沿切相调光"></a>前沿切相调光</h1>
+<p><img src="/88b2c11b/%E5%89%8D%E6%B2%BF%E5%88%87%E7%9B%B8%E8%B0%83%E5%85%89%E6%B3%A2%E5%BD%A2.JPG" alt></p>
+<p>前沿调光在1，3象限开启可控硅，瞬时电压太高，会导致某些led集成的EMI滤波电路的电感生成尖峰，可能击穿可控硅</p>
+<p>在这种类型的调光器中，实际上会切掉正弦波开始处的部分。这是最广泛使用的调光器类型，因为它非常适合TRIAC。毕竟，三端双向可控硅开关很容易接通，过零时若下拉B极它会自行关闭，因为此时电流会小于最大维持开启电流，有可以栅极关断的（GTO）TRIAC，但价格昂贵</p>
+<p><a href="https://www.youtube.com/watch?v=BhQWOv10Oag" target="_blank" rel="noopener">Great Scott!：前沿切相调光</a></p>
+<h1 id="后沿切相调光"><a class="header-anchor" href="#后沿切相调光"></a>后沿切相调光</h1>
+<p><img src="/88b2c11b/%E5%90%8E%E6%B2%BF%E5%88%87%E7%9B%B8%E8%B0%83%E5%85%89.JPG" alt></p>
+<p>实现后沿调光器，开关设备必须使用称为过零检测器的电路在交流波形通过零时导通。在控制设置的预定时间之后，开关设备将关闭，并且波形的其余部分不会被负载使用。<br>
+后沿调光器通常使用MOSFET，因为它们几乎不需要控制电流，并且坚固可靠。它们也相对便宜，并且在适合于市电运行的额定电压下容易获得。另一种选择是使用IGBT（绝缘栅双极型晶体管），它结合了MOSFET和双极型晶体管的优点，通常比MOSFET更昂贵。同样，该波形是理想的，并且从图9所示的实际波形中可以明显看出，存在明显的偏差-特别是在满功率情况下。这是由于复杂的电子设备需要一定的电压才能工作，因此某些施加的电压将始终丢失。</p>
+<p>大多数后缘调光器与白炽灯一起使用时还有另些有用的功能：</p>
+<ul>
+<li>该电路设计为提供“软启动”，从而相对缓慢地增加灯的电压</li>
+<li>对于白炽灯，几乎消除了“热冲击”，即启动时的短暂时间，该时间消耗的灯电流约为正常工作电流的10倍。热冲击是造成大多数早期灯泡故障的原因-实际上，很少有白炽灯在点亮时发生故障。开关打开时几乎总是故障。通过包含软启动功能，可以延长灯泡的使用寿命。</li>
+</ul>
+<p><a href="https://www.youtube.com/watch?v=BhQWOv10Oag" target="_blank" rel="noopener">GrearScott! ：后沿切相调光</a></p>
+<h1 id="过零检测"><a class="header-anchor" href="#过零检测"></a>过零检测</h1>
+<p><a href="https://sound-au.com/appnotes/an005.htm" target="_blank" rel="noopener">良心科普：几种常见的Zero Crossing Detectors and Comparators</a></p>
+<h3 id="分类"><a class="header-anchor" href="#分类"></a>*分类</h3>
+<ul>
+<li>隔离型和非隔离型，隔离行实现方法主要是变压器隔离和光耦隔离</li>
+<li>长脉冲型和短脉冲型，注意，脉冲是否 “短” 或 “长”是相对过零信号输出端是否 “上拉” 或 “下拉” 而言的，<s>你往下看各种过零检测器输出的波形就知道这句话是什么意思，请擦亮眼睛千万别搞混</s></li>
+<li>相位补偿和非相位补偿，听起来很高端，实际就是在火零线之间并联一个150pf-1nf的高压电容将相位前移，c从而解决光耦led需要一定的压降才能开启的过零信号滞后问题</li>
+</ul>
+<h3 id="光耦选型"><a class="header-anchor" href="#光耦选型"></a>*光耦选型</h3>
+<p>主要用非线性光耦，分两种：</p>
+<h4 id="双向非线性光耦"><a class="header-anchor" href="#双向非线性光耦"></a>双向非线性光耦</h4>
+<p>四脚：<a href="https://datasheet.lcsc.com/szlcsc/CT-Micro-International-CT354A-V-T1_C191856.pdf" target="_blank" rel="noopener">CT354A</a>，<a href="https://datasheet.lcsc.com/szlcsc/Lite-On-LTV-814_C10790.pdf" target="_blank" rel="noopener">LTV814</a></p>
+<h4 id="单向非线性光耦"><a class="header-anchor" href="#单向非线性光耦"></a>单向非线性光耦</h4>
+<p>四脚：<a href="https://www.farnell.com/datasheets/73758.pdf" target="_blank" rel="noopener">PC817</a>，<a href="https://www.sparkfun.com/datasheets/Components/ps2501.pdf" target="_blank" rel="noopener">NEC2501</a></p>
+<p>六脚：<a href="https://www.vishay.com/docs/83725/4n25.pdf" target="_blank" rel="noopener">4N25</a>，<a href="https://www.vishay.com/docs/83608/h11aa1.pdf" target="_blank" rel="noopener">H11AA1</a></p>
+<h2 id="长脉冲型"><a class="header-anchor" href="#长脉冲型"></a>长脉冲型</h2>
+<h3 id="基于运放的长脉冲过零检测器"><a class="header-anchor" href="#基于运放的长脉冲过零检测器"></a><a href="https://www.elprocus.com/zero-crossing-detector-circuit-and-working/" target="_blank" rel="noopener">基于运放的长脉冲过零检测器</a></h3>
+<p>主要采用741运放，<s>LM741运放我手头没有</s></p>
+<table>
+    <td width="50%"><img src="/88b2c11b/lm741过零检测电路.JPG"></td>
+    <td><img src="/88b2c11b/lm741过零检测波形.JPG" < td>
+</td></table>
+<h3 id="基于晶体管的长脉冲过零检测器"><a class="header-anchor" href="#基于晶体管的长脉冲过零检测器"></a>基于晶体管的长脉冲过零检测器</h3>
+<p>注意，晶体管导通时将OUT信号下拉，过零时晶体管不导通，OUT被R3上拉，晶体管90%以上的时间都是导通的</p>
+<p><img src="/88b2c11b/%E9%9D%9E%E9%9A%94%E7%A6%BB%E6%99%B6%E4%BD%93%E7%AE%A1%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B.png" alt="非隔离晶体管过零检测"></p>
+<h3 id="基于光耦的长脉冲过零检测器"><a class="header-anchor" href="#基于光耦的长脉冲过零检测器"></a>基于光耦的长脉冲过零检测器</h3>
+<h4 id="单向光耦"><a class="header-anchor" href="#单向光耦"></a>单向光耦</h4>
+<p><img src="/88b2c11b/%E9%9A%94%E7%A6%BB%E5%9E%8B%E5%85%89%E8%80%A6%E9%95%BF%E8%84%89%E5%86%B2%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B.png" alt="20200426135135"></p>
+<p>此类电路简单粗暴，一般都是限流电阻+整流桥+单向光耦，利用光耦led开启时两端的最小压降实现</p>
+<p>缺点是光耦中的LED至少有90％的时间通电。由于LED的使用寿命取决于它必须通过的电流量和总的“开启”时间，因此会缩短LED的使用寿命</p>
+<p>更多缺点请轻戳：<a href="https://www.diangon.com/m419951.html" target="_blank" rel="noopener">传统光耦过零检测电路的缺点</a></p>
+<h4 id="双向光耦"><a class="header-anchor" href="#双向光耦"></a>双向光耦</h4>
+<p><img src="/88b2c11b/H11AA1%E5%8F%8C%E5%90%91%E5%85%89%E8%80%A6%E9%95%BF%E8%84%89%E5%86%B2%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B.png" alt="How did I break this optocoupler? - Electrical Engineering Stack ..."></p>
+<p>双向光耦省掉了整流桥，要知道，一个1A/1000V的整流桥都两毛一个了，而双向光耦多集成了一个led也就贵几分钱，就可以少用掉一个元件</p>
+<h2 id="短脉冲型"><a class="header-anchor" href="#短脉冲型"></a>短脉冲型</h2>
+<h3 id="基于光耦的短脉冲过零检测器"><a class="header-anchor" href="#基于光耦的短脉冲过零检测器"></a>基于光耦的短脉冲过零检测器</h3>
+<h4 id="优点："><a class="header-anchor" href="#优点："></a>优点：</h4>
+<p>1、微功耗：输出脉冲是窄脉冲，所需能量小，大大延长光耦内的LED使用寿命<br>
+2、窄脉冲：巧妙地利用微小电流对并联在三极管EC两极的电容充电储能，输出脉冲时又从该电容取电（短时间大电流）。既保证了输出脉冲时对驱动电流的需求，又使得交流输入电流比较小</p>
+<p>下面两个电路原理一样，只不过一个用电阻分压+PNP，一个用稳压二极管+NPN，<s>一个老外的一个国内的</s></p>
+<h4 id="第一种："><a class="header-anchor" href="#第一种："></a>第一种：</h4>
+<p><a href="https://d1.amobbs.com/bbs_upload782111/files_40/ourdev_643643NSY57M.pdf" target="_blank" rel="noopener">DIY - Isolated High Quality Mains Voltage Zero Crossing Detector</a></p>
+<p><img src="/88b2c11b/%E5%85%89%E8%80%A6%E7%9F%AD%E8%84%89%E5%86%B2%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B%E7%94%B5%E8%B7%AF1.png" alt="光耦短脉冲过零检测电路1"></p>
+<h4 id="第二种："><a class="header-anchor" href="#第二种："></a>第二种：</h4>
+<p><a href="http://www.crystalradio.cn/thread-918182-1-1.html" target="_blank" rel="noopener">矿石收音机论坛原帖</a>：</p>
+<p><img src="/88b2c11b/%E5%B8%A6%E7%9B%B8%E4%BD%8D%E8%A1%A5%E5%81%BF%E7%9A%84%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B%E7%94%B5%E8%B7%AF.png" alt="带相位补偿的过零检测电路"></p>
+<p>和前几种电路对比如下（默认光耦三极管的C极上拉VCC，过零信号接光耦三极管的E极，即无过零信号时下拉到GND）<img src="/88b2c11b/%E5%87%A0%E7%A7%8D%E8%BF%87%E9%9B%B6%E7%94%B5%E8%B7%AF%E7%9A%84%E6%B3%A2%E5%BD%A2.png" alt="IMG_7533"></p>
+<p>对此电路稍加修改，提高安全系数，手头没有12V齐纳二极管，用三个5.1V的代替</p>
+<p><img src="/88b2c11b/%E5%B8%A6%E7%9B%B8%E4%BD%8D%E8%A1%A5%E5%81%BF%E7%9A%84%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B%E7%94%B5%E8%B7%AF2.png" alt="带相位补偿的过零检测电路2"></p>
+<p>焊接实物：</p>
+<p><img src="/88b2c11b/ZDCV01.JPG" alt="IMG_7423"></p>
+<p>用arduino oscilloscope示波器测试OK</p>
+<p><img src="/88b2c11b/ZDCV01-Uno%E7%A4%BA%E6%B3%A2%E5%99%A8.JPG" alt="20200424093310"></p>
+<h1 id="输出功率线性化"><a class="header-anchor" href="#输出功率线性化"></a>输出功率线性化</h1>
+<h2 id="基本概念"><a class="header-anchor" href="#基本概念"></a>基本概念</h2>
+<h3 id="正弦函数"><a class="header-anchor" href="#正弦函数"></a>正弦函数</h3>
+<p>形如<br>
+$$<br>
+y=Asin(ωx+φ)+k<br>
+$$<br>
+其中A，ω，φ，k是常数，且ω≠0</p>
+<ul>
+<li>A表示振幅</li>
+<li>周期：往复振动一次所需要的时间，T=2π/ω</li>
+<li>频率：单位时间内往复振动的次数，f=1/T=ω/2π</li>
+<li>相位：ωx+φ</li>
+<li>初相：φ (当x=0时的相位 )</li>
+</ul>
+<h3 id="弧度"><a class="header-anchor" href="#弧度"></a>弧度</h3>
+<p>一个完整的圆的弧度是2π，即2π= 360°，<span style="color:Blue;">弧度与角度的区别仅仅是描述一圈的两种量度</span></p>
+<h3 id="角频率"><a class="header-anchor" href="#角频率"></a>角频率</h3>
+<p><strong>角频率</strong>ω有时也叫做<strong>角速率</strong>、<strong>角速度标量</strong>，是对旋转快慢的度量，它是<a href="https://zh.wikipedia.org/wiki/%E8%A7%92%E9%80%9F%E5%BA%A6" target="_blank" rel="noopener">角速度</a>的绝对值</p>
+<p>角频率的<a href="https://zh.wikipedia.org/wiki/%E5%9B%BD%E9%99%85%E5%8D%95%E4%BD%8D%E5%88%B6" target="_blank" rel="noopener">国际单位</a>是<a href="https://zh.wikipedia.org/wiki/%E5%BC%A7%E5%BA%A6%E6%AF%8F%E7%A7%92" target="_blank" rel="noopener">弧度每秒</a></p>
+<p>弧度是无量纲的，角频率的<a href="https://zh.wikipedia.org/wiki/%E9%87%8F%E7%BA%B2" target="_blank" rel="noopener">量纲</a>为T<sup>-1</sup></p>
+<p>因为旋转360°的弧度是2π，所以<br>
+$$<br>
+ω=\frac{2π}{T}=2π f=\frac{v}{r}=\frac{ds}{dt}\cdot\frac{1}{r}=\frac{dθ}{dt}<br>
+$$<br>
+其中</p>
+<p>ω是角频率（单位为弧度每秒）</p>
+<p>T是<a href="https://zh.wikipedia.org/wiki/%E5%91%A8%E6%9C%9F" target="_blank" rel="noopener">周期</a>（单位为秒）</p>
+<p>f是<a href="https://zh.wikipedia.org/wiki/%E9%A2%91%E7%8E%87" target="_blank" rel="noopener">频率</a>（单位为<a href="https://zh.wikipedia.org/wiki/%E8%B5%AB%E5%85%B9" target="_blank" rel="noopener">赫兹</a>）</p>
+<p>v是线速度（单位为米每秒）</p>
+<p>r是旋转的<a href="https://zh.wikipedia.org/wiki/%E5%8D%8A%E5%BE%84" target="_blank" rel="noopener">半径</a>（单位为<a href="https://zh.wikipedia.org/wiki/%E7%B1%B3" target="_blank" rel="noopener">米</a>）</p>
+<h3 id="电角度"><a class="header-anchor" href="#电角度"></a>电角度</h3>
+<p>正弦交流电的电流或电压的大小和方向随时间按正弦函数变化，分别表示为</p>
+<p>i=I<sub>m</sub>sin(ωt+α)或u= U<sub>m</sub>sin(ωt+φ)</p>
+<p>其中：<br>
+$$<br>
+i=I_m\cdot sin(ωt+φ)<br>
+$$<br>
+i：交流电电流的瞬时值，</p>
+<p>I<sub>m</sub>：交流电电流的峰值，</p>
+<p>ω：交流电的角频率</p>
+<p>φ：交流电的初相位</p>
+<p>ωt+φ：i 对应的<span style="color:Blueviolet;"><strong>电角度</strong></span><span style="color:Blue;">（电角度是一个随时间t变化的表达式）</span></p>
+<h3 id="正弦函数的积分"><a class="header-anchor" href="#正弦函数的积分"></a>正弦函数的积分</h3>
+<h4 id="sin-x"><a class="header-anchor" href="#sin-x"></a>sin(x)</h4>
+<p>示例，求该函数在[0, π]的定积分：<br>
+$$<br>
+∫<sup>π_0sinxdx=-∫</sup>π_0cosxdx=\left|-cosx\right|^π_0=-(cosπ-cos0)=2<br>
+$$</p>
+<h4 id="sin-sup-2-sup-x"><a class="header-anchor" href="#sin-sup-2-sup-x"></a>sin<sup>2</sup>(x)</h4>
+<p>图像：</p>
+<p><img src="/88b2c11b/sin%5E2x.png" alt="20200425203832"></p>
+<p><a href="%5Bhttps://baike.baidu.com/item/%E7%A7%AF%E5%88%86%E5%85%AC%E5%BC%8F%5D(https://baike.baidu.com/item/%E7%A7%AF%E5%88%86%E5%85%AC%E5%BC%8F)">积分公式</a>推导（定积分可不加常数C）:<br>
+$$<br>
+∫ sin^2xdx=∫ \frac{1}{2}(1-cos2x)dx=\frac{1}{2}∫(1-cos2x)dx=\frac{1}{2}(x-\frac{1}{2}sin2x)=\frac{x}{2}-\frac{sin2x}{4}+C<br>
+$$<br>
+sin<sup>2</sup>(x)积分x/2-sin2x/4的图像：</p>
+<p><img src="/88b2c11b/y=x%E9%99%A4%E4%BB%A52-sin2x%E9%99%A4%E4%BB%A54.png" alt="312BA14B1A4AB4E7B149616E7AF0CE88"></p>
+<h2 id="由线性化的输出功率求电角度的数据"><a class="header-anchor" href="#由线性化的输出功率求电角度的数据"></a>由线性化的输出功率求电角度的数据</h2>
+<h3 id="牛顿-莱布尼兹公式求解"><a class="header-anchor" href="#牛顿-莱布尼兹公式求解"></a>牛顿-莱布尼兹公式求解</h3>
+<p>只须要按照上面的x/2-sin2x/4函数在[0, π]区间上的图像开启可控硅即可使输出功率线性化：</p>
+<p><img src="/88b2c11b/y=x%E9%99%A4%E4%BB%A52-sin2x%E9%99%A4%E4%BB%A54%E5%9C%A80%E5%88%B0pi.png" alt="20200425212031"></p>
+<p>因为交流电压是正弦波，所以输出功率与交流电压的平方成正比，即需要求正弦平方的积分：</p>
+<p>$$<br>
+P=\frac{U<sup>2}{R}=\frac{[U_m\cdot∫</sup>{t_1}<em>{t_0}sin(ωt+φ)]<sup>2}{R}∝∫</sup>{t_1}</em>{t_0}sin^2(ωt+φ)=\left|\frac{ωt+φ}{2}-\frac{sin2(ωt+φ)}{4} \right|^{t_1}_{t_0}<br>
+$$<br>
+初相位过零触发点，即φ=0°：</p>
+<p>$$<br>
+P∝ =\left|\frac{ωt}{2}-\frac{sin2ωt}{4}\right|^{t_1}_{t_0}<br>
+$$</p>
+<p>角频率ω是一个常量（是频率的 2π 倍）</p>
+<p>$$<br>
+ω=\frac{2π}{T}=\frac{2π}{\frac{1s}{50Hz}}=\frac{2π}{0.02s}=100rad/s<br>
+$$</p>
+<p>由电角度ωt+φ可计算出某一P功率下晶闸管需要开启的时间t</p>
+<p>那么前一张图像可看作输出功率随电角度的关系（正半周负半周都一样）：</p>
+<p><img src="/88b2c11b/%E8%BE%93%E5%87%BA%E5%8A%9F%E7%8E%87%E9%9A%8F%E7%94%B5%E8%A7%92%E5%BA%A6%E5%8F%98%E5%8C%96%E7%9A%84%E5%85%B3%E7%B3%BB.png" alt></p>
+<p>（此法求解此方程太费时，不推荐）</p>
+<h3 id="牛顿迭代法求解"><a class="header-anchor" href="#牛顿迭代法求解"></a>牛顿迭代法求解</h3>
+<p><a href="https://github.com/Miceuz/triac-bloc" target="_blank" rel="noopener">来自：老毛子的Attiny Triac工程</a></p>
+<p><a href="http://xn--Pythonx-sinx-w76sa1288bwpn6o1aqeit2rdtemu0bijuna65wm0k8m2dw3yfgf5b.py" target="_blank" rel="noopener">老毛子的Python牛顿迭代法代码是根目录的x-sinx.py</a></p>
+<p>然后，老毛子根目录的firmware文件夹，也就是放Attiny的arduino代码的文件夹，有一个conductionAngles.c文件，就是上面python代码计算的结果预览如下：</p>
+<table>
+    <td width="50%"><img src="/88b2c11b/毛子py的c.png"></td>
+    <td><img src="/88b2c11b/毛子py的excel.png"></td>
+</table>
+<p><code>conductionAngles</code>数组用<code>PROGMEM</code>宏储存在ATTiny控制器的EEPROM里，可以减少占用的动态内存</p>
+<p>毛子的导通时间取值范围是[0, 10000]，即把交流的正/负半周时间10ms改用ns计时，然后，这个<code>conductionAngles</code>数组有256个元素，相当于把1-100%的线性功率分成256份：</p>
+<p><img src="/88b2c11b/%E6%AF%9B%E5%AD%90%E7%9A%84conductionAngles%E6%95%B0%E7%BB%84.png" alt="20200425223201"></p>
+<p>（可以理解成移向调制某一个灯泡，亮度从0到100，均匀分成了256阶灰度）</p>
+<p>Excel显示的图像就是把上面的输出功率随电角度的图像的xy对调，再将横轴单位换成了ns（你可以由电角度算得ns，毕竟ω是一个常量），纵轴换成了1-256阶（对应0·100%功率）</p>
+<p><a href="http://aicdg.com/oldblog/math/2017/03/13/carmark-qsqrt.html" target="_blank" rel="noopener">*卡马克快速平方根：0x5f3759df</a></p>
+<h2 id="晶振调谐"><a class="header-anchor" href="#晶振调谐"></a>晶振调谐</h2>
+<p>毛子的高阶玩法，esp8266的SDK貌似没有类似的功能。。。</p>
+<p><img src="/88b2c11b/Attiny%E6%99%B6%E6%8C%AF%E8%B0%83%E8%B0%90.png" alt="20200425230351"></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/半导体元件/" rel="tag"># 半导体元件</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/65fdcd15/" rel="next" title="OptoTriac V2.0 固态继电器电路设计">
+                  <i class="fa fa-chevron-left"></i> OptoTriac V2.0 固态继电器电路设计
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/b216a5e8/" rel="prev" title="机智屏补焊ESP32模组刷wifi固件">
+                  机智屏补焊ESP32模组刷wifi固件 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/psa.jpg"
+      alt="过气德国佬">
+  <p class="site-author-name" itemprop="name">过气德国佬</p>
+  <div class="site-description motion-element" itemprop="description">潮起潮落，云卷云舒</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/oldgerman" title="GitHub &rarr; https://github.com/oldgerman" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:2920956602@qq.com" title="E-Mail &rarr; mailto:2920956602@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前沿切相调光"><span class="nav-number">1.</span> <span class="nav-text">前沿切相调光</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后沿切相调光"><span class="nav-number">2.</span> <span class="nav-text">后沿切相调光</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#过零检测"><span class="nav-number">3.</span> <span class="nav-text">过零检测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分类"><span class="nav-number">3.0.1.</span> <span class="nav-text">*分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#光耦选型"><span class="nav-number">3.0.2.</span> <span class="nav-text">*光耦选型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#双向非线性光耦"><span class="nav-number">3.0.2.1.</span> <span class="nav-text">双向非线性光耦</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单向非线性光耦"><span class="nav-number">3.0.2.2.</span> <span class="nav-text">单向非线性光耦</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#长脉冲型"><span class="nav-number">3.1.</span> <span class="nav-text">长脉冲型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于运放的长脉冲过零检测器"><span class="nav-number">3.1.1.</span> <span class="nav-text">基于运放的长脉冲过零检测器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于晶体管的长脉冲过零检测器"><span class="nav-number">3.1.2.</span> <span class="nav-text">基于晶体管的长脉冲过零检测器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于光耦的长脉冲过零检测器"><span class="nav-number">3.1.3.</span> <span class="nav-text">基于光耦的长脉冲过零检测器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单向光耦"><span class="nav-number">3.1.3.1.</span> <span class="nav-text">单向光耦</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双向光耦"><span class="nav-number">3.1.3.2.</span> <span class="nav-text">双向光耦</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#短脉冲型"><span class="nav-number">3.2.</span> <span class="nav-text">短脉冲型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于光耦的短脉冲过零检测器"><span class="nav-number">3.2.1.</span> <span class="nav-text">基于光耦的短脉冲过零检测器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点："><span class="nav-number">3.2.1.1.</span> <span class="nav-text">优点：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第一种："><span class="nav-number">3.2.1.2.</span> <span class="nav-text">第一种：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二种："><span class="nav-number">3.2.1.3.</span> <span class="nav-text">第二种：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#输出功率线性化"><span class="nav-number">4.</span> <span class="nav-text">输出功率线性化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">4.1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正弦函数"><span class="nav-number">4.1.1.</span> <span class="nav-text">正弦函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#弧度"><span class="nav-number">4.1.2.</span> <span class="nav-text">弧度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#角频率"><span class="nav-number">4.1.3.</span> <span class="nav-text">角频率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#电角度"><span class="nav-number">4.1.4.</span> <span class="nav-text">电角度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正弦函数的积分"><span class="nav-number">4.1.5.</span> <span class="nav-text">正弦函数的积分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sin-x"><span class="nav-number">4.1.5.1.</span> <span class="nav-text">sin(x)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sin-sup-2-sup-x"><span class="nav-number">4.1.5.2.</span> <span class="nav-text">sin2(x)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#由线性化的输出功率求电角度的数据"><span class="nav-number">4.2.</span> <span class="nav-text">由线性化的输出功率求电角度的数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#牛顿-莱布尼兹公式求解"><span class="nav-number">4.2.1.</span> <span class="nav-text">牛顿-莱布尼兹公式求解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#牛顿迭代法求解"><span class="nav-number">4.2.2.</span> <span class="nav-text">牛顿迭代法求解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#晶振调谐"><span class="nav-number">4.3.</span> <span class="nav-text">晶振调谐</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+        
+
+<div id="days"></div>
+<script>
+function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("07/19/2019 15:00:00");
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=setzero(Math.floor(e_hrsold));
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+    seconds=setzero(Math.floor((e_minsold-minsold)*60));
+    document.getElementById('days').innerHTML="(∩•̀ω•́)⊃--*⋆本站由米板1代搭建，已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i) {
+    if (i<10) {
+        i="0" + i
+    };
+    return i;
+}
+show_date_time();
+</script>
+
+
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">过气德国佬</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">118k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:47</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        <span>0%</span>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'iWuakuHkkRt5xT7Ct9cyj8nO-gzGzoHsz',
+    appKey: 'PAz23pDzHnucqRDkVMShMp5B',
+    placeholder: '(๑•̀ㅁ•́ฅ✧ 说点什么吧！',
+    avatar: '',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

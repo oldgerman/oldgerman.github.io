@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="矿渣刷入 breed不死固件 + H大老毛子">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小娱C5_刷机篇">
+<meta property="og:url" content="http://yoursite.com/0/index.html">
+<meta property="og:site_name" content="OldGerman&#39;s Blog">
+<meta property="og:description" content="矿渣刷入 breed不死固件 + H大老毛子">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/0/IMG_5324.jpg">
+<meta property="og:image" content="http://yoursite.com/0/Inked%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(147)_LI.jpg">
+<meta property="og:image" content="http://yoursite.com/0/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(148).png">
+<meta property="og:image" content="http://yoursite.com/0/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(149).png">
+<meta property="og:image" content="http://yoursite.com/0/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(150).png">
+<meta property="og:image" content="http://yoursite.com/0/Inked%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(151)_LI.jpg">
+<meta property="og:image" content="http://yoursite.com/0/TIM%E6%88%AA%E5%9B%BE20190821154510.png">
+<meta property="og:image" content="http://yoursite.com/0/TIM%E6%88%AA%E5%9B%BE20190821154047.png">
+<meta property="og:image" content="http://yoursite.com/0/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(152).png">
+<meta property="og:image" content="http://yoursite.com/0/TIM%E6%88%AA%E5%9B%BE20190821160818.png">
+<meta property="og:updated_time" content="2022-08-17T04:19:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="小娱C5_刷机篇">
+<meta name="twitter:description" content="矿渣刷入 breed不死固件 + H大老毛子">
+<meta name="twitter:image" content="http://yoursite.com/0/IMG_5324.jpg">
+  <link rel="canonical" href="http://yoursite.com/0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>小娱C5_刷机篇 | OldGerman's Blog</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OldGerman's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Refuse to play tickets!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-阅读排名">
+      
+    
+
+    <a href="/rank" rel="section"><i class="menu-item-icon fa fa-fw fa-list"></i> <br>阅读排名</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过气德国佬">
+      <meta itemprop="description" content="潮起潮落，云卷云舒">
+      <meta itemprop="image" content="/images/psa.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OldGerman's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">小娱C5_刷机篇
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-21 12:54:26" itemprop="dateCreated datePublished" datetime="2019-08-21T12:54:26+08:00">2019-08-21</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-17 12:19:47" itemprop="dateModified" datetime="2022-08-17T12:19:47+08:00">2022-08-17</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span id="/0/" class="post-meta-item leancloud_visitors" data-flag-title="小娱C5_刷机篇" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/0/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/0/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>1.4k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+            <div class="post-description">矿渣刷入 breed不死固件 + H大老毛子</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="1-配置概览"><a class="header-anchor" href="#1-配置概览"></a>1. 配置概览</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">SOC</th>
+<th style="text-align:center">2.4G</th>
+<th style="text-align:center">5G</th>
+<th style="text-align:center">RAM</th>
+<th style="text-align:center">ROM</th>
+<th style="text-align:center">USB</th>
+<th>SATA</th>
+<th style="text-align:center">LAN</th>
+<th style="text-align:center">WAN</th>
+<th style="text-align:center">￥</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>小娱C1/C5</strong></td>
+<td style="text-align:center">MT7621A 880MHz</td>
+<td style="text-align:center">N/A</td>
+<td style="text-align:center">N/A</td>
+<td style="text-align:center">512MB DDR3</td>
+<td style="text-align:center">32M Flash</td>
+<td style="text-align:center">1*3.0</td>
+<td>1*2.0</td>
+<td style="text-align:center">4*1Gbps</td>
+<td style="text-align:center">1*1Gbps</td>
+<td style="text-align:center">50~60</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Newifi 3</strong></td>
+<td style="text-align:center">MT7621A 880MHz</td>
+<td style="text-align:center">2*2 300Mbps</td>
+<td style="text-align:center">2*2 867Mbps</td>
+<td style="text-align:center">512MB DDR3</td>
+<td style="text-align:center">2*32M Flash</td>
+<td style="text-align:center">1*3.0</td>
+<td>N/A</td>
+<td style="text-align:center">4*1Gbps</td>
+<td style="text-align:center">1*1Gbps</td>
+<td style="text-align:center">119~150</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>斐讯K2P</strong></td>
+<td style="text-align:center">MT7621A 880MHz</td>
+<td style="text-align:center">2*2 400Mbps</td>
+<td style="text-align:center">2*2 867Mbps</td>
+<td style="text-align:center">128MB DDR3</td>
+<td style="text-align:center">16M Flash</td>
+<td style="text-align:center">N/A</td>
+<td>N/A</td>
+<td style="text-align:center">4*1Gbps</td>
+<td style="text-align:center">1*1Gbps</td>
+<td style="text-align:center">210~250</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>小米Pro</strong></td>
+<td style="text-align:center">MT7621A 880MHz</td>
+<td style="text-align:center">4*4 800Mbps</td>
+<td style="text-align:center">4*4 1733Mbps</td>
+<td style="text-align:center">512MB DDR3</td>
+<td style="text-align:center">256M Nand</td>
+<td style="text-align:center">1*3.0</td>
+<td>N/A</td>
+<td style="text-align:center">3*1Gbps</td>
+<td style="text-align:center">1*1Gbps</td>
+<td style="text-align:center">499</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-资源包"><a class="header-anchor" href="#2-资源包"></a>2. 资源包</h2>
+<p>百度云链接：<a href="https://pan.baidu.com/s/1-KpmX9guIDLhQYw00e4vwQ" target="_blank" rel="noopener">XiaoYu_C5_Breed.zip + H大老毛子 + 其他可用固件</a> 提取码：<code>5hjd</code></p>
+<h2 id="3-原厂Web控制台"><a class="header-anchor" href="#3-原厂Web控制台"></a>3. 原厂Web控制台</h2>
+<p>打开浏览器，输入机器外壳背面的 IP地址：<code>192.168.188.1</code> 密码：<code>admin</code></p>
+<p><img src="/0/IMG_5324.jpg" alt></p>
+<h4 id="原厂控制台界面："><a class="header-anchor" href="#原厂控制台界面："></a>原厂控制台界面：</h4>
+<p><img src="/0/Inked%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(147)_LI.jpg" alt></p>
+<p>看一看，SATA硬盘可以识别，但貌似ssh打不开，所以没啥卵用：</p>
+<p><img src="/0/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(148).png" alt></p>
+<h2 id="4-刷入Breed"><a class="header-anchor" href="#4-刷入Breed"></a>4. 刷入Breed</h2>
+<h4 id="Beed是啥？"><a class="header-anchor" href="#Beed是啥？"></a>Beed是啥？</h4>
+<p>breed由恩山论坛大神<a href="https://www.right.com.cn/forum/space-uid-200302.html" target="_blank" rel="noopener">HackPascal</a>开发，breed是一种Bootloader，类似于电脑的BIOS，核心功能是引导操作系统，常见的uboot启动是单线程的，而breed是多线程的，难度系数比uboot大得多，增加了调度器，已经具备小型操作系统的核心</p>
+<h4 id="莫大佬文章的源地址："><a class="header-anchor" href="#莫大佬文章的源地址："></a>莫大佬文章的源地址：</h4>
+<p>一键刷入BREED教程：<a href="http://www.nas1688.com/166.html" target="_blank" rel="noopener">已失效</a></p>
+<h4 id="在此重新复述刷入方法："><a class="header-anchor" href="#在此重新复述刷入方法："></a>在此重新复述刷入方法：</h4>
+<ul>
+<li>上电启动，使用网线连接电脑和小娱路由器C5的任意Lan口</li>
+<li>解压上面的度云文件：<code>XiaoYu_C5_Breed.zip</code> 解压密码：<code>www.nas1688.com</code></li>
+<li>win10下直接该程序运行不行，需要右键 <strong>以管理员模式运行该程序</strong>，才能刷入成功不死breed<br>
+等待电脑分配到小娱的IP，可以访问<code>192.168.188.1</code>就行</li>
+<li>将网关IP填入工具中，默认密码admin，点击刷入即可</li>
+</ul>
+<h4 id="刷入成功："><a class="header-anchor" href="#刷入成功："></a>刷入成功：</h4>
+<p><img src="/0/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(149).png" alt></p>
+<p>根据提示，先拔掉电源，等待下一步操作</p>
+<h2 id="5-重启到Breed-Web控制台"><a class="header-anchor" href="#5-重启到Breed-Web控制台"></a>5. 重启到Breed Web控制台</h2>
+<h4 id="注意事项："><a class="header-anchor" href="#注意事项："></a>注意事项：</h4>
+<ul>
+<li>刷第三方固件一定要进入Breed界面刷入</li>
+<li>Breed界面进入方法:<br>
+a. 拔掉电源<br>
+b. 按住Reset键不放<br>
+c. 接通电源<br>
+d. 6秒后松开Reset键<br>
+e. 浏览器访问：<code>192.168.1.1</code>进入 Breed Web控制台</li>
+</ul>
+<p><img src="/0/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(150).png" alt></p>
+<h2 id="6-备份固件-可选"><a class="header-anchor" href="#6-备份固件-可选"></a>6. 备份固件|可选</h2>
+<p>将EEPROM，编程器固件备份，保存生成的文件，若以后想刷回原厂固件，在Breed Web恢复即可</p>
+<p><img src="/0/Inked%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(151)_LI.jpg" alt></p>
+<h2 id="7-刷入H大老毛子"><a class="header-anchor" href="#7-刷入H大老毛子"></a>7. 刷入H大老毛子</h2>
+<h4 id="解压固件："><a class="header-anchor" href="#解压固件："></a>解压固件：</h4>
+<p>解压上面的度云文件：<code>小娱同学可用固件.rar</code></p>
+<p>再次解压前一次解压得到的：<code>MT7621_7603_7612_512M_3.4.3.9-099.rar</code></p>
+<p>得到：<code>MT7621_7603_7612_512M_3.4.3.9-099.trx</code></p>
+<p><img src="/0/TIM%E6%88%AA%E5%9B%BE20190821154510.png" alt></p>
+<h4 id="上传固件："><a class="header-anchor" href="#上传固件："></a>上传固件：</h4>
+<p>在Breed Web控制台 - - 固件更新</p>
+<ul>
+<li>勾选固件</li>
+<li>选择文件<code>MT7621_7603_7612_512M_3.4.3.9-099.trx</code>上传</li>
+</ul>
+<p><img src="/0/TIM%E6%88%AA%E5%9B%BE20190821154047.png" alt></p>
+<h4 id="等待刷入成功："><a class="header-anchor" href="#等待刷入成功："></a>等待刷入成功：</h4>
+<p><img src="/0/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(152).png" alt></p>
+<p>刷入时观察路由面板指示灯，若全部熄灭了再亮时说明开始重启，这之后等待一两分钟载入老毛子系统</p>
+<h2 id="8-重启到-H大老毛子-Web控制台"><a class="header-anchor" href="#8-重启到-H大老毛子-Web控制台"></a>8. 重启到 H大老毛子 Web控制台</h2>
+<p>上一步重启完成后，浏览器访问：<code>192.168.123.1</code></p>
+<p>初始账号：<code>admin</code></p>
+<p>初始密码：<code>admin</code></p>
+<p>因为小娱C5不带无线，建议关闭2.4G，5G 以节约性能：</p>
+<p><img src="/0/TIM%E6%88%AA%E5%9B%BE20190821160818.png" alt></p>
+<p>至此，刷入完毕</p>
+<h3 id="小娱C5-配置篇"><a class="header-anchor" href="#小娱C5-配置篇"></a><a href="https://oldgerman.github.io/29c16836/" target="_blank" rel="noopener">小娱C5_配置篇</a></h3>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/eeea93b8/" rel="next" title="hexo 如何上传本地图片">
+                  <i class="fa fa-chevron-left"></i> hexo 如何上传本地图片
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/29c16836/" rel="prev" title="小娱C5_配置篇">
+                  小娱C5_配置篇 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/psa.jpg"
+      alt="过气德国佬">
+  <p class="site-author-name" itemprop="name">过气德国佬</p>
+  <div class="site-description motion-element" itemprop="description">潮起潮落，云卷云舒</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/oldgerman" title="GitHub &rarr; https://github.com/oldgerman" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:2920956602@qq.com" title="E-Mail &rarr; mailto:2920956602@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-配置概览"><span class="nav-number">1.</span> <span class="nav-text">1. 配置概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-资源包"><span class="nav-number">2.</span> <span class="nav-text">2. 资源包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-原厂Web控制台"><span class="nav-number">3.</span> <span class="nav-text">3. 原厂Web控制台</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原厂控制台界面："><span class="nav-number">3.0.1.</span> <span class="nav-text">原厂控制台界面：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-刷入Breed"><span class="nav-number">4.</span> <span class="nav-text">4. 刷入Breed</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Beed是啥？"><span class="nav-number">4.0.1.</span> <span class="nav-text">Beed是啥？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#莫大佬文章的源地址："><span class="nav-number">4.0.2.</span> <span class="nav-text">莫大佬文章的源地址：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在此重新复述刷入方法："><span class="nav-number">4.0.3.</span> <span class="nav-text">在此重新复述刷入方法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#刷入成功："><span class="nav-number">4.0.4.</span> <span class="nav-text">刷入成功：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-重启到Breed-Web控制台"><span class="nav-number">5.</span> <span class="nav-text">5. 重启到Breed Web控制台</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注意事项："><span class="nav-number">5.0.1.</span> <span class="nav-text">注意事项：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-备份固件-可选"><span class="nav-number">6.</span> <span class="nav-text">6. 备份固件|可选</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-刷入H大老毛子"><span class="nav-number">7.</span> <span class="nav-text">7. 刷入H大老毛子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解压固件："><span class="nav-number">7.0.1.</span> <span class="nav-text">解压固件：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#上传固件："><span class="nav-number">7.0.2.</span> <span class="nav-text">上传固件：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#等待刷入成功："><span class="nav-number">7.0.3.</span> <span class="nav-text">等待刷入成功：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-重启到-H大老毛子-Web控制台"><span class="nav-number">8.</span> <span class="nav-text">8. 重启到 H大老毛子 Web控制台</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#小娱C5-配置篇"><span class="nav-number">8.1.</span> <span class="nav-text">小娱C5_配置篇</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+        
+
+<div id="days"></div>
+<script>
+function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("07/19/2019 15:00:00");
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=setzero(Math.floor(e_hrsold));
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+    seconds=setzero(Math.floor((e_minsold-minsold)*60));
+    document.getElementById('days').innerHTML="(∩•̀ω•́)⊃--*⋆本站由米板1代搭建，已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i) {
+    if (i<10) {
+        i="0" + i
+    };
+    return i;
+}
+show_date_time();
+</script>
+
+
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">过气德国佬</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">118k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:47</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        <span>0%</span>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'iWuakuHkkRt5xT7Ct9cyj8nO-gzGzoHsz',
+    appKey: 'PAz23pDzHnucqRDkVMShMp5B',
+    placeholder: '(๑•̀ㅁ•́ฅ✧ 说点什么吧！',
+    avatar: '',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

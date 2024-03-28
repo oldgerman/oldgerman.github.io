@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="磁盘管理的小坑">
+<meta name="keywords" content="老毛子">
+<meta property="og:type" content="article">
+<meta property="og:title" content="老毛子拓展ext4分区大小">
+<meta property="og:url" content="http://yoursite.com/2b131f00/index.html">
+<meta property="og:site_name" content="OldGerman&#39;s Blog">
+<meta property="og:description" content="磁盘管理的小坑">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2b131f00/%E6%A3%80%E6%9F%A5%E6%8B%93%E5%B1%95%E5%90%8E%E7%9A%84%E7%A3%81%E7%9B%98.png">
+<meta property="og:updated_time" content="2022-08-17T04:19:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="老毛子拓展ext4分区大小">
+<meta name="twitter:description" content="磁盘管理的小坑">
+<meta name="twitter:image" content="http://yoursite.com/2b131f00/%E6%A3%80%E6%9F%A5%E6%8B%93%E5%B1%95%E5%90%8E%E7%9A%84%E7%A3%81%E7%9B%98.png">
+  <link rel="canonical" href="http://yoursite.com/2b131f00/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>老毛子拓展ext4分区大小 | OldGerman's Blog</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OldGerman's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Refuse to play tickets!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-阅读排名">
+      
+    
+
+    <a href="/rank" rel="section"><i class="menu-item-icon fa fa-fw fa-list"></i> <br>阅读排名</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2b131f00/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过气德国佬">
+      <meta itemprop="description" content="潮起潮落，云卷云舒">
+      <meta itemprop="image" content="/images/psa.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OldGerman's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">老毛子拓展ext4分区大小
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-10-30 16:48:17" itemprop="dateCreated datePublished" datetime="2020-10-30T16:48:17+08:00">2020-10-30</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-17 12:19:47" itemprop="dateModified" datetime="2022-08-17T12:19:47+08:00">2022-08-17</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span id="/2b131f00/" class="post-meta-item leancloud_visitors" data-flag-title="老毛子拓展ext4分区大小" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2b131f00/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2b131f00/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>13k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>12 分钟</span>
+            </span>
+          
+            <div class="post-description">磁盘管理的小坑</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="老毛子拓展ext4分区大小"><a class="header-anchor" href="#老毛子拓展ext4分区大小"></a>老毛子拓展ext4分区大小</h1>
+<h2 id="起因"><a class="header-anchor" href="#起因"></a>起因</h2>
+<p>分区的时候分了一个1TB的机械硬盘，如下:</p>
+<table>
+<thead>
+<tr>
+<th>文件名</th>
+<th>起始柱面</th>
+<th>结束柱面</th>
+<th>大小</th>
+<th>格式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/dev/sda1</td>
+<td>2048</td>
+<td>1048580095</td>
+<td>500G</td>
+<td>ext4</td>
+</tr>
+<tr>
+<td>/dev/sda2</td>
+<td>1048580096</td>
+<td>1953525167</td>
+<td>461G</td>
+<td>NTFS</td>
+</tr>
+</tbody>
+</table>
+<p>现在我想把/dev/sda2删除了，并将整个盘剩余空间分给/dev/sda1</p>
+<h2 id="结果"><a class="header-anchor" href="#结果"></a>结果</h2>
+<p>扩容成功，扩容前的内容没有丢失🐶</p>
+<h2 id="参考"><a class="header-anchor" href="#参考"></a>参考</h2>
+<ul>
+<li>
+<p><a href="https://www.geek-share.com/detail/2675570955.html" target="_blank" rel="noopener">使用resize2fs调整ext4分区大小</a></p>
+</li>
+<li>
+<p><a href="https://blog.51cto.com/sandshell/2119523" target="_blank" rel="noopener">Linux下使用fdisk扩大分区容量（不丢失数据）</a></p>
+</li>
+<li>
+<p><a href="https://www.jianshu.com/p/ba7090b1ef38" target="_blank" rel="noopener">Linux系统扩展硬盘空间</a></p>
+</li>
+<li>
+<p><a href="https://my.oschina.net/falcon10086/blog/4308022" target="_blank" rel="noopener">openwrt 安装ipk软件包</a></p>
+</li>
+</ul>
+<h2 id="相关命令"><a class="header-anchor" href="#相关命令"></a>相关命令</h2>
+<ul>
+<li><a href="https://www.linuxcool.com/fdisk" target="_blank" rel="noopener">fdisk命令 – 磁盘分区</a></li>
+<li><a href="https://www.linuxcool.com/e2fsck" target="_blank" rel="noopener">e2fsck命令 – 检查使用 Linux ext2档案系统的partition是否正常工作</a></li>
+<li><a href="https://www.linuxcool.com/resize2fs" target="_blank" rel="noopener">resize2fs命令 – 调整文件系统大小</a></li>
+</ul>
+<h2 id="fdisk"><a class="header-anchor" href="#fdisk"></a>fdisk</h2>
+<p>fdisk工具删除/dev/sda1，/dev/sda2分区，然后创建新分区，注意开始的磁柱号要和原来的一致（是保证数据不丢失的关键步骤），我/dev/sda1是2048，所以分区号还是1，终止柱面号默认回车使用剩余磁盘的全部柱面。（我的1TB机械默认的2048扇区头和1953525167扇区尾）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br></pre></td><td class="code"><pre><span class="line">Using username <span class="string">"oldgerman"</span>.</span><br><span class="line">oldgerman@192.168.233.1<span class="string">'s password:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">BusyBox v1.29.3 (2020-10-28 16:48:12 CST) built-in shell (ash)</span></span><br><span class="line"><span class="string">Enter '</span><span class="built_in">help</span><span class="string">' for a list of built-in commands.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[XY-C1 3.4.3.9-099_20-10-2]# 2020-10-30 15:51:57</span></span><br><span class="line"><span class="string">[EK-C1 /home/root]# fdisk -l</span></span><br><span class="line"><span class="string">Disk /dev/mtdblock0: 0 MB, 196608 bytes, 384 sectors</span></span><br><span class="line"><span class="string">0 cylinders, 255 heads, 63 sectors/track</span></span><br><span class="line"><span class="string">Units: sectors of 1 * 512 = 512 bytes</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Disk /dev/mtdblock0 doesn'</span>t contain a valid partition table</span><br><span class="line">Disk /dev/mtdblock1: 0 MB, 65536 bytes, 128 sectors</span><br><span class="line">0 cylinders, 255 heads, 63 sectors/track</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line"></span><br><span class="line">Disk /dev/mtdblock1 doesn<span class="string">'t contain a valid partition table</span></span><br><span class="line"><span class="string">Disk /dev/mtdblock2: 0 MB, 65536 bytes, 128 sectors</span></span><br><span class="line"><span class="string">0 cylinders, 255 heads, 63 sectors/track</span></span><br><span class="line"><span class="string">Units: sectors of 1 * 512 = 512 bytes</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Disk /dev/mtdblock2 doesn'</span>t contain a valid partition table</span><br><span class="line">Disk /dev/mtdblock3: 1 MB, 1484288 bytes, 2899 sectors</span><br><span class="line">0 cylinders, 255 heads, 63 sectors/track</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line"></span><br><span class="line">Disk /dev/mtdblock3 doesn<span class="string">'t contain a valid partition table</span></span><br><span class="line"><span class="string">Disk /dev/mtdblock4: 14 MB, 15292416 bytes, 29868 sectors</span></span><br><span class="line"><span class="string">1 cylinders, 255 heads, 63 sectors/track</span></span><br><span class="line"><span class="string">Units: sectors of 1 * 512 = 512 bytes</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Disk /dev/mtdblock4 doesn'</span>t contain a valid partition table</span><br><span class="line">Disk /dev/mtdblock5: 15 MB, 16449536 bytes, 32128 sectors</span><br><span class="line">1 cylinders, 255 heads, 63 sectors/track</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line"></span><br><span class="line">Disk /dev/mtdblock5 doesn<span class="string">'t contain a valid partition table</span></span><br><span class="line"><span class="string">Disk /dev/mtdblock6: 16 MB, 16777216 bytes, 32768 sectors</span></span><br><span class="line"><span class="string">2 cylinders, 255 heads, 63 sectors/track</span></span><br><span class="line"><span class="string">Units: sectors of 1 * 512 = 512 bytes</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Disk /dev/mtdblock6 doesn'</span>t contain a valid partition table</span><br><span class="line">Disk /dev/sda: 932 GB, 1000204886016 bytes, 1953525168 sectors</span><br><span class="line">121601 cylinders, 255 heads, 63 sectors/track</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line"></span><br><span class="line">Device  Boot StartCHS    EndCHS        StartLBA     EndLBA    Sectors  Size Id Type</span><br><span class="line">/dev/sda1 *  0,32,33     1023,254,63       2048 1048580095 1048578048  500G 83 Linux</span><br><span class="line">[EK-C1 /home/root]<span class="comment"># fdisk /dev/sda</span></span><br><span class="line"></span><br><span class="line">The number of cylinders <span class="keyword">for</span> this disk is <span class="built_in">set</span> to 121601.</span><br><span class="line">There is nothing wrong with that, but this is larger than 1024,</span><br><span class="line">and could <span class="keyword">in</span> certain setups cause problems with:</span><br><span class="line">1) software that runs at boot time (e.g., old versions of LILO)</span><br><span class="line">2) booting and partitioning software from other OSs</span><br><span class="line">   (e.g., DOS FDISK, OS/2 FDISK)</span><br><span class="line"></span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): p</span><br><span class="line">Disk /dev/sda: 932 GB, 1000204886016 bytes, 1953525168 sectors</span><br><span class="line">121601 cylinders, 255 heads, 63 sectors/track</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line"></span><br><span class="line">Device  Boot StartCHS    EndCHS        StartLBA     EndLBA    Sectors  Size Id Type</span><br><span class="line">/dev/sda1 *  0,32,33     1023,254,63       2048 1048580095 1048578048  500G 83 Linux</span><br><span class="line"></span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): d</span><br><span class="line">Selected partition 1</span><br><span class="line"></span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): p</span><br><span class="line">Disk /dev/sda: 932 GB, 1000204886016 bytes, 1953525168 sectors</span><br><span class="line">121601 cylinders, 255 heads, 63 sectors/track</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line"></span><br><span class="line">Device  Boot StartCHS    EndCHS        StartLBA     EndLBA    Sectors  Size Id Type</span><br><span class="line"></span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): n</span><br><span class="line">Partition <span class="built_in">type</span></span><br><span class="line">   p   primary partition (1-4)</span><br><span class="line">   e   extended</span><br><span class="line">p</span><br><span class="line">Partition number (1-4):</span><br><span class="line">Value is out of range</span><br><span class="line">Partition number (1-4):</span><br><span class="line">Value is out of range</span><br><span class="line">Partition number (1-4): 1</span><br><span class="line">First sector (2048-1953525167, default 2048):</span><br><span class="line">Using default value 2048</span><br><span class="line">Last sector or +size&#123;,K,M,G,T&#125; (2048-1953525167, default 1953525167):</span><br><span class="line">Using default value 1953525167</span><br><span class="line"></span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): w</span><br><span class="line">The partition table has been altered.</span><br><span class="line">Calling ioctl() to re-read partition table</span><br><span class="line">[EK-C1 /home/root]<span class="comment"># e2fsck -f /dev/sda</span></span><br><span class="line">e2fsck 1.45.4 (23-Sep-2019)</span><br><span class="line">ext2fs_open2: Bad magic number <span class="keyword">in</span> super-block</span><br><span class="line">e2fsck: Superblock invalid, trying backup blocks...</span><br><span class="line">e2fsck: Bad magic number <span class="keyword">in</span> super-block <span class="keyword">while</span> trying to open /dev/sda</span><br><span class="line"></span><br><span class="line">The superblock could not be <span class="built_in">read</span> or does not describe a valid ext2/ext3/ext4</span><br><span class="line">filesystem.  If the device is valid and it really contains an ext2/ext3/ext4</span><br><span class="line">filesystem (and not swap or ufs or something <span class="keyword">else</span>), <span class="keyword">then</span> the superblock</span><br><span class="line">is corrupt, and you might try running e2fsck with an alternate superblock:</span><br><span class="line">    e2fsck -b 8193 &lt;device&gt;</span><br><span class="line"> or</span><br><span class="line">    e2fsck -b 32768 &lt;device&gt;</span><br><span class="line"></span><br><span class="line">[EK-C1 /home/root]<span class="comment"># e2fsck -f /dev/sda1</span></span><br><span class="line">e2fsck 1.45.4 (23-Sep-2019)</span><br><span class="line">e2fsck: No such file or directory <span class="keyword">while</span> trying to open /dev/sda1</span><br><span class="line">Possibly non-existent device?</span><br><span class="line">[EK-C1 /home/root]<span class="comment"># e2fsck -f /dev/sda1</span></span><br><span class="line">e2fsck 1.45.4 (23-Sep-2019)</span><br><span class="line">e2fsck: No such file or directory <span class="keyword">while</span> trying to open /dev/sda1</span><br><span class="line">Possibly non-existent device?</span><br><span class="line">[EK-C1 /home/root]<span class="comment"># df -h</span></span><br><span class="line">Filesystem                Size      Used Available Use% Mounted on</span><br><span class="line">rootfs                   12.4M     12.4M         0 100% /</span><br><span class="line">/dev/root                12.4M     12.4M         0 100% /</span><br><span class="line">tmpfs                     8.0K         0      8.0K   0% /dev</span><br><span class="line">tmpfs                    20.0M      2.1M     17.9M  10% /etc</span><br><span class="line">tmpfs                     1.0M      4.0K   1020.0K   0% /home</span><br><span class="line">tmpfs                     8.0K         0      8.0K   0% /media</span><br><span class="line">tmpfs                     8.0K         0      8.0K   0% /mnt</span><br><span class="line">tmpfs                    40.0M      1.5M     38.5M   4% /tmp</span><br><span class="line">tmpfs                     4.0M    104.0K      3.9M   3% /var</span><br><span class="line">tmpfs                    40.0M      1.5M     38.5M   4% /opt</span><br><span class="line">[EK-C1 /home/root]<span class="comment"># fdisk -l</span></span><br><span class="line">Disk /dev/mtdblock0: 0 MB, 196608 bytes, 384 sectors</span><br><span class="line">0 cylinders, 255 heads, 63 sectors/track</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line"></span><br><span class="line">Disk /dev/mtdblock0 doesn<span class="string">'t contain a valid partition table</span></span><br><span class="line"><span class="string">Disk /dev/mtdblock1: 0 MB, 65536 bytes, 128 sectors</span></span><br><span class="line"><span class="string">0 cylinders, 255 heads, 63 sectors/track</span></span><br><span class="line"><span class="string">Units: sectors of 1 * 512 = 512 bytes</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Disk /dev/mtdblock1 doesn'</span>t contain a valid partition table</span><br><span class="line">Disk /dev/mtdblock2: 0 MB, 65536 bytes, 128 sectors</span><br><span class="line">0 cylinders, 255 heads, 63 sectors/track</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line"></span><br><span class="line">Disk /dev/mtdblock2 doesn<span class="string">'t contain a valid partition table</span></span><br><span class="line"><span class="string">Disk /dev/mtdblock3: 1 MB, 1484288 bytes, 2899 sectors</span></span><br><span class="line"><span class="string">0 cylinders, 255 heads, 63 sectors/track</span></span><br><span class="line"><span class="string">Units: sectors of 1 * 512 = 512 bytes</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Disk /dev/mtdblock3 doesn'</span>t contain a valid partition table</span><br><span class="line">Disk /dev/mtdblock4: 14 MB, 15292416 bytes, 29868 sectors</span><br><span class="line">1 cylinders, 255 heads, 63 sectors/track</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line"></span><br><span class="line">Disk /dev/mtdblock4 doesn<span class="string">'t contain a valid partition table</span></span><br><span class="line"><span class="string">Disk /dev/mtdblock5: 15 MB, 16449536 bytes, 32128 sectors</span></span><br><span class="line"><span class="string">1 cylinders, 255 heads, 63 sectors/track</span></span><br><span class="line"><span class="string">Units: sectors of 1 * 512 = 512 bytes</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Disk /dev/mtdblock5 doesn'</span>t contain a valid partition table</span><br><span class="line">Disk /dev/mtdblock6: 16 MB, 16777216 bytes, 32768 sectors</span><br><span class="line">2 cylinders, 255 heads, 63 sectors/track</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line"></span><br><span class="line">Disk /dev/mtdblock6 doesn<span class="string">'t contain a valid partition table</span></span><br><span class="line"><span class="string">Disk /dev/sda: 932 GB, 1000204886016 bytes, 1953525168 sectors</span></span><br><span class="line"><span class="string">382818 cylinders, 81 heads, 63 sectors/track</span></span><br><span class="line"><span class="string">Units: sectors of 1 * 512 = 512 bytes</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Device  Boot StartCHS    EndCHS        StartLBA     EndLBA    Sectors  Size Id Type</span></span><br><span class="line"><span class="string">/dev/sda1    0,32,33     769,80,63         2048 1953525167 1953523120  931G 83 Linux</span></span><br><span class="line"><span class="string">[EK-C1 /home/root]# e2fsck -f /dev/sda1</span></span><br><span class="line"><span class="string">e2fsck 1.45.4 (23-Sep-2019)</span></span><br><span class="line"><span class="string">e2fsck: No such file or directory while trying to open /dev/sda1</span></span><br><span class="line"><span class="string">Possibly non-existent device?</span></span><br><span class="line"><span class="string">[EK-C1 /home/root]# e2fsck -f /dev/sda</span></span><br><span class="line"><span class="string">e2fsck 1.45.4 (23-Sep-2019)</span></span><br><span class="line"><span class="string">ext2fs_open2: Bad magic number in super-block</span></span><br><span class="line"><span class="string">e2fsck: Superblock invalid, trying backup blocks...</span></span><br><span class="line"><span class="string">e2fsck: Bad magic number in super-block while trying to open /dev/sda</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">The superblock could not be read or does not describe a valid ext2/ext3/ext4</span></span><br><span class="line"><span class="string">filesystem.  If the device is valid and it really contains an ext2/ext3/ext4</span></span><br><span class="line"><span class="string">filesystem (and not swap or ufs or something else), then the superblock</span></span><br><span class="line"><span class="string">is corrupt, and you might try running e2fsck with an alternate superblock:</span></span><br><span class="line"><span class="string">    e2fsck -b 8193 &lt;device&gt;</span></span><br><span class="line"><span class="string"> or</span></span><br><span class="line"><span class="string">    e2fsck -b 32768 &lt;device&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[EK-C1 /home/root]# resize2fs /dev/sda1</span></span><br><span class="line"><span class="string">-sh: resize2fs: not found</span></span><br><span class="line"><span class="string">[EK-C1 /home/root]# e2fsck</span></span><br><span class="line"><span class="string">Usage: e2fsck [-panyrcdfktvDFV] [-b superblock] [-B blocksize]</span></span><br><span class="line"><span class="string">                [-l|-L bad_blocks_file] [-C fd] [-j external_journal]</span></span><br><span class="line"><span class="string">                [-E extended-options] [-z undo_file] device</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Emergency help:</span></span><br><span class="line"><span class="string"> -p                   Automatic repair (no questions)</span></span><br><span class="line"><span class="string"> -n                   Make no changes to the filesystem</span></span><br><span class="line"><span class="string"> -y                   Assume "yes" to all questions</span></span><br><span class="line"><span class="string"> -c                   Check for bad blocks and add them to the badblock list</span></span><br><span class="line"><span class="string"> -f                   Force checking even if filesystem is marked clean</span></span><br><span class="line"><span class="string"> -v                   Be verbose</span></span><br><span class="line"><span class="string"> -b superblock        Use alternative superblock</span></span><br><span class="line"><span class="string"> -B blocksize         Force blocksize when looking for superblock</span></span><br><span class="line"><span class="string"> -j external_journal  Set location of the external journal</span></span><br><span class="line"><span class="string"> -l bad_blocks_file   Add to badblocks list</span></span><br><span class="line"><span class="string"> -L bad_blocks_file   Set badblocks list</span></span><br><span class="line"><span class="string"> -z undo_file         Create an undo file</span></span><br><span class="line"><span class="string">[EK-C1 /home/root]# e2fsck -f /dev/sda1</span></span><br><span class="line"><span class="string">e2fsck 1.45.4 (23-Sep-2019)</span></span><br><span class="line"><span class="string">e2fsck: No such file or directory while trying to open /dev/sda1</span></span><br><span class="line"><span class="string">Possibly non-existent device?</span></span><br><span class="line"><span class="string">[EK-C1 /home/root]# fdisk -l</span></span><br><span class="line"><span class="string">Disk /dev/mtdblock0: 0 MB, 196608 bytes, 384 sectors</span></span><br><span class="line"><span class="string">0 cylinders, 255 heads, 63 sectors/track</span></span><br><span class="line"><span class="string">Units: sectors of 1 * 512 = 512 bytes</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Disk /dev/mtdblock0 doesn'</span>t contain a valid partition table</span><br><span class="line">Disk /dev/mtdblock1: 0 MB, 65536 bytes, 128 sectors</span><br><span class="line">0 cylinders, 255 heads, 63 sectors/track</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line"></span><br><span class="line">Disk /dev/mtdblock1 doesn<span class="string">'t contain a valid partition table</span></span><br><span class="line"><span class="string">Disk /dev/mtdblock2: 0 MB, 65536 bytes, 128 sectors</span></span><br><span class="line"><span class="string">0 cylinders, 255 heads, 63 sectors/track</span></span><br><span class="line"><span class="string">Units: sectors of 1 * 512 = 512 bytes</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Disk /dev/mtdblock2 doesn'</span>t contain a valid partition table</span><br><span class="line">Disk /dev/mtdblock3: 1 MB, 1484288 bytes, 2899 sectors</span><br><span class="line">0 cylinders, 255 heads, 63 sectors/track</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line"></span><br><span class="line">Disk /dev/mtdblock3 doesn<span class="string">'t contain a valid partition table</span></span><br><span class="line"><span class="string">Disk /dev/mtdblock4: 14 MB, 15292416 bytes, 29868 sectors</span></span><br><span class="line"><span class="string">1 cylinders, 255 heads, 63 sectors/track</span></span><br><span class="line"><span class="string">Units: sectors of 1 * 512 = 512 bytes</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Disk /dev/mtdblock4 doesn'</span>t contain a valid partition table</span><br><span class="line">Disk /dev/mtdblock5: 15 MB, 16449536 bytes, 32128 sectors</span><br><span class="line">1 cylinders, 255 heads, 63 sectors/track</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line"></span><br><span class="line">Disk /dev/mtdblock5 doesn<span class="string">'t contain a valid partition table</span></span><br><span class="line"><span class="string">Disk /dev/mtdblock6: 16 MB, 16777216 bytes, 32768 sectors</span></span><br><span class="line"><span class="string">2 cylinders, 255 heads, 63 sectors/track</span></span><br><span class="line"><span class="string">Units: sectors of 1 * 512 = 512 bytes</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Disk /dev/mtdblock6 doesn'</span>t contain a valid partition table</span><br><span class="line">Disk /dev/sda: 932 GB, 1000204886016 bytes, 1953525168 sectors</span><br><span class="line">382818 cylinders, 81 heads, 63 sectors/track</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line"></span><br><span class="line">Device  Boot StartCHS    EndCHS        StartLBA     EndLBA    Sectors  Size Id Type</span><br><span class="line">/dev/sda1    0,32,33     769,80,63         2048 1953525167 1953523120  931G 83 Linux</span><br><span class="line">[EK-C1 /home/root]<span class="comment"># mount</span></span><br><span class="line">rootfs on / <span class="built_in">type</span> rootfs (rw)</span><br><span class="line">/dev/root on / <span class="built_in">type</span> squashfs (ro,relatime)</span><br><span class="line">proc on /proc <span class="built_in">type</span> proc (rw,relatime)</span><br><span class="line">sysfs on /sys <span class="built_in">type</span> sysfs (rw,relatime)</span><br><span class="line">usbfs on /proc/bus/usb <span class="built_in">type</span> usbfs (rw,relatime)</span><br><span class="line">tmpfs on /dev <span class="built_in">type</span> tmpfs (rw,relatime,size=8k)</span><br><span class="line">tmpfs on /etc <span class="built_in">type</span> tmpfs (rw,noatime,size=20480k)</span><br><span class="line">tmpfs on /home <span class="built_in">type</span> tmpfs (rw,relatime,size=1024k)</span><br><span class="line">tmpfs on /media <span class="built_in">type</span> tmpfs (rw,relatime,size=8k)</span><br><span class="line">tmpfs on /mnt <span class="built_in">type</span> tmpfs (rw,relatime,size=8k)</span><br><span class="line">tmpfs on /tmp <span class="built_in">type</span> tmpfs (rw,relatime,size=40960k)</span><br><span class="line">tmpfs on /var <span class="built_in">type</span> tmpfs (rw,relatime,size=4096k)</span><br><span class="line">devpts on /dev/pts <span class="built_in">type</span> devpts (rw,relatime,mode=600)</span><br><span class="line">tmpfs on /opt <span class="built_in">type</span> tmpfs (rw,relatime,size=40960k)</span><br><span class="line">[EK-C1 /home/root]<span class="comment"># e2fsck -f /dev/sdb1</span></span><br><span class="line">e2fsck 1.45.4 (23-Sep-2019)</span><br><span class="line">e2fsck: No such file or directory <span class="keyword">while</span> trying to open /dev/sdb1</span><br><span class="line">Possibly non-existent device?</span><br><span class="line">[EK-C1 /home/root]<span class="comment"># cd /dev</span></span><br><span class="line">[EK-C1 /dev]<span class="comment"># ls</span></span><br><span class="line">bus                 mtd1                network_latency</span><br><span class="line">console             mtd1ro              network_throughput</span><br><span class="line">cpu_dma_latency     mtd2                null</span><br><span class="line">full                mtd2ro              nvram</span><br><span class="line">gpio                mtd3                port</span><br><span class="line">hwnat0              mtd3ro              ppp</span><br><span class="line">i2cM0               mtd4                ptmx</span><br><span class="line">kmsg                mtd4ro              pts</span><br><span class="line"><span class="built_in">log</span>                 mtd5                random</span><br><span class="line">loop-control        mtd5ro              rdm0</span><br><span class="line">loop0               mtd6                root</span><br><span class="line">loop1               mtd6ro              sda</span><br><span class="line">loop2               mtdblock0           sg0</span><br><span class="line">loop3               mtdblock1           spiS0</span><br><span class="line">loop4               mtdblock2           tty</span><br><span class="line">loop5               mtdblock3           ttyS0</span><br><span class="line">loop6               mtdblock4           urandom</span><br><span class="line">loop7               mtdblock5           usbdev1.1</span><br><span class="line">mem                 mtdblock6           usbdev2.1</span><br><span class="line">mtd0                mtk_esw             zero</span><br><span class="line">mtd0ro              net</span><br><span class="line">[EK-C1 /dev]<span class="comment"># e2fsck -f /dev/sda</span></span><br><span class="line">e2fsck 1.45.4 (23-Sep-2019)</span><br><span class="line">ext2fs_open2: Bad magic number <span class="keyword">in</span> super-block</span><br><span class="line">e2fsck: Superblock invalid, trying backup blocks...</span><br><span class="line">e2fsck: Bad magic number <span class="keyword">in</span> super-block <span class="keyword">while</span> trying to open /dev/sda</span><br><span class="line"></span><br><span class="line">The superblock could not be <span class="built_in">read</span> or does not describe a valid ext2/ext3/ext4</span><br><span class="line">filesystem.  If the device is valid and it really contains an ext2/ext3/ext4</span><br><span class="line">filesystem (and not swap or ufs or something <span class="keyword">else</span>), <span class="keyword">then</span> the superblock</span><br><span class="line">is corrupt, and you might try running e2fsck with an alternate superblock:</span><br><span class="line">    e2fsck -b 8193 &lt;device&gt;</span><br><span class="line"> or</span><br><span class="line">    e2fsck -b 32768 &lt;device&gt;</span><br><span class="line"></span><br><span class="line">[EK-C1 /dev]<span class="comment"># fsck -f /dev/sda</span></span><br><span class="line">-sh: fsck: not found</span><br><span class="line">[EK-C1 /dev]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<h2 id="e2fsck"><a class="header-anchor" href="#e2fsck"></a>e2fsck</h2>
+<p>重启老毛子，在磁盘页取消挂载后用putty进入ssh，对fdisk扩容后的/dev/sda1分区使用e2fsck 命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">Using username <span class="string">"oldgerman"</span>.</span><br><span class="line">oldgerman@192.168.233.1<span class="string">'s password:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">BusyBox v1.29.3 (2020-10-28 16:48:12 CST) built-in shell (ash)</span></span><br><span class="line"><span class="string">Enter '</span><span class="built_in">help</span><span class="string">' for a list of built-in commands.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[XY-C1 3.4.3.9-099_20-10-2]# 2020-10-30 16:07:09</span></span><br><span class="line"><span class="string">[EK-C1 /home/root]# e2fsck  -f    /dev/sda</span></span><br><span class="line"><span class="string">e2fsck 1.45.4 (23-Sep-2019)</span></span><br><span class="line"><span class="string">ext2fs_open2: Bad magic number in super-block</span></span><br><span class="line"><span class="string">e2fsck: Superblock invalid, trying backup blocks...</span></span><br><span class="line"><span class="string">e2fsck: Bad magic number in super-block while trying to open /dev/sda</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">The superblock could not be read or does not describe a valid ext2/ext3/ext4</span></span><br><span class="line"><span class="string">filesystem.  If the device is valid and it really contains an ext2/ext3/ext4</span></span><br><span class="line"><span class="string">filesystem (and not swap or ufs or something else), then the superblock</span></span><br><span class="line"><span class="string">is corrupt, and you might try running e2fsck with an alternate superblock:</span></span><br><span class="line"><span class="string">    e2fsck -b 8193 &lt;device&gt;</span></span><br><span class="line"><span class="string"> or</span></span><br><span class="line"><span class="string">    e2fsck -b 32768 &lt;device&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[EK-C1 /home/root]# e2fsck  -f    /dev/sda1</span></span><br><span class="line"><span class="string">e2fsck 1.45.4 (23-Sep-2019)</span></span><br><span class="line"><span class="string">Pass 1: Checking inodes, blocks, and sizes</span></span><br><span class="line"><span class="string">Pass 2: Checking directory structure</span></span><br><span class="line"><span class="string">Pass 3: Checking directory connectivity</span></span><br><span class="line"><span class="string">Pass 4: Checking reference counts</span></span><br><span class="line"><span class="string">Pass 5: Checking group summary information</span></span><br><span class="line"><span class="string">/dev/sda1: 73680/61054976 files (1.1% non-contiguous), 81815376/244190390 blocks</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[EK-C1 /home/root]#</span></span><br></pre></td></tr></table></figure>
+<h2 id="重启，resize2fs检查"><a class="header-anchor" href="#重启，resize2fs检查"></a>重启，resize2fs检查</h2>
+<p>老毛子默认是没有resize2fs命令的，我用电脑科学上网到http://bin.entware.net/mipselsf-k3.4/resize2fs_1.45.6-1_mipsel-3.4.ipk下载后传到/tmp文件夹用 opkg install 安装的，安装完自动配置环境变量，而且tmp下的安装包也不见了就很神奇</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Using username <span class="string">"oldgerman"</span>.</span><br><span class="line">oldgerman@192.168.233.1<span class="string">'s password:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">BusyBox v1.29.3 (2020-10-28 16:48:12 CST) built-in shell (ash)</span></span><br><span class="line"><span class="string">Enter '</span><span class="built_in">help</span><span class="string">' for a list of built-in commands.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[XY-C1 3.4.3.9-099_20-10-2]# 2020-10-30 16:13:38</span></span><br><span class="line"><span class="string">[EK-C1 /opt/home/admin]# resize2fs /dev/sda1</span></span><br><span class="line"><span class="string">resize2fs 1.45.6 (20-Mar-2020)</span></span><br><span class="line"><span class="string">The filesystem is already 244190390 (4k) blocks long.  Nothing to do!</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[EK-C1 /opt/home/admin]#</span></span><br></pre></td></tr></table></figure>
+<h2 id="检查"><a class="header-anchor" href="#检查"></a>检查</h2>
+<p>opt挂载正常，可道云正常</p>
+<p><img src="/2b131f00/%E6%A3%80%E6%9F%A5%E6%8B%93%E5%B1%95%E5%90%8E%E7%9A%84%E7%A3%81%E7%9B%98.png" alt="20201030164355"></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/老毛子/" rel="tag"># 老毛子</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/7cbfbaea/" rel="next" title="老毛子KodExplorer从上级路由访问">
+                  <i class="fa fa-chevron-left"></i> 老毛子KodExplorer从上级路由访问
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/4fafac1b/" rel="prev" title="STM32CubeIDE踩坑记录">
+                  STM32CubeIDE踩坑记录 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/psa.jpg"
+      alt="过气德国佬">
+  <p class="site-author-name" itemprop="name">过气德国佬</p>
+  <div class="site-description motion-element" itemprop="description">潮起潮落，云卷云舒</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/oldgerman" title="GitHub &rarr; https://github.com/oldgerman" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:2920956602@qq.com" title="E-Mail &rarr; mailto:2920956602@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#老毛子拓展ext4分区大小"><span class="nav-number">1.</span> <span class="nav-text">老毛子拓展ext4分区大小</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#起因"><span class="nav-number">1.1.</span> <span class="nav-text">起因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果"><span class="nav-number">1.2.</span> <span class="nav-text">结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.3.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关命令"><span class="nav-number">1.4.</span> <span class="nav-text">相关命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fdisk"><span class="nav-number">1.5.</span> <span class="nav-text">fdisk</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#e2fsck"><span class="nav-number">1.6.</span> <span class="nav-text">e2fsck</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重启，resize2fs检查"><span class="nav-number">1.7.</span> <span class="nav-text">重启，resize2fs检查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检查"><span class="nav-number">1.8.</span> <span class="nav-text">检查</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+        
+
+<div id="days"></div>
+<script>
+function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("07/19/2019 15:00:00");
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=setzero(Math.floor(e_hrsold));
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+    seconds=setzero(Math.floor((e_minsold-minsold)*60));
+    document.getElementById('days').innerHTML="(∩•̀ω•́)⊃--*⋆本站由米板1代搭建，已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i) {
+    if (i<10) {
+        i="0" + i
+    };
+    return i;
+}
+show_date_time();
+</script>
+
+
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">过气德国佬</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">118k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:47</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        <span>0%</span>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'iWuakuHkkRt5xT7Ct9cyj8nO-gzGzoHsz',
+    appKey: 'PAz23pDzHnucqRDkVMShMp5B',
+    placeholder: '(๑•̀ㅁ•́ฅ✧ 说点什么吧！',
+    avatar: '',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

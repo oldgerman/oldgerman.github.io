@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="无线传gcode，再也不用电脑打印机之间来回拔U盘了">
+<meta name="keywords" content="esp32,机智屏">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机智屏补焊ESP32模组刷wifi固件">
+<meta property="og:url" content="http://yoursite.com/b216a5e8/index.html">
+<meta property="og:site_name" content="OldGerman&#39;s Blog">
+<meta property="og:description" content="无线传gcode，再也不用电脑打印机之间来回拔U盘了">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/b216a5e8/32u%E7%84%8A%E6%8E%A5.jpg">
+<meta property="og:image" content="http://yoursite.com/b216a5e8/ESP32-WOOM-32U模组.jpg">
+<meta property="og:image" content="http://yoursite.com/b216a5e8/wifi固件无法升级.jpg">
+<meta property="og:image" content="http://yoursite.com/b216a5e8/esp32flashbin%E4%B8%89%E4%B8%AA%E6%96%87%E4%BB%B6.png">
+<meta property="og:image" content="http://yoursite.com/b216a5e8/esp32-wroom-32u.png">
+<meta property="og:image" content="http://yoursite.com/b216a5e8/ESP32-WROOM-32-ESP-WROOM-32.png">
+<meta property="og:image" content="http://yoursite.com/b216a5e8/FOU1WS0JBE12R70.LARGE.jpg">
+<meta property="og:image" content="http://yoursite.com/b216a5e8/JST_4.0.png">
+<meta property="og:image" content="http://yoursite.com/b216a5e8/外围.jpg">
+<meta property="og:image" content="http://yoursite.com/b216a5e8/arduinoesp32sdk.png">
+<meta property="og:image" content="http://yoursite.com/b216a5e8/RXTX%E6%8E%A5%E7%BA%BF.jpg">
+<meta property="og:image" content="http://yoursite.com/b216a5e8/blink.png">
+<meta property="og:image" content="http://yoursite.com/b216a5e8/esp32flashbin%E4%B8%89%E4%B8%AA%E6%96%87%E4%BB%B6%E5%9C%B0%E5%9D%80.png">
+<meta property="og:image" content="http://yoursite.com/b216a5e8/wifibin.png">
+<meta property="og:image" content="http://yoursite.com/b216a5e8/wifiOK.png">
+<meta property="og:image" content="http://yoursite.com/b216a5e8/%E6%B5%8B%E8%AF%95OK.jpg">
+<meta property="og:image" content="http://yoursite.com/b216a5e8/wifiHelper%E6%B5%8B%E8%AF%95.png">
+<meta property="og:image" content="http://yoursite.com/b216a5e8/gcode%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95.png">
+<meta property="og:updated_time" content="2022-08-17T04:19:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机智屏补焊ESP32模组刷wifi固件">
+<meta name="twitter:description" content="无线传gcode，再也不用电脑打印机之间来回拔U盘了">
+<meta name="twitter:image" content="http://yoursite.com/b216a5e8/32u%E7%84%8A%E6%8E%A5.jpg">
+  <link rel="canonical" href="http://yoursite.com/b216a5e8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>机智屏补焊ESP32模组刷wifi固件 | OldGerman's Blog</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OldGerman's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Refuse to play tickets!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-阅读排名">
+      
+    
+
+    <a href="/rank" rel="section"><i class="menu-item-icon fa fa-fw fa-list"></i> <br>阅读排名</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/b216a5e8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过气德国佬">
+      <meta itemprop="description" content="潮起潮落，云卷云舒">
+      <meta itemprop="image" content="/images/psa.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OldGerman's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">机智屏补焊ESP32模组刷wifi固件
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-07 11:44:10" itemprop="dateCreated datePublished" datetime="2020-05-07T11:44:10+08:00">2020-05-07</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-17 12:19:47" itemprop="dateModified" datetime="2022-08-17T12:19:47+08:00">2022-08-17</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/硬改/" itemprop="url" rel="index"><span itemprop="name">硬改</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span id="/b216a5e8/" class="post-meta-item leancloud_visitors" data-flag-title="机智屏补焊ESP32模组刷wifi固件" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/b216a5e8/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/b216a5e8/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>250</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+            <div class="post-description">无线传gcode，再也不用电脑打印机之间来回拔U盘了</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a class="header-anchor" href="#前言"></a>前言</h2>
+<p><a href="https://github.com/miblooming/JZ-TS24-2" target="_blank" rel="noopener">机智屏github项目地址</a></p>
+<p>我买的机智屏3.5寸不带wifi模组，型号JZ-TS35-V3.1，但是PCB背面留有ESP32-WROOM模组的邮票孔焊盘，于是买了一个ESP32-WROOM-32U，将esp32用热风枪230度焊上：</p>
+<p><img src="/b216a5e8/32u%E7%84%8A%E6%8E%A5.jpg" alt></p>
+<p>ESP32-WROOM-32U的好处就是没有多出来的一块PC天线，不影响机智云的外壳安装，（如下方左图）取而代之的是模组右上角的IPX座子，在射频电路的天线几乎都是这种接口，例如路由器，网卡的天线，你只需要买一个是这种接口的2.4G天线接上就有良好的WiFi信号了：</p>
+<table>
+    <tr>
+        <td><img src="/b216a5e8/ESP32-WOOM-32U模组.jpg" < td>
+        </td><td width="43%"><img src="/b216a5e8/wifi固件无法升级.jpg" < td>
+        </td></tr>
+</table>
+<p>把jzwifi.bin文件放在SD卡的根目录下，重启机智云，会自动升级WiFi固件，就是机智云的STM32F2芯片会将这个文件写到esp32的flash芯片里，但是等了半天还是0%的进度（如上方右图）</p>
+<p>所以这是为什么呢？？因为esp32模组出厂flash芯片里数据都被擦除掉了，esp32要想运行<strong>jzwifi.bin</strong>文件，flash芯片还要上传两个文件才行，即<strong>bootloader.bin</strong>，和<strong>custom.bin</strong>，<span style="color:Blue;">这两个文件具体叫啥名字不重要，你只要记住它是干啥的就行，等下步骤上传blink程序会自动包含前两个程序（即引导程序和程序分区表），jzwifi.bin文件只是第三个“用户程序”</span></p>
+<p>三个文件的定义如下：</p>
+<p><img src="/b216a5e8/esp32flashbin%E4%B8%89%E4%B8%AA%E6%96%87%E4%BB%B6.png" alt></p>
+<h2 id="硬件部分"><a class="header-anchor" href="#硬件部分"></a>硬件部分</h2>
+<h3 id="引脚定义"><a class="header-anchor" href="#引脚定义"></a>引脚定义</h3>
+<p>ESP-WROOM-32U模块正反面：</p>
+<p><img src="/b216a5e8/esp32-wroom-32u.png" alt></p>
+<p>pinout，找的esp32-WROOM-32的，没有屏蔽罩，对应上图正面，注意不要看成背面了</p>
+<p><img src="/b216a5e8/ESP32-WROOM-32-ESP-WROOM-32.png" alt></p>
+<h3 id="基础外围电路"><a class="header-anchor" href="#基础外围电路"></a>基础外围电路</h3>
+<p>烧录前，需要飞线以下外围电路：</p>
+<p><img src="/b216a5e8/FOU1WS0JBE12R70.LARGE.jpg" alt></p>
+<h3 id="焊接外围电路"><a class="header-anchor" href="#焊接外围电路"></a>焊接外围电路</h3>
+<p>左边的图是4.0寸的机智云板背面，图中红圈中的5个预留引脚和3.5寸SD卡槽下方的5个预留引脚的一样，都引出了上图esp32基础外围电路所需的5个引脚：分别是TX，RX，EN（就是NodeMCU esp8266的Reset按钮，对应GPIO2），BOOT（就是NodeMCU esp8266的flash按钮，对应GPIO0），3V3，GND</p>
+<p>在模组四周飞线焊接外围电路的电阻，led，开关，然后将机智云3.5寸SD卡下方的引脚引出杜邦插针</p>
+<table>
+    <tr>
+        <td><img src="/b216a5e8/JST_4.0.png"></td>
+        <td width="50%"><img src="/b216a5e8/外围.jpg"></td>
+    </tr>
+</table>
+<h2 id="软件部分"><a class="header-anchor" href="#软件部分"></a>软件部分</h2>
+<h3 id="安装ESP32-SDK"><a class="header-anchor" href="#安装ESP32-SDK"></a>安装ESP32 SDK</h3>
+<p>打开arduino ide首选项，添加arduino ESP32 SDK环境的地址</p>
+<p><a href="https://dl.espressif.com/dl/package_esp32_index.json" target="_blank" rel="noopener">https://dl.espressif.com/dl/package_esp32_index.json</a></p>
+<p>在开发板管理器中搜索esp32 ，点击安装即可：</p>
+<p><img src="/b216a5e8/arduinoesp32sdk.png" alt="20200506232610"></p>
+<p>esp32的开发板随便选一个，我选的Node32s，只要不选Wrover就行，因为这种esp32模块是带PSRAM（静态随机访问存储器）的，flash空间在cache的映射和不带PSRAM的有点不一样</p>
+<p>CPU，flash，晶振频率默认就行，上传速度可以选912600，因为默认的115200波特是在太慢了</p>
+<h3 id="TTL烧录器接线"><a class="header-anchor" href="#TTL烧录器接线"></a>TTL烧录器接线</h3>
+<p>按下图用TTL模块接线：注意TTL烧录器的RX接TX，TX接RX</p>
+<p><img src="/b216a5e8/RXTX%E6%8E%A5%E7%BA%BF.jpg" alt></p>
+<p>在arduino ide中打开自动检测到的COM口，我的是COM12</p>
+<h3 id="esp32-启动模式"><a class="header-anchor" href="#esp32-启动模式"></a>esp32 启动模式</h3>
+<p>如果 GPIO0 / GPIO2 同时为低电平，则会进入下载模式，等待串口通信信息，GPIO2就是EN引脚</p>
+<p>如果GPIO0为高电平，则会进入Flash 运行模式，启动SPI 驱动，并加载Flash中的程序段</p>
+<h3 id="刷机模式测试"><a class="header-anchor" href="#刷机模式测试"></a>刷机模式测试</h3>
+<p>将esp32 GPIO0下拉再通电，arduino ide 打开COM12的串口监视器，显示如下**“waiting for download”**，就OK，可以随时编译程序上传了</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">rst:</span><span class="number">0x1</span> (POWERON_RESET),<span class="string">boot:</span><span class="number">0x1</span> (DOWNLOAD_BOOT(UART0<span class="regexp">/UART1/</span>SDIO_FEI_REO_V2))</span><br><span class="line">waiting <span class="keyword">for</span> download</span><br></pre></td></tr></table></figure>
+<h3 id="Hello-World"><a class="header-anchor" href="#Hello-World"></a>Hello World</h3>
+<p>上传blink示例程序顺便加一句hello World，成功运行串口输出如下（不要在意少打了一个“l”）</p>
+<p><span style="color:Blue;">该步骤目的是利用上传的blink程序向esp32的flash地址0x1000和0x8000写入上面说的<strong>bootloader引导程序</strong>和<strong>flash分区表程序</strong>：</span>，此步骤的用户程序是blink，等下我们替换为jzwifi.bin文件就行</p>
+<p>（为啥不直接给前两个文件，因为我在esp32 SDK文件夹里只找到了各种bootloader.bin，没有找到分区表.bin，分区表二进制文件估计是每次编译生成的，具体细节我也不太懂，因为我第一次用裸奔esp32模组= =）</p>
+<p><img src="/b216a5e8/blink.png" alt="20200506165851"></p>
+<h3 id="ESP32的3个bin文件烧录地址："><a class="header-anchor" href="#ESP32的3个bin文件烧录地址："></a>ESP32的3个bin文件烧录地址：</h3>
+<p><img src="/b216a5e8/esp32flashbin%E4%B8%89%E4%B8%AA%E6%96%87%E4%BB%B6%E5%9C%B0%E5%9D%80.png" alt="20200506155657"></p>
+<h3 id="ESP-Tools替换blink程序文件为jzwifi-bin程序文件"><a class="header-anchor" href="#ESP-Tools替换blink程序文件为jzwifi-bin程序文件"></a>ESP Tools替换blink程序文件为jzwifi.bin程序文件</h3>
+<p>因为是windows环境，接着到乐鑫或者安信可官网下载<a href="https://www.espressif.com/en/support/download/other-tools" target="_blank" rel="noopener">esp_flash_download_tools</a>，选择esp32，DIO模式，40MHz晶振频率，32Mbitflash，选择COM口，然后将esp32置于刷机模式，上传主程序jstwifi.bin文件到flash地址0x10000，上传成功右边终端显示：“is sub and send flash finish&quot;就OK</p>
+<p><img src="/b216a5e8/wifibin.png" alt="20200506170056"></p>
+<p>打开arduino 串口监视器，重启esp32 到正常模式，串口监视器显示如下就大功告成！</p>
+<p><img src="/b216a5e8/wifiOK.png" alt="20200506170301"></p>
+<h2 id="测试"><a class="header-anchor" href="#测试"></a>测试</h2>
+<h3 id="搜索wifi"><a class="header-anchor" href="#搜索wifi"></a>搜索wifi</h3>
+<p><img src="/b216a5e8/%E6%B5%8B%E8%AF%95OK.jpg" alt></p>
+<h3 id="wifiHelper测试"><a class="header-anchor" href="#wifiHelper测试"></a>wifiHelper测试</h3>
+<p><img src="/b216a5e8/wifiHelper%E6%B5%8B%E8%AF%95.png" alt="20200506172501"></p>
+<h3 id="gcode上传测试"><a class="header-anchor" href="#gcode上传测试"></a>gcode上传测试</h3>
+<p>速度一般，还行，很OK</p>
+<p><img src="/b216a5e8/gcode%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95.png" alt="20200506210031"></p>
+<h2 id="后记"><a class="header-anchor" href="#后记"></a>后记</h2>
+<p>😂 终于不用每次打印都跑来跑去插拔U盘了，逃）</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/esp32/" rel="tag"># esp32</a>
+            
+              <a href="/tags/机智屏/" rel="tag"># 机智屏</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/88b2c11b/" rel="next" title="相位调制">
+                  <i class="fa fa-chevron-left"></i> 相位调制
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/db8555d9/" rel="prev" title="esp8266开发板设计：D1 mini Plus V1.0">
+                  esp8266开发板设计：D1 mini Plus V1.0 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/psa.jpg"
+      alt="过气德国佬">
+  <p class="site-author-name" itemprop="name">过气德国佬</p>
+  <div class="site-description motion-element" itemprop="description">潮起潮落，云卷云舒</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/oldgerman" title="GitHub &rarr; https://github.com/oldgerman" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:2920956602@qq.com" title="E-Mail &rarr; mailto:2920956602@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#硬件部分"><span class="nav-number">2.</span> <span class="nav-text">硬件部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#引脚定义"><span class="nav-number">2.1.</span> <span class="nav-text">引脚定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基础外围电路"><span class="nav-number">2.2.</span> <span class="nav-text">基础外围电路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#焊接外围电路"><span class="nav-number">2.3.</span> <span class="nav-text">焊接外围电路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软件部分"><span class="nav-number">3.</span> <span class="nav-text">软件部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装ESP32-SDK"><span class="nav-number">3.1.</span> <span class="nav-text">安装ESP32 SDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TTL烧录器接线"><span class="nav-number">3.2.</span> <span class="nav-text">TTL烧录器接线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#esp32-启动模式"><span class="nav-number">3.3.</span> <span class="nav-text">esp32 启动模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#刷机模式测试"><span class="nav-number">3.4.</span> <span class="nav-text">刷机模式测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hello-World"><span class="nav-number">3.5.</span> <span class="nav-text">Hello World</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ESP32的3个bin文件烧录地址："><span class="nav-number">3.6.</span> <span class="nav-text">ESP32的3个bin文件烧录地址：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ESP-Tools替换blink程序文件为jzwifi-bin程序文件"><span class="nav-number">3.7.</span> <span class="nav-text">ESP Tools替换blink程序文件为jzwifi.bin程序文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-number">4.</span> <span class="nav-text">测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#搜索wifi"><span class="nav-number">4.1.</span> <span class="nav-text">搜索wifi</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wifiHelper测试"><span class="nav-number">4.2.</span> <span class="nav-text">wifiHelper测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gcode上传测试"><span class="nav-number">4.3.</span> <span class="nav-text">gcode上传测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后记"><span class="nav-number">5.</span> <span class="nav-text">后记</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+        
+
+<div id="days"></div>
+<script>
+function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("07/19/2019 15:00:00");
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=setzero(Math.floor(e_hrsold));
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+    seconds=setzero(Math.floor((e_minsold-minsold)*60));
+    document.getElementById('days').innerHTML="(∩•̀ω•́)⊃--*⋆本站由米板1代搭建，已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i) {
+    if (i<10) {
+        i="0" + i
+    };
+    return i;
+}
+show_date_time();
+</script>
+
+
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">过气德国佬</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">118k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:47</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        <span>0%</span>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'iWuakuHkkRt5xT7Ct9cyj8nO-gzGzoHsz',
+    appKey: 'PAz23pDzHnucqRDkVMShMp5B',
+    placeholder: '(๑•̀ㅁ•́ฅ✧ 说点什么吧！',
+    avatar: '',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

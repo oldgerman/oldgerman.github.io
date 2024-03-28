@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="使用visual studio的arduino环境">
+<meta name="keywords" content="esp8266">
+<meta property="og:type" content="article">
+<meta property="og:title" content="esp8266 4线风扇调速测速">
+<meta property="og:url" content="http://yoursite.com/f3fd3c5b/index.html">
+<meta property="og:site_name" content="OldGerman&#39;s Blog">
+<meta property="og:description" content="使用visual studio的arduino环境">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/f3fd3c5b/%E8%8B%B1%E7%89%B9%E5%B0%94%E4%B8%BB%E6%9D%BF%E9%A3%8E%E6%89%87-4pin%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83.png">
+<meta property="og:image" content="http://yoursite.com/f3fd3c5b/sch.png">
+<meta property="og:image" content="http://yoursite.com/f3fd3c5b/GPIO%E5%8E%9F%E7%90%86%E5%9B%BE.jpg">
+<meta property="og:image" content="http://yoursite.com/f3fd3c5b/%E9%9D%A2%E5%8C%85%E6%9D%BF.JPG">
+<meta property="og:image" content="http://yoursite.com/f3fd3c5b/vMcrio.png">
+<meta property="og:image" content="http://yoursite.com/f3fd3c5b/change_speed.png">
+<meta property="og:image" content="http://yoursite.com/f3fd3c5b/2400rpm++.png">
+<meta property="og:image" content="http://yoursite.com/f3fd3c5b/wdt_reset.png">
+<meta property="og:updated_time" content="2022-08-17T04:19:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="esp8266 4线风扇调速测速">
+<meta name="twitter:description" content="使用visual studio的arduino环境">
+<meta name="twitter:image" content="http://yoursite.com/f3fd3c5b/%E8%8B%B1%E7%89%B9%E5%B0%94%E4%B8%BB%E6%9D%BF%E9%A3%8E%E6%89%87-4pin%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83.png">
+  <link rel="canonical" href="http://yoursite.com/f3fd3c5b/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>esp8266 4线风扇调速测速 | OldGerman's Blog</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OldGerman's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Refuse to play tickets!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-阅读排名">
+      
+    
+
+    <a href="/rank" rel="section"><i class="menu-item-icon fa fa-fw fa-list"></i> <br>阅读排名</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/f3fd3c5b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过气德国佬">
+      <meta itemprop="description" content="潮起潮落，云卷云舒">
+      <meta itemprop="image" content="/images/psa.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OldGerman's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">esp8266 4线风扇调速测速
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-19 12:50:59" itemprop="dateCreated datePublished" datetime="2020-02-19T12:50:59+08:00">2020-02-19</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-17 12:19:47" itemprop="dateModified" datetime="2022-08-17T12:19:47+08:00">2022-08-17</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C-C/" itemprop="url" rel="index"><span itemprop="name">C/C++</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span id="/f3fd3c5b/" class="post-meta-item leancloud_visitors" data-flag-title="esp8266 4线风扇调速测速" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/f3fd3c5b/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/f3fd3c5b/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>4.4k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>4 分钟</span>
+            </span>
+          
+            <div class="post-description">使用visual studio的arduino环境</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="1-主板4针风扇接口"><a class="header-anchor" href="#1-主板4针风扇接口"></a>1.主板4针风扇接口</h2>
+<p>先从一张年代久远的图说起，听说是intel的规范，2003年的，</p>
+<p>给出了了主板4针风扇接口的外围电路设计，咱就参考这个测试：</p>
+<p><img src="/f3fd3c5b/%E8%8B%B1%E7%89%B9%E5%B0%94%E4%B8%BB%E6%9D%BF%E9%A3%8E%E6%89%87-4pin%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83.png" alt="英特尔主板风扇-4pin设计规范"></p>
+<h3 id="目前4pin接口主流的线序"><a class="header-anchor" href="#目前4pin接口主流的线序"></a>目前4pin接口主流的线序</h3>
+<p>😥和上图有点不一样，看仔细了</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">引脚编号</th>
+<th style="text-align:center">导线颜色</th>
+<th style="text-align:center">引线定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">黑</td>
+<td style="text-align:center">GND</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">红</td>
+<td style="text-align:center">+12V</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">黄</td>
+<td style="text-align:center">测速线</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">蓝</td>
+<td style="text-align:center">调速线</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-电路分析"><a class="header-anchor" href="#2-电路分析"></a>2.电路分析</h2>
+<h4 id="1，2号引脚"><a class="header-anchor" href="#1，2号引脚"></a>1，2号引脚</h4>
+<p>负责风扇供电，风扇是外转子无刷电机，没有机械式换向器(使用半导体换向器)，因此不会产生碳刷交替时的电压，所以Intel只并一个铝电解电容对电源进行低频滤波，不知道这样理解对不对?</p>
+<h4 id="3号引脚"><a class="header-anchor" href="#3号引脚"></a>3号引脚</h4>
+<p>输出风扇转速，用4.7k上拉到12V电源，再接27.4k和10k两个电阻分压，<code>FAN TACH</code>测速线从10k分压测量脉冲信号，粗略计算一下，<code>FAN TACH</code>的高电平为2.85V，匹配3.3V系统的逻辑电平，所以esp8266的GPIO引脚可以测量</p>
+<p>😳为什么肯定3号线输出的是电平信号而不是模拟电压？</p>
+<p>题主没有示波器，调节4线风扇的转速时，先没有用3号引脚的外围电路，直接用万用表测量3号引脚，其电压范围差不多0.02V~0.18V，推测这个引脚不能输出高电平但有内部上拉电阻，接着搭建了外围电路，在<code>FAN TACH</code>位置进行测量，发现无论怎样调速，电压保持1.51V左右不变，假设为电平信号计算的高电平为2.85V，那么可以肯定该引脚输出一个占空比约为50%，频率随转速变化的TTL信号</p>
+<h4 id="4号引脚"><a class="header-anchor" href="#4号引脚"></a>4号引脚</h4>
+<p>调节风扇的转速，使用NPN晶体管，型号<a href="https://pdf1.alldatasheet.com/datasheet-pdf/view/17919/PHILIPS/MMBT3904.html" target="_blank" rel="noopener">MMBT3904</a>，40V 100mA，集电极和发射极串接两个4.7k限流</p>
+<h2 id="3-测试准备"><a class="header-anchor" href="#3-测试准备"></a>3.测试准备</h2>
+<h4 id="原理图"><a class="header-anchor" href="#原理图"></a>原理图</h4>
+<p><img src="/f3fd3c5b/sch.png" alt></p>
+<p>开发板为NodeMCU 1.0 ESP-12E</p>
+<p>R7为10k电位器，接入A0读取模拟量</p>
+<p>T1为三极管，用2N222A代替，参数40V 600mA，集电极限流电阻建议1-4.7k</p>
+<p>C1为滤波电容，推荐钽电容或铝电解</p>
+<p>英特尔的图27.4k用R4 20k和R5 6.8k代替，合计26.8k，FAN_SPEED高电平增加到2.89V</p>
+<p>12V电源和开发板必须共地，否则三极管不能正常开关，无法调速</p>
+<h4 id="NodeMCU-1-0-可产生PWM信号的引脚"><a class="header-anchor" href="#NodeMCU-1-0-可产生PWM信号的引脚"></a>NodeMCU 1.0 可产生PWM信号的引脚</h4>
+<p><img src="/f3fd3c5b/GPIO%E5%8E%9F%E7%90%86%E5%9B%BE.jpg" alt></p>
+<p>上图中，标有“正弦波”的引脚可产生PWM信号，实际上D0也可以</p>
+<h4 id="面包板搭建电路"><a class="header-anchor" href="#面包板搭建电路"></a>面包板搭建电路</h4>
+<p><img src="/f3fd3c5b/%E9%9D%A2%E5%8C%85%E6%9D%BF.JPG" alt></p>
+<h2 id="4-安利vMicro"><a class="header-anchor" href="#4-安利vMicro"></a>4.安利vMicro</h2>
+<p>visual studo的arduino ide马甲程序，除了支持原版的所有功能，外加vs的标配功能，例如实时代码纠错，参数列表，自动补全，自动加载函数，等等，实在审美不了原版万年的蓝绿色，另外用vs写程序更专业😢</p>
+<h4 id="如何安装"><a class="header-anchor" href="#如何安装"></a>如何安装</h4>
+<p>在vs拓展管理中搜索arduino安装即可，使用教程网上很多，这里不做复述</p>
+<p><img src="/f3fd3c5b/vMcrio.png" alt></p>
+<h2 id="5-示例代码"><a class="header-anchor" href="#5-示例代码"></a>5.示例代码</h2>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> Name:		Blink_and_Pwm.ino</span></span><br><span class="line"><span class="comment"> Created:	2020/2/18 12:29:16</span></span><br><span class="line"><span class="comment"> Author:	OldGerman</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"Ticker.h"</span></span></span><br><span class="line">Ticker timer1;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  pins</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> analogInPin = A0;     <span class="comment">//  A0 读取电位器电压</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> fan_speed = <span class="number">12</span>;       <span class="comment">//  D6 测速</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> pwm_out = <span class="number">16</span>;         <span class="comment">//  D0 调速</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// other message</span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">long</span> duration = <span class="number">0</span>;     <span class="comment">//  加权时间</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> read_times = <span class="number">2</span>;       <span class="comment">//  测速信号采样周期（多取几次可更精确）</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> fan_min_Hz = <span class="number">40</span>;      <span class="comment">//  测速线每秒最低脉冲次数，不同的风扇不一样，需要根据转速范围计算，或者实测也行</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pwm</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Pwm(<span class="keyword">int</span> pin)</span><br><span class="line">        : _pin(pin)</span><br><span class="line">    &#123;   <span class="built_in">pinMode</span>(_pin, <span class="literal">OUTPUT</span>);  &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">pwmWrite</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;   <span class="built_in">analogWrite</span>(_pin, outputValue());   &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> sensorValue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">outputValue</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        sensorValue = <span class="built_in">analogRead</span>(analogInPin);  <span class="comment">//  esp8266 ADC为10位，analogRead()范围0~1023</span></span><br><span class="line">        <span class="keyword">return</span> sensorValue;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> _pin;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> Pwm::sensorValue = <span class="number">0</span>;   <span class="comment">//  外部初始化静态类成员</span></span><br><span class="line"><span class="function">Pwm <span class="title">pwm</span><span class="params">(pwm_out)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">class_pwm</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    pwm.pwmWrite();</span><br><span class="line"></span><br><span class="line">    <span class="built_in">Serial</span>.<span class="built_in">print</span>(<span class="string">"ADC: "</span>);</span><br><span class="line">    <span class="built_in">Serial</span>.<span class="built_in">print</span>(Pwm::sensorValue);</span><br><span class="line">    <span class="built_in">Serial</span>.<span class="built_in">print</span>(<span class="string">' '</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">read_speed</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    duration = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (Pwm::sensorValue &lt; <span class="number">720</span>) &#123;                   <span class="comment">//  当风扇开始转动时，计算转速</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; read_times; i++) &#123;      <span class="comment">//  对高低电平的变化时间加权计算，得出总时间，单位: ms</span></span><br><span class="line">            duration += <span class="built_in">pulseIn</span>(fan_speed, <span class="literal">HIGH</span>);   <span class="comment">//  pulseIn()默认等待超时时间1000000UL，等待过长会使硬件看门狗复位</span></span><br><span class="line">            duration += <span class="built_in">pulseIn</span>(fan_speed, <span class="literal">LOW</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        duration = <span class="number">4294967295</span>;          <span class="comment">//  sensorValue = 1023 风扇会停止输出脉冲信号，pulseIn()会一直等待电平变化，导致复位</span></span><br><span class="line">                                        <span class="comment">//      设置为unsigned long类型的最大值，让计算后风扇转速接近为0</span></span><br><span class="line">    &#125;</span><br><span class="line">    duration = duration / read_times;           <span class="comment">//  高低电平变化1次用时,单位: ms</span></span><br><span class="line">    duration = <span class="number">1000000</span> / duration;              <span class="comment">//  1秒内产生的脉冲次数（风扇转速，单位: Hz）</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(duration &lt; fan_min_Hz)                   <span class="comment">//  计算值小于最低每秒脉冲数，直接取最小值</span></span><br><span class="line">        duration = fan_min_Hz;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">Serial</span>.<span class="built_in">print</span>(duration);</span><br><span class="line">    <span class="built_in">Serial</span>.<span class="built_in">print</span>(<span class="string">" HZ"</span>);</span><br><span class="line">    duration = duration * <span class="number">60</span>;                   <span class="comment">//  1分钟内可变化几次（风扇转速: r/min）</span></span><br><span class="line">    <span class="built_in">Serial</span>.<span class="built_in">print</span>(<span class="string">"  v is "</span>);</span><br><span class="line">    <span class="built_in">Serial</span>.<span class="built_in">print</span>(duration);</span><br><span class="line">    <span class="built_in">Serial</span>.<span class="built_in">println</span>(<span class="string">" r/min"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">all_loop</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    class_pwm();</span><br><span class="line">    read_speed();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//-------------------------------------MAIN FUNCTION-------------------------------------</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setup</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">Serial</span>.<span class="built_in">begin</span>(<span class="number">115200</span>); </span><br><span class="line"></span><br><span class="line">    <span class="comment">/*定时器不能设置两个相同的定时任务，会导致硬件看门狗复位*/</span></span><br><span class="line">    <span class="comment">//timer2.attach_ms(100, class_pwm);</span></span><br><span class="line">    <span class="comment">//timer2.attach_ms(100, read_speed);</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*将上述两函数打包进一个函数内先后调用*/</span></span><br><span class="line">    timer1.attach_ms(<span class="number">200</span>, all_loop);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">loop</span><span class="params">()</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="6-Demo"><a class="header-anchor" href="#6-Demo"></a>6.Demo</h2>
+<p>打开串口监视器，调节点位器控制风扇转速，输出如下：</p>
+<p><img src="/f3fd3c5b/change_speed.png" alt></p>
+<h2 id="7-有关代码的疑问"><a class="header-anchor" href="#7-有关代码的疑问"></a>7.有关代码的疑问</h2>
+<h4 id="第35行，analogRead-，返回值范围"><a class="header-anchor" href="#第35行，analogRead-，返回值范围"></a>第35行，<code>analogRead()</code>，返回值范围</h4>
+<p>esp8266内置10位ADC，所以该函数返回范围0-1023，对于Arduino开发板例如Uno，该函数返回0-255</p>
+<h4 id="第56行，sensorValue-720，为什么不是1023？"><a class="header-anchor" href="#第56行，sensorValue-720，为什么不是1023？"></a>第56行，<code>sensorValue &lt; 720</code>，为什么不是1023？</h4>
+<p>一般来说，12V风扇的最低转速不为0，例如猫头鹰的NF-12，其转速范围300-1500rpm，题主测试用的4010风扇，转速范围2400-128400左右，实测从A0读取的值大于720时，继续旋转电位器增大读数，风扇测速线的脉冲频率在40Hz左右不变，所以，可以认为在720时，风扇已经降至最低转速，继续减小esp8266输出的pwm占空比，并不会使风扇继续降速，如图：</p>
+<p><img src="/f3fd3c5b/2400rpm++.png" alt></p>
+<h4 id="若继续增大到1023，会导致看门狗复位"><a class="header-anchor" href="#若继续增大到1023，会导致看门狗复位"></a>若继续增大到1023，会导致看门狗复位</h4>
+<p>众所周知，esp8266不能像Arduino那样长时间执行循环，实测当跳到1023左右时，风扇的测速线不再输出脉冲信号，因为我们在for循环中调用了多次<code>pulseIn()</code>，该函数默认等待超时时间为1秒，测速线停止输出脉冲，<code>pulseIn()</code>每次都等待1秒，超时触发看门狗，复位瞬间：</p>
+<p><img src="/f3fd3c5b/wdt_reset.png" alt></p>
+<h4 id="第17行，read-times取多少合适？"><a class="header-anchor" href="#第17行，read-times取多少合适？"></a>第17行，<code>read_times</code>取多少合适？</h4>
+<p>😳首先，题主esp8266运行主频80Mhz，在160Mhz时<code>pulseIn()</code>的处理可能更快</p>
+<p>read_times示例程序中取2，使第57行<code>for</code>迭代2次，每一次迭代调用了2次<code>pulseIn()</code>，那么循环一共调用了4次<code>pulseIn</code>，在<code>setup()</code>中，我们使用Ticker对象调用<code>attach_ms()</code>每200ms调用<code>read_speed()</code>，因此，多次调用<code>pulseIn()</code>总共等待的时间最多为200ms，题主使用的4010风扇最低脉冲频率为40Hz，即每1000ms产生40个脉冲周期，每个脉冲周期25ms，所以理想情况下，每25ms正好触发2次<code>pulseIn()</code></p>
+<p><strong>然而，程序执行函数时处理也需要时间，实际上每25ms执行次数小于1：</strong></p>
+<p>当我把 read_times取5时，40Hz时极易发生看门狗复位，此时每200ms <code>for</code>执行10次<code>pulseIn()</code>，也就是说10次耗费时间超过了200ms致使esp8266没有喘气的时间，这时定时器任务可以认为是一个死循环，说明每次执行<code>pulseIn()</code>的时间大于20ms，所以25ms只能触发约一次该函数的调用😮</p>
+<p>另外，还要考虑 <code>class_pwm()</code>的处理耗时，题主认为read_times取3，即每200ms调用6次最坏情况总计150ms已经很极限，so，我取了2，每200ms调用4次最坏情况总计100ms</p>
+<p>总之，这个值得根据风扇计算，对于猫头鹰NF-12，最低每秒5Hz，即每脉冲周期长达200ms，那么相应地延长<code>Ticker</code>的定时周期，以降低<code>read_speed()</code>的调用频率，也是不错的选择😃</p>
+<h2 id="8-参考文献"><a class="header-anchor" href="#8-参考文献"></a>8.参考文献</h2>
+<p><a href="https://www.cnblogs.com/kekeoutlook/p/8292444.html" target="_blank" rel="noopener">Arduino环境esp8266 pwm函数使用</a></p>
+<p><a href="https://blog.csdn.net/qq_31077649/article/details/72581968" target="_blank" rel="noopener">pulseIn() 函数的使用方法-超声波测距</a></p>
+<p><a href="http://club.gizwits.com/thread-3767-1-1.html" target="_blank" rel="noopener">esp8266 的看门狗有什么作用?</a></p>
+<p><a href="https://www.arduino.cn/forum.php?mod=viewthread&amp;tid=83602&amp;mobile=no" target="_blank" rel="noopener">特别感谢Arduino论坛：skyhome 提供的思路</a></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/esp8266/" rel="tag"># esp8266</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/29c16836/" rel="next" title="小娱C5_配置篇">
+                  <i class="fa fa-chevron-left"></i> 小娱C5_配置篇
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/6c57f882/" rel="prev" title="hexo 博客如何写出彩色字体，能实时预览的那种？">
+                  hexo 博客如何写出彩色字体，能实时预览的那种？ <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/psa.jpg"
+      alt="过气德国佬">
+  <p class="site-author-name" itemprop="name">过气德国佬</p>
+  <div class="site-description motion-element" itemprop="description">潮起潮落，云卷云舒</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/oldgerman" title="GitHub &rarr; https://github.com/oldgerman" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:2920956602@qq.com" title="E-Mail &rarr; mailto:2920956602@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-主板4针风扇接口"><span class="nav-number">1.</span> <span class="nav-text">1.主板4针风扇接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#目前4pin接口主流的线序"><span class="nav-number">1.1.</span> <span class="nav-text">目前4pin接口主流的线序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-电路分析"><span class="nav-number">2.</span> <span class="nav-text">2.电路分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1，2号引脚"><span class="nav-number">2.0.1.</span> <span class="nav-text">1，2号引脚</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3号引脚"><span class="nav-number">2.0.2.</span> <span class="nav-text">3号引脚</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4号引脚"><span class="nav-number">2.0.3.</span> <span class="nav-text">4号引脚</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-测试准备"><span class="nav-number">3.</span> <span class="nav-text">3.测试准备</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原理图"><span class="nav-number">3.0.1.</span> <span class="nav-text">原理图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NodeMCU-1-0-可产生PWM信号的引脚"><span class="nav-number">3.0.2.</span> <span class="nav-text">NodeMCU 1.0 可产生PWM信号的引脚</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#面包板搭建电路"><span class="nav-number">3.0.3.</span> <span class="nav-text">面包板搭建电路</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-安利vMicro"><span class="nav-number">4.</span> <span class="nav-text">4.安利vMicro</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#如何安装"><span class="nav-number">4.0.1.</span> <span class="nav-text">如何安装</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-示例代码"><span class="nav-number">5.</span> <span class="nav-text">5.示例代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Demo"><span class="nav-number">6.</span> <span class="nav-text">6.Demo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-有关代码的疑问"><span class="nav-number">7.</span> <span class="nav-text">7.有关代码的疑问</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第35行，analogRead-，返回值范围"><span class="nav-number">7.0.1.</span> <span class="nav-text">第35行，analogRead()，返回值范围</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第56行，sensorValue-720，为什么不是1023？"><span class="nav-number">7.0.2.</span> <span class="nav-text">第56行，sensorValue &lt; 720，为什么不是1023？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#若继续增大到1023，会导致看门狗复位"><span class="nav-number">7.0.3.</span> <span class="nav-text">若继续增大到1023，会导致看门狗复位</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第17行，read-times取多少合适？"><span class="nav-number">7.0.4.</span> <span class="nav-text">第17行，read_times取多少合适？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-参考文献"><span class="nav-number">8.</span> <span class="nav-text">8.参考文献</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+        
+
+<div id="days"></div>
+<script>
+function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("07/19/2019 15:00:00");
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=setzero(Math.floor(e_hrsold));
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+    seconds=setzero(Math.floor((e_minsold-minsold)*60));
+    document.getElementById('days').innerHTML="(∩•̀ω•́)⊃--*⋆本站由米板1代搭建，已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i) {
+    if (i<10) {
+        i="0" + i
+    };
+    return i;
+}
+show_date_time();
+</script>
+
+
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">过气德国佬</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">118k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:47</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        <span>0%</span>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'iWuakuHkkRt5xT7Ct9cyj8nO-gzGzoHsz',
+    appKey: 'PAz23pDzHnucqRDkVMShMp5B',
+    placeholder: '(๑•̀ㅁ•́ฅ✧ 说点什么吧！',
+    avatar: '',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

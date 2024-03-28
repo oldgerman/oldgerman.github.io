@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="一个CS引脚控制两个MAX31865片选，spi速率8MHz正常使用">
+<meta name="keywords" content="esp8266">
+<meta property="og:type" content="article">
+<meta property="og:title" content="esp8266 spi设备共用CS">
+<meta property="og:url" content="http://yoursite.com/b85c9bb4/index.html">
+<meta property="og:site_name" content="OldGerman&#39;s Blog">
+<meta property="og:description" content="一个CS引脚控制两个MAX31865片选，spi速率8MHz正常使用">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/b85c9bb4/%E9%9D%9E%E9%97%A8.png">
+<meta property="og:image" content="http://yoursite.com/b85c9bb4/max31865sch.png">
+<meta property="og:image" content="http://yoursite.com/b85c9bb4/share_cs_pin-bb.png">
+<meta property="og:image" content="http://yoursite.com/b85c9bb4/share_one_cs_pin-sch.jpg">
+<meta property="og:image" content="http://yoursite.com/b85c9bb4/bb.JPG">
+<meta property="og:image" content="http://yoursite.com/b85c9bb4/Demo.jpg">
+<meta property="og:image" content="http://yoursite.com/b85c9bb4/20%E6%AC%A1.png">
+<meta property="og:image" content="http://yoursite.com/b85c9bb4/74HC138%E7%9C%9F%E5%80%BC%E8%A1%A8.PNG">
+<meta property="og:updated_time" content="2022-08-17T04:19:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="esp8266 spi设备共用CS">
+<meta name="twitter:description" content="一个CS引脚控制两个MAX31865片选，spi速率8MHz正常使用">
+<meta name="twitter:image" content="http://yoursite.com/b85c9bb4/%E9%9D%9E%E9%97%A8.png">
+  <link rel="canonical" href="http://yoursite.com/b85c9bb4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>esp8266 spi设备共用CS | OldGerman's Blog</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OldGerman's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Refuse to play tickets!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-阅读排名">
+      
+    
+
+    <a href="/rank" rel="section"><i class="menu-item-icon fa fa-fw fa-list"></i> <br>阅读排名</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/b85c9bb4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过气德国佬">
+      <meta itemprop="description" content="潮起潮落，云卷云舒">
+      <meta itemprop="image" content="/images/psa.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OldGerman's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">esp8266 spi设备共用CS
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-25 19:30:53" itemprop="dateCreated datePublished" datetime="2020-02-25T19:30:53+08:00">2020-02-25</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-17 12:19:47" itemprop="dateModified" datetime="2022-08-17T12:19:47+08:00">2022-08-17</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C-C/" itemprop="url" rel="index"><span itemprop="name">C/C++</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span id="/b85c9bb4/" class="post-meta-item leancloud_visitors" data-flag-title="esp8266 spi设备共用CS" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/b85c9bb4/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/b85c9bb4/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>5.5k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>5 分钟</span>
+            </span>
+          
+            <div class="post-description">一个CS引脚控制两个MAX31865片选，spi速率8MHz正常使用</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="1-非门电路"><a class="header-anchor" href="#1-非门电路"></a>1. 非门电路</h1>
+<p><img src="/b85c9bb4/%E9%9D%9E%E9%97%A8.png" alt></p>
+<p>这个很简单，不细说了哈</p>
+<h1 id="2-MAX31865"><a class="header-anchor" href="#2-MAX31865"></a>2. MAX31865</h1>
+<p>​	“<a href="https://datasheets.maximintegrated.com/en/ds/MAX31865.pdf" target="_blank" rel="noopener">MAX31865</a>是易于使用的电阻数字转换器，针对铂电阻温度检测器（RTD）进行了优化。外部电阻设置所用RTD的灵敏度，而精密Δ-ΣADC则可转换RTD电阻比。 MAX31865的输入具有高达Q45V的过压故障保护，并具有可编程检测RTD和电缆开路和短路情况的功能”</p>
+<div align="right">——来自datasheet</div>
+项目需要使用了两个Adafuit设计的MAX31865，同时Adafruit还提供了[Arduino library](https://github.com/adafruit/Adafruit_MAX31865) ，我们小改即可
+<p>Adafuit版本的原理图:</p>
+<p><img src="/b85c9bb4/max31865sch.png" alt></p>
+<h1 id="3-一个CS引脚控制两个MAX31865片选"><a class="header-anchor" href="#3-一个CS引脚控制两个MAX31865片选"></a>3. 一个CS引脚控制两个MAX31865片选</h1>
+<h2 id="理想电路"><a class="header-anchor" href="#理想电路"></a>理想电路</h2>
+<p>使用<a href="https://fritzing.org/" target="_blank" rel="noopener">Fritzing</a>绘制</p>
+<p><img src="/b85c9bb4/share_cs_pin-bb.png" alt></p>
+<p>PS：灵魂走线(小声bb)</p>
+<h2 id="原理图"><a class="header-anchor" href="#原理图"></a>原理图</h2>
+<p>也是用Fritzing整的</p>
+<p><img src="/b85c9bb4/share_one_cs_pin-sch.jpg" alt></p>
+<p>细心的读者会发现，该电路少了开篇非门电路的上拉电阻，因为Adafuit版本的原理图已经将CS上拉10k，所以这里可以省略😳</p>
+<p>PS：感觉没有Eagle顺手(小声bb)</p>
+<h2 id="实测电路"><a class="header-anchor" href="#实测电路"></a>实测电路</h2>
+<p><img src="/b85c9bb4/bb.JPG" alt="IMG_4563"></p>
+<p>为了更显情调，在D2引脚上加了一个💡串联一个510Ω接地，这样会随着D2(CS信号)变化Blink</p>
+<h3 id="为啥还有一个arduino？"><a class="header-anchor" href="#为啥还有一个arduino？"></a>为啥还有一个arduino？</h3>
+<p>arduino，引出的三条线:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">color</th>
+<th style="text-align:center">使用GPIO</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">红线</td>
+<td style="text-align:center">A0</td>
+<td style="text-align:center">测右边模块CS电平，对应下文Demo的MAX_02</td>
+</tr>
+<tr>
+<td style="text-align:center">绿线</td>
+<td style="text-align:center">A1</td>
+<td style="text-align:center">测左边模块CS电平，对应下文Demo的MAX_01</td>
+</tr>
+<tr>
+<td style="text-align:center">蓝线</td>
+<td style="text-align:center">A2</td>
+<td style="text-align:center">测D2(CS信号)变化电平，其实和绿线电平变化相同</td>
+</tr>
+</tbody>
+</table>
+<p>arduino当示波器用，虽然只有3k采样频率，但是总比没有好😅</p>
+<p>该示波器基于processing，使用Uno的A0-A3引脚，支持4通道，<a href="https://github.com/rogeriobego/oscilloscope-arduino-processing" target="_blank" rel="noopener">项目地址</a></p>
+<h1 id="4-修改库"><a class="header-anchor" href="#4-修改库"></a>4. 修改库</h1>
+<p>修改的行都上了注释，若太多原库代码的用&quot;…&quot;表示</p>
+<h2 id="Adafruit-MAX31865-h"><a class="header-anchor" href="#Adafruit-MAX31865-h"></a>Adafruit_MAX31865.h</h2>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> max31865_numwires &#123; </span><br><span class="line">  MAX31865_2WIRE = <span class="number">0</span>,</span><br><span class="line">  MAX31865_3WIRE = <span class="number">1</span>,</span><br><span class="line">  MAX31865_4WIRE = <span class="number">0</span>,</span><br><span class="line">  MAX31865_Double_one_cs_pin = <span class="number">2</span>	<span class="comment">//	添加此枚举常量便于修改Adafruit_MAX31865::begin()</span></span><br><span class="line">&#125; <span class="keyword">max31865_numwires_t</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Adafruit_MAX31865</span> &#123;</span></span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  ......</span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> trans;	<span class="comment">//  用于cs计数			</span></span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">bool</span> change_cs;		<span class="comment">//  是否改变片选</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  ......</span><br><span class="line"> &#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Adafruit-MAX31865-cpp"><a class="header-anchor" href="#Adafruit-MAX31865-cpp"></a>Adafruit_MAX31865.cpp</h2>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 以下代码在库文件包含后和成员函数定义前加入*/</span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> Adafruit_MAX31865::trans = <span class="number">0</span>;  <span class="comment">//  非负整形计数溢出时归零</span></span><br><span class="line"><span class="keyword">bool</span> Adafruit_MAX31865::change_cs = <span class="literal">false</span>;  <span class="comment">//  向Adafruit_MAX31865::begin()传入前三种枚举常量时不修改片选</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">Adafruit_MAX31865::begin</span><span class="params">(<span class="keyword">max31865_numwires_t</span> wires)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">pinMode</span>(_cs, <span class="literal">OUTPUT</span>);</span><br><span class="line">    <span class="keyword">if</span> (wires == MAX31865_Double_one_cs_pin)</span><br><span class="line">    &#123;</span><br><span class="line">        wires = MAX31865_4WIRE;</span><br><span class="line">        ++trans;	<span class="comment">//	首次为奇数</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//  trans为奇数时，片选MAX_01，偶数时片选MAX_02</span></span><br><span class="line">        <span class="keyword">if</span> (trans % <span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            change_cs = <span class="literal">true</span>;</span><br><span class="line">            <span class="built_in">Serial</span>.<span class="built_in">print</span>(<span class="string">"  MAX_02: "</span>);</span><br><span class="line">            <span class="built_in">digitalWrite</span>(_cs, <span class="literal">LOW</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            change_cs = <span class="literal">false</span>;</span><br><span class="line">            <span class="built_in">Serial</span>.<span class="built_in">print</span>(<span class="string">"MAX_01: "</span>);</span><br><span class="line">            <span class="built_in">digitalWrite</span>(_cs, <span class="literal">HIGH</span>);        <span class="comment">//  第一次必须上拉以执行SPI.begin();</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">digitalWrite</span>(_cs, <span class="literal">HIGH</span>);</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后将<code>Adafruit_MAX31865::readRegisterN()</code>和<code>Adafruit_MAX31865::writeRegister8()</code>的</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">digitalWrite</span>(_cs, <span class="literal">LOW</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">digitalWrite</span>(_cs, <span class="literal">HIGH</span>);</span><br></pre></td></tr></table></figure>
+<p>分别替换为：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(change_cs == <span class="literal">false</span>)  </span><br><span class="line">    <span class="built_in">digitalWrite</span>(_cs, <span class="literal">LOW</span>);</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">digitalWrite</span>(_cs, <span class="literal">HIGH</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(change_cs == <span class="literal">false</span>)</span><br><span class="line">    <span class="built_in">digitalWrite</span>(_cs, <span class="literal">HIGH</span>);</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">digitalWrite</span>(_cs, <span class="literal">LOW</span>);</span><br></pre></td></tr></table></figure>
+<h1 id="5-arduino-IDE程序"><a class="header-anchor" href="#5-arduino-IDE程序"></a>5. arduino IDE程序</h1>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 2020-02-25 OldGerman*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Adafruit_MAX31865.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> RREF      430.0   <span class="comment">/* Max31865参考电阻Rref值: pt100 430Ω, pt1000 4300Ω */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> RNOMINAL  100.0   <span class="comment">/* 零度时pt100电阻值校准, pt1000 为 1000.0 */</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Node MCU 1.0 pins connected to: */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX_CS   4    <span class="comment">/* D2 */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MISO     13   <span class="comment">/* D7 */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MOSI     12   <span class="comment">/* D6 */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SCLK     14   <span class="comment">/* D5 */</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 库的SPI总线速率为8MHz时 */</span></span><br><span class="line"><span class="keyword">int</span> chAverage = <span class="number">1</span>;  <span class="comment">//  示例默认测温采样一次，当采样次数为20时，2秒可读完20次求出平均值</span></span><br><span class="line">                    <span class="comment">//  单次读取时间100ms，远高于MAX31865寄存器最长读数更新时间21ms</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">float</span> <span class="title">maxAverageTemp</span><span class="params">(Adafruit_MAX31865)</span></span>;  <span class="comment">/* 测温滤波 */</span></span><br><span class="line"></span><br><span class="line">Adafruit_MAX31865 maxESP = Adafruit_MAX31865(MAX_CS, MISO, MOSI, SCLK);</span><br><span class="line"></span><br><span class="line"><span class="comment">//-------------------main function------------------</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">Serial</span>.<span class="built_in">begin</span>(<span class="number">115200</span>);</span><br><span class="line">  <span class="built_in">Serial</span>.<span class="built_in">println</span>();</span><br><span class="line">  <span class="built_in">Serial</span>.<span class="built_in">println</span>(<span class="string">"Double MAX31865 4 wire PT100 Sensor Test!"</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> tabline = <span class="literal">false</span>;</span><br><span class="line">  ++tabline;</span><br><span class="line">  maxESP.<span class="built_in">begin</span>(MAX31865_Double_one_cs_pin);  <span class="comment">//【单线双max模式，四线pt100】</span></span><br><span class="line">  <span class="built_in">Serial</span>.<span class="built_in">print</span>(maxAverageTemp(maxESP));</span><br><span class="line">  <span class="keyword">if</span>(tabline %<span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line">    <span class="built_in">Serial</span>.<span class="built_in">println</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//`测温滤波 - 多次采样计算平均数</span></span><br><span class="line"><span class="function"><span class="keyword">float</span> <span class="title">maxAverageTemp</span><span class="params">(Adafruit_MAX31865 _maxESP)</span></span>&#123;</span><br><span class="line">  <span class="keyword">float</span> averageTemp = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; chAverage; ++i)</span><br><span class="line">  &#123;</span><br><span class="line">    averageTemp += _maxESP.temperature(RNOMINAL, RREF);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> averageTemp /= chAverage;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="6-Demo"><a class="header-anchor" href="#6-Demo"></a>6. Demo</h1>
+<p><img src="/b85c9bb4/Demo.jpg" alt></p>
+<p>右侧为arduino示波器，红绿蓝三种电平变化对应上文提及的功能😃</p>
+<h1 id="7-关于修改过的库"><a class="header-anchor" href="#7-关于修改过的库"></a>7. 关于修改过的库</h1>
+<p><a href="https://pan.baidu.com/s/1yOlyttULokXw5qRa7LnT2Q" target="_blank" rel="noopener">度云链接   提取码：p9kl </a></p>
+<h2 id="8MHz总线速度测试正常"><a class="header-anchor" href="#8MHz总线速度测试正常"></a>8MHz总线速度测试正常</h2>
+<p>没有降低该库的spi速率，全文在提高到8MHz测试的</p>
+<h3 id="Adafruit-MAX31865-h-v2"><a class="header-anchor" href="#Adafruit-MAX31865-h-v2"></a>Adafruit_MAX31865.h</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> SPISettings max31865_spisettings = SPISettings(<span class="number">8000000</span><span class="comment">/*&lt;--Dual_MAX_one_CS_pin_8000,000测试没问题/*之前:500000*/</span>, MSBFIRST, SPI_MODE1);	<span class="comment">//	https://www.arduino.cc/en/Reference/SPISettings</span></span><br></pre></td></tr></table></figure>
+<h2 id="优化Adafruit-MAX31865-readRTD-，避免看门狗复位"><a class="header-anchor" href="#优化Adafruit-MAX31865-readRTD-，避免看门狗复位"></a>优化Adafruit_MAX31865::readRTD()，避免看门狗复位</h2>
+<p>另外，我还修改了该库，可在Adafruit_MAX31865.h中选择禁用Adafruit_MAX31865::readRTD()所有的delay()，用milis()和yield()代替，关键代码如下：</p>
+<h3 id="Adafruit-MAX31865-h-v3"><a class="header-anchor" href="#Adafruit-MAX31865-h-v3"></a>Adafruit_MAX31865.h</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  add by oldgerman 20200115</span></span><br><span class="line"><span class="comment">//  使用milis()配合yield()代替readRTD()函数内部的delay()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NODELAY                             <span class="comment">//  若注释掉，使用delay()</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> NODELAY</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">unsigned</span> <span class="keyword">long</span> previousMillis = <span class="number">0</span>;    <span class="comment">// will store last time rtd was updated</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="Adafruit-MAX31865-cpp-v2"><a class="header-anchor" href="#Adafruit-MAX31865-cpp-v2"></a>Adafruit_MAX31865.cpp</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">uint16_t</span> <span class="title">Adafruit_MAX31865::readRTD</span> <span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    clearFault();</span><br><span class="line">    enableBias(<span class="literal">true</span>);</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">uint16_t</span> rtd;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> NODELAY</span></span><br><span class="line">    <span class="built_in">delay</span>(<span class="number">10</span>);</span><br><span class="line">    <span class="keyword">uint8_t</span> t = readRegister8(MAX31856_CONFIG_REG);</span><br><span class="line">    t |= MAX31856_CONFIG_1SHOT;      </span><br><span class="line">    writeRegister8(MAX31856_CONFIG_REG, t);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">delay</span>(<span class="number">65</span>);</span><br><span class="line">    rtd = readRegister16(MAX31856_RTDMSB_REG);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// remove fault</span></span><br><span class="line">    rtd &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> rtd; </span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">elif</span> defined NODELAY</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">long</span> currentMillis_1 = <span class="built_in">millis</span>();</span><br><span class="line">        <span class="comment">//Serial.println("currentMillis_1  = ");	Serial.print(currentMillis_1);	Serial.println();</span></span><br><span class="line">        <span class="keyword">if</span>(currentMillis_1 - previousMillis &gt;= <span class="number">10</span>) </span><br><span class="line">        &#123;</span><br><span class="line">            previousMillis = currentMillis_1;</span><br><span class="line">            <span class="keyword">uint8_t</span> t = readRegister8(MAX31856_CONFIG_REG);</span><br><span class="line">            t |= MAX31856_CONFIG_1SHOT;      </span><br><span class="line">            writeRegister8(MAX31856_CONFIG_REG, t);</span><br><span class="line">            <span class="keyword">while</span>(<span class="literal">true</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">unsigned</span> <span class="keyword">long</span> currentMillis_2 = <span class="built_in">millis</span>();</span><br><span class="line">                <span class="comment">//Serial.println("currentMillis_2  = ");	Serial.print(currentMillis_2);	Serial.println();</span></span><br><span class="line">                <span class="keyword">if</span> (currentMillis_2 -  previousMillis &gt;= <span class="number">65</span>) </span><br><span class="line">                &#123;</span><br><span class="line">                    previousMillis = currentMillis_2;</span><br><span class="line">                    rtd = readRegister16(MAX31856_RTDMSB_REG);</span><br><span class="line">                    <span class="comment">// remove fault</span></span><br><span class="line">                    rtd &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">                    <span class="keyword">return</span> rtd;</span><br><span class="line">                &#125;</span><br><span class="line">                    <span class="built_in">yield</span>();	<span class="comment">//	第一次</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">yield</span>();	<span class="comment">//	第二次</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="yield-简单介绍-来自Sparkfun"><a class="header-anchor" href="#yield-简单介绍-来自Sparkfun"></a>yield()简单介绍 - - 来自Sparkfun</h4>
+<p>由ESP8266 Arduino库的创造者实现，该函数调用后台函数以允许他们执行其任务。</p>
+<p>例如，如果您的草图正在等待某人按下连接到引脚12的按钮，则这样的循环将使ESP8266不会崩溃：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">pinMode</span>(<span class="number">12</span>, <span class="literal">INPUT_PULLUP</span>); <span class="comment">// Set pin 12 as an input w/ pull-up</span></span><br><span class="line"><span class="keyword">while</span> (<span class="built_in">digitalRead</span>(<span class="number">12</span>) == <span class="literal">HIGH</span>) <span class="comment">// While pin 12 is HIGH (not activated)</span></span><br><span class="line">    <span class="built_in">yield</span>(); <span class="comment">// Do (almost) nothing -- yield to allow ESP8266 background functions</span></span><br><span class="line"><span class="built_in">Serial</span>.<span class="built_in">println</span>(<span class="string">"Button is pressed!"</span>); <span class="comment">// Print button pressed message.</span></span><br></pre></td></tr></table></figure>
+<p>实测，禁用delay()后，我在上文中的maxAverageTemp()采样可以提高到20次以上，而不会使看门狗复位，(原先5次以上就很容易复位)😳</p>
+<p>最后来个单CS读两个MAX31865每一次采样20次的波形😄</p>
+<p><img src="/b85c9bb4/20%E6%AC%A1.png" alt></p>
+<h1 id="8-后记"><a class="header-anchor" href="#8-后记"></a>8.后记</h1>
+<h2 id="74HC138-复用CS"><a class="header-anchor" href="#74HC138-复用CS"></a>74HC138 复用CS</h2>
+<p>如法炮制，可以用cmos器件74HC138实现3个CS引脚片选8个spi设备</p>
+<p><a href="https://baike.baidu.com/item/74HC138/5574130?ivk_sa=1022817p" target="_blank" rel="noopener">以下来自百度百科：</a></p>
+<p>74HC138译码器可接受3位二进制加权地址输入（A0, A1和A2）</p>
+<p>当使能时，<strong>提供8个互斥的低有效输出</strong>（Y0至Y7），简直太合适了有木有😂</p>
+<p><img src="/b85c9bb4/74HC138%E7%9C%9F%E5%80%BC%E8%A1%A8.PNG" alt></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/esp8266/" rel="tag"># esp8266</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/6c57f882/" rel="next" title="hexo 博客如何写出彩色字体，能实时预览的那种？">
+                  <i class="fa fa-chevron-left"></i> hexo 博客如何写出彩色字体，能实时预览的那种？
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/65fdcd15/" rel="prev" title="OptoTriac V2.0 固态继电器电路设计">
+                  OptoTriac V2.0 固态继电器电路设计 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/psa.jpg"
+      alt="过气德国佬">
+  <p class="site-author-name" itemprop="name">过气德国佬</p>
+  <div class="site-description motion-element" itemprop="description">潮起潮落，云卷云舒</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/oldgerman" title="GitHub &rarr; https://github.com/oldgerman" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:2920956602@qq.com" title="E-Mail &rarr; mailto:2920956602@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-非门电路"><span class="nav-number">1.</span> <span class="nav-text">1. 非门电路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-MAX31865"><span class="nav-number">2.</span> <span class="nav-text">2. MAX31865</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-一个CS引脚控制两个MAX31865片选"><span class="nav-number">3.</span> <span class="nav-text">3. 一个CS引脚控制两个MAX31865片选</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#理想电路"><span class="nav-number">3.1.</span> <span class="nav-text">理想电路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原理图"><span class="nav-number">3.2.</span> <span class="nav-text">原理图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实测电路"><span class="nav-number">3.3.</span> <span class="nav-text">实测电路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为啥还有一个arduino？"><span class="nav-number">3.3.1.</span> <span class="nav-text">为啥还有一个arduino？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-修改库"><span class="nav-number">4.</span> <span class="nav-text">4. 修改库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Adafruit-MAX31865-h"><span class="nav-number">4.1.</span> <span class="nav-text">Adafruit_MAX31865.h</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Adafruit-MAX31865-cpp"><span class="nav-number">4.2.</span> <span class="nav-text">Adafruit_MAX31865.cpp</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-arduino-IDE程序"><span class="nav-number">5.</span> <span class="nav-text">5. arduino IDE程序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-Demo"><span class="nav-number">6.</span> <span class="nav-text">6. Demo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-关于修改过的库"><span class="nav-number">7.</span> <span class="nav-text">7. 关于修改过的库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#8MHz总线速度测试正常"><span class="nav-number">7.1.</span> <span class="nav-text">8MHz总线速度测试正常</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Adafruit-MAX31865-h-v2"><span class="nav-number">7.1.1.</span> <span class="nav-text">Adafruit_MAX31865.h</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化Adafruit-MAX31865-readRTD-，避免看门狗复位"><span class="nav-number">7.2.</span> <span class="nav-text">优化Adafruit_MAX31865::readRTD()，避免看门狗复位</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Adafruit-MAX31865-h-v3"><span class="nav-number">7.2.1.</span> <span class="nav-text">Adafruit_MAX31865.h</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Adafruit-MAX31865-cpp-v2"><span class="nav-number">7.2.2.</span> <span class="nav-text">Adafruit_MAX31865.cpp</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#yield-简单介绍-来自Sparkfun"><span class="nav-number">7.2.2.1.</span> <span class="nav-text">yield()简单介绍 - - 来自Sparkfun</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-后记"><span class="nav-number">8.</span> <span class="nav-text">8.后记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#74HC138-复用CS"><span class="nav-number">8.1.</span> <span class="nav-text">74HC138 复用CS</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+        
+
+<div id="days"></div>
+<script>
+function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("07/19/2019 15:00:00");
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=setzero(Math.floor(e_hrsold));
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+    seconds=setzero(Math.floor((e_minsold-minsold)*60));
+    document.getElementById('days').innerHTML="(∩•̀ω•́)⊃--*⋆本站由米板1代搭建，已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i) {
+    if (i<10) {
+        i="0" + i
+    };
+    return i;
+}
+show_date_time();
+</script>
+
+
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">过气德国佬</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">118k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:47</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        <span>0%</span>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'iWuakuHkkRt5xT7Ct9cyj8nO-gzGzoHsz',
+    appKey: 'PAz23pDzHnucqRDkVMShMp5B',
+    placeholder: '(๑•̀ㅁ•́ฅ✧ 说点什么吧！',
+    avatar: '',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

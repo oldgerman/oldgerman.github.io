@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="设计一块USB-C的stm32最小系统板，其名为“DarkPill”，记录在Arduino环境使用STM32duino-bootloader以及Keil MDK环境使用的坑">
+<meta name="keywords" content="type-c,stm32">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DarkPill使用非8MHz晶振">
+<meta property="og:url" content="http://yoursite.com/201e530f/index.html">
+<meta property="og:site_name" content="OldGerman&#39;s Blog">
+<meta property="og:description" content="设计一块USB-C的stm32最小系统板，其名为“DarkPill”，记录在Arduino环境使用STM32duino-bootloader以及Keil MDK环境使用的坑">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/201e530f/title.png">
+<meta property="og:image" content="http://yoursite.com/201e530f/boot-mode.png">
+<meta property="og:image" content="http://yoursite.com/201e530f/f103_datasheet_page1.jpg">
+<meta property="og:image" content="http://yoursite.com/201e530f/HSE_PLL_USBCLK.png">
+<meta property="og:image" content="http://yoursite.com/201e530f/cmd.jpg">
+<meta property="og:image" content="http://yoursite.com/201e530f/Maple-DFU.png">
+<meta property="og:image" content="http://yoursite.com/201e530f/install_drivers.bat.png">
+<meta property="og:image" content="http://yoursite.com/201e530f/install_STM_COM_drivers.bat.png">
+<meta property="og:image" content="http://yoursite.com/201e530f/Maple-NON-COM.png">
+<meta property="og:image" content="http://yoursite.com/201e530f/Maple-COM.png">
+<meta property="og:image" content="http://yoursite.com/201e530f/20200810210153.png">
+<meta property="og:image" content="http://yoursite.com/201e530f/board.h__generic_stm32f103c.png">
+<meta property="og:image" content="http://yoursite.com/201e530f/20200810210123.png">
+<meta property="og:image" content="http://yoursite.com/201e530f/boards_setup.cpp.png">
+<meta property="og:image" content="http://yoursite.com/201e530f/buildf_cpu(1).png">
+<meta property="og:image" content="http://yoursite.com/201e530f/buildf_cpu(2).png">
+<meta property="og:image" content="http://yoursite.com/201e530f/boards.h_change_PLL.png">
+<meta property="og:image" content="http://yoursite.com/201e530f/BLINK_TEST(1).png">
+<meta property="og:image" content="http://yoursite.com/201e530f/BLINK_TEST(3).png">
+<meta property="og:image" content="http://yoursite.com/201e530f/BLINK_TEST(2).png">
+<meta property="og:image" content="http://yoursite.com/201e530f/non-ASM.png">
+<meta property="og:image" content="http://yoursite.com/201e530f/20200811231112.png">
+<meta property="og:image" content="http://yoursite.com/201e530f/PB5_Blink_gif_320x181_3s.gif">
+<meta property="og:image" content="http://yoursite.com/201e530f/20200813153820.png">
+<meta property="og:image" content="http://yoursite.com/201e530f/20200813151751.png">
+<meta property="og:image" content="http://yoursite.com/201e530f/make_and_arm_tool_chain.png">
+<meta property="og:image" content="http://yoursite.com/201e530f/error.png">
+<meta property="og:image" content="http://yoursite.com/201e530f/config.png">
+<meta property="og:image" content="http://yoursite.com/201e530f/0kb.png">
+<meta property="og:image" content="http://yoursite.com/201e530f/make-all.png">
+<meta property="og:image" content="http://yoursite.com/201e530f/make-generic-pc13.png">
+<meta property="og:image" content="http://yoursite.com/201e530f/8kb.png">
+<meta property="og:image" content="http://yoursite.com/201e530f/setupCLK.png">
+<meta property="og:image" content="http://yoursite.com/201e530f/USBCLK.png">
+<meta property="og:image" content="http://yoursite.com/201e530f/config_add.png">
+<meta property="og:updated_time" content="2022-08-17T04:19:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DarkPill使用非8MHz晶振">
+<meta name="twitter:description" content="设计一块USB-C的stm32最小系统板，其名为“DarkPill”，记录在Arduino环境使用STM32duino-bootloader以及Keil MDK环境使用的坑">
+<meta name="twitter:image" content="http://yoursite.com/201e530f/title.png">
+  <link rel="canonical" href="http://yoursite.com/201e530f/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>DarkPill使用非8MHz晶振 | OldGerman's Blog</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OldGerman's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Refuse to play tickets!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-阅读排名">
+      
+    
+
+    <a href="/rank" rel="section"><i class="menu-item-icon fa fa-fw fa-list"></i> <br>阅读排名</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/201e530f/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过气德国佬">
+      <meta itemprop="description" content="潮起潮落，云卷云舒">
+      <meta itemprop="image" content="/images/psa.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OldGerman's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">DarkPill使用非8MHz晶振
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-08-14 20:31:19" itemprop="dateCreated datePublished" datetime="2020-08-14T20:31:19+08:00">2020-08-14</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-17 12:19:47" itemprop="dateModified" datetime="2022-08-17T12:19:47+08:00">2022-08-17</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PCB设计/" itemprop="url" rel="index"><span itemprop="name">PCB设计</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span id="/201e530f/" class="post-meta-item leancloud_visitors" data-flag-title="DarkPill使用非8MHz晶振" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/201e530f/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/201e530f/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>6k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>5 分钟</span>
+            </span>
+          
+            <div class="post-description">设计一块USB-C的stm32最小系统板，其名为“DarkPill”，记录在Arduino环境使用STM32duino-bootloader以及Keil MDK环境使用的坑</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="/201e530f/title.png" alt="title"></p>
+<p><a href="https://github.com/oldgerman/DarkPill" target="_blank" rel="noopener">DarkPill开发板github项目地址</a></p>
+<h2 id="预备知识"><a class="header-anchor" href="#预备知识"></a>预备知识</h2>
+<p><a href="https://www.stmcu.org.cn/document/detail/index/id-200272" target="_blank" rel="noopener">RM0008 - STM32F10x参考手册-中文</a></p>
+<h3 id="STM32的启动模式"><a class="header-anchor" href="#STM32的启动模式"></a>STM32的启动模式</h3>
+<p>RM0008：P33</p>
+<p><img src="/201e530f/boot-mode.png" alt="boot-mode"></p>
+<h4 id="DarkPill的BOOT0，BOOT1，Reset"><a class="header-anchor" href="#DarkPill的BOOT0，BOOT1，Reset"></a>DarkPill的BOOT0，BOOT1，Reset</h4>
+<p>DarkPill的BOOT0默认下拉，按下开关为高电平，BOOT1为串100K悬空(悬空是低电平)，Reset默认上拉，按下开关复位</p>
+<h3 id="STM32的刷机方式"><a class="header-anchor" href="#STM32的刷机方式"></a>STM32的刷机方式</h3>
+<p>三种最常用的：</p>
+<h4 id="串口芯片刷机"><a class="header-anchor" href="#串口芯片刷机"></a>串口芯片刷机</h4>
+<p>RM0008： P60</p>
+<p>“The values on the BOOT pins are lated on the 4th rising edge of SYSCLK after a reset（复位后，BOOT0引脚和nBOOT1位上的值在SYSCLK的第4个上升沿被锁存）”</p>
+<p><a href="https://blog.csdn.net/qq_29545231/article/details/77915544" target="_blank" rel="noopener">STM32用CH340下载程序的方法</a></p>
+<h4 id="SWD刷机"><a class="header-anchor" href="#SWD刷机"></a>SWD刷机</h4>
+<p>SWD接口直接连接Cortex-M3内核，无需复位操作，直接接上ST-LINK烧录</p>
+<h4 id="DFU刷机"><a class="header-anchor" href="#DFU刷机"></a>DFU刷机</h4>
+<p><a href="#DFU%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%BC%8F">DFU的两种编程模式</a></p>
+<h3 id="外部高速晶振-HSE-与USB总线时钟"><a class="header-anchor" href="#外部高速晶振-HSE-与USB总线时钟"></a>外部高速晶振(HSE)与USB总线时钟</h3>
+<p>P1:</p>
+<p><img src="/201e530f/f103_datasheet_page1.jpg" alt="f103_datasheet_page1"></p>
+<p>P12:</p>
+<p><img src="/201e530f/HSE_PLL_USBCLK.png" alt="HSE_PLL_USBCLK"></p>
+<p>stm32f103支持晶振频率的范围为4-16Mhz的任意整数，要使USBCLK正常工作在48MHz，必须要使能HSE(外部高速时钟)和PLL，根据时钟树的顺序，可以得出下表，可见只要主频SYSCLK一样USB时钟频率就一样，72MHz主频下使用不同晶振只需修改PLL倍数(PLLMUL)</p>
+<table>
+<thead>
+<tr>
+<th>HSE频率(MHz)</th>
+<th>PLLMUL</th>
+<th>SYCLK(MHz)</th>
+<th>2xPLLCLK</th>
+<th>USB预分频器</th>
+<th>USB时钟频率(MHz)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8</td>
+<td>x9</td>
+<td>72</td>
+<td>144</td>
+<td>/3</td>
+<td>48</td>
+</tr>
+<tr>
+<td>12</td>
+<td>x6</td>
+<td>72</td>
+<td>144</td>
+<td>/3</td>
+<td>48</td>
+</tr>
+<tr>
+<td>16</td>
+<td>x4</td>
+<td>72</td>
+<td>144</td>
+<td>/3</td>
+<td>48</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://d1.amobbs.com/bbs_upload782111/files_46/ourdev_687013TGMATN.pdf" target="_blank" rel="noopener">STM32的时钟树.pdf</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/23805341" target="_blank" rel="noopener">RCC时钟配置实践</a></p>
+<h3 id="DFU的两种编程模式"><a class="header-anchor" href="#DFU的两种编程模式"></a>DFU的两种编程模式</h3>
+<p><strong>关键词：</strong> ISP模式，IAP模式，自举驱动程序</p>
+<p>“对于STM32F1系列，只有互联型子系列STM32 F105/STM32F107支持通过DFU方式实现ISP编程， 所谓ISP模式就是指MCU芯片出厂时内部已集成了DFU相关自举驱动代码，利用它并借助USB接口即可将用户应用程序下载进芯片。而其它STM32F1芯片即使带USB模块，若想利用DFU方式编程就只能自行编写DFU自举驱动，即通过IAP模式实现用户程序的下载或升级…” 👉 <a href="https://blog.csdn.net/zhjmyx/article/details/53056351" target="_blank" rel="noopener">原文轻戳</a></p>
+<h2 id="在Aduino-IDE下使用"><a class="header-anchor" href="#在Aduino-IDE下使用"></a>在Aduino IDE下使用</h2>
+<h3 id="Arduino-STM32"><a class="header-anchor" href="#Arduino-STM32"></a>Arduino_STM32</h3>
+<p><a href="https://github.com/rogerclarkmelbourne/Arduino_STM32" target="_blank" rel="noopener">github地址</a></p>
+<p>按照<a href="https://github.com/rogerclarkmelbourne/Arduino_STM32/wiki" target="_blank" rel="noopener">wiki</a>里的<a href="https://github.com/rogerclarkmelbourne/Arduino_STM32/wiki/Installation" target="_blank" rel="noopener">Installation</a>步骤（下载安装开发板包，安装Due开发板以间接安装g++工具链）</p>
+<p>arduino环境支持的三种常见的烧录方式已经在DarkPill的README.md中演示</p>
+<p>我们来说说使用stm32duino-bootloader实现USB-C烧录F103：</p>
+<h3 id="STM32duino-bootloader"><a class="header-anchor" href="#STM32duino-bootloader"></a>STM32duino-bootloader</h3>
+<p><a href="https://github.com/rogerclarkmelbourne/STM32duino-bootloader" target="_blank" rel="noopener">github地址</a></p>
+<p>作者是<span style="color:BlueViolet;">罗杰·克拉克</span>(澳洲)，他将<a href="https://github.com/leaflabs/maple-bootloader" target="_blank" rel="noopener">maple-bootloader</a>改良，让更多的F103开发板能以IAP模式实现DFU烧录程序，这么好的东西DarkPill是不是可以直接用呢？但经过测试发现，他老人家仓库里编译的二进制文件仅适用于板载8MHz晶振的F103，而我的目前DarkPill板载是3225 12Mhz晶振（大真空3225 8Mhz晶振刚下单，逃）</p>
+<h4 id="烧录stm32duino-bootloader"><a class="header-anchor" href="#烧录stm32duino-bootloader"></a>烧录stm32duino-bootloader</h4>
+<h5 id="连接"><a class="header-anchor" href="#连接"></a>连接</h5>
+<table>
+<thead>
+<tr>
+<th>ch340/FT232</th>
+<th>stm32f103</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RX</td>
+<td>PA9</td>
+</tr>
+<tr>
+<td>TX</td>
+<td>PA10</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND</td>
+</tr>
+</tbody>
+</table>
+<h5 id="烧录"><a class="header-anchor" href="#烧录"></a>烧录</h5>
+<p>烧录的STM32duino-bootloader与3225晶振频率的对应表：</p>
+<table>
+<thead>
+<tr>
+<th>HSE</th>
+<th>bin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8MHz</td>
+<td>generic_boot20_pc13.bin<b>or generic_boot20_pc13_8MHz.bin</b></td>
+</tr>
+<tr>
+<td>12MHz</td>
+<td>generic_boot20_pc13_12MHz.bin</td>
+</tr>
+<tr>
+<td>16MHz</td>
+<td>generic_boot20_pc13_16MHz.bin</td>
+</tr>
+</tbody>
+</table>
+<p>以上bootloader文件在DarkPill github仓库的“STM32duino-bootloader for DarkPill”文件夹里，如何编译请看<a href="#%E8%A7%A3%E5%86%B3stm32duino-bootloader%E6%99%B6%E6%8C%AF%E9%A2%91%E7%8E%87%E4%B8%8D%E5%8C%B9%E9%85%8D">解决stm32duino-bootloader晶振频率不匹配</a></p>
+<p>将正确的bootloader复制到<strong>arduino-1.8.10\hardware\Arduino_STM32\tools\win</strong>的目录下，在这个目录有<strong>stm32flash.exe</strong>烧写工具，我们接下来要使用它</p>
+<p>在目录栏直接输入<code>cmd</code> 回车唤出黑白命令框</p>
+<p><img src="/201e530f/cmd.jpg" alt="20200814010947"></p>
+<p>执行<code>stm32flash.exe -w generic_boot20_pc13.bin -v -g 0x0 COM23</code></p>
+<p>注：上方命令最后的COM后的数字取决于你串口烧录器的端口号</p>
+<p>使用CH340正常烧录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">D:\arduino-1.8.10\hardware\Arduino_STM32\tools\win&gt;stm32flash.exe -w generic_boot20_pc13.bin -v -g 0x0 COM23</span><br><span class="line">stm32flash 0.4</span><br><span class="line"></span><br><span class="line">http://stm32flash.googlecode.com/</span><br><span class="line"></span><br><span class="line">Using Parser : Raw BINARY</span><br><span class="line">Interface serial_w32: 57600 8E1</span><br><span class="line">Version      : 0x22</span><br><span class="line">Option 1     : 0x00</span><br><span class="line">Option 2     : 0x00</span><br><span class="line">Device ID    : 0x0410 (Medium-density)</span><br><span class="line">- RAM        : 20KiB  (512b reserved by bootloader)</span><br><span class="line">- Flash      : 128KiB (sector size: 4x1024)</span><br><span class="line">- Option RAM : 16b</span><br><span class="line">- System RAM : 2KiB</span><br><span class="line">Write to memory</span><br><span class="line">Erasing memory</span><br><span class="line">Wrote and verified address 0x080056fc (100.00%) Done.</span><br><span class="line"></span><br><span class="line">Starting execution at address 0x08000000... <span class="keyword">done</span>.</span><br></pre></td></tr></table></figure>
+<p>烧录后，需要按一次reset，会执行stm32duino-bootloader自带的例程：PC13的LED飞速闪烁几下</p>
+<p>打开设备和管理器，可以看到Maple DFU:</p>
+<p><img src="/201e530f/Maple-DFU.png" alt="20200814010947"></p>
+<p>但它还没有被win10识别为COM端口，所以还要安装驱动程序，到<strong>arduino-1.8.10\hardware\Arduino_STM32\drivers\win</strong>目录下，以管理员身份先后运行install_drivers.bat和install_STM_COM_drivers.bat批处理程序，等待驱动安装，提示如下：</p>
+<table>
+<thead>
+<tr>
+<th>install_drivers.bat</th>
+<th>install_STM_COM_drivers.bat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/201e530f/install_drivers.bat.png" alt="install_drivers.bat"></td>
+<td><img src="/201e530f/install_STM_COM_drivers.bat.png" alt="install_STM_COM_drivers.bat"></td>
+</tr>
+</tbody>
+</table>
+<p>之后，你发现安装完成后STM32F103还是没有被识别为COM号，所以请继续：</p>
+<p>打开arduino ide，选择一个基础例程程序，在COM为灰色的情况下上传，ide会自动识别Maple DFU</p>
+<p><img src="/201e530f/Maple-NON-COM.png" alt="20200814230533"></p>
+<p>然后下次就能正常识别为COM了</p>
+<p><img src="/201e530f/Maple-COM.png" alt="20200814011155"></p>
+<h3 id="若晶振频率不匹配"><a class="header-anchor" href="#若晶振频率不匹配"></a>若晶振频率不匹配</h3>
+<p>Arduino IDE默认的Generic STM32FC series的Crystal默认是8Mhz，如果Darkpill的HSE为12MHz或16MHz，那么Blink程序闪烁速度会比8Mhz快，串口波特率也同理(会收不到信息或者乱码)，所以，需要修改开发包里的HSE或者PLL的值</p>
+<p><span style="color:#FF0000;">那么，我们开始找吧！</span></p>
+<p>在Arduino_STM32\STM32F1\core\maple下的boards.h文件里有以下两行代码：</p>
+<p><img src="/201e530f/20200810210153.png" alt="20200810210153"></p>
+<p>即：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CLOCK_SPEED_MHZ		CYCLES_PER_MICROSECOND</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CLOCK_SPEED_HZ		(CLOCK_SPEED_MHZ * 1000000UL)</span></span><br></pre></td></tr></table></figure>
+<p>那么我们在boards.h文件文件包含的头文件里找找CYCLES_PER_MICROSECOND这个宏</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;libmaple/libmaple_types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;wirish_types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;board/board.h&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>找了一圈，锁定了board.h文件(注意与boards.h不同)，board.h文件有很多个，找到在开发板管理器里选用的gerneric_stmf103c的board.h打开：</p>
+<p><img src="/201e530f/board.h__generic_stm32f103c.png" alt="board.h__generic_stm32f103c"></p>
+<p>打开后，文件里有以下一行代码：</p>
+<p><img src="/201e530f/20200810210123.png" alt="20200810210123"></p>
+<p>可见CYCLES_PER_MICROSECOND由F_CPU定义，我们再去找F_CPU，然鹅，board.h没有包含头文件，我们到其根目录去找找：</p>
+<p>在Arduino_STM32、STM32F1\variants\generic_stm32f103c\wirish的boards_setup.cpp里找到了处理F_CPU的宏，可见50到64行代码是根据预设的F_CPU的值来定义PLL倍频值，与常见的先定义倍频再定义主频相反😳</p>
+<p><img src="/201e530f/boards_setup.cpp.png" alt="boards_setup.cpp"></p>
+<p>那么在到他包含的头文件里找。。。。</p>
+<p>算了看看这个issue：<a href="https://github.com/stm32duino/Arduino_Core_STM32/issues/612" target="_blank" rel="noopener">F_CPU在什么时候定义？</a>，这个issue也不是，它是<a href="https://github.com/stm32duino/Arduino_Core_STM32" target="_blank" rel="noopener">Arduino_Core_STM32</a>的F_CPU</p>
+<p>我们直接到STM32duino的仓库找吧，下面是F1和F4的，在一个txt文件里定义，估计是脚本程序运行的，知识的盲区😳</p>
+<p><img src="/201e530f/buildf_cpu(1).png" alt="buildf_cpu(1)"></p>
+<p><img src="/201e530f/buildf_cpu(2).png" alt="buildf_cpu(2)"></p>
+<p>既然这样，直接把72MHz PLL的倍频改为12MHz下的倍数不就行了😢</p>
+<p>还是打开STM32F1\variants\generic_stm32f103c\wirish的boards_setup.cpp文件，修改为6即可：</p>
+<p><img src="/201e530f/boards.h_change_PLL.png" alt="boards.h_change_PLL"></p>
+<p>测试5秒的Blink程序修改前后对比，修改后正常了，串口也正常了</p>
+<table>
+    <tr>
+    	<td width="33%"><img src="/201e530f/BLINK_TEST(1).png"></td>
+    	<td width="33%"><img src="/201e530f/BLINK_TEST(3).png"></td>
+    	<td width="33%"><img src="/201e530f/BLINK_TEST(2).png"></td>
+    </tr>
+</table>
+<h2 id="在Keil-MDK环境下使用"><a class="header-anchor" href="#在Keil-MDK环境下使用"></a>在Keil MDK环境下使用</h2>
+<p>下载最新版的MDK5.31</p>
+<p>下载对应stm32系列的<a href="https://www.keil.com/dd2/pack/#/eula-container" target="_blank" rel="noopener">MDK5 Software Packs</a>包</p>
+<p><a href="https://www.cnblogs.com/armfly/p/12564643.html" target="_blank" rel="noopener">MDK5.29，5.30，5.31和各种软件包镜像下载（2020-07-03）</a></p>
+<h3 id="配置MDK工程模板"><a class="header-anchor" href="#配置MDK工程模板"></a>配置MDK工程模板</h3>
+<p><a href="https://www.bilibili.com/video/BV1kx411k7JT?p=8" target="_blank" rel="noopener">教程：正点原子手把手教你学STM32：第10集</a></p>
+<h3 id="配置过程中与视频中正点原子战舰的区别"><a class="header-anchor" href="#配置过程中与视频中正点原子战舰的区别"></a>配置过程中与视频中正点原子战舰的区别</h3>
+<p><a href="https://blog.csdn.net/hitxiaya/article/details/7440496" target="_blank" rel="noopener">STM32：LD、MD、HD 的区别</a></p>
+<p>DarlPill使用F103C8T6，战舰使用F103ZET6，工程模板仅仅芯片闪存MD与HD的区别，有以下两处：</p>
+<h4 id="启动文件"><a class="header-anchor" href="#启动文件"></a>启动文件</h4>
+<p>F103C8T6使用<code>startup_stm32f10x_md.s</code><br>
+F103ZET6使用<code>startup_stm32f10x_hd.s</code></p>
+<h4 id="全局宏定义"><a class="header-anchor" href="#全局宏定义"></a>全局宏定义</h4>
+<p>Option for target的C/C++栏里的preprocesor symbols的define：</p>
+<p>F103C8T6使用<code>STM32F10X_MD,USE_STDPERIPH_DRIVER</code><br>
+F103ZET6使用<code>STM32F10X_HD,USE_STDPERIPH_DRIVER</code></p>
+<h3 id="首次编译问题"><a class="header-anchor" href="#首次编译问题"></a>首次编译问题</h3>
+<p>按照原子哥的教程配置好工程模板后，编译，最前面前几句报错：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">../CORE/core_cm3.c(445): error: non-ASM statement <span class="keyword">in</span> naked <span class="keyword">function</span> is not supported</span><br><span class="line">  uint32_t result=0;</span><br><span class="line">  。。。。。。(后面还有一长串错误不用看了)</span><br></pre></td></tr></table></figure>
+<p>问题解决：</p>
+<p><img src="/201e530f/non-ASM.png" alt="20200811222427"></p>
+<p>修改后，再次编译没问题了：&quot;…\OBJ\Temp.axf&quot; - 0 Error(s), 0 Warning(s).✅</p>
+<p>编译视频最后的原子哥的闪烁程序，用FlyMCU上传，第0~5部步骤如下：</p>
+<p><img src="/201e530f/20200811231112.png" alt="20200811231112"></p>
+<p>上图第5步后，FLyMCU会显示开始连接，这时，按住boot0不放，按一次Reset，FlyMCU会上传，测试OK（我用D1 mini的CH340上传的）</p>
+<p><img src="/201e530f/PB5_Blink_gif_320x181_3s.gif" alt></p>
+<p>如果没有在OBJ目录找到编译生成的hex文件，看看视频里勾选生成hex那步是不是忘了</p>
+<h3 id="晶振及倍频修改"><a class="header-anchor" href="#晶振及倍频修改"></a>晶振及倍频修改</h3>
+<h4 id="STM32系列修改外部晶振以及代码的修改"><a class="header-anchor" href="#STM32系列修改外部晶振以及代码的修改"></a><a href="https://blog.csdn.net/qq_26039331/article/details/78751047?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-9.channel_param&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-9.channel_param" target="_blank" rel="noopener">STM32系列修改外部晶振以及代码的修改</a></h4>
+<h2 id="解决stm32duino-bootloader晶振频率不匹配"><a class="header-anchor" href="#解决stm32duino-bootloader晶振频率不匹配"></a>解决stm32duino-bootloader晶振频率不匹配</h2>
+<p>折腾了好久，发现烧录了maple mini bootloader的stm32win10就是不识别设备，估计是外部晶振的频率是12Mhz造成的，几经辗转，看到了STM32duino的社区里帖子<a href="http://stm32duinoforum.com/forum/viewtopic_f_2_t_4190.html" target="_blank" rel="noopener">STM32F103上将时钟设置为72Mhz</a>，这位使用F103的老外用16Mhz的晶振代替8MHz的晶振，然后使用maple mini的bootloader USB就是发现不了F103， <strong>伯恩特</strong>» 2018年10月5日星期五上午11:39的回答截取了maple mini 定义USB总线时钟频率的一段代码，可以知道由PLL倍频器的值定义：</p>
+<p><img src="/201e530f/20200813153820.png" alt="20200813153820"></p>
+<p>那么他的USB不识别肯定由于16MHz晶振导致USB的时钟不在协议频率范围里了，巧了，在该帖的最下面发现了<a href="https://github.com/rogerclarkmelbourne/STM32duino-bootloader" target="_blank" rel="noopener">STM32duino-bootloader</a>的作者<span style="color:BlueViolet;">罗杰·克拉克</span>的回答，看来USB频率不对实锤了：</p>
+<p><img src="/201e530f/20200813151751.png" alt="20200813151751"></p>
+<p>那么，现在我们有用的信息是，maple mini bootloader的代码中定义了USB的驱动，根据PLL的值与外部晶振的频率定义了USB的时钟，我用12MHz的晶振导致USB时钟的速度比8MHz快1.5倍，我们可以列出下表：</p>
+<table>
+<thead>
+<tr>
+<th>开发板</th>
+<th>CPU频率(MHz)</th>
+<th>晶振频率(MHz)</th>
+<th>USB时钟频率(MHz)</th>
+<th>PLL倍频</th>
+<th>USB时钟频率为晶振的多少倍?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BluePill<b>（正确）</b></td>
+<td>72</td>
+<td>8</td>
+<td>48</td>
+<td>9</td>
+<td>6</td>
+</tr>
+<tr>
+<td>DarkPill<b>（错误）</b></td>
+<td><span style="color:RED;">108</span></td>
+<td>12</td>
+<td><span style="color:RED;">72</span></td>
+<td>9</td>
+<td>6</td>
+</tr>
+<tr>
+<td>DarkPill<b>（正确）</b></td>
+<td>72</td>
+<td>12</td>
+<td>48</td>
+<td>6</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p>拓展阅读：<a href="https://www.cnblogs.com/cherishui/p/4204280.html" target="_blank" rel="noopener">USB时钟为什么是48MHz？</a></p>
+<h3 id="重新编译stm32duino-bootloader"><a class="header-anchor" href="#重新编译stm32duino-bootloader"></a>重新编译stm32duino-bootloader</h3>
+<p>先把<a href="https://github.com/rogerclarkmelbourne/STM32duino-bootloader" target="_blank" rel="noopener">STM32duino-bootloader</a>的整个git仓库下载下来，解压</p>
+<p>你会发现这个stm32工程使用Makfile管理编译，别怕，我们先<a href="https://www.cnblogs.com/RegressionWorldLine/p/11876643.html" target="_blank" rel="noopener">Win10下搭建STM32开发环境</a>，将make和gnu_arm嵌入式工具链装好，能在PowerShell中唤出版本信息即可：</p>
+<p><img src="/201e530f/make_and_arm_tool_chain.png" alt="20200813225042"></p>
+<p>然后请粗略了解一下<a href="https://www.cnblogs.com/hazir/p/linux_make_examples.html" target="_blank" rel="noopener">Linux 下 Make 命令如何工作的？</a>中的“规则“概念</p>
+<p>在PowerShell里进入解压的STM32duino-bootloader的目录，先来个make命令，看看报什么错<img src="/201e530f/error.png" alt="20200813230029"></p>
+<p>看来是抛出了config.h里的#error</p>
+<p>在config.h里加一句黄色框内的</p>
+<p><img src="/201e530f/config.png" alt="config"></p>
+<p>，再次编译，执行</p>
+<ul>
+<li>make clean</li>
+<li>make</li>
+</ul>
+<p>OK不报错了，但是build文件夹里bin文件是0KB咋回事？</p>
+<p><img src="/201e530f/0kb.png" alt="20200813230232"></p>
+<p>打开Makefile看看，因为make后不带参数默认执行make all，然而我们发现Makefile里的all规则默认啥也不执行：</p>
+<p><img src="/201e530f/make-all.png" alt="20200814234901"></p>
+<p>所以我们要执行</p>
+<ul>
+<li>make clean</li>
+<li>make generic-pc13</li>
+</ul>
+<p>实例如下：</p>
+<p><img src="/201e530f/make-generic-pc13.png" alt="20200814005959"></p>
+<p>Ok，build文件夹里的maple_boot.bin大小正常了：</p>
+<p><img src="/201e530f/8kb.png" alt="20200814010030"></p>
+<p>那么，接下来，修改USBCLK的频率，在github里搜索整个仓库，发现上文<strong>伯恩特</strong>提到的setuoCLK()在hardware.c里定义：</p>
+<p><img src="/201e530f/setupCLK.png" alt="20200814233519"></p>
+<p>打开harware.c，发现作者还很贴心：</p>
+<p><img src="/201e530f/USBCLK.png" alt="20200813235456"></p>
+<p>若HSE为12MHz，我们直接在 #elif defined TARGET_GENERIC_F103_PC13下加一句#define XTAL12M即可，若为16MHz，则加#define XTAL16M</p>
+<p><img src="/201e530f/config_add.png" alt="config_add"></p>
+<p>最后执行</p>
+<ul>
+<li>make clean</li>
+<li>make generic-pc13</li>
+</ul>
+<p>完工！</p>
+<h3 id="参考："><a class="header-anchor" href="#参考："></a>参考：</h3>
+<p><a href="https://www.paincker.com/stm32-project-in-linux" target="_blank" rel="noopener">在LINUX下如何开始一个STM32工程</a></p>
+<p><a href="%5Bhttps://hoolev.github.io/%E7%89%A9%E8%81%94%E7%BD%91/2015/12/21/stm32-cmake/%5D(https://hoolev.github.io/%E7%89%A9%E8%81%94%E7%BD%91/2015/12/21/stm32-cmake/)">使用CMake构建STM32工程</a></p>
+<p><a href="https://www.jianshu.com/p/7f77a5486a26" target="_blank" rel="noopener">探索Keil基于makefile的STM32编译方法</a></p>
+<h1 id="STM32F103C8T6-使用DFU"><a class="header-anchor" href="#STM32F103C8T6-使用DFU"></a><a href="https://www.codenong.com/cs107104993/" target="_blank" rel="noopener">STM32F103C8T6 使用DFU</a></h1>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/type-c/" rel="tag"># type-c</a>
+            
+              <a href="/tags/stm32/" rel="tag"># stm32</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/845419ff/" rel="next" title="uRLC复刻笔记">
+                  <i class="fa fa-chevron-left"></i> uRLC复刻笔记
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/7cbfbaea/" rel="prev" title="老毛子KodExplorer从上级路由访问">
+                  老毛子KodExplorer从上级路由访问 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/psa.jpg"
+      alt="过气德国佬">
+  <p class="site-author-name" itemprop="name">过气德国佬</p>
+  <div class="site-description motion-element" itemprop="description">潮起潮落，云卷云舒</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/oldgerman" title="GitHub &rarr; https://github.com/oldgerman" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:2920956602@qq.com" title="E-Mail &rarr; mailto:2920956602@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#预备知识"><span class="nav-number">1.</span> <span class="nav-text">预备知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#STM32的启动模式"><span class="nav-number">1.1.</span> <span class="nav-text">STM32的启动模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DarkPill的BOOT0，BOOT1，Reset"><span class="nav-number">1.1.1.</span> <span class="nav-text">DarkPill的BOOT0，BOOT1，Reset</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#STM32的刷机方式"><span class="nav-number">1.2.</span> <span class="nav-text">STM32的刷机方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#串口芯片刷机"><span class="nav-number">1.2.1.</span> <span class="nav-text">串口芯片刷机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SWD刷机"><span class="nav-number">1.2.2.</span> <span class="nav-text">SWD刷机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DFU刷机"><span class="nav-number">1.2.3.</span> <span class="nav-text">DFU刷机</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#外部高速晶振-HSE-与USB总线时钟"><span class="nav-number">1.3.</span> <span class="nav-text">外部高速晶振(HSE)与USB总线时钟</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DFU的两种编程模式"><span class="nav-number">1.4.</span> <span class="nav-text">DFU的两种编程模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Aduino-IDE下使用"><span class="nav-number">2.</span> <span class="nav-text">在Aduino IDE下使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Arduino-STM32"><span class="nav-number">2.1.</span> <span class="nav-text">Arduino_STM32</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#STM32duino-bootloader"><span class="nav-number">2.2.</span> <span class="nav-text">STM32duino-bootloader</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#烧录stm32duino-bootloader"><span class="nav-number">2.2.1.</span> <span class="nav-text">烧录stm32duino-bootloader</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#连接"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">连接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#烧录"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">烧录</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#若晶振频率不匹配"><span class="nav-number">2.3.</span> <span class="nav-text">若晶振频率不匹配</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Keil-MDK环境下使用"><span class="nav-number">3.</span> <span class="nav-text">在Keil MDK环境下使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置MDK工程模板"><span class="nav-number">3.1.</span> <span class="nav-text">配置MDK工程模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置过程中与视频中正点原子战舰的区别"><span class="nav-number">3.2.</span> <span class="nav-text">配置过程中与视频中正点原子战舰的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#启动文件"><span class="nav-number">3.2.1.</span> <span class="nav-text">启动文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#全局宏定义"><span class="nav-number">3.2.2.</span> <span class="nav-text">全局宏定义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首次编译问题"><span class="nav-number">3.3.</span> <span class="nav-text">首次编译问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#晶振及倍频修改"><span class="nav-number">3.4.</span> <span class="nav-text">晶振及倍频修改</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#STM32系列修改外部晶振以及代码的修改"><span class="nav-number">3.4.1.</span> <span class="nav-text">STM32系列修改外部晶振以及代码的修改</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决stm32duino-bootloader晶振频率不匹配"><span class="nav-number">4.</span> <span class="nav-text">解决stm32duino-bootloader晶振频率不匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重新编译stm32duino-bootloader"><span class="nav-number">4.1.</span> <span class="nav-text">重新编译stm32duino-bootloader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考："><span class="nav-number">4.2.</span> <span class="nav-text">参考：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#STM32F103C8T6-使用DFU"><span class="nav-number"></span> <span class="nav-text">STM32F103C8T6 使用DFU</span></a></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+        
+
+<div id="days"></div>
+<script>
+function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("07/19/2019 15:00:00");
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=setzero(Math.floor(e_hrsold));
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+    seconds=setzero(Math.floor((e_minsold-minsold)*60));
+    document.getElementById('days').innerHTML="(∩•̀ω•́)⊃--*⋆本站由米板1代搭建，已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i) {
+    if (i<10) {
+        i="0" + i
+    };
+    return i;
+}
+show_date_time();
+</script>
+
+
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">过气德国佬</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">118k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:47</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        <span>0%</span>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'iWuakuHkkRt5xT7Ct9cyj8nO-gzGzoHsz',
+    appKey: 'PAz23pDzHnucqRDkVMShMp5B',
+    placeholder: '(๑•̀ㅁ•́ฅ✧ 说点什么吧！',
+    avatar: '',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

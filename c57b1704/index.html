@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="记录一些不熟悉的，不会经常更新，对前期入门有帮助">
+<meta name="keywords" content="stm32">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32常见英文单词、术语、缩写等">
+<meta property="og:url" content="http://yoursite.com/c57b1704/index.html">
+<meta property="og:site_name" content="OldGerman&#39;s Blog">
+<meta property="og:description" content="记录一些不熟悉的，不会经常更新，对前期入门有帮助">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2022-08-17T04:19:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="STM32常见英文单词、术语、缩写等">
+<meta name="twitter:description" content="记录一些不熟悉的，不会经常更新，对前期入门有帮助">
+  <link rel="canonical" href="http://yoursite.com/c57b1704/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>STM32常见英文单词、术语、缩写等 | OldGerman's Blog</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OldGerman's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Refuse to play tickets!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-阅读排名">
+      
+    
+
+    <a href="/rank" rel="section"><i class="menu-item-icon fa fa-fw fa-list"></i> <br>阅读排名</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/c57b1704/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过气德国佬">
+      <meta itemprop="description" content="潮起潮落，云卷云舒">
+      <meta itemprop="image" content="/images/psa.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OldGerman's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">STM32常见英文单词、术语、缩写等
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-12-18 14:55:00" itemprop="dateCreated datePublished" datetime="2020-12-18T14:55:00+08:00">2020-12-18</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-17 12:19:47" itemprop="dateModified" datetime="2022-08-17T12:19:47+08:00">2022-08-17</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/STM32/" itemprop="url" rel="index"><span itemprop="name">STM32</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span id="/c57b1704/" class="post-meta-item leancloud_visitors" data-flag-title="STM32常见英文单词、术语、缩写等" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/c57b1704/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/c57b1704/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>4.3k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>4 分钟</span>
+            </span>
+          
+            <div class="post-description">记录一些不熟悉的，不会经常更新，对前期入门有帮助</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>其实大家学啥外设术语太多直接找对应外设的UMxxx（ST的User manual系列的PDF）就有归纳整理的，这些术语在ST很多手册的Acronyms and definitions部分都右有的，</p>
+<p>例如：</p>
+<p><a href="https://www.st.com/resource/en/user_manual/dm00105879-description-of-stm32f4-hal-and-ll-drivers-stmicroelectronics.pdf" target="_blank" rel="noopener">UM1725——Description of STM32F4 HAL and low-layer drivers</a> 的Table 1</p>
+<p><a href="https://www.st.com/resource/en/user_manual/dm00108129-stm32cube-usb-device-library-stmicroelectronics.pdf" target="_blank" rel="noopener">UM1734——STM32Cube™ USB device library</a> 的Table 2</p>
+<h2 id="A"><a class="header-anchor" href="#A"></a>A</h2>
+<p>AF——Alternate function   复用功能 (port multiplexing and remapping 端口复用和重映射)</p>
+<p>AHB 先进高性能总线</p>
+<p>ALU——Arithmetic Logical Unit 算术逻辑单元（CPU负责几乎所有的计算任务的核心）</p>
+<p>API——Application Programming Interface 应用编程接口</p>
+<p>ARG——argument 参数</p>
+<p>ARR——auto-reload register 自动装载(寄存器)</p>
+<p>ARPE——auto-reload preload enable 自动预载(寄存器)</p>
+<p>asynchronous 异步的</p>
+<h2 id="B"><a class="header-anchor" href="#B"></a>B</h2>
+<p>BIN——binary 二进制</p>
+<p>brief 简介</p>
+<p>BSP——board support package 板级支持包】</p>
+<p>Byte 字节 8位长的数据或指令</p>
+<h2 id="C"><a class="header-anchor" href="#C"></a>C</h2>
+<p>Calibration 校准</p>
+<p>CC——Capture/Compare 捕获/比较</p>
+<p>CDC——communication device class 通信设备类</p>
+<p>CMSIS——Cortex MicroController Software Interface Standard Cortex 微控制器软件接口标准：独立于供应商的硬件抽象层，适用于基于 Arm Cortex 处理器的微控制器</p>
+<p>CK_INT——clock internal 内部时钟</p>
+<p>CNT——counter 计数器</p>
+<p>Coefficient——系数</p>
+<p>contants 常量</p>
+<p>context 上下文环境</p>
+<p>coupled 耦合的</p>
+<p>critical——临界的</p>
+<h2 id="D"><a class="header-anchor" href="#D"></a>D</h2>
+<p>D-Code 这是连接Cortex-M3核心的D-Code总线（常数和调试访问）与闪存数据存储器接口的总线</p>
+<p>DEC——decimal 十进制</p>
+<p>DFU——Device Firmware Upgrade 有USB接口的STM32型号从硬件或软件上支持</p>
+<p>DISC——disconnect</p>
+<p>division 分频因子</p>
+<p>domain  n. 域，范围，定义域</p>
+<p>downcounter n. 降值计数器</p>
+<p>DMIPS——Dhrystone Million Instructions executed Per Second Dhrystone软件测算力的MIPS单位</p>
+<p>duty cycle 占空比</p>
+<p>Dhrystone 最常见的整数运算性能测试程序</p>
+<h2 id="E"><a class="header-anchor" href="#E"></a>E</h2>
+<p>elapsed 过去</p>
+<p>EOC——end of convert 转换结束</p>
+<p>ETR——External 外部 (信号)</p>
+<h2 id="F"><a class="header-anchor" href="#F"></a>F</h2>
+<p>FPEC——FLASH Program/Erase controller 闪存编程/擦除控制器</p>
+<p>FS——Full Speed 全速（12 Mbps）</p>
+<p>function 1) 功能；2) 函数</p>
+<h2 id="G"><a class="header-anchor" href="#G"></a>G</h2>
+<p>generation 产生</p>
+<h2 id="H"><a class="header-anchor" href="#H"></a>H</h2>
+<p>HAL——Hardware Abstraction Layer 硬件抽象层</p>
+<p>Half Word 半字 16位长的数据或指令</p>
+<p>handler n. 句柄</p>
+<p>HEX——hexdadecimal 十六进制</p>
+<p>HID——human interface device 人机界面设备</p>
+<h2 id="I"><a class="header-anchor" href="#I"></a>I</h2>
+<p>IABR——Interrupt Active Bit Registers             中断激活标志位寄存器组</p>
+<p>IAP——In-Application Programming 在程序中编程</p>
+<p>I-Code：这是连接Cortex-M3核心的指令总线与闪存程序存储器接口的总线，指令预取是 在这个总线上实现的</p>
+<p>ICP——In-Circuit Programming 在线编程</p>
+<p>ICPR——Interrupt Clear-Pending Registers     中断解挂控制寄存器组</p>
+<p>ISPR——Interrupt Set-Pending Registers        中断挂起控制寄存器组</p>
+<p>ICER——Interrupt Clear-Enable Registers       中断除能寄存器组</p>
+<p>idle 空闲的</p>
+<p>LL库——low-layer drivers</p>
+<p>instance 寄存器指针</p>
+<p>integrity 完整（测试完整性）</p>
+<p>Initialise  初始化</p>
+<p>IRQ——Interrupt Request 中断请求</p>
+<p>IRQn——Interrupt Request number 中断请求号</p>
+<p>ISER——Interrupt Set-Enable Registers 中断使能寄存器组</p>
+<p>iterator 迭代器</p>
+<p>ITM——仪表跟踪单元</p>
+<p>IPR——Interrupt Priority Registers  中断优先级控制的寄存器组</p>
+<p>IWDG——independent watchdog 独立看门狗</p>
+<p>Instance n. 实例; 例子; 事例; v.举例</p>
+<h2 id="J"><a class="header-anchor" href="#J"></a>J</h2>
+<p>JTAG-DP JTAG 调试接口 提供基于JTAG(Joint Test Action Group 联合测试行动小组)协议的5线标准接口</p>
+<h2 id="K"><a class="header-anchor" href="#K"></a>K</h2>
+<h2 id="L"><a class="header-anchor" href="#L"></a>L</h2>
+<p>latch 锁存</p>
+<p>LIR——latch interrupt request 锁存中断请求</p>
+<p>LSB——Last（Least） Significant Bit，最低有效位</p>
+<h2 id="M"><a class="header-anchor" href="#M"></a>M</h2>
+<p>MIPS——Million Instructions executed Per Second，每秒执行百万条指令，用来计算同一秒内系统的处理能力，即每秒执行了多少百万条指令</p>
+<p>MFLOPS——Million Floating-point Operations per Second，主要用于测浮点计算能力。</p>
+<p>MPU——1）Microprocessor Unit 微处理器；2）Micro Processor Unit 内存保护单元</p>
+<p>MSB——Most Significant Bit， 最高有效位</p>
+<p>MSC——mass storage device class 大容量存储类</p>
+<p>MSP——1）MCU Specific Package   MCU 特征包、MCU 实例化包；——2）MCU Support package   MCU支持包</p>
+<p>MUX——multiplexer (multiplexor)多路复用器，也称数据选择器（data selector）</p>
+<h2 id="N"><a class="header-anchor" href="#N"></a>N</h2>
+<p>NVIC——Nested Vectored Interrupt Controller   嵌套向量中断控制器</p>
+<h2 id="O"><a class="header-anchor" href="#O"></a>O</h2>
+<p>OBL：选择字节加载单元</p>
+<p>occure 发生</p>
+<p>ODR——Output data rate 数据输出频率，出处：LIS3DH手册 CTRL_REG1 (20h)的ODR[3:0]，单位Hz</p>
+<p>OTG——On-The-Go：OTG外设可运行时切换 HOST/DEVICE角色</p>
+<p>overload 重载</p>
+<h2 id="P"><a class="header-anchor" href="#P"></a>P</h2>
+<p>Parity 奇偶检验（参数有 None、Odd、Even）</p>
+<p>parameter(s) n. 参数</p>
+<p>period 1.(定时器的)自动装载值ARR（自动重装载寄存器（TIMx_ARR））  <s>2.周期，(物理学符号是 T)</s></p>
+<p>peripheral n. 外设 外围设备)</p>
+<p>PID——USB 产品标识：A <strong>USB</strong> device that is plugged in identifies itself by its VID/<strong>PID</strong> combination. A VID is a 16-bit vendor number (Vendor ID). A <strong>PID</strong> is a 16-bit product number (<strong>Product ID</strong>). The PC uses the VID/<strong>PID</strong> combination to find the drivers (if any) that are to be used for the <strong>USB</strong> device.</p>
+<p>platform 平台</p>
+<p>polarity 极性</p>
+<p>POR——Power-on reset</p>
+<p>PRI——priority 优先级</p>
+<p>preemption priority 抢占优先级</p>
+<p>prototype 原型 （functions prototypes 函数原型）</p>
+<p>PSC——prescaler n. 预分频器</p>
+<h2 id="Q"><a class="header-anchor" href="#Q"></a>Q</h2>
+<p>queue 队列</p>
+<h2 id="R"><a class="header-anchor" href="#R"></a>R</h2>
+<p>RCC——Reset and clock control 时钟配置</p>
+<p>repetition 重复（overload是 重载，不要混了）</p>
+<p>RES——resolution 分辨率</p>
+<p>ret——retval——return value 返回值</p>
+<p>restrict 限制</p>
+<p>resume 恢复</p>
+<h2 id="S"><a class="header-anchor" href="#S"></a>S</h2>
+<p>sample——样本</p>
+<p>SAK——slave acknowledge 从机应答</p>
+<p>scheduler 调度器</p>
+<p>SCSI——small computer system inerface 小型计算机系统接口</p>
+<p>SMBus——STM32 I2C Slave 模式（从机模式）</p>
+<p>SWD——Serial Wire Debug 串行线调试</p>
+<p>SWO——Serial Wire Output 串行线输出</p>
+<p>SWV——Serial Wire Viewer 串行线查看器</p>
+<p>SOF——Start of Frame 帧起始：Every millisecond (12000 full-bandwidth bit times), the <strong>USB</strong> host transmits a special <strong>SOF</strong> (<strong>start of frame</strong>) token, containing an 11-bit incrementing frame number in place of a device address. This is used to synchronize isochronous and interrupt data transfers.</p>
+<p>state . 状态</p>
+<p>status n. 状态</p>
+<p>stream 流（数据流、流的缓冲区）</p>
+<p>SUB——sub-address 子地址</p>
+<p>suspend 挂起</p>
+<p>SWD-DP SWD调试接口 提供基于SWD(Serial Wire Debug 串行线调试)协议的2 线标准接口</p>
+<p>synchronous 同步的</p>
+<h2 id="T"><a class="header-anchor" href="#T"></a>T</h2>
+<p>task 任务</p>
+<p>TCB——task control block 任务控制块</p>
+<p>THS——threshold 阈值</p>
+<p>Trigger 触发</p>
+<h2 id="U"><a class="header-anchor" href="#U"></a>U</h2>
+<p>UEV——update event 更新事件</p>
+<p>UDIS——update disable 禁止产生更新事件 (UEV)</p>
+<p>USB——Universal Serial Bus 通用串行总线</p>
+<h2 id="V"><a class="header-anchor" href="#V"></a>V</h2>
+<p>VCP——visual com port 虚拟串口</p>
+<p>VID——USB 厂商标识：A <strong>USB</strong> device that is plugged in identifies itself by its VID/<strong>PID</strong> combination. A VID is a 16-bit vendor number (Vendor ID). A <strong>PID</strong> is a 16-bit product number (<strong>Product ID</strong>). The PC uses the VID/<strong>PID</strong> combination to find the drivers (if any) that are to be used for the <strong>USB</strong> device.</p>
+<h2 id="W"><a class="header-anchor" href="#W"></a>W</h2>
+<p>Whetstone 最常见的浮点运算性能测试程序</p>
+<p>Word 字 32位长的数据或指令</p>
+<p>WWDG——window watchdog 窗口看门狗</p>
+<h2 id="X"><a class="header-anchor" href="#X"></a>X</h2>
+<h2 id="Y"><a class="header-anchor" href="#Y"></a>Y</h2>
+<h2 id="Z"><a class="header-anchor" href="#Z"></a>Z</h2>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/stm32/" rel="tag"># stm32</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/6722c02f/" rel="next" title="冰沙主板10x10设计&制作笔记">
+                  <i class="fa fa-chevron-left"></i> 冰沙主板10x10设计&制作笔记
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/74a960e2/" rel="prev" title="LIS3DH加速度笔记">
+                  LIS3DH加速度笔记 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/psa.jpg"
+      alt="过气德国佬">
+  <p class="site-author-name" itemprop="name">过气德国佬</p>
+  <div class="site-description motion-element" itemprop="description">潮起潮落，云卷云舒</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/oldgerman" title="GitHub &rarr; https://github.com/oldgerman" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:2920956602@qq.com" title="E-Mail &rarr; mailto:2920956602@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#A"><span class="nav-number">1.</span> <span class="nav-text">A</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B"><span class="nav-number">2.</span> <span class="nav-text">B</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C"><span class="nav-number">3.</span> <span class="nav-text">C</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#D"><span class="nav-number">4.</span> <span class="nav-text">D</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E"><span class="nav-number">5.</span> <span class="nav-text">E</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#F"><span class="nav-number">6.</span> <span class="nav-text">F</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#G"><span class="nav-number">7.</span> <span class="nav-text">G</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#H"><span class="nav-number">8.</span> <span class="nav-text">H</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#I"><span class="nav-number">9.</span> <span class="nav-text">I</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#J"><span class="nav-number">10.</span> <span class="nav-text">J</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#K"><span class="nav-number">11.</span> <span class="nav-text">K</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#L"><span class="nav-number">12.</span> <span class="nav-text">L</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#M"><span class="nav-number">13.</span> <span class="nav-text">M</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#N"><span class="nav-number">14.</span> <span class="nav-text">N</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#O"><span class="nav-number">15.</span> <span class="nav-text">O</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#P"><span class="nav-number">16.</span> <span class="nav-text">P</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q"><span class="nav-number">17.</span> <span class="nav-text">Q</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#R"><span class="nav-number">18.</span> <span class="nav-text">R</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#S"><span class="nav-number">19.</span> <span class="nav-text">S</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#T"><span class="nav-number">20.</span> <span class="nav-text">T</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#U"><span class="nav-number">21.</span> <span class="nav-text">U</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#V"><span class="nav-number">22.</span> <span class="nav-text">V</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#W"><span class="nav-number">23.</span> <span class="nav-text">W</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#X"><span class="nav-number">24.</span> <span class="nav-text">X</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Y"><span class="nav-number">25.</span> <span class="nav-text">Y</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Z"><span class="nav-number">26.</span> <span class="nav-text">Z</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+        
+
+<div id="days"></div>
+<script>
+function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("07/19/2019 15:00:00");
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=setzero(Math.floor(e_hrsold));
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+    seconds=setzero(Math.floor((e_minsold-minsold)*60));
+    document.getElementById('days').innerHTML="(∩•̀ω•́)⊃--*⋆本站由米板1代搭建，已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i) {
+    if (i<10) {
+        i="0" + i
+    };
+    return i;
+}
+show_date_time();
+</script>
+
+
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">过气德国佬</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">118k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:47</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        <span>0%</span>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'iWuakuHkkRt5xT7Ct9cyj8nO-gzGzoHsz',
+    appKey: 'PAz23pDzHnucqRDkVMShMp5B',
+    placeholder: '(๑•̀ㅁ•́ฅ✧ 说点什么吧！',
+    avatar: '',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

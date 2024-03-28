@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="MOC3063+BTA系列双向可控硅">
+<meta name="keywords" content="固态继电器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OptoTriac V2.0 固态继电器电路设计">
+<meta property="og:url" content="http://yoursite.com/65fdcd15/index.html">
+<meta property="og:site_name" content="OldGerman&#39;s Blog">
+<meta property="og:description" content="MOC3063+BTA系列双向可控硅">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/FAN-45.JPG">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/FAN-Side.JPG">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/FAN-Bottom.JPG">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/MOC3063-datasheet%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E7%94%B5%E8%B7%AF.jpg">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/%E6%AF%9B%E5%AD%90%E4%BF%9D%E9%99%A9.jpg">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/OptoTriacV2-CCC-sch.png">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/%E4%BF%9D%E9%99%A9%E4%B8%9D%E6%8A%98%E5%87%8F%E7%8E%87%E8%A1%A8.jpg">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/OptoV2-1.jpg">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/OptoV2-2.jpg">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/OptoV2-eagle1.1.jpg">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/OptoV2-eagle2.jpg">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/OptoV2-eagle3.jpg">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/OptoV2-Fan.jpg">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/toppad.jpg">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/OptoV2-BTA41倒装2.jpg">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/BTA16-change-pin-distance.png">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/OptoV1实物(1).jpg">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/OptoV1实物(2).jpg">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/OptoV1实物(3).jpg">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/OptoV1实物(4).jpg">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/OptoV1实物(5).jpg">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/OptoV1实物(6).jpg">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/OptoV1%E6%B5%8B%E8%AF%95.jpg">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/BTA41%E7%BB%93%E6%B8%A9%E6%9E%81%E9%99%90%E8%8C%83%E5%9B%B4.jpg">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/BTA41%E7%83%AD%E9%98%BB.jpg">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/BTA41%E5%AF%BC%E7%83%AD%E9%9D%A2%E7%A7%AF.jpg">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/To-3P%E8%A1%A8%E9%9D%A2%E7%A7%AF.jpg">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/BTA%E5%AE%8C%E6%95%B4%E5%91%A8%E6%9C%9F%E6%9C%80%E5%A4%A7%E5%8F%91%E7%83%AD%E5%8A%9F%E8%80%97.jpg">
+<meta property="og:image" content="http://yoursite.com/65fdcd15/BTABTB.jpg">
+<meta property="og:updated_time" content="2022-08-17T04:19:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OptoTriac V2.0 固态继电器电路设计">
+<meta name="twitter:description" content="MOC3063+BTA系列双向可控硅">
+<meta name="twitter:image" content="http://yoursite.com/65fdcd15/FAN-45.JPG">
+  <link rel="canonical" href="http://yoursite.com/65fdcd15/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>OptoTriac V2.0 固态继电器电路设计 | OldGerman's Blog</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OldGerman's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Refuse to play tickets!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-阅读排名">
+      
+    
+
+    <a href="/rank" rel="section"><i class="menu-item-icon fa fa-fw fa-list"></i> <br>阅读排名</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/65fdcd15/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过气德国佬">
+      <meta itemprop="description" content="潮起潮落，云卷云舒">
+      <meta itemprop="image" content="/images/psa.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OldGerman's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">OptoTriac V2.0 固态继电器电路设计
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-04-12 17:30:00" itemprop="dateCreated datePublished" datetime="2020-04-12T17:30:00+08:00">2020-04-12</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-17 12:19:47" itemprop="dateModified" datetime="2022-08-17T12:19:47+08:00">2022-08-17</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PCB设计/" itemprop="url" rel="index"><span itemprop="name">PCB设计</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span id="/65fdcd15/" class="post-meta-item leancloud_visitors" data-flag-title="OptoTriac V2.0 固态继电器电路设计" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/65fdcd15/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/65fdcd15/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>4.6k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>4 分钟</span>
+            </span>
+          
+            <div class="post-description">MOC3063+BTA系列双向可控硅</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Opto是光电子的意思，Triac就是三端双向可控硅，也叫双向晶闸管</p>
+<p>设计这个固态继电器是为了我的烤箱Pid控制做准备</p>
+<p><span style="color:Red;">使用带过零触发功能的光耦，为纯电阻电路设计，请勿将其用于大功率感性负载</span></p>
+<table>
+    <tr>
+        <td><img src="/65fdcd15/FAN-45.JPG"></td>
+        <td><img src="/65fdcd15/FAN-Side.JPG"></td>
+        <td><img src="/65fdcd15/FAN-Bottom.JPG"></td>
+    </tr>
+</table>
+# <span style="color:Red;">警告</span> Σ(っ °Д °;)っ
+<p>让我在这里添加一个更强烈的警告：如果你很清除自己在做什么而制作并测试此电路，则该电路是安全的。如果你一无所知，或者对自己的判断感到怀疑，那么你很可能因此丧命！请务必在有漏电保护器的电网下测试，将其连接到电网时请勿触摸！！！</p>
+<h1 id="电路"><a class="header-anchor" href="#电路"></a>电路</h1>
+<h2 id="光耦控制可控硅的基本电路-最低标准"><a class="header-anchor" href="#光耦控制可控硅的基本电路-最低标准"></a>光耦控制可控硅的基本电路(最低标准)</h2>
+<p>MOC3063(带过零触发)光耦的datasheet上的基本应用电路如下：</p>
+<p><img src="/65fdcd15/MOC3063-datasheet%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E7%94%B5%E8%B7%AF.jpg" alt></p>
+<ul>
+<li>
+<p>Rin：的目的是使I<sub>in</sub>在光耦的额定触发电流IFT(光耦led触发电流)(对于MOC3061M为15mA，对于MOC3062M为10mA，对于MOC3063M为5mA) 和LED极限电流60mA之间</p>
+</li>
+<li>
+<p>R3和C1串联的支路：并联在晶闸管两端是为了防止瞬时脉冲高压击穿晶闸管，选用参数取决于所使用的三端双向可控硅和负载</p>
+</li>
+<li>
+<p>R1：限制光耦内部可控硅最大浪涌电流 ，取市电的峰值310V加上10%的电网波动影响，即340V/R1要小于1A</p>
+</li>
+<li>
+<p>R2：下拉可控硅G端防止意外导通</p>
+</li>
+</ul>
+<h2 id="老毛子的电路"><a class="header-anchor" href="#老毛子的电路"></a>老毛子的电路</h2>
+<p>对比一下老毛子工程师的设计：</p>
+<p><img src="/65fdcd15/%E6%AF%9B%E5%AD%90%E4%BF%9D%E9%99%A9.jpg" alt></p>
+<p>MOC3052不带内部过零检测触发电路，所以添加了U3(LTV-814晶体管输出光耦)进行过零检测+ATTINY44移相触发，估计程序里有最小维持控制值所以省略了下拉电阻，又添加了R6，C2组成<a href="https://zh.wikipedia.org/wiki/%E4%BD%8E%E9%80%9A%E6%BB%A4%E6%B3%A2%E5%99%A8" target="_blank" rel="noopener">低通滤波器</a>，还有扼流圈L1和C3使移相电压的波纹变平滑，从而可以较好地控制控灯泡亮度</p>
+<p>值得注意的是，交流火线端串联了陶瓷保险丝，火线零线之间跨接压敏电阻(钳制)，前者进行过电流保护 (OCP：Over Current Protection)，后者进行过电压保护 (OVP：Over Voltage Protection)</p>
+<p><a href="https://github.com/Miceuz/triac-bloc" target="_blank" rel="noopener">项目地址</a></p>
+<h2 id="OptoTriacV2-0使用的电路："><a class="header-anchor" href="#OptoTriacV2-0使用的电路："></a>OptoTriacV2.0使用的电路：</h2>
+<p>毛子并没有给出保险丝和压敏如何选型，我使用BTA16，不做调光控制省略了R6，C2，L1和C3，使用MOC3063自带的过零触发，晶闸管G极需要下拉电阻，添加保险丝和压敏，三极管SS8050可换为N-mos，电路如下：</p>
+<p><img src="/65fdcd15/OptoTriacV2-CCC-sch.png" alt="OptoTriacV2-CCC-sch"></p>
+<p><a href="httpswww.store-ino.comproducttheremino-optotriac-v1">在OptoTriacV1的电路基础之上进行修改</a></p>
+<h3 id="如何选保险丝？"><a class="header-anchor" href="#如何选保险丝？"></a>如何选保险丝？</h3>
+<p>首先，保险丝分两大类：</p>
+<ol>
+<li>快熔保险丝：常用在<strong>电阻性负载电路</strong>中，保护一些对电流变动特别敏感的元器件；</li>
+<li>慢熔保险丝：常用在电路状态变化时有<strong>较大的浪涌电流</strong>的故障时仍能较快地断开电路</li>
+</ol>
+<p>为了及时保护晶闸管，选用陶瓷保险丝</p>
+<p>我电烤箱的单根加热管规格是220V/400W，两根串联接市800W负载一路，有上温管和下温管两路，共四根热管1600W，两个BTA16控制上温和下温管，每个负载800W，一路额定电流为800W/220V = 3.636A</p>
+<p>在烤箱工作时会将SSR电路进行散热，取工业级最高温度80℃</p>
+<p><img src="/65fdcd15/%E4%BF%9D%E9%99%A9%E4%B8%9D%E6%8A%98%E5%87%8F%E7%8E%87%E8%A1%A8.jpg" alt></p>
+<p>根据保险丝折减率表的B曲线(对应陶瓷保险丝)，80℃下的折减率约为96%</p>
+<p>于是计算得：<br>
+$$<br>
+I_f保险丝选型电流=\frac{额定负载电流}{温度折减率\cdot0.75}=\frac{I_n}{F_o\cdot0.75} = \frac{3.636A}{0.96\cdot0.75}=5.05A<br>
+$$<br>
+所以选用5A保险丝很合适</p>
+<h3 id="如何选压敏电阻？"><a class="header-anchor" href="#如何选压敏电阻？"></a>如何选压敏电阻？</h3>
+<p>压敏限幅值的选择是在市电的峰值310V的基础上加上20%的电网波动影响、10%的元件电压误差，15%的因长期工作造成发热、受潮、元件老化等因素，一般取值为470V～510V。各种尖峰电压都被钳制在470V。对于470V以下的电压，压敏器件呈高阻态，因此常用压敏电压有471K，561K等，片径从04D到30D不等，因为用的BTA16是600B规格，即断态重复峰值电压VDRM（Peak Repetitive  Off-State Voltage）为600V，建议用471，如果你买得到700B，800B规格，则可用561，片径保险起见至少10D</p>
+<h1 id="PCB仿真效果"><a class="header-anchor" href="#PCB仿真效果"></a>PCB仿真效果</h1>
+<p>截的JLC小助手的图，修改了可控硅焊盘的pin2：</p>
+<p>PCB背面交流主干线路宽保险丝和压敏附近宽120mil，之后宽88mil，裸露处理，方便加锡提高载流，实际上不加焊锡88mil 1oz厚已经可以载流4A以上</p>
+<table>
+    <tr>
+        <td><img src="/65fdcd15/OptoV2-1.jpg"></td>
+        <td><img src="/65fdcd15/OptoV2-2.jpg"></td>
+    </tr>
+</table>
+<h1 id="PCB设计要点"><a class="header-anchor" href="#PCB设计要点"></a>PCB设计要点</h1>
+<p>PCB4月5号更新（要点内的其他PCB图片可能是３号的）</p>
+<p><img src="/65fdcd15/OptoV2-eagle1.1.jpg" alt></p>
+<h2 id="线距"><a class="header-anchor" href="#线距"></a>线距</h2>
+<h3 id="强电与强电之间线距"><a class="header-anchor" href="#强电与强电之间线距"></a>强电与强电之间线距</h3>
+<p>按照安规标准的线距布线，保险丝前火零间距大于4mm，保险后大于2 5mm，不足2.5mm开槽绝缘</p>
+<p>保险前线距大于5mm，保险后线距至少2.5mm，小于2.5的地方开槽以空气绝缘</p>
+<p>因为散热片是金属，散热片本身，散热片的焊盘与强电之间，BTA16正面焊盘与散热片之间最好间隔2.5mm以上</p>
+<h3 id="弱电与强电之间线距"><a class="header-anchor" href="#弱电与强电之间线距"></a>弱电与强电之间线距</h3>
+<p>强弱电之间 &gt;= 6mm<br>
+因为光耦一头220VAC，一头弱电DC，两脚间距&lt;7.6mm，最好在交流光耦下方开2mm左右的槽，槽宽应出DIP封装的边界3~5mm:</p>
+<h2 id="丝印警示"><a class="header-anchor" href="#丝印警示"></a>丝印警示</h2>
+<p>另外，要在正反丝印层用宽度20mil以上的虚线画出弱电区和强电区域之间的分界线，强电区要有警示标识</p>
+<p>PCB局部如下：</p>
+<table>
+    <tr>
+        <td width="71.5%"><img src="/65fdcd15/OptoV2-eagle2.jpg"></td>       		<td><img src="/65fdcd15/OptoV2-eagle3.jpg"></td>
+    </tr>
+</table>
+<h2 id="预留4cm，8cm散热风扇孔位"><a class="header-anchor" href="#预留4cm，8cm散热风扇孔位"></a>预留4cm，8cm散热风扇孔位</h2>
+<p><img src="/65fdcd15/OptoV2-Fan.jpg" alt></p>
+<h2 id="支持BTA16，BTA41反装加强散热"><a class="header-anchor" href="#支持BTA16，BTA41反装加强散热"></a>支持BTA16，BTA41反装加强散热</h2>
+<p>PCB正面的异形焊盘是为此留的，安装效果如最右边:</p>
+<table>
+    <tr>
+        <td width="20%"><img src="/65fdcd15/toppad.jpg"></td>
+        <td><img src="/65fdcd15/OptoV2-BTA41倒装2.jpg"></td>
+    </tr>
+</table>
+<p>反装的话，散热片就在背面与可控硅铜底直触，至于散热片固定，我已经给了这摩多孔了应该很好固定。。。</p>
+<p>反装的话BTA41的封装有一部分会挨到光耦DIP-6的焊盘，其实只要没有挡住孔就没事，实在不行就换SMD-6封装</p>
+<p>宁外细心一点你就会发现，PCB的可控硅焊盘是用TO-247的焊盘魔改的，pin1和pin3开成了槽孔就是为了可以装魔改后的BTA16设计的，如下图中间，逃)</p>
+<p><img src="/65fdcd15/BTA16-change-pin-distance.png" alt></p>
+<p><a href="https://www.electronics-lab.com/project/dc-output-solid-state-relay/" target="_blank" rel="noopener">灵感来自DC OUTPUT SOLID STATE RELAY</a></p>
+<p><a href="https://zhidao.baidu.com/question/559804627639077164.html" target="_blank" rel="noopener">为什么PCB的槽长一定要大于槽宽1.5~2倍</a></p>
+<h1 id="焊接"><a class="header-anchor" href="#焊接"></a>焊接</h1>
+<table>
+    <tr>
+        <td><img src="/65fdcd15/OptoV1实物(1).jpg"></td>
+        <td><img src="/65fdcd15/OptoV1实物(2).jpg"></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td><img src="/65fdcd15/OptoV1实物(3).jpg"></td>
+        <td><img src="/65fdcd15/OptoV1实物(4).jpg"></td>
+    </tr>
+</table>
+<h2 id="一些小问题"><a class="header-anchor" href="#一些小问题"></a>一些小问题</h2>
+<p>走错了一根线，铜皮离散热片太近，先简单粗暴地处理一下。。。</p>
+<table>
+    <tr>
+        <td><img src="/65fdcd15/OptoV1实物(5).jpg"></td>
+        <td><img src="/65fdcd15/OptoV1实物(6).jpg"></td>
+    </tr>
+</table>
+<h1 id="测试"><a class="header-anchor" href="#测试"></a>测试</h1>
+<p>PID控制烤箱上温管80℃半小时，3.63A负载测试通过</p>
+<p><img src="/65fdcd15/OptoV1%E6%B5%8B%E8%AF%95.jpg" alt="OptoV1实物(5)"></p>
+<h1 id="总结"><a class="header-anchor" href="#总结"></a>总结</h1>
+<p>初版测试OK，等我画下一版👊</p>
+<p>修改小问题之后的Eagle PCB工程文件及Gerber文件：</p>
+<p>链接：<a href="https://pan.baidu.com/s/1BnVavEUuLoqm2YFMkJdoXw" target="_blank" rel="noopener">https://pan.baidu.com/s/1BnVavEUuLoqm2YFMkJdoXw</a><br>
+提取码：yss8</p>
+<h1 id="附：如何计算散热？"><a class="header-anchor" href="#附：如何计算散热？"></a>附：如何计算散热？</h1>
+<p><a href="http://www.bornsun.com/post/show/1" target="_blank" rel="noopener">导热系数、热阻、热阻抗及导热系数</a></p>
+<p>bta系可控硅的散热非常关键，如果工作时环境温度高于70度没有效散热，故障因素会增多，需要添加常见的To-3p散热片</p>
+<h2 id="基本参数及公式"><a class="header-anchor" href="#基本参数及公式"></a>基本参数及公式</h2>
+<h3 id="环境温度"><a class="header-anchor" href="#环境温度"></a>环境温度</h3>
+<p>因为在200多度的烤箱内部工作，<span style="color:Red;">取最差的环境温度，<strong>70℃</strong>，以下所有计算的<strong>结温</strong>都是加了70度的 !</span></p>
+<h3 id="BTA41结温极限范围"><a class="header-anchor" href="#BTA41结温极限范围"></a>BTA41结温极限范围</h3>
+<p>T<sub>j</sub> 取-40 + 125℃</p>
+<p><img src="/65fdcd15/BTA41%E7%BB%93%E6%B8%A9%E6%9E%81%E9%99%90%E8%8C%83%E5%9B%B4.jpg" alt></p>
+<h2 id="结温计算公式"><a class="header-anchor" href="#结温计算公式"></a>结温计算公式</h2>
+<p>技巧：从BTA芯片内部开始算起，任何两种介质的温差，都等于发热功率乘以这两点之间的热阻，因此，要将很多个热阻求和：<br>
+$$<br>
+结温=环境温度+发热功耗\cdot总热阻<br>
+$$<br>
+即：<br>
+$$<br>
+结温=环境温度+发热功耗\cdot(结到外壳的热阻+导热片的热阻++散热器与空气的热阻)<br>
+$$</p>
+<p>$$<br>
+T_j= T_a+P\cdot(R_{th(j-c)} +R_{th(t)}+ R_{th(h-a)})<br>
+$$</p>
+<h2 id="热阻计算公式"><a class="header-anchor" href="#热阻计算公式"></a>热阻计算公式</h2>
+<p>热阻指的是当有热量在物体上传输时，在物体两端温度差与热源的功率之间的比值。单位为开尔文每瓦特（K/W）或摄氏度每瓦特（℃/W）</p>
+<h3 id="通过两端温差计算"><a class="header-anchor" href="#通过两端温差计算"></a>通过两端温差计算</h3>
+<p>当热量在某种介质的内部传输时，介质两端温度差与热源的功率之间的比值为该混合介质的<span style="color:BlueViolet;"><strong>热阻</strong></span>：<br>
+$$<br>
+R_{th}=\frac{T_2-T_1}{P}<br>
+$$<br>
+实际上计算结温不会这么计算，因为我们要用公式求出结温，再说你无法测量到结温，除非把封装锯开再贴一个温度传感器在硅片表面，那下面的就不用看了。。。</p>
+<p>所以需要用下面的两种方法计算结温</p>
+<h3 id="通过导热系数计算"><a class="header-anchor" href="#通过导热系数计算"></a>通过导热系数计算</h3>
+<p>当热量在物体内部以热传导的方式传递，遇到的阻力为<span style="color:BlueViolet;"><strong>导热热阻</strong></span>：<br>
+$$<br>
+R_{θ}＝\frac{L}{λ\cdot S}<br>
+$$</p>
+<ul>
+<li>λ：导热系数 （单位为 瓦·米<sup>-1</sup>开尔文<sup>-1</sup>，即（W/(K·m)））</li>
+<li>L：材料厚度或长度,（延着热通量方向，单位m）</li>
+<li>S：传热截面积（垂直热通量方向，单位m<sup>2</sup>）</li>
+<li>R<sub>θ</sub>为材料（沿着热通量方向）的绝对热阻（K/W），也可以写成R<sub>th</sub></li>
+</ul>
+<p>热阻物体对热流传导的阻碍能力，导热材料的热阻越大，则其对热传导的阻碍能力越强</p>
+<p>热阻与传导路径长度成正比，与通过的截面积成反比，与材料的导热系数成反比</p>
+<h3 id="通过对流换热系数计算"><a class="header-anchor" href="#通过对流换热系数计算"></a>通过对流换热系数计算</h3>
+<p>在<a href="https://baike.baidu.com/item/%E5%AF%B9%E6%B5%81%E6%8D%A2%E7%83%AD" target="_blank" rel="noopener">对流换热</a>过程中，固体壁面与流体之间的热阻称为<span style="color:BlueViolet;"><strong>对流换热热阻</strong></span>：<br>
+$$<br>
+R_{th}=\frac{1}{S_h\cdot h_{a}}<br>
+$$</p>
+<ul>
+<li>
+<p>S<sub>h</sub>: 换热面积，单位m<sup>2</sup></p>
+</li>
+<li>
+<p>h<sub>a</sub>: 空气对流换热系数，单位iW/(m<sup>2</sup>·K)</p>
+<p>静止空气一般为6W/(m<sup>2</sup>·K)，自然对流下，在5-25W/(m<sup>2</sup>·K)，强制对流下，在20-300W/(m<sup>2</sup>·K)</p>
+</li>
+</ul>
+<h2 id="依次计算各个介质之间的热阻"><a class="header-anchor" href="#依次计算各个介质之间的热阻"></a>依次计算各个介质之间的热阻:</h2>
+<h3 id="BTA41结与封装的-span-style-color-BlueViolet-导热热阻-span"><a class="header-anchor" href="#BTA41结与封装的-span-style-color-BlueViolet-导热热阻-span"></a>BTA41结与封装的<span style="color:BlueViolet;">导热热阻</span></h3>
+<p>写datasheet的科学家已经帮我们算好了，结与封装外壳之间的热阻0.9℃/W</p>
+<p><img src="/65fdcd15/BTA41%E7%83%AD%E9%98%BB.jpg" alt></p>
+<h3 id="封装与导热片间的-span-style-color-BlueViolet-导热热阻-span"><a class="header-anchor" href="#封装与导热片间的-span-style-color-BlueViolet-导热热阻-span"></a>封装与导热片间的<span style="color:BlueViolet;">导热热阻</span></h3>
+<p><img src="/65fdcd15/BTA41%E5%AF%BC%E7%83%AD%E9%9D%A2%E7%A7%AF.jpg" alt></p>
+<p>导热面积取封装接触面积S<sub>c</sub>约为：202mm<sup>2</sup></p>
+<p>使用<a href="http://assets.lairdtech.com/home/brandworld/files/THR-DS-TFlex-700_07_2_14.pdf" target="_blank" rel="noopener">莱尔德Laird TFLEX700 导热垫片</a></p>
+<p>规格：15mm×15mm</p>
+<p>厚度：0.25mm（越薄越好）<br>
+导热系数：5.0/mK<br>
+$$<br>
+R_{th(c-t)}＝\frac{L}{λ\cdot S}=\frac{0.0025}{5.0\cdot0.000202}\approx2.48(K/W)<br>
+$$</p>
+<h3 id="铝散热片在空气中被动散热的-span-style-color-BlueViolet-对流换热热阻-span"><a class="header-anchor" href="#铝散热片在空气中被动散热的-span-style-color-BlueViolet-对流换热热阻-span"></a>铝散热片在空气中被动散热的<span style="color:BlueViolet;">对流换热热阻</span></h3>
+<p>计算To-3p 25mm高的散热片表面积S<sub>h</sub>约为4330mm<sup>2</sup>，即0.00433m<sup>2</sup>，还要减去与封装重合的接触面积</p>
+<p>即有效对流换热面积S<sub>0</sub>为：<br>
+$$<br>
+S_0=S_h-S_c=4330-202=4098mm^2<br>
+$$</p>
+<p><img src="/65fdcd15/To-3P%E8%A1%A8%E9%9D%A2%E7%A7%AF.jpg" alt></p>
+<p>取自然对流换热系数中间值15W/(m<sup>2</sup>·K)进行计算：<br>
+$$<br>
+R_{th(h-a)}=\frac{1}{S_0\cdot h_{a}}=\frac{1}{15 \cdot0.004098}\approx16.27(K/W)<br>
+$$</p>
+<h2 id="BTA41本身热损耗"><a class="header-anchor" href="#BTA41本身热损耗"></a>BTA41本身热损耗</h2>
+<p>BTA41完整周期最大发热功耗与导通时的通态均方根电流（完整周期）</p>
+<p><img src="/65fdcd15/BTA%E5%AE%8C%E6%95%B4%E5%91%A8%E6%9C%9F%E6%9C%80%E5%A4%A7%E5%8F%91%E7%83%AD%E5%8A%9F%E8%80%97.jpg" alt></p>
+<p>加热管800W负载一路3.636A，在表1中BTA41约产生的2.5W发热功耗</p>
+<h2 id="结温计算-环境温度为70℃）"><a class="header-anchor" href="#结温计算-环境温度为70℃）"></a>结温计算 (环境温度为70℃）</h2>
+<h3 id="没有任何散热片纯靠外壳散热："><a class="header-anchor" href="#没有任何散热片纯靠外壳散热："></a>没有任何散热片纯靠外壳散热：</h3>
+<p>$$<br>
+T_j=70+2.5\cdot50\approx195℃<br>
+$$</p>
+<p>结温过高，不解释🙃</p>
+<h3 id="被动散热"><a class="header-anchor" href="#被动散热"></a>被动散热</h3>
+<p>$$<br>
+T_j=70+2.5\cdot(0.9+2.48+16.27)\approx119.13℃<br>
+$$</p>
+<p>结温很极限，静止空气对流换热系数太小，导致散热器与环境的热阻很大，因此即使是小功率负载，也需要添加风扇进行主动散热🙃</p>
+<h3 id="主动散热"><a class="header-anchor" href="#主动散热"></a>主动散热</h3>
+<p>强制对流情况下，空气的对流换热系数在20~100之间，保守起见取中间值60W/(m<sup>2</sup>·℃)，那么重新计算铝散热片在空气中的 对流换热热阻 和 结温 分别为：<br>
+$$<br>
+R_{th(h-a)}=\frac{1}{60*0.004098}\approx4.07℃/W<br>
+$$</p>
+<p>$$<br>
+T_j=70+2.5\cdot(0.9+2.48+4.07)\approx88.63℃<br>
+$$</p>
+<p>结温正常，小于T<sub>j</sub>最高工作温度125℃，实际测试4cm风扇换热能力肯定更好😂</p>
+<p>参考：<a href="http://st.avros.net/articles/heatsink-calc.html" target="_blank" rel="noopener">散热片的简单估算</a></p>
+<h1 id="可控硅散热片感应电问题"><a class="header-anchor" href="#可控硅散热片感应电问题"></a>可控硅散热片感应电问题</h1>
+<p>如果可控硅是BTA，那么阳极和散热片是绝缘的，如果是BTB，那中间脚阳极与散热片是相通的:</p>
+<p><img src="/65fdcd15/BTABTB.jpg" alt></p>
+<p>若使用BTB，通交流电时散热片会有感应电压，在散热片和管子之间加云母片或者硅胶垫，这种作法即使绝缘了，因为可控硅的散热片始终都经过安装螺丝跟可控硅铜底的孔连接起来的，所以也会有感应电，建议用尼龙或PEEK螺丝连接，用BTA就没事</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/半导体元件/" rel="tag"># 半导体元件</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/b85c9bb4/" rel="next" title="esp8266 spi设备共用CS">
+                  <i class="fa fa-chevron-left"></i> esp8266 spi设备共用CS
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/88b2c11b/" rel="prev" title="相位调制">
+                  相位调制 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/psa.jpg"
+      alt="过气德国佬">
+  <p class="site-author-name" itemprop="name">过气德国佬</p>
+  <div class="site-description motion-element" itemprop="description">潮起潮落，云卷云舒</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/oldgerman" title="GitHub &rarr; https://github.com/oldgerman" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:2920956602@qq.com" title="E-Mail &rarr; mailto:2920956602@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#电路"><span class="nav-number">1.</span> <span class="nav-text">电路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#光耦控制可控硅的基本电路-最低标准"><span class="nav-number">1.1.</span> <span class="nav-text">光耦控制可控硅的基本电路(最低标准)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#老毛子的电路"><span class="nav-number">1.2.</span> <span class="nav-text">老毛子的电路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OptoTriacV2-0使用的电路："><span class="nav-number">1.3.</span> <span class="nav-text">OptoTriacV2.0使用的电路：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何选保险丝？"><span class="nav-number">1.3.1.</span> <span class="nav-text">如何选保险丝？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何选压敏电阻？"><span class="nav-number">1.3.2.</span> <span class="nav-text">如何选压敏电阻？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PCB仿真效果"><span class="nav-number">2.</span> <span class="nav-text">PCB仿真效果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PCB设计要点"><span class="nav-number">3.</span> <span class="nav-text">PCB设计要点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#线距"><span class="nav-number">3.1.</span> <span class="nav-text">线距</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#强电与强电之间线距"><span class="nav-number">3.1.1.</span> <span class="nav-text">强电与强电之间线距</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#弱电与强电之间线距"><span class="nav-number">3.1.2.</span> <span class="nav-text">弱电与强电之间线距</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#丝印警示"><span class="nav-number">3.2.</span> <span class="nav-text">丝印警示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预留4cm，8cm散热风扇孔位"><span class="nav-number">3.3.</span> <span class="nav-text">预留4cm，8cm散热风扇孔位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#支持BTA16，BTA41反装加强散热"><span class="nav-number">3.4.</span> <span class="nav-text">支持BTA16，BTA41反装加强散热</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#焊接"><span class="nav-number">4.</span> <span class="nav-text">焊接</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一些小问题"><span class="nav-number">4.1.</span> <span class="nav-text">一些小问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试"><span class="nav-number">5.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附：如何计算散热？"><span class="nav-number">7.</span> <span class="nav-text">附：如何计算散热？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本参数及公式"><span class="nav-number">7.1.</span> <span class="nav-text">基本参数及公式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#环境温度"><span class="nav-number">7.1.1.</span> <span class="nav-text">环境温度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BTA41结温极限范围"><span class="nav-number">7.1.2.</span> <span class="nav-text">BTA41结温极限范围</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结温计算公式"><span class="nav-number">7.2.</span> <span class="nav-text">结温计算公式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#热阻计算公式"><span class="nav-number">7.3.</span> <span class="nav-text">热阻计算公式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通过两端温差计算"><span class="nav-number">7.3.1.</span> <span class="nav-text">通过两端温差计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过导热系数计算"><span class="nav-number">7.3.2.</span> <span class="nav-text">通过导热系数计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过对流换热系数计算"><span class="nav-number">7.3.3.</span> <span class="nav-text">通过对流换热系数计算</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依次计算各个介质之间的热阻"><span class="nav-number">7.4.</span> <span class="nav-text">依次计算各个介质之间的热阻:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BTA41结与封装的-span-style-color-BlueViolet-导热热阻-span"><span class="nav-number">7.4.1.</span> <span class="nav-text">BTA41结与封装的导热热阻</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#封装与导热片间的-span-style-color-BlueViolet-导热热阻-span"><span class="nav-number">7.4.2.</span> <span class="nav-text">封装与导热片间的导热热阻</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#铝散热片在空气中被动散热的-span-style-color-BlueViolet-对流换热热阻-span"><span class="nav-number">7.4.3.</span> <span class="nav-text">铝散热片在空气中被动散热的对流换热热阻</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BTA41本身热损耗"><span class="nav-number">7.5.</span> <span class="nav-text">BTA41本身热损耗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结温计算-环境温度为70℃）"><span class="nav-number">7.6.</span> <span class="nav-text">结温计算 (环境温度为70℃）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#没有任何散热片纯靠外壳散热："><span class="nav-number">7.6.1.</span> <span class="nav-text">没有任何散热片纯靠外壳散热：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#被动散热"><span class="nav-number">7.6.2.</span> <span class="nav-text">被动散热</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主动散热"><span class="nav-number">7.6.3.</span> <span class="nav-text">主动散热</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#可控硅散热片感应电问题"><span class="nav-number">8.</span> <span class="nav-text">可控硅散热片感应电问题</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+        
+
+<div id="days"></div>
+<script>
+function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("07/19/2019 15:00:00");
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=setzero(Math.floor(e_hrsold));
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+    seconds=setzero(Math.floor((e_minsold-minsold)*60));
+    document.getElementById('days').innerHTML="(∩•̀ω•́)⊃--*⋆本站由米板1代搭建，已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i) {
+    if (i<10) {
+        i="0" + i
+    };
+    return i;
+}
+show_date_time();
+</script>
+
+
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">过气德国佬</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">118k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:47</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        <span>0%</span>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'iWuakuHkkRt5xT7Ct9cyj8nO-gzGzoHsz',
+    appKey: 'PAz23pDzHnucqRDkVMShMp5B',
+    placeholder: '(๑•̀ㅁ•́ฅ✧ 说点什么吧！',
+    avatar: '',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="都2020年了, 开发板咋还遍地都用Micro usb ? 画个type-c的用用。。。嘿，您还别说，正反插真香!">
+<meta name="keywords" content="esp8266,type-c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="esp8266开发板设计：D1 mini Plus V1.0">
+<meta property="og:url" content="http://yoursite.com/db8555d9/index.html">
+<meta property="og:site_name" content="OldGerman&#39;s Blog">
+<meta property="og:description" content="都2020年了, 开发板咋还遍地都用Micro usb ? 画个type-c的用用。。。嘿，您还别说，正反插真香!">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/db8555d9/D1miniPlusV1.jpg">
+<meta property="og:image" content="http://yoursite.com/db8555d9/AddConnector-1.png">
+<meta property="og:image" content="http://yoursite.com/db8555d9/AddConnector-2.png">
+<meta property="og:image" content="http://yoursite.com/db8555d9/D1miniPlusV1Back.jpg">
+<meta property="og:image" content="http://yoursite.com/db8555d9/TFT_espiTest.gif">
+<meta property="og:image" content="http://yoursite.com/db8555d9/MPU6050_I2C_Test-1.jpg">
+<meta property="og:image" content="http://yoursite.com/db8555d9/MPU6050_I2C_Test-2.jpg">
+<meta property="og:image" content="http://yoursite.com/db8555d9/NTC100k_Demo-1.jpg">
+<meta property="og:image" content="http://yoursite.com/db8555d9/NTC100k_Demo-2.png">
+<meta property="og:image" content="http://yoursite.com/db8555d9/WifiScan.jpg">
+<meta property="og:image" content="http://yoursite.com/db8555d9/AN721.png">
+<meta property="og:image" content="http://yoursite.com/db8555d9/AN721_0.png">
+<meta property="og:image" content="http://yoursite.com/db8555d9/AN721_1.png">
+<meta property="og:image" content="http://yoursite.com/db8555d9/AN721_2.png">
+<meta property="og:image" content="http://yoursite.com/db8555d9/SerialUpload.png">
+<meta property="og:image" content="http://yoursite.com/db8555d9/SerialBlink.png">
+<meta property="og:updated_time" content="2022-08-17T04:19:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="esp8266开发板设计：D1 mini Plus V1.0">
+<meta name="twitter:description" content="都2020年了, 开发板咋还遍地都用Micro usb ? 画个type-c的用用。。。嘿，您还别说，正反插真香!">
+<meta name="twitter:image" content="http://yoursite.com/db8555d9/D1miniPlusV1.jpg">
+  <link rel="canonical" href="http://yoursite.com/db8555d9/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>esp8266开发板设计：D1 mini Plus V1.0 | OldGerman's Blog</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OldGerman's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Refuse to play tickets!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-阅读排名">
+      
+    
+
+    <a href="/rank" rel="section"><i class="menu-item-icon fa fa-fw fa-list"></i> <br>阅读排名</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/db8555d9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过气德国佬">
+      <meta itemprop="description" content="潮起潮落，云卷云舒">
+      <meta itemprop="image" content="/images/psa.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OldGerman's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">esp8266开发板设计：D1 mini Plus V1.0
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-16 11:37:41" itemprop="dateCreated datePublished" datetime="2020-05-16T11:37:41+08:00">2020-05-16</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-17 12:19:47" itemprop="dateModified" datetime="2022-08-17T12:19:47+08:00">2022-08-17</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PCB设计/" itemprop="url" rel="index"><span itemprop="name">PCB设计</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span id="/db8555d9/" class="post-meta-item leancloud_visitors" data-flag-title="esp8266开发板设计：D1 mini Plus V1.0" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/db8555d9/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/db8555d9/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>138</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+            <div class="post-description">都2020年了, 开发板咋还遍地都用Micro usb ? 画个type-c的用用。。。嘿，您还别说，正反插真香!</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="D1-mini-Plus"><a class="header-anchor" href="#D1-mini-Plus"></a>D1 mini Plus</h1>
+<p><a href="https://github.com/oldgerman/D1-mini-Plus-V1.0" target="_blank" rel="noopener">github项目地址</a></p>
+<p>A development kit Improved from <a href="https://docs.wemos.cc/en/latest/d1/d1_mini_pro.html" target="_blank" rel="noopener">D1 mini Pro V1.0.0</a></p>
+<p>The first test board welded by hand and it works great!</p>
+<h2 id="Add-connector-bolts-for-fixing"><a class="header-anchor" href="#Add-connector-bolts-for-fixing"></a>Add connector &amp; bolts for fixing</h2>
+<table>
+    <tr>
+    	<td><img src="/db8555d9/D1miniPlusV1.jpg"></td>
+        <td><img src="/db8555d9/AddConnector-1.png"></td>
+	<td><img src="/db8555d9/AddConnector-2.png" < td>
+    </td></tr>
+</table>
+<h2 id="Features"><a class="header-anchor" href="#Features"></a>Features</h2>
+<ul>
+<li>Pin to pin with D1 mini development kits</li>
+<li>Double-sided PCB layout, the board thickness is 0.8mm, size is 36.0mm x25.6mm</li>
+<li>All components are on one side</li>
+<li>Discrete components are packaged in 0603, which is easy to solder by hand</li>
+<li>There are four M2 holes around the PCB that are easy to fix</li>
+<li><a href="https://grabcad.com/library/usb-c-connector-horizontal-in-board-1-6mm-1" target="_blank" rel="noopener">USB C Connector horizontal In-Board 1.6mm</a> supports positive and negative insertion</li>
+<li>Leads the TX &amp; RX LEDs  GPIO.0-1 of cp2104, you can use AN721 to turn them on or off</li>
+<li>Use the <a href="https://www.st.com/en/protection-devices/usblc6-2.html" target="_blank" rel="noopener">USBLC6-2</a> ic to ESD protection, If you don’t need it, you don’t need to solder, this will not affect the serial port work</li>
+</ul>
+<h2 id="Pin-Map-Back-View"><a class="header-anchor" href="#Pin-Map-Back-View"></a>Pin Map (Back View)</h2>
+<p>There is no cartoon logo on the back of the shared PCB file XD</p>
+<p><img src="/db8555d9/D1miniPlusV1Back.jpg" alt></p>
+<h2 id="Designator-Parameter"><a class="header-anchor" href="#Designator-Parameter"></a>Designator &amp; Parameter</h2>
+<table>
+<thead>
+<tr>
+<th>Qty</th>
+<th>Value</th>
+<th>Device</th>
+<th>Package</th>
+<th>Parts</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>26MHz</td>
+<td>3225_CRYSTALL</td>
+<td>3.2X2.5_KX-7</td>
+<td>U$3</td>
+<td>EPSON TSX-3225 ±10ppm 9pf</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2.54mm</td>
+<td>CONN_08NO_SILK_FEMALE_PTH</td>
+<td>1X08_NO_SILK</td>
+<td>J1, J2</td>
+<td>0.1 inch spaced/style header connections</td>
+</tr>
+<tr>
+<td>1</td>
+<td>U1</td>
+<td>ME6211C33M5G-N</td>
+<td>SOT23-5</td>
+<td>U$1</td>
+<td>3.3V 500mA 低差压线性稳压器</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2.4GHz</td>
+<td>RAINSUN_AT9520</td>
+<td>AN9520</td>
+<td>U$4</td>
+<td>Ceramic antenna 陶瓷天线</td>
+</tr>
+<tr>
+<td>1</td>
+<td></td>
+<td>USB-C_BELOW_BOARD</td>
+<td>USB-C_BLOW_BOARD</td>
+<td>USB-C</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>blank</td>
+<td>RESISTOR0603</td>
+<td>603</td>
+<td>R11, R12</td>
+<td>Generic Resistor Package</td>
+</tr>
+<tr>
+<td>1</td>
+<td>100k</td>
+<td>RESISTOR0603</td>
+<td>603</td>
+<td>R13</td>
+<td>Generic Resistor Package</td>
+</tr>
+<tr>
+<td>5</td>
+<td>100nF</td>
+<td>CAP-0603</td>
+<td>603</td>
+<td>C4, C7, C12, C13, C14</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>10k</td>
+<td>RESISTOR0603</td>
+<td>603</td>
+<td>R7, R8, R15, R16, R17</td>
+<td>Generic Resistor Package</td>
+</tr>
+<tr>
+<td>2</td>
+<td>10pF</td>
+<td>CAP-0603</td>
+<td>603</td>
+<td>C5, C11</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>10uF</td>
+<td>CAP-0603</td>
+<td>603</td>
+<td>C9</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>12k</td>
+<td>RESISTOR0603</td>
+<td>603</td>
+<td>R5</td>
+<td>Generic Resistor Package</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1k</td>
+<td>RESISTOR0603</td>
+<td>603</td>
+<td>R4, R9, R10</td>
+<td>Generic Resistor Package</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1uF</td>
+<td>CAP-0603</td>
+<td>603</td>
+<td>C8</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>1uF/X7R</td>
+<td>CAP-0603</td>
+<td>603</td>
+<td>C1, C2</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>200</td>
+<td>RESISTOR0603</td>
+<td>603</td>
+<td>R6</td>
+<td>Generic Resistor Package</td>
+</tr>
+<tr>
+<td>1</td>
+<td>220k</td>
+<td>RESISTOR0603</td>
+<td>603</td>
+<td>R14</td>
+<td>Generic Resistor Package</td>
+</tr>
+<tr>
+<td>2</td>
+<td>4.7uF</td>
+<td>CAP-0603</td>
+<td>603</td>
+<td>C3, C6</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>470</td>
+<td>RESISTOR0603</td>
+<td>603</td>
+<td>R2, R3</td>
+<td>Generic Resistor Package</td>
+</tr>
+<tr>
+<td>1</td>
+<td>4k7</td>
+<td>RESISTOR0603</td>
+<td>603</td>
+<td>R1</td>
+<td>Generic Resistor Package</td>
+</tr>
+<tr>
+<td>1</td>
+<td>5.6pF</td>
+<td>CAP-0603</td>
+<td>603</td>
+<td>C10</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>6V 0.5A</td>
+<td>RESISTOR0603</td>
+<td>603</td>
+<td>F1</td>
+<td>Generic Resistor Package</td>
+</tr>
+<tr>
+<td>1</td>
+<td>B5819W</td>
+<td>DIODE-SOD323-R</td>
+<td>SOD323-R</td>
+<td>D3</td>
+<td>Schottky DIODE</td>
+</tr>
+<tr>
+<td>3</td>
+<td>BLUE</td>
+<td>LED-BLUE0603</td>
+<td>LED-0603</td>
+<td>D1, D2, D4</td>
+<td>Blue SMD LED</td>
+</tr>
+<tr>
+<td>1</td>
+<td>CP2104</td>
+<td>CP2104</td>
+<td>QFN24_4MM_SMSC</td>
+<td>U3</td>
+<td>CP2104 - USB to UART Bridge</td>
+</tr>
+<tr>
+<td>1</td>
+<td>ESP8266</td>
+<td>ESP8266</td>
+<td>QFN32-5X5MM</td>
+<td>U1</td>
+<td>Espressif ESP8266 WiFi/Microcontroller SoC</td>
+</tr>
+<tr>
+<td>1</td>
+<td>SWITCH</td>
+<td>MOMENTARY-SWITCH-SPST-SMD</td>
+<td>TACTILE_SWITCH_SMD</td>
+<td>S1</td>
+<td>Momentary Switch (Pushbutton) - SPST</td>
+</tr>
+<tr>
+<td>1</td>
+<td>U2</td>
+<td>UMH3N</td>
+<td>SOT363</td>
+<td>U$2</td>
+<td>NPN 100mA 50V Complex Digital Transistors (Bias Resistor Built-in Transistors)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>USBLC6-2</td>
+<td>USBLC6-2SOT23-6</td>
+<td>SOT23-6</td>
+<td>U$11</td>
+<td>low capacitance ESD protection</td>
+</tr>
+<tr>
+<td>1</td>
+<td>W25Q32FV</td>
+<td>W25Q32FVSS</td>
+<td>SOIC-8</td>
+<td>U2</td>
+<td>W25Q32FV 32Mb (4MB) Serial Flash Memory</td>
+</tr>
+</tbody>
+</table>
+<h2 id="SPI-test-ST7789V-Graphicstest"><a class="header-anchor" href="#SPI-test-ST7789V-Graphicstest"></a>SPI test: ST7789V Graphicstest</h2>
+<p>Testing in SPI FREQUENCY  40000000</p>
+<p><img src="/db8555d9/TFT_espiTest.gif" alt="TFT_espiTest"></p>
+<p><a href="https://github.com/Bodmer/TFT_eSPI" target="_blank" rel="noopener">For more, please see…</a></p>
+<h2 id="I2C-test-read-MPU6050-DMP-Euler-angles-in-degrees"><a class="header-anchor" href="#I2C-test-read-MPU6050-DMP-Euler-angles-in-degrees"></a>I2C test: read MPU6050 DMP Euler angles in degrees</h2>
+<table>
+    <tr>
+        <td><img src="/db8555d9/MPU6050_I2C_Test-1.jpg"></td>
+		<td><img src="/db8555d9/MPU6050_I2C_Test-2.jpg" < td>
+    </td></tr>
+</table>
+<p><a href="https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050" target="_blank" rel="noopener">For more, please see…</a></p>
+<h2 id="ADC0-test-basic-NTC-thermistor-measurement-circuit"><a class="header-anchor" href="#ADC0-test-basic-NTC-thermistor-measurement-circuit"></a>ADC0 test: basic NTC thermistor measurement circuit</h2>
+<table>
+    <tr>
+        <td><img src="/db8555d9/NTC100k_Demo-1.jpg"></td>
+		<td><img src="/db8555d9/NTC100k_Demo-2.png" < td>
+    </td></tr>
+</table>
+<p><a href="https://www.circuitbasics.com/arduino-thermistor-temperature-sensor-tutorial/" target="_blank" rel="noopener">For more, please see…</a></p>
+<h2 id="Wifi-scan-test"><a class="header-anchor" href="#Wifi-scan-test"></a>Wifi scan test</h2>
+<p><img src="/db8555d9/WifiScan.jpg" alt></p>
+<p><a href="https://github.com/esp8266/Arduino/blob/master/libraries/ESP8266WiFi/examples/WiFiScan/WiFiScan.ino" target="_blank" rel="noopener">For more, please see…</a></p>
+<h2 id="CP2104-TX-RX-LEDs-How-to-get-them-working"><a class="header-anchor" href="#CP2104-TX-RX-LEDs-How-to-get-them-working"></a>CP2104 TX &amp; RX LEDs - How to get them working?</h2>
+<p>First, download and unzip the AN721: <a href="https://www.silabs.com/documents/public/example-code/AN721SW.zip" target="_blank" rel="noopener">Download link</a>, for windows, click in this document</p>
+<p><img src="/db8555d9/AN721.png" alt></p>
+<p>Second, run the CP21xxCustomizationUtility.exe</p>
+<p><img src="/db8555d9/AN721_0.png" alt></p>
+<p>Third, according to the page 28 from  <a href="https://www.silabs.com/documents/public/application-notes/AN721.pdf" target="_blank" rel="noopener">AN721: USBXpress™ Device Configuration and Programming Guide</a>, we set the latch for ticking the GPIO0 and GPIO1;</p>
+<p>Click “Program Device” button and wait a minute,the change will be saved in CP2104:</p>
+<table>
+    <tr>
+        <td><img src="/db8555d9/AN721_1.png"></td>
+		<td><img src="/db8555d9/AN721_2.png" < td>
+    </td></tr>
+</table>
+<p>Finally, whether you upload a program or use a serial port, the led of CP2104 will flash, enjoy it 😂</p>
+<table>
+    <tr>
+        <td><img src="/db8555d9/SerialUpload.png"></td>
+		<td><img src="/db8555d9/SerialBlink.png" < td>
+    </td></tr>
+</table>
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/esp8266/" rel="tag"># esp8266</a>
+            
+              <a href="/tags/type-c/" rel="tag"># type-c</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/b216a5e8/" rel="next" title="机智屏补焊ESP32模组刷wifi固件">
+                  <i class="fa fa-chevron-left"></i> 机智屏补焊ESP32模组刷wifi固件
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/845419ff/" rel="prev" title="uRLC复刻笔记">
+                  uRLC复刻笔记 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/psa.jpg"
+      alt="过气德国佬">
+  <p class="site-author-name" itemprop="name">过气德国佬</p>
+  <div class="site-description motion-element" itemprop="description">潮起潮落，云卷云舒</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/oldgerman" title="GitHub &rarr; https://github.com/oldgerman" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:2920956602@qq.com" title="E-Mail &rarr; mailto:2920956602@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#D1-mini-Plus"><span class="nav-number">1.</span> <span class="nav-text">D1 mini Plus</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Add-connector-bolts-for-fixing"><span class="nav-number">1.1.</span> <span class="nav-text">Add connector &amp; bolts for fixing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Features"><span class="nav-number">1.2.</span> <span class="nav-text">Features</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pin-Map-Back-View"><span class="nav-number">1.3.</span> <span class="nav-text">Pin Map (Back View)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Designator-Parameter"><span class="nav-number">1.4.</span> <span class="nav-text">Designator &amp; Parameter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SPI-test-ST7789V-Graphicstest"><span class="nav-number">1.5.</span> <span class="nav-text">SPI test: ST7789V Graphicstest</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#I2C-test-read-MPU6050-DMP-Euler-angles-in-degrees"><span class="nav-number">1.6.</span> <span class="nav-text">I2C test: read MPU6050 DMP Euler angles in degrees</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ADC0-test-basic-NTC-thermistor-measurement-circuit"><span class="nav-number">1.7.</span> <span class="nav-text">ADC0 test: basic NTC thermistor measurement circuit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Wifi-scan-test"><span class="nav-number">1.8.</span> <span class="nav-text">Wifi scan test</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CP2104-TX-RX-LEDs-How-to-get-them-working"><span class="nav-number">1.9.</span> <span class="nav-text">CP2104 TX &amp; RX LEDs - How to get them working?</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+        
+
+<div id="days"></div>
+<script>
+function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("07/19/2019 15:00:00");
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=setzero(Math.floor(e_hrsold));
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+    seconds=setzero(Math.floor((e_minsold-minsold)*60));
+    document.getElementById('days').innerHTML="(∩•̀ω•́)⊃--*⋆本站由米板1代搭建，已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i) {
+    if (i<10) {
+        i="0" + i
+    };
+    return i;
+}
+show_date_time();
+</script>
+
+
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">过气德国佬</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">118k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:47</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        <span>0%</span>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'iWuakuHkkRt5xT7Ct9cyj8nO-gzGzoHsz',
+    appKey: 'PAz23pDzHnucqRDkVMShMp5B',
+    placeholder: '(๑•̀ㅁ•́ฅ✧ 说点什么吧！',
+    avatar: '',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>
