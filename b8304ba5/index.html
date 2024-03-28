@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="目前只记录了一台设备的测量数据，不具备普遍性，欢迎补充">
+<meta name="keywords" content="仪表评测">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mR-71-RE校准测试">
+<meta property="og:url" content="http://yoursite.com/b8304ba5/index.html">
+<meta property="og:site_name" content="OldGerman&#39;s Blog">
+<meta property="og:description" content="目前只记录了一台设备的测量数据，不具备普遍性，欢迎补充">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.radiokot.ru/files/button.gif">
+<meta property="og:image" content="http://yoursite.com/b8304ba5/mR-71-RE_Test_1KHz(1).JPG">
+<meta property="og:image" content="http://yoursite.com/b8304ba5/mR-71-RE_Test_1KHz(2).JPG">
+<meta property="og:image" content="http://yoursite.com/b8304ba5/mR-71-RE_Test_1KHz(3).JPG">
+<meta property="og:image" content="http://yoursite.com/b8304ba5/mR-71-RE_Test_1KHz(4).JPG">
+<meta property="og:image" content="http://yoursite.com/b8304ba5/%E6%A0%A1%E5%87%86%EF%BC%9A%E5%BC%80%E5%B0%94%E6%96%87%E5%A4%B9%E5%AD%90%E7%9F%AD%E8%B7%AF%E6%A0%A1%E5%87%86%E7%9A%84%E6%8E%A5%E7%BA%BF%E6%96%B9%E6%B3%95.png">
+<meta property="og:image" content="http://yoursite.com/b8304ba5/%E6%A0%A1%E5%87%86%EF%BC%9A%E5%BC%80%E5%B0%94%E6%96%87%E5%A4%B9%E5%AD%90%E7%9F%AD%E8%B7%AF%E6%A0%A1%E5%87%86%EF%BC%9A%E5%A4%B9%E7%94%B5%E9%98%BB%E6%B5%8B%E8%AF%95%E6%9D%BF%E7%9A%84%E5%A7%BF%E5%8A%BF.JPG">
+<meta property="og:image" content="http://yoursite.com/b8304ba5/%E6%B5%8B%E9%87%8F%EF%BC%9A%E7%94%B5%E9%98%BB%EF%BC%9A%E5%BC%80%E5%B0%94%E6%96%87%E7%94%B5%E9%98%BB%E6%B5%8B%E8%AF%95%E6%9D%BF.png">
+<meta property="og:image" content="http://yoursite.com/b8304ba5/%E6%B5%8B%E9%87%8F%EF%BC%9A%E7%94%B5%E9%98%BB%EF%BC%9A%E5%BC%80%E5%B0%94%E6%96%87%E7%94%B5%E9%98%BB%E6%B5%8B%E8%AF%95%E6%9D%BF%EF%BC%9A%E5%A4%B9%E5%AD%90%E5%A4%B9%E6%8C%81%E5%A7%BF%E5%8A%BF.png">
+<meta property="og:image" content="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png">
+<meta property="og:updated_time" content="2024-03-28T09:15:37.093Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mR-71-RE校准测试">
+<meta name="twitter:description" content="目前只记录了一台设备的测量数据，不具备普遍性，欢迎补充">
+<meta name="twitter:image" content="https://www.radiokot.ru/files/button.gif">
+  <link rel="canonical" href="http://yoursite.com/b8304ba5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>mR-71-RE校准测试 | OldGerman's Blog</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OldGerman's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Refuse to play tickets!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-阅读排名">
+      
+    
+
+    <a href="/rank" rel="section"><i class="menu-item-icon fa fa-fw fa-list"></i> <br>阅读排名</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/b8304ba5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过气德国佬">
+      <meta itemprop="description" content="潮起潮落，云卷云舒">
+      <meta itemprop="image" content="/images/psa.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OldGerman's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">mR-71-RE校准测试
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2024-03-28 16:25:40 / 修改时间：17:15:37" itemprop="dateCreated datePublished" datetime="2024-03-28T16:25:40+08:00">2024-03-28</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/仪表制作/" itemprop="url" rel="index"><span itemprop="name">仪表制作</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span id="/b8304ba5/" class="post-meta-item leancloud_visitors" data-flag-title="mR-71-RE校准测试" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/b8304ba5/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/b8304ba5/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>3.4k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>3 分钟</span>
+            </span>
+          
+            <div class="post-description">目前只记录了一台设备的测量数据，不具备普遍性，欢迎补充</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a href="https://www.radiokot.ru/" target="_blank" rel="noopener"><img src="https://www.radiokot.ru/files/button.gif" width="88" height="31" border="0" hspace="0" vspace="0" alt="РадиоКОТ - популярно об электронике. Авторские схемы, новые разработки. Обучение по электронике, микроконтроллерам, ПЛИС. Форум"></a></p>
+<h2 id="相关文章"><a class="header-anchor" href="#相关文章"></a>相关文章</h2>
+<p><a href="https://oldgerman.github.io/1d2ecca7/" target="_blank" rel="noopener">mR-71-RE组装指南</a></p>
+<h2 id="校准"><a class="header-anchor" href="#校准"></a>校准</h2>
+<h3 id="开路短路-电阻校准"><a class="header-anchor" href="#开路短路-电阻校准"></a>开路短路+电阻校准</h3>
+<p>参见<a href="https://radiokot.ru/artfiles/6673/" target="_blank" rel="noopener">原文</a></p>
+<p>校准后的一些测量效果：</p>
+<table>
+<thead>
+<tr>
+<th><img src="/b8304ba5/mR-71-RE_Test_1KHz(1).JPG" alt="mR-71-RE_Test_1KHz(2)"></th>
+<th><img src="/b8304ba5/mR-71-RE_Test_1KHz(2).JPG" alt="mR-71-RE_Test_1KHz(3)"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3Ω 0.1%</td>
+<td>1KΩ 0.1%</td>
+</tr>
+<tr>
+<td><img src="/b8304ba5/mR-71-RE_Test_1KHz(3).JPG" alt="mR-71-RE_Test_1KHz(4)"></td>
+<td><img src="/b8304ba5/mR-71-RE_Test_1KHz(4).JPG" alt="mR-71-RE_Test_1KHz(1)"></td>
+</tr>
+<tr>
+<td>4线短路</td>
+<td>1mΩ 1%</td>
+</tr>
+</tbody>
+</table>
+<h3 id="问题：开路短路校准后，短路夹子时，各个频率还显示2mR以上？"><a class="header-anchor" href="#问题：开路短路校准后，短路夹子时，各个频率还显示2mR以上？"></a>问题：开路短路校准后，短路夹子时，各个频率还显示2mR以上？</h3>
+<p>开路短路校准和电阻校准后，短路夹子时各个挡位可能还会有2mR以上的底噪，测量毫欧电阻时总是要开启相对测量不太方便</p>
+<p>这种情况可以再开路短路校准一次（不用电阻校准），但夹子短路时需要中间两座子先互相短路，然后边上俩座子互相短路，最后两个短路节点互相短路，这样后，短路夹子时，15和1K频率挡可以小于0.05mR（100K频率短路夹子示数仍然不太稳定，建议测量时开启相对测量）</p>
+<p>参考eBay上的台式万用表4线短路板，接法如原理图示意</p>
+<p><img src="/b8304ba5/%E6%A0%A1%E5%87%86%EF%BC%9A%E5%BC%80%E5%B0%94%E6%96%87%E5%A4%B9%E5%AD%90%E7%9F%AD%E8%B7%AF%E6%A0%A1%E5%87%86%E7%9A%84%E6%8E%A5%E7%BA%BF%E6%96%B9%E6%B3%95.png" alt></p>
+<p>可以使用开尔文电阻测试板，两个开尔文夹子按照上图的示意，只夹同一侧的2个K2A33座子，座子编号为机身正面从上到下依次是1、2、3、4号</p>
+<p><img src="/b8304ba5/%E6%A0%A1%E5%87%86%EF%BC%9A%E5%BC%80%E5%B0%94%E6%96%87%E5%A4%B9%E5%AD%90%E7%9F%AD%E8%B7%AF%E6%A0%A1%E5%87%86%EF%BC%9A%E5%A4%B9%E7%94%B5%E9%98%BB%E6%B5%8B%E8%AF%95%E6%9D%BF%E7%9A%84%E5%A7%BF%E5%8A%BF.JPG" alt></p>
+<h2 id="测试"><a class="header-anchor" href="#测试"></a>测试</h2>
+<blockquote>
+<p>由于条件有限，测试不会覆盖到量程全范围，目前只记录了一台设备的测量数据，结果不具备普遍性</p>
+<p>如果你也有测量数据，欢迎整理成表格或文档提交到<a href="https://github.com/oldgerman/mR-71-RE" target="_blank" rel="noopener">仓库</a>，也可以在评论区留言或私信我邮箱</p>
+</blockquote>
+<h3 id="原版mR-71测量性能"><a class="header-anchor" href="#原版mR-71测量性能"></a>原版mR-71测量性能</h3>
+<ul>
+<li>同时测量值：R、C/L、Q/tg、Z</li>
+<li>测试信号跨度：不大于±100mV Vp-p</li>
+<li>通过被测电路的电流（显示）：不大于40mA</li>
+<li>测量频率：15Hz、1kHz、100kHz</li>
+<li>连接：4 线（开尔文）</li>
+<li>被测电路去耦直流电压：≤±25V</li>
+<li>自动选择等效方案</li>
+<li>自动选择量程</li>
+<li>支持相对测量模式（R、L、C）</li>
+</ul>
+<p>测量范围：</p>
+<ul>
+<li>R：1mOhm…1MOhm，分辨率从 1mkOhm 起</li>
+<li>L：1nH…10H，分辨率从 10pH 开始</li>
+<li>C：10pF…100000uF（100mF），分辨率0.1pF</li>
+</ul>
+<h3 id="重制版mR-71先决条件"><a class="header-anchor" href="#重制版mR-71先决条件"></a>重制版mR-71先决条件</h3>
+<blockquote>
+<p>仪表放大器的增益电阻用3.6K 0.1% 叠焊300K 0.1%</p>
+<p>3R挡下各个频率下夹子短路的值</p>
+<ul>
+<li>15Hz：最大+0.03mR</li>
+<li>1KHz：最大-0.01mR</li>
+<li>100KHz：最大+1.60mR</li>
+</ul>
+<p>测量时，未开启相对测量模式，水平方向左右各一个夹子的夹测试件（如下右图示意），机子需远离手机等干扰源</p>
+<p>在测量范围边界时，100K 频率下的测量值受两个夹子之间的距离，夹子距离主机的距离影响较大</p>
+</blockquote>
+<h3 id="测量：电阻"><a class="header-anchor" href="#测量：电阻"></a>测量：电阻</h3>
+<blockquote>
+<p>省略副参</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th><img src="/b8304ba5/%E6%B5%8B%E9%87%8F%EF%BC%9A%E7%94%B5%E9%98%BB%EF%BC%9A%E5%BC%80%E5%B0%94%E6%96%87%E7%94%B5%E9%98%BB%E6%B5%8B%E8%AF%95%E6%9D%BF.png" alt></th>
+<th><img src="/b8304ba5/%E6%B5%8B%E9%87%8F%EF%BC%9A%E7%94%B5%E9%98%BB%EF%BC%9A%E5%BC%80%E5%B0%94%E6%96%87%E7%94%B5%E9%98%BB%E6%B5%8B%E8%AF%95%E6%9D%BF%EF%BC%9A%E5%A4%B9%E5%AD%90%E5%A4%B9%E6%8C%81%E5%A7%BF%E5%8A%BF.png" alt="测量：电阻：开尔文电阻测试板：夹子夹持姿势"></th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>型号</th>
+<th>阻值</th>
+<th>精度</th>
+<th>温漂</th>
+<th>功率</th>
+<th>封装</th>
+<th>挡位</th>
+<th>频率：15Hz</th>
+<th>频率：1KHz</th>
+<th>频率：100KHz</th>
+<th>备注：15Hz</th>
+<th>备注：1KHz</th>
+<th>备注：100KHz</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://item.szlcsc.com/306664.html" target="_blank" rel="noopener">PA2512FKE7W0R001E </a></td>
+<td>1mΩ</td>
+<td>1%</td>
+<td>±50ppm/℃</td>
+<td>2W</td>
+<td>2512</td>
+<td>3Ω</td>
+<td>0.9878mΩ±0.0249mΩ</td>
+<td>0.9871mΩ±0.0068mΩ</td>
+<td>0.9239mΩ±1.1506mΩ</td>
+<td>示数明显不稳定，在0.9629mΩ到1.0126mΩ跳动</td>
+<td>示数不太稳定，在0.9804mΩ到0.9939mΩ跳动</td>
+<td>示数随夹子距离机身的距离影响很大，0~10cm距离变化，在-0.2267mΩ到2.0745mΩ跳动</td>
+</tr>
+<tr>
+<td><a href="https://item.szlcsc.com/347965.html" target="_blank" rel="noopener">PA2512FKE7W0R01E </a></td>
+<td>10mΩ</td>
+<td>1%</td>
+<td>±50ppm/℃</td>
+<td>2W</td>
+<td>2512</td>
+<td>3Ω</td>
+<td>10.026mΩ</td>
+<td>10.024mΩ</td>
+<td>9.8346mΩ±0.6574mΩ</td>
+<td>示数较稳定</td>
+<td>示数较稳定</td>
+<td>示数随夹子距离机身的距离影响很大，0~10cm距离变化，在9.1772mΩ到10.492mΩ跳动</td>
+</tr>
+<tr>
+<td><a href="https://item.szlcsc.com/3159230.html" target="_blank" rel="noopener">HoJLR2512-3W-100mR-1% </a></td>
+<td>100mΩ</td>
+<td>1%</td>
+<td>±50ppm/℃</td>
+<td>3W</td>
+<td>2512</td>
+<td>3Ω</td>
+<td>99.496mΩ</td>
+<td>99.384mΩ</td>
+<td>99.416mΩ±0.4735mΩ</td>
+<td>示数较稳定</td>
+<td>示数较稳定</td>
+<td>示数随夹子距离机身的距离影响较大，0~10cm距离变化，在98.942mΩ到99.889mΩ跳动</td>
+</tr>
+<tr>
+<td><a href="https://item.szlcsc.com/528541.html" target="_blank" rel="noopener">RT1206BRD071RL </a></td>
+<td>1Ω</td>
+<td>0.1%</td>
+<td>±25ppm/℃</td>
+<td>250mW</td>
+<td>1206</td>
+<td>3Ω</td>
+<td>1.0020Ω</td>
+<td>1.0019Ω</td>
+<td>1.0022Ω</td>
+<td>示数较稳定</td>
+<td>示数较稳定</td>
+<td>示数较稳定</td>
+</tr>
+<tr>
+<td><a href="https://item.szlcsc.com/2977350.html" target="_blank" rel="noopener">ARG06BTC0100</a></td>
+<td>10Ω</td>
+<td>0.1%</td>
+<td>±25ppm/℃</td>
+<td>250mW</td>
+<td>1206</td>
+<td>3Ω</td>
+<td>9.9893Ω</td>
+<td>9.9897Ω</td>
+<td>9.9968Ω</td>
+<td>示数较稳定</td>
+<td>示数较稳定</td>
+<td>示数较稳定</td>
+</tr>
+<tr>
+<td><a href="https://item.szlcsc.com/2977355.html" target="_blank" rel="noopener">ARG06BTC1000</a></td>
+<td>100Ω</td>
+<td>0.1%</td>
+<td>±25ppm/℃</td>
+<td>250mW</td>
+<td>1206</td>
+<td>3Ω</td>
+<td>99.673Ω</td>
+<td>99.607Ω</td>
+<td>100.01Ω</td>
+<td>示数较稳定</td>
+<td>示数较稳定</td>
+<td>示数较稳定</td>
+</tr>
+<tr>
+<td><a href="https://item.szlcsc.com/395099.html" target="_blank" rel="noopener">ARG06BTC1001</a></td>
+<td>1KΩ</td>
+<td>0.1%</td>
+<td>±25ppm/℃</td>
+<td>250mW</td>
+<td>1206</td>
+<td>1KΩ</td>
+<td>1.0001KΩ</td>
+<td>1.0000KΩ</td>
+<td>998.37Ω</td>
+<td>示数较稳定</td>
+<td>示数较稳定</td>
+<td>示数较稳定</td>
+</tr>
+<tr>
+<td><a href="https://item.szlcsc.com/395100.html" target="_blank" rel="noopener">ARG06BTC1002</a></td>
+<td>10KΩ</td>
+<td>0.1%</td>
+<td>±25ppm/℃</td>
+<td>250mW</td>
+<td>1206</td>
+<td>1KΩ</td>
+<td>9.9750KΩ</td>
+<td>9.9774KΩ</td>
+<td>10.198KΩ</td>
+<td>示数较稳定</td>
+<td>示数较稳定</td>
+<td>示数较稳定</td>
+</tr>
+<tr>
+<td><a href="https://item.szlcsc.com/395101.html" target="_blank" rel="noopener">ARG06BTC1003</a></td>
+<td>100KΩ</td>
+<td>0.1%</td>
+<td>±25ppm/℃</td>
+<td>250mW</td>
+<td>1206</td>
+<td>1KΩ</td>
+<td>100.27KΩ</td>
+<td>100.44KΩ</td>
+<td>102.41KΩ</td>
+<td>示数较稳定</td>
+<td>示数较稳定</td>
+<td>示数较稳定</td>
+</tr>
+<tr>
+<td><a href="https://item.szlcsc.com/3426034.html" target="_blank" rel="noopener">ARG06BTC1004</a></td>
+<td>1MΩ</td>
+<td>0.1%</td>
+<td>±25ppm/℃</td>
+<td>250mW</td>
+<td>1206</td>
+<td>1KΩ</td>
+<td>1.0251MΩ±0.0299MΩ</td>
+<td>1.0248MΩ±0.0271MΩ</td>
+<td>803.50K±27.150K</td>
+<td>示数较稳定</td>
+<td>示数较稳定</td>
+<td>示数明显不稳定，在995.18KΩ到1.0551MΩ跳动</td>
+</tr>
+</tbody>
+</table>
+<h3 id="测量：电容"><a class="header-anchor" href="#测量：电容"></a>测量：电容</h3>
+<blockquote>
+<p>省略副参</p>
+</blockquote>
+<p>1pF到100nF，MLCC，C0G，±5%：</p>
+<table>
+<thead>
+<tr>
+<th>型号</th>
+<th>容值</th>
+<th>材质</th>
+<th>精度</th>
+<th>封装</th>
+<th>挡位</th>
+<th>频率：15Hz</th>
+<th>频率：1KHz</th>
+<th>频率：100KHz</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>1pF</td>
+<td></td>
+<td></td>
+<td>0402</td>
+<td>1K，1K，1K</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://item.szlcsc.com/299799.html" target="_blank" rel="noopener">CL10C5R6CB8NNNC</a></td>
+<td>5.6pF</td>
+<td>C0G</td>
+<td>±5%</td>
+<td>0603</td>
+<td>1K，1K，1K</td>
+<td>测不出来</td>
+<td>19.000pF±4.000pF</td>
+<td>6.3518pF±0.0084pF</td>
+</tr>
+<tr>
+<td><a href="https://item.szlcsc.com/181524.html" target="_blank" rel="noopener">CL10C100DB8NNNC</a></td>
+<td>10pF</td>
+<td>C0G</td>
+<td>±5%</td>
+<td>0603</td>
+<td>1K，1K，1K</td>
+<td>测不出来</td>
+<td>12.483pF±0.670pF</td>
+<td>10.651pF±0.017pF</td>
+</tr>
+<tr>
+<td><a href="https://item.szlcsc.com/545465.html" target="_blank" rel="noopener">CC0603FRNPO0BN101 </a></td>
+<td>100pF</td>
+<td>C0G</td>
+<td>±1%</td>
+<td>0603</td>
+<td>1K，1K，1K</td>
+<td>测不出来</td>
+<td>88.184pF±0.931pF</td>
+<td>96.348pF±0.026pF</td>
+</tr>
+<tr>
+<td><a href="https://item.szlcsc.com/54563.html" target="_blank" rel="noopener">0402CG102J500NT </a></td>
+<td>1nF</td>
+<td>C0G</td>
+<td>±5%</td>
+<td>0402</td>
+<td>1K，1K，1K</td>
+<td>1.6690nF±0.8750nF</td>
+<td>1.0153nF±0.0008nF</td>
+<td>967.08pF±0.07pF</td>
+</tr>
+<tr>
+<td><a href="https://item.szlcsc.com/87149.html" target="_blank" rel="noopener">GRM1885C1H103JA01D </a></td>
+<td>10nF</td>
+<td>C0G</td>
+<td>±5%</td>
+<td>0603</td>
+<td>1K，1K，1K</td>
+<td>9.3150nF±0.2350nF</td>
+<td>10.052nF±0.001nF</td>
+<td>9.8261nF±0.0010nF</td>
+</tr>
+<tr>
+<td><a href="https://item.szlcsc.com/99155.html" target="_blank" rel="noopener">GRM31C5C1H104JA01L </a></td>
+<td>100nF</td>
+<td>C0G</td>
+<td>±5%</td>
+<td>1206</td>
+<td>1K，3Ω，3Ω</td>
+<td>98.697nF±0.2060nF</td>
+<td>98.737nF±0.318nF</td>
+<td>99.333nF±0.001nF</td>
+</tr>
+</tbody>
+</table>
+<p>1uF到100uF，MLCC，X5R或X7R，±10%（大于1uF已经没有C0G电容了）</p>
+<table>
+<thead>
+<tr>
+<th>型号</th>
+<th>容值</th>
+<th>材质</th>
+<th>精度</th>
+<th>封装</th>
+<th>挡位</th>
+<th>频率：15Hz</th>
+<th>频率：1KHz</th>
+<th>频率：100KHz</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://item.szlcsc.com/16531.html" target="_blank" rel="noopener">CL10A105KB8NNNC</a></td>
+<td>1uF</td>
+<td>x5R</td>
+<td>±10%</td>
+<td>0603</td>
+<td>1K，1K，1K</td>
+<td>795.99nF±0.15nF</td>
+<td>794.09nF±0.27nF</td>
+<td>720.03nF±0.16nF</td>
+</tr>
+<tr>
+<td><a href="https://item.szlcsc.com/14236.html" target="_blank" rel="noopener">CL31A106KBHNNNE</a></td>
+<td>10uF</td>
+<td>x7R</td>
+<td>±10%</td>
+<td>1206</td>
+<td>3Ω，3Ω，3Ω</td>
+<td>7.0731uF±0.0586uF</td>
+<td>7.0041uF±0.0027uF</td>
+<td>7.2273uF±0.0005uF</td>
+</tr>
+<tr>
+<td><a href="https://item.szlcsc.com/3591172.html" target="_blank" rel="noopener">GRM31CR60J107KEA8L</a></td>
+<td>100uF</td>
+<td>x5R</td>
+<td>±10%</td>
+<td>1206</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>1uF到100uF，普通钽电容，±10%</p>
+<table>
+<thead>
+<tr>
+<th>型号</th>
+<th>容值</th>
+<th>材质</th>
+<th>精度</th>
+<th>封装</th>
+<th>挡位</th>
+<th>频率：15Hz</th>
+<th>频率：1KHz</th>
+<th>频率：100KHz</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>1uF</td>
+<td>钽</td>
+<td>±10%</td>
+<td></td>
+<td>3Ω，3Ω，3Ω</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>10uF</td>
+<td>钽</td>
+<td>±10%</td>
+<td></td>
+<td>3Ω，3Ω，3Ω</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>100uF</td>
+<td>钽</td>
+<td>±10%</td>
+<td></td>
+<td>3Ω，3Ω，3Ω</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>1uF到100uF，MKP，5%，威世的高级货，待土豪测试</p>
+<table>
+<thead>
+<tr>
+<th>型号</th>
+<th>容值</th>
+<th>材质</th>
+<th>精度</th>
+<th>封装</th>
+<th>挡位</th>
+<th>频率：15Hz</th>
+<th>频率：1KHz</th>
+<th>频率：100KHz</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://item.szlcsc.com/3485291.html" target="_blank" rel="noopener">MKP1839510254</a></td>
+<td>1uF</td>
+<td>MKP</td>
+<td>±5%</td>
+<td>轴向</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://item.szlcsc.com/4365577.html" target="_blank" rel="noopener">MKP1848C61060JK2</a></td>
+<td>10uF</td>
+<td>MKP</td>
+<td>±5%</td>
+<td>插件</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://item.szlcsc.com/4353947.html" target="_blank" rel="noopener">MKP1848C71050JY5</a></td>
+<td>100uF</td>
+<td>MKP</td>
+<td>±5%</td>
+<td>插件</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>1mF到1F，±20%：待测试</p>
+<table>
+<thead>
+<tr>
+<th>型号</th>
+<th>容值</th>
+<th>材质</th>
+<th>精度</th>
+<th>封装</th>
+<th>挡位</th>
+<th>频率：15Hz</th>
+<th>频率：1KHz</th>
+<th>频率：100KHz</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>1mF</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>10mF</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>100mF</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>1F</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="测量：电感"><a class="header-anchor" href="#测量：电感"></a>测量：电感</h3>
+<blockquote>
+<p>省略副参</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>型号</th>
+<th>感值</th>
+<th>精度</th>
+<th>封装</th>
+<th>频率：15Hz</th>
+<th>频率：1KHz</th>
+<th>频率：100KHz</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>1nH</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>10nH</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>100nH</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>1uH</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>10uH</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>100uH</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>1mH</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>10mH</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>100mH</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>1H</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>10H</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="锂电池续航"><a class="header-anchor" href="#锂电池续航"></a>锂电池续航</h3>
+<p>850mA锂电池，约4到6.5小时</p>
+<h3 id="锂电池电流"><a class="header-anchor" href="#锂电池电流"></a>锂电池电流</h3>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>挡位</th>
+<th>电流</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>关机</td>
+<td>N/A</td>
+<td>&lt;1uA</td>
+</tr>
+<tr>
+<td>开机，测试夹开路</td>
+<td>1KΩ</td>
+<td>128~129mA</td>
+</tr>
+<tr>
+<td>开机，测试夹短路</td>
+<td>3Ω</td>
+<td>192～195mA</td>
+</tr>
+</tbody>
+</table>
+<h2 id="许可协议"><a class="header-anchor" href="#许可协议"></a>许可协议</h2>
+<p><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank" rel="noopener">CC BY-NC-SA 4.0 DEED | 署名-非商业性使用-相同方式共享 4.0 国际</a></p>
+<p><img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="CC BY-NC-SA 4.0"></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/仪表评测/" rel="tag"># 仪表评测</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/1d2ecca7/" rel="next" title="mR-71-RE组装指南">
+                  <i class="fa fa-chevron-left"></i> mR-71-RE组装指南
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/psa.jpg"
+      alt="过气德国佬">
+  <p class="site-author-name" itemprop="name">过气德国佬</p>
+  <div class="site-description motion-element" itemprop="description">潮起潮落，云卷云舒</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/oldgerman" title="GitHub &rarr; https://github.com/oldgerman" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:2920956602@qq.com" title="E-Mail &rarr; mailto:2920956602@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#相关文章"><span class="nav-number">1.</span> <span class="nav-text">相关文章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#校准"><span class="nav-number">2.</span> <span class="nav-text">校准</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#开路短路-电阻校准"><span class="nav-number">2.1.</span> <span class="nav-text">开路短路+电阻校准</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题：开路短路校准后，短路夹子时，各个频率还显示2mR以上？"><span class="nav-number">2.2.</span> <span class="nav-text">问题：开路短路校准后，短路夹子时，各个频率还显示2mR以上？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-number">3.</span> <span class="nav-text">测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原版mR-71测量性能"><span class="nav-number">3.1.</span> <span class="nav-text">原版mR-71测量性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重制版mR-71先决条件"><span class="nav-number">3.2.</span> <span class="nav-text">重制版mR-71先决条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测量：电阻"><span class="nav-number">3.3.</span> <span class="nav-text">测量：电阻</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测量：电容"><span class="nav-number">3.4.</span> <span class="nav-text">测量：电容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测量：电感"><span class="nav-number">3.5.</span> <span class="nav-text">测量：电感</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#锂电池续航"><span class="nav-number">3.6.</span> <span class="nav-text">锂电池续航</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#锂电池电流"><span class="nav-number">3.7.</span> <span class="nav-text">锂电池电流</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#许可协议"><span class="nav-number">4.</span> <span class="nav-text">许可协议</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+        
+
+<div id="days"></div>
+<script>
+function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("07/19/2019 15:00:00");
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=setzero(Math.floor(e_hrsold));
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+    seconds=setzero(Math.floor((e_minsold-minsold)*60));
+    document.getElementById('days').innerHTML="(∩•̀ω•́)⊃--*⋆本站由米板1代搭建，已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i) {
+    if (i<10) {
+        i="0" + i
+    };
+    return i;
+}
+show_date_time();
+</script>
+
+
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">过气德国佬</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">125k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:53</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        <span>0%</span>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'iWuakuHkkRt5xT7Ct9cyj8nO-gzGzoHsz',
+    appKey: 'PAz23pDzHnucqRDkVMShMp5B',
+    placeholder: '(๑•̀ㅁ•́ฅ✧ 说点什么吧！',
+    avatar: '',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>
