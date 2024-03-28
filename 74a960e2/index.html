@@ -57,7 +57,7 @@
   <meta name="description" content="解读ironOS开源烙铁固件：如何使用加速度计实现运动唤醒和oled旋转">
 <meta name="keywords" content="加速度计">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LIS3DH加速度笔记">
+<meta property="og:title" content="ODGIRON_LIS3DH笔记">
 <meta property="og:url" content="http://yoursite.com/74a960e2/index.html">
 <meta property="og:site_name" content="OldGerman&#39;s Blog">
 <meta property="og:description" content="解读ironOS开源烙铁固件：如何使用加速度计实现运动唤醒和oled旋转">
@@ -89,9 +89,9 @@
 <meta property="og:image" content="http://yoursite.com/74a960e2/%E6%97%8B%E8%BD%AColed%E9%98%88%E5%80%BC%E4%BA%8B%E4%BB%B6%E6%98%AF%E4%BB%A5x%E8%BF%98%E6%98%AFz%E8%BD%B4%E8%A7%A6%E5%8F%91%E5%88%A4%E6%96%AD%EF%BC%9F.jpg">
 <meta property="og:image" content="http://yoursite.com/74a960e2/currentPointer%E9%9A%8FMOVTAsk%E8%B0%83%E5%BA%A6%E6%AC%A1%E6%95%B0%E5%8F%98%E5%8C%96.png">
 <meta property="og:image" content="http://yoursite.com/74a960e2/%E4%B8%80%E8%BE%B96D%E6%97%8B%E8%BD%AC%E9%98%88%E5%80%BC%E6%A3%80%E6%B5%8B%E4%B8%80%E8%BE%B9%E8%BF%90%E5%8A%A8%E6%A3%80%E6%B5%8B%E7%9A%84%E7%9E%AC%E9%97%B4.png">
-<meta property="og:updated_time" content="2022-08-17T04:19:47.000Z">
+<meta property="og:updated_time" content="2024-03-28T10:35:40.398Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LIS3DH加速度笔记">
+<meta name="twitter:title" content="ODGIRON_LIS3DH笔记">
 <meta name="twitter:description" content="解读ironOS开源烙铁固件：如何使用加速度计实现运动唤醒和oled旋转">
 <meta name="twitter:image" content="http://yoursite.com/74a960e2/TS100-72%E5%8F%98(1).png">
   <link rel="canonical" href="http://yoursite.com/74a960e2/">
@@ -108,7 +108,7 @@
   };
 </script>
 
-  <title>LIS3DH加速度笔记 | OldGerman's Blog</title>
+  <title>ODGIRON_LIS3DH笔记 | OldGerman's Blog</title>
   <meta name="generator" content="Hexo 3.9.0">
   
 
@@ -286,7 +286,7 @@
       <meta itemprop="name" content="OldGerman's Blog">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">LIS3DH加速度笔记
+        <h1 class="post-title" itemprop="name headline">ODGIRON_LIS3DH笔记
 
           
         </h1>
@@ -313,7 +313,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-08-17 12:19:47" itemprop="dateModified" datetime="2022-08-17T12:19:47+08:00">2022-08-17</time>
+                <time title="修改时间：2024-03-28 18:35:40" itemprop="dateModified" datetime="2024-03-28T18:35:40+08:00">2024-03-28</time>
               </span>
             
           
@@ -332,7 +332,7 @@
           
 
           
-            <span id="/74a960e2/" class="post-meta-item leancloud_visitors" data-flag-title="LIS3DH加速度笔记" title="阅读次数">
+            <span id="/74a960e2/" class="post-meta-item leancloud_visitors" data-flag-title="ODGIRON_LIS3DH笔记" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -418,7 +418,7 @@
 </tbody>
 </table>
 <h2 id="LIS3DH与LIS2DH12"><a class="header-anchor" href="#LIS3DH与LIS2DH12"></a>LIS3DH与LIS2DH12</h2>
-<p>ODGIRON是我最近在开发的基于ironOS的快充T12电烙铁，由于ODGIRON双面布线，加速度盘下要走两个过孔才能布通，因此选用了封装更大的LIS3DH，封装为LGA12(3.0x3.0x1.0 mm)，其焊接更友好，还更便宜，需要用到的地方与LIS2DH12几乎完全一致，要什么自行车</p>
+<p><a href="https://oldgerman.github.io/d5ffc54/" target="_blank" rel="noopener">ODGIRON</a>，是我最近在开发的基于ironOS的快充T12电烙铁，由于ODGIRON双面布线，加速度盘下要走两个过孔才能布通，因此选用了封装更大的LIS3DH，封装为LGA12(3.0x3.0x1.0 mm)，其焊接更友好，还更便宜，需要用到的地方与LIS2DH12几乎完全一致，要什么自行车</p>
 <table>
 <thead>
 <tr>
@@ -684,7 +684,8 @@
 <h2 id="综合测试"><a class="header-anchor" href="#综合测试"></a>综合测试</h2>
 <p>一边读3轴数据，一边6D旋转阈值检测，一边运动检测的瞬间，OK：</p>
 <p><img src="/74a960e2/%E4%B8%80%E8%BE%B96D%E6%97%8B%E8%BD%AC%E9%98%88%E5%80%BC%E6%A3%80%E6%B5%8B%E4%B8%80%E8%BE%B9%E8%BF%90%E5%8A%A8%E6%A3%80%E6%B5%8B%E7%9A%84%E7%9E%AC%E9%97%B4.png" alt="20210220011749"></p>
-<h2 id="参考资料"><a class="header-anchor" href="#参考资料"></a>参考资料</h2>
+<h2 id="相关链接"><a class="header-anchor" href="#相关链接"></a>相关链接</h2>
+<p><a href="https://oldgerman.github.io/d5ffc54/" target="_blank" rel="noopener">ODGIRON_开源PD电烙铁</a></p>
 <p><a href="https://github.com/Ralim/IronOS" target="_blank" rel="noopener">IronOS开源烙铁固件github</a></p>
 <p><a href="https://www.sohu.com/a/109038400_116463" target="_blank" rel="noopener">美与质量共存——TS100袖珍迷你烙铁评测</a></p>
 <p><a href="https://www.analog.com/cn/products/landing-pages/001/accelerometer-specifications-definitions.html#" target="_blank" rel="noopener">AD：加速度计技术规格——快速定义</a></p>
@@ -787,7 +788,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -909,7 +910,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#TS100的两个加速度计"><span class="nav-number">1.</span> <span class="nav-text">TS100的两个加速度计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LIS3DH与LIS2DH12"><span class="nav-number">2.</span> <span class="nav-text">LIS3DH与LIS2DH12</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ironOS-加速度计读数不正常问题解决"><span class="nav-number">3.</span> <span class="nav-text">ironOS 加速度计读数不正常问题解决</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根据加速读计旋转oled"><span class="nav-number">4.</span> <span class="nav-text">根据加速读计旋转oled</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加速度计坐标轴"><span class="nav-number">4.1.</span> <span class="nav-text">加速度计坐标轴</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#右手与左手的旋转与加速度计坐标关系"><span class="nav-number">4.2.</span> <span class="nav-text">右手与左手的旋转与加速度计坐标关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#INT2-THS-阈值寄存器"><span class="nav-number">4.3.</span> <span class="nav-text">INT2_THS 阈值寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#那么旋转oled阈值事件到底是以x还是z轴触发判断？"><span class="nav-number">4.4.</span> <span class="nav-text">那么旋转oled阈值事件到底是以x还是z轴触发判断？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#INT2-DURATION寄存器有没有用？"><span class="nav-number">4.5.</span> <span class="nav-text">INT2_DURATION寄存器有没有用？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运动检测算法"><span class="nav-number">5.</span> <span class="nav-text">运动检测算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#综合测试"><span class="nav-number">6.</span> <span class="nav-text">综合测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#TS100的两个加速度计"><span class="nav-number">1.</span> <span class="nav-text">TS100的两个加速度计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LIS3DH与LIS2DH12"><span class="nav-number">2.</span> <span class="nav-text">LIS3DH与LIS2DH12</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ironOS-加速度计读数不正常问题解决"><span class="nav-number">3.</span> <span class="nav-text">ironOS 加速度计读数不正常问题解决</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根据加速读计旋转oled"><span class="nav-number">4.</span> <span class="nav-text">根据加速读计旋转oled</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加速度计坐标轴"><span class="nav-number">4.1.</span> <span class="nav-text">加速度计坐标轴</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#右手与左手的旋转与加速度计坐标关系"><span class="nav-number">4.2.</span> <span class="nav-text">右手与左手的旋转与加速度计坐标关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#INT2-THS-阈值寄存器"><span class="nav-number">4.3.</span> <span class="nav-text">INT2_THS 阈值寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#那么旋转oled阈值事件到底是以x还是z轴触发判断？"><span class="nav-number">4.4.</span> <span class="nav-text">那么旋转oled阈值事件到底是以x还是z轴触发判断？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#INT2-DURATION寄存器有没有用？"><span class="nav-number">4.5.</span> <span class="nav-text">INT2_DURATION寄存器有没有用？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运动检测算法"><span class="nav-number">5.</span> <span class="nav-text">运动检测算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#综合测试"><span class="nav-number">6.</span> <span class="nav-text">综合测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关链接"><span class="nav-number">7.</span> <span class="nav-text">相关链接</span></a></li></ol></div>
             
 
           </div>
@@ -976,7 +977,7 @@ show_date_time();
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:53</span>
+    <span title="站点阅读时长">1:54</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>
