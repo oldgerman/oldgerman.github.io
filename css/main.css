@@ -1030,9 +1030,6 @@ pre .javascript .function {
     opacity: 0.8;
   }
 }
-.header {
-  background: url("../images/background.jpg");
-}
 .header-inner {
   position: relative;
 }
@@ -1586,6 +1583,13 @@ pre .javascript .function {
   align-self: center;
   height: 30px;
 }
+.post-copyright {
+  background-color: #f9f9f9;
+  border-left: 3px solid #ff1700;
+  list-style: none;
+  margin: 2em 0 0;
+  padding: 0.5em 1em;
+}
 .sidebar {
   background: #35779b;
   bottom: 0;
@@ -1677,7 +1681,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #8a2f73;
+  background: #8fec30;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2763,7 +2767,7 @@ a.fancybox {
   text-decoration: none !important;
 }
 .btn {
-  color: #fff !important;
+  color: #000 !important;
   text-decoration: none !important;
   border: 2px solid #222 !important;
 }
@@ -2784,17 +2788,17 @@ body {
   opacity: 1;
 }
 .content-wrap {
-  opacity: 0.9;
+  opacity: 1;
 }
 .sidebar {
-  opacity: 0.9;
+  opacity: 1;
 }
 .header-inner {
-  background: rgba(255,255,255,0.95);
+  background: #fff;
 }
 .popup {
-  opacity: 0.9;
+  opacity: 1;
 }
 .header-inner {
-  opacity: 0.8;
+  opacity: 1;
 }
