@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="STM32示波器，多功能手持式仪器，从硬禾SCOPE-F072修改优化">
+<meta name="keywords" content="stm32">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SCOPE-F07x">
+<meta property="og:url" content="http://yoursite.com/b7d79828/index.html">
+<meta property="og:site_name" content="OldGerman&#39;s Blog">
+<meta property="og:description" content="STM32示波器，多功能手持式仪器，从硬禾SCOPE-F072修改优化">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/b7d79828/%E5%A4%96%E5%A3%B3%E8%A3%85%E9%85%8D-0.jpg">
+<meta property="og:image" content="http://yoursite.com/b7d79828/SCOPE-F07x_MIndMap_Main.png">
+<meta property="og:image" content="http://yoursite.com/b7d79828/3d_1.png">
+<meta property="og:image" content="http://yoursite.com/b7d79828/3d_2.png">
+<meta property="og:image" content="http://yoursite.com/b7d79828/3d_3_png.png">
+<meta property="og:image" content="http://yoursite.com/b7d79828/3d_4_png.png">
+<meta property="og:image" content="http://yoursite.com/b7d79828/wikipedia_IPOD-NANO-6th.png">
+<meta property="og:image" content="http://yoursite.com/b7d79828/CASE_3D_1.png">
+<meta property="og:image" content="http://yoursite.com/b7d79828/CASE_3D_2.png">
+<meta property="og:image" content="http://yoursite.com/b7d79828/SW_six-view_2.png">
+<meta property="og:image" content="http://yoursite.com/b7d79828/%E5%A4%96%E5%A3%B3%E8%A3%85%E9%85%8D_%E6%95%A3%E7%83%AD%E7%89%87(0).jpeg">
+<meta property="og:image" content="http://yoursite.com/b7d79828/%E5%A4%96%E5%A3%B3%E8%A3%85%E9%85%8D(6).jpeg">
+<meta property="og:image" content="http://yoursite.com/b7d79828/EETree_%E5%85%A8%E5%B1%80%E5%A4%A7%E6%95%B0%E7%BB%84%E5%8D%A0%E7%94%A8RAM12.57KB.png">
+<meta property="og:image" content="http://yoursite.com/b7d79828/%E6%B5%8B%E8%AF%95%EF%BC%9ALM358%E5%8F%8D%E5%90%91%E6%94%BE%E5%A4%A7.JPG">
+<meta property="og:image" content="http://yoursite.com/b7d79828/%E6%B5%8B%E8%AF%95%EF%BC%9A%E5%8F%AF%E8%B0%83%E7%94%B5%E5%8E%8B%E6%BA%90%E5%8F%8C%E8%B7%AF%E8%BE%93%E5%87%BA20mA-30mA.JPG">
+<meta property="og:image" content="http://yoursite.com/b7d79828/%E6%B5%8B%E8%AF%95%EF%BC%9A%E5%8F%AF%E8%B0%83%E7%94%B5%E5%8E%8B%E6%BA%90%E8%B4%9F4V%E8%BE%93%E5%87%BA.JPG">
+<meta property="og:image" content="http://yoursite.com/b7d79828/100KHz_-100mV-100mV(1).jpeg">
+<meta property="og:image" content="http://yoursite.com/b7d79828/100KHz_-100mV-100mV(2).jpeg">
+<meta property="og:image" content="http://yoursite.com/b7d79828/100KHz_-100mV-100mV(3).jpeg">
+<meta property="og:image" content="http://yoursite.com/b7d79828/10KHz_-4V-4V(1).jpeg">
+<meta property="og:image" content="http://yoursite.com/b7d79828/10KHz_-4V-4V(2).jpeg">
+<meta property="og:image" content="http://yoursite.com/b7d79828/10KHz_-4V-4V(3).jpeg">
+<meta property="og:image" content="http://yoursite.com/b7d79828/100KHz_-4V~4V(1).jpeg">
+<meta property="og:image" content="http://yoursite.com/b7d79828/100KHz_-4V~4V(2).jpeg">
+<meta property="og:image" content="http://yoursite.com/b7d79828/100KHz_-4V~4V(3).jpeg">
+<meta property="og:image" content="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png">
+<meta property="og:updated_time" content="2024-03-28T10:54:24.296Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SCOPE-F07x">
+<meta name="twitter:description" content="STM32示波器，多功能手持式仪器，从硬禾SCOPE-F072修改优化">
+<meta name="twitter:image" content="http://yoursite.com/b7d79828/%E5%A4%96%E5%A3%B3%E8%A3%85%E9%85%8D-0.jpg">
+  <link rel="canonical" href="http://yoursite.com/b7d79828/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>SCOPE-F07x | OldGerman's Blog</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OldGerman's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Refuse to play tickets!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-阅读排名">
+      
+    
+
+    <a href="/rank" rel="section"><i class="menu-item-icon fa fa-fw fa-list"></i> <br>阅读排名</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/b7d79828/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过气德国佬">
+      <meta itemprop="description" content="潮起潮落，云卷云舒">
+      <meta itemprop="image" content="/images/psa.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OldGerman's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">SCOPE-F07x
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2023-04-26 02:50:00" itemprop="dateCreated datePublished" datetime="2023-04-26T02:50:00+08:00">2023-04-26</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-28 18:54:24" itemprop="dateModified" datetime="2024-03-28T18:54:24+08:00">2024-03-28</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/仪表制作/" itemprop="url" rel="index"><span itemprop="name">仪表制作</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span id="/b7d79828/" class="post-meta-item leancloud_visitors" data-flag-title="SCOPE-F07x" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/b7d79828/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/b7d79828/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>1.9k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>2 分钟</span>
+            </span>
+          
+            <div class="post-description">STM32示波器，多功能手持式仪器，从硬禾SCOPE-F072修改优化</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="/b7d79828/%E5%A4%96%E5%A3%B3%E8%A3%85%E9%85%8D-0.jpg" alt></p>
+<h3 id="关于"><a class="header-anchor" href="#关于"></a>关于</h3>
+<p><a href="https://github.com/oldgerman/SCOPE-F07x" target="_blank" rel="noopener">SCOPE-F07x</a> 从 <a href="https://github.com/EETree-git/SCOPE-F072" target="_blank" rel="noopener">硬禾SCOPE-F072</a> 开源和公开资料修改&amp;优化</p>
+<p>零零散散修改的地方比较多，详见修改说明部分</p>
+<p><img src="/b7d79828/SCOPE-F07x_MIndMap_Main.png" alt></p>
+<h3 id="PCB"><a class="header-anchor" href="#PCB"></a>PCB</h3>
+<p>工艺：</p>
+<ul>
+<li>层数：2</li>
+<li>板厚: 1.0mm</li>
+<li>过孔: 0.3/0.5mm</li>
+<li>线宽线隙: 6mil/6mil</li>
+<li>尺寸: 38x38mm</li>
+</ul>
+<p>封装：绝大多数是0402，物料约40多种</p>
+<table>
+<thead>
+<tr>
+<th><img src="/b7d79828/3d_1.png" alt></th>
+<th><img src="/b7d79828/3d_2.png" alt></th>
+<th><img src="/b7d79828/3d_3_png.png" alt></th>
+<th><img src="/b7d79828/3d_4_png.png" alt></th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+<h3 id="外壳"><a class="header-anchor" href="#外壳"></a>外壳</h3>
+<p>硬禾的原始设计配套的外壳有亿点点low，出于情怀我想到经典设计 iPod nano (<em>6th</em> generation)，然而想做到这么简约并非易事</p>
+<p><img src="/b7d79828/wikipedia_IPOD-NANO-6th.png" alt></p>
+<p>经过PCB和建模的各方面努力，外壳OK</p>
+<ul>
+<li>屏幕完美居中</li>
+<li>结构针对FDM成型进行了很多优化，打印全程无需支撑和拉桥</li>
+<li>外壳平均厚度为2mm，免螺丝设计，纯卡扣固定，实测上下壳体卡得极其牢固</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><img src="/b7d79828/CASE_3D_1.png" alt></th>
+<th><img src="/b7d79828/CASE_3D_2.png" alt></th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+<p>一张 iPod nano 6th 海报同款角度视图 (๑•̀ㅂ•́)و✧</p>
+<p><img src="/b7d79828/SW_six-view_2.png" alt></p>
+<h3 id="散热"><a class="header-anchor" href="#散热"></a>散热</h3>
+<p>OPA4197其中的两个运放作为双路直流电压源，电流范围±30mA，手册 I(sink)和I(source)给的是±65mA，实测输出3.3V电压，负载电流30mA时，没有什么压降，但发热比较大，当增加到40mA开始过热/失调，电压不再稳定，因此推荐加装散热片</p>
+<p>散热片物料：15x15x0.5mm紫铜片、3M 8810导热双面胶、金手指胶带</p>
+<table>
+<thead>
+<tr>
+<th><img src="/b7d79828/%E5%A4%96%E5%A3%B3%E8%A3%85%E9%85%8D_%E6%95%A3%E7%83%AD%E7%89%87(0).jpeg" alt="外壳装配_散热片(0)"></th>
+<th><img src="/b7d79828/%E5%A4%96%E5%A3%B3%E8%A3%85%E9%85%8D(6).jpeg" alt="外壳装配(6)"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OPA4197的TSSOP-14封装比较薄，保险起见可以用金手指胶带封住一部分，防止短路，虽然实际距离还挺宽裕</td>
+<td>将导热胶裁剪至合适大小，之后对准中心贴上铜片即可</td>
+</tr>
+</tbody>
+</table>
+<h3 id="修改说明"><a class="header-anchor" href="#修改说明"></a>修改说明</h3>
+<h4 id="硬件"><a class="header-anchor" href="#硬件"></a>硬件</h4>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>原版</th>
+<th>修改</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Layout</td>
+<td>STM32的模拟和数字共用电源和地，运放有个单独的3.0V电源（不明白为啥不拿这个给STM32的VDDA也供电，猜测因为STM32模拟供电电压要高于数字部分，但是3.0V又比3.3V低了0.3V不合格）</td>
+<td>模数电源和地分离。模拟部分电源从3.0V改为3.3V，也为STM32的VDDA供电，因为这0.3V的变化，运放电路电阻取值经过重新计算，与EEtree的技术指标保持一致</td>
+</tr>
+<tr>
+<td>USB</td>
+<td>Miro USB，仅USB功能</td>
+<td>Type-c 正反插功能不同，正插USB DFU，反插可以用stlink调试（D+: SWCLK，D-: SWDIO）</td>
+</tr>
+<tr>
+<td>运放</td>
+<td>TP2302</td>
+<td>TP2302运放太冷门买不到，改为SGM8632</td>
+</tr>
+<tr>
+<td></td>
+<td>TL974</td>
+<td>TL974 I(source)太弱了只有1.5mA，改为OPA4197</td>
+</tr>
+<tr>
+<td>STM32</td>
+<td>STM32F072CBT6</td>
+<td>换为QFN-48封装，引脚变更较多，兼容STM32F071、STM32F072，071虽然手册没写有USB但是出厂固件的 USB DFU 都有，071当072烧固件USB功能都是完整的，071就是072</td>
+</tr>
+<tr>
+<td>电荷泵</td>
+<td>LM2776</td>
+<td>LM2776过于昂贵，换为便宜很多的SGM3204</td>
+</tr>
+<tr>
+<td>加速度计</td>
+<td>MMA8653</td>
+<td>MMA8653又贵又冷门，换为LIS3DH，拆机的都降价到1元包邮啦</td>
+</tr>
+<tr>
+<td>EEPROM</td>
+<td>24C01</td>
+<td>换为SOT-23封装，容量大小任意</td>
+</tr>
+<tr>
+<td>按键</td>
+<td>2个按键 + 拨轮开关</td>
+<td>拨轮开关换为3个按键，一共5个按键</td>
+</tr>
+</tbody>
+</table>
+<p>备注：其他修改细节见原理图</p>
+<h4 id="软件"><a class="header-anchor" href="#软件"></a>软件</h4>
+<p>原版程序：</p>
+<p>有好几个大的数组(成员数量几百个)，使用静态内存分配，运行时不能释放，导致固件编译后内存使用率95%以上，开Os优化编译后，Flash可用空间还有50KB以上，由于RAM剩余空间紧张，加速度计、EEPROM、屏幕背光、USB通讯、ADC反馈等相关实现被裁剪</p>
+<p><img src="/b7d79828/EETree_%E5%85%A8%E5%B1%80%E5%A4%A7%E6%95%B0%E7%BB%84%E5%8D%A0%E7%94%A8RAM12.57KB.png" alt="EETree_全局大数组占用RAM12.57KB"></p>
+<p>优化目标：</p>
+<p>使用动态内存分配，尽可能实现上述被裁剪的功能</p>
+<p>代码进度：</p>
+<p>目前仅针对修改版PCB做了修改适配，提供工程源码文件，优化还没开始搞，代码等改好了有空再说~</p>
+<h3 id="功能测试"><a class="header-anchor" href="#功能测试"></a>功能测试</h3>
+<table>
+<thead>
+<tr>
+<th>反向放大电路：提供正负电源+信号源、并测量放大后的信号</th>
+<th>可调电压源双路输出20mA-30mA</th>
+<th>可调电压源输出负4V</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/b7d79828/%E6%B5%8B%E8%AF%95%EF%BC%9ALM358%E5%8F%8D%E5%90%91%E6%94%BE%E5%A4%A7.JPG" alt="测试：LM358反向放大"></td>
+<td><img src="/b7d79828/%E6%B5%8B%E8%AF%95%EF%BC%9A%E5%8F%AF%E8%B0%83%E7%94%B5%E5%8E%8B%E6%BA%90%E5%8F%8C%E8%B7%AF%E8%BE%93%E5%87%BA20mA-30mA.JPG" alt="测试：可调电压源双路输出20mA-30mA"></td>
+<td><img src="/b7d79828/%E6%B5%8B%E8%AF%95%EF%BC%9A%E5%8F%AF%E8%B0%83%E7%94%B5%E5%8E%8B%E6%BA%90%E8%B4%9F4V%E8%BE%93%E5%87%BA.JPG" alt="测试：可调电压源负4V输出"></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>设定频率</th>
+<th>设定电压</th>
+<th>三角波</th>
+<th>方波</th>
+<th>正弦波</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>100KHz</td>
+<td>±100mV</td>
+<td><img src="/b7d79828/100KHz_-100mV-100mV(1).jpeg" alt="100KHz_-100mV-100mV(1)"></td>
+<td><img src="/b7d79828/100KHz_-100mV-100mV(2).jpeg" alt="100KHz_-100mV-100mV(2)"></td>
+<td><img src="/b7d79828/100KHz_-100mV-100mV(3).jpeg" alt="100KHz_-100mV-100mV(3)"></td>
+</tr>
+<tr>
+<td>10KHz</td>
+<td>±4.0V</td>
+<td><img src="/b7d79828/10KHz_-4V-4V(1).jpeg" alt="10KHz_-4V-4V(1)"></td>
+<td><img src="/b7d79828/10KHz_-4V-4V(2).jpeg" alt="10KHz_-4V-4V(2)"></td>
+<td><img src="/b7d79828/10KHz_-4V-4V(3).jpeg" alt="10KHz_-4V-4V(3)"></td>
+</tr>
+<tr>
+<td>100KHz</td>
+<td>±4.0V</td>
+<td><img src="/b7d79828/100KHz_-4V~4V(1).jpeg" alt="100KHz_-4V~4V(1)"></td>
+<td><img src="/b7d79828/100KHz_-4V~4V(2).jpeg" alt="100KHz_-4V~4V(2)"></td>
+<td><img src="/b7d79828/100KHz_-4V~4V(3).jpeg" alt="100KHz_-4V~4V(3)"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="其他-补充"><a class="header-anchor" href="#其他-补充"></a>其他&amp;补充</h3>
+<p><strong>一些目录说明</strong></p>
+<ul>
+<li>
+<p><a href="https://github.com/oldgerman/SCOPE-F07x/tree/master/HardWare/AD_Project" target="_blank" rel="noopener">AD工程</a>：提供可编辑的源文件，软件版本2019，PDF的原理图也位于此目录</p>
+</li>
+<li>
+<p><a href="https://github.com/oldgerman/SCOPE-F07x/tree/master/HardWare/SW_Project" target="_blank" rel="noopener">SW工程</a>：提供可编辑的源文件，软件版本2017</p>
+</li>
+<li>
+<p><a href="https://github.com/oldgerman/SCOPE-F07x/tree/master/HardWare/3D_Print" target="_blank" rel="noopener">外壳3D打印模型</a>：STL格式提供，打印一套外壳的话，其中<code>SW_x3_Both_Sides_1.STL</code>需要打两个</p>
+</li>
+<li>
+<p><a href="https://github.com/oldgerman/SCOPE-F07x/tree/master/HardWare/BOM/bom" target="_blank" rel="noopener">BOM</a>：浏览器可直接打开的交互式BOM</p>
+</li>
+<li>
+<p><a href="https://github.com/oldgerman/SCOPE-F07x/tree/master/HardWare/Gerber" target="_blank" rel="noopener">Gerber</a>：整个压缩包就是</p>
+</li>
+<li>
+<p><a href="https://github.com/oldgerman/SCOPE-F07x/tree/master/%E6%9C%8B%E5%8F%8B%E4%BB%AC%E8%87%AA%E9%A9%BE%E7%9A%84%E6%88%90%E5%93%81" target="_blank" rel="noopener">朋友们制作的成品展示</a></p>
+</li>
+</ul>
+<p><strong>按键操作</strong></p>
+<ul>
+<li>KEY_1: 单击切换功能页面</li>
+<li>KEY_2: 单击切换子菜单光标</li>
+<li>KEY_R: 减少值或向左移动</li>
+<li>KEY_O: 确认或取消</li>
+<li>KEY_L: 增大值或向右移动</li>
+</ul>
+<p><strong>USB DFU</strong></p>
+<p>需要在未上电时按住KEY_O不放，插电进入，推荐使用STM32CubeProgrammer的USB模式烧录</p>
+<h3 id="Acknowledgments"><a class="header-anchor" href="#Acknowledgments"></a>Acknowledgments</h3>
+<p>感谢硬禾团队</p>
+<h3 id="License"><a class="header-anchor" href="#License"></a>License</h3>
+<p>This work is licensed under a<br>
+<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</p>
+<p><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener"><img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="CC BY-NC-SA 4.0"></a></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/stm32/" rel="tag"># stm32</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/1eb159fd/" rel="next" title="nRLC音频头版组装指南">
+                  <i class="fa fa-chevron-left"></i> nRLC音频头版组装指南
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/d5ffc54/" rel="prev" title="ODGIRON_开源PD电烙铁">
+                  ODGIRON_开源PD电烙铁 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/psa.jpg"
+      alt="过气德国佬">
+  <p class="site-author-name" itemprop="name">过气德国佬</p>
+  <div class="site-description motion-element" itemprop="description">潮起潮落，云卷云舒</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/oldgerman" title="GitHub &rarr; https://github.com/oldgerman" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:2920956602@qq.com" title="E-Mail &rarr; mailto:2920956602@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于"><span class="nav-number">1.</span> <span class="nav-text">关于</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PCB"><span class="nav-number">2.</span> <span class="nav-text">PCB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#外壳"><span class="nav-number">3.</span> <span class="nav-text">外壳</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#散热"><span class="nav-number">4.</span> <span class="nav-text">散热</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改说明"><span class="nav-number">5.</span> <span class="nav-text">修改说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#硬件"><span class="nav-number">5.1.</span> <span class="nav-text">硬件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#软件"><span class="nav-number">5.2.</span> <span class="nav-text">软件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#功能测试"><span class="nav-number">6.</span> <span class="nav-text">功能测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他-补充"><span class="nav-number">7.</span> <span class="nav-text">其他&amp;补充</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Acknowledgments"><span class="nav-number">8.</span> <span class="nav-text">Acknowledgments</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#License"><span class="nav-number">9.</span> <span class="nav-text">License</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+        
+
+<div id="days"></div>
+<script>
+function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("07/19/2019 15:00:00");
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=setzero(Math.floor(e_hrsold));
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+    seconds=setzero(Math.floor((e_minsold-minsold)*60));
+    document.getElementById('days').innerHTML="(∩•̀ω•́)⊃--*⋆本站由米板1代搭建，已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i) {
+    if (i<10) {
+        i="0" + i
+    };
+    return i;
+}
+show_date_time();
+</script>
+
+
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">过气德国佬</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">127k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:56</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        <span>0%</span>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'iWuakuHkkRt5xT7Ct9cyj8nO-gzGzoHsz',
+    appKey: 'PAz23pDzHnucqRDkVMShMp5B',
+    placeholder: '(๑•̀ㅁ•́ฅ✧ 说点什么吧！',
+    avatar: '',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>
