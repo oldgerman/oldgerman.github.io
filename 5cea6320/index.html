@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="基于朱雀固件的控制板+铝基板热床+外壳安装方案">
+<meta name="keywords" content="esp32">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenHeat-Split">
+<meta property="og:url" content="http://yoursite.com/5cea6320/index.html">
+<meta property="og:site_name" content="OldGerman&#39;s Blog">
+<meta property="og:description" content="基于朱雀固件的控制板+铝基板热床+外壳安装方案">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/5cea6320/%E5%88%9D%E5%8F%B7%E6%9C%BA1.jpg">
+<meta property="og:image" content="http://yoursite.com/5cea6320/AD_3Dview_TOP.png">
+<meta property="og:image" content="http://yoursite.com/5cea6320/AD_2Dview_PCB.png">
+<meta property="og:image" content="http://yoursite.com/5cea6320/%E6%8E%A7%E5%88%B6%E6%9D%BF1.JPG">
+<meta property="og:image" content="http://yoursite.com/5cea6320/%E6%8E%A7%E5%88%B6%E6%9D%BF3.JPG">
+<meta property="og:image" content="http://yoursite.com/5cea6320/2D%E9%A2%84%E8%A7%88%E5%9B%BE.png">
+<meta property="og:image" content="http://yoursite.com/5cea6320/pcb_layout.png">
+<meta property="og:image" content="http://yoursite.com/5cea6320/12.7V%E4%BE%9B%E7%94%B5_%E7%BA%BF%E5%AE%BD28mil%E7%83%AD%E5%BA%8A%E6%B8%A9%E5%BA%A6%E5%8A%9F%E7%8E%87%E6%B5%8B%E8%AF%95(2%E7%BA%A7PID%E9%99%90%E5%88%B6).png">
+<meta property="og:image" content="http://yoursite.com/5cea6320/12.7V%E4%BE%9B%E7%94%B5_%E7%BA%BF%E5%AE%BD43mil%E7%83%AD%E5%BA%8A%E6%B8%A9%E5%BA%A6%E5%8A%9F%E7%8E%87%E6%B5%8B%E8%AF%95(3%E7%BA%A7PID%E9%99%90%E5%88%B6).png">
+<meta property="og:image" content="http://yoursite.com/5cea6320/Pogo_Pin_Board_2.png">
+<meta property="og:image" content="http://yoursite.com/5cea6320/Pogo_Pin_Board_1.png">
+<meta property="og:image" content="http://yoursite.com/5cea6320/12Vor24V%E6%8E%A2%E9%92%88%E4%BD%8D%E7%BD%AE.png">
+<meta property="og:image" content="http://yoursite.com/5cea6320/%E5%88%9D%E5%8F%B7%E6%9C%BA3.JPG">
+<meta property="og:image" content="http://yoursite.com/5cea6320/%E5%88%9D%E5%8F%B7%E6%9C%BA4.JPG">
+<meta property="og:image" content="http://yoursite.com/5cea6320/%E5%88%9D%E5%8F%B7%E6%9C%BA5.JPG">
+<meta property="og:image" content="http://yoursite.com/5cea6320/%E5%88%9D%E5%8F%B7%E6%9C%BA6.JPG">
+<meta property="og:image" content="http://yoursite.com/5cea6320/%E8%BD%B4%E6%B5%8B1.png">
+<meta property="og:image" content="http://yoursite.com/5cea6320/%E8%BD%B4%E6%B5%8B2.png">
+<meta property="og:image" content="http://yoursite.com/5cea6320/%E6%B3%A8%E9%87%8A%E5%AE%89%E8%A3%85-%E5%89%8D%E9%9D%A2%E6%9D%BF2.png">
+<meta property="og:image" content="http://yoursite.com/5cea6320/%E6%B3%A8%E9%87%8A%E5%AE%89%E8%A3%85-%E5%89%8D%E9%9D%A2%E6%9D%BF3.png">
+<meta property="og:image" content="http://yoursite.com/5cea6320/%E6%B3%A8%E9%87%8A%E5%AE%89%E8%A3%85-%E5%90%8E%E9%9D%A2%E6%9D%BF2.png">
+<meta property="og:image" content="http://yoursite.com/5cea6320/%E6%B3%A8%E9%87%8A%E5%AE%89%E8%A3%85-%E5%90%8E%E9%9D%A2%E6%9D%BF3.png">
+<meta property="og:image" content="http://yoursite.com/5cea6320/%E5%AE%89%E8%A3%85-%E4%B8%8B%E5%A3%B3%E4%BD%931.png">
+<meta property="og:image" content="http://yoursite.com/5cea6320/%E6%B3%A8%E9%87%8A%E5%AE%89%E8%A3%85-%E4%B8%8B%E5%A3%B3%E4%BD%932.png">
+<meta property="og:image" content="http://yoursite.com/5cea6320/%E5%AE%89%E8%A3%85-%E4%B8%8A%E5%A3%B3%E4%BD%933.png">
+<meta property="og:image" content="http://yoursite.com/5cea6320/%E6%B3%A8%E9%87%8A%E5%AE%89%E8%A3%85-%E4%B8%8A%E5%A3%B3%E4%BD%932.png">
+<meta property="og:image" content="http://yoursite.com/5cea6320/%E5%BC%80%E5%AD%94-%E9%93%9D%E5%A3%B3%E4%BD%93.png">
+<meta property="og:image" content="http://yoursite.com/5cea6320/%E5%BC%80%E5%AD%94-%E5%8D%95%E9%9D%A2%E7%8E%BB%E7%BA%A4%E6%9D%BF%E5%8E%9A1.5mm.png">
+<meta property="og:image" content="http://yoursite.com/5cea6320/%E6%B3%A8%E9%87%8A%E5%AE%89%E8%A3%85-%E7%8E%BB%E7%BA%A4%E6%9D%BF%E6%8A%BD%E6%8B%89%E7%A4%BA%E6%84%8F.png">
+<meta property="og:updated_time" content="2024-03-28T11:08:07.951Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OpenHeat-Split">
+<meta name="twitter:description" content="基于朱雀固件的控制板+铝基板热床+外壳安装方案">
+<meta name="twitter:image" content="http://yoursite.com/5cea6320/%E5%88%9D%E5%8F%B7%E6%9C%BA1.jpg">
+  <link rel="canonical" href="http://yoursite.com/5cea6320/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>OpenHeat-Split | OldGerman's Blog</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OldGerman's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Refuse to play tickets!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-阅读排名">
+      
+    
+
+    <a href="/rank" rel="section"><i class="menu-item-icon fa fa-fw fa-list"></i> <br>阅读排名</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/5cea6320/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="过气德国佬">
+      <meta itemprop="description" content="潮起潮落，云卷云舒">
+      <meta itemprop="image" content="/images/psa.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OldGerman's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">OpenHeat-Split
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2023-03-25 11:59:00" itemprop="dateCreated datePublished" datetime="2023-03-25T11:59:00+08:00">2023-03-25</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-28 19:08:07" itemprop="dateModified" datetime="2024-03-28T19:08:07+08:00">2024-03-28</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/加热台/" itemprop="url" rel="index"><span itemprop="name">加热台</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span id="/5cea6320/" class="post-meta-item leancloud_visitors" data-flag-title="OpenHeat-Split" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/5cea6320/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/5cea6320/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>2.8k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>3 分钟</span>
+            </span>
+          
+            <div class="post-description">基于朱雀固件的控制板+铝基板热床+外壳安装方案</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="关于"><a class="header-anchor" href="#关于"></a>关于</h2>
+<blockquote>
+<p>使用<a href="https://gitee.com/createskyblue/OpenT12" target="_blank" rel="noopener">朱雀固件</a>，PCB从<a href="https://github.com/peng-zhihui/OpenHeat" target="_blank" rel="noopener">OpenHeat</a>修改，主控引脚都不变，oled和编码器做成小板</p>
+<p>该项目还包括热床外壳安装等<s>一条龙服务</s></p>
+<p><span style="color:rgb(255, 50, 50);">免责声明：不恰当的安装可能危及您的生命安全，请确保有一定的强电安全知识！</span></p>
+<p>本资料为可能为压缩包版，不保证为最新版，最新版请访问<a href="https://github.com/oldgerman/OpenHeat-Split" target="_blank" rel="noopener">Github仓库</a></p>
+</blockquote>
+<p><img src="/5cea6320/%E5%88%9D%E5%8F%B7%E6%9C%BA1.jpg" alt></p>
+<h2 id="控制板"><a class="header-anchor" href="#控制板"></a>控制板</h2>
+<ul>
+<li>使用0603封装、可靠性高的连接器</li>
+<li>oled和编码器做成单独的小板子，oled目前是1.3寸，可换2.42寸的（暂未画板，有能力的话可以自己做）</li>
+<li>控制热床加热的MOS：使用便宜又大碗的TO-247封装的管子</li>
+<li>推荐工作电压12~24V，电流小于18A</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><img src="/5cea6320/AD_3Dview_TOP.png" alt="AD_3Dview"></th>
+<th><img src="/5cea6320/AD_2Dview_PCB.png" alt="AD_2Dview"></th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+<p>注：PCB为双面板，板厚1.6mm，需要分板，用壁纸刀沿着白线多划几下掰断，或者锯子伺候</p>
+<table>
+<thead>
+<tr>
+<th><img src="/5cea6320/%E6%8E%A7%E5%88%B6%E6%9D%BF1.JPG" alt></th>
+<th><img src="/5cea6320/%E6%8E%A7%E5%88%B6%E6%9D%BF3.JPG" alt></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>接热床的4针端子使用90度的5569连接器</td>
+<td>接热床的4针端子也可用垂直的5566连接器<br>若不安装K型热电偶连接器，可将热电偶丝直接焊接在焊盘上</td>
+</tr>
+</tbody>
+</table>
+<h2 id="热床"><a class="header-anchor" href="#热床"></a>热床</h2>
+<p><a href="https://oshwhub.com/GeekStartzhan-shuo/GSH_Bed-lv-ji-ban-jia-re-ping-tai" target="_blank" rel="noopener">GeekStart展硕</a>设计的GSH Bed 12V150W版本，线宽28.347mil，实测12V只能加热到185度且此温度下功率约85W</p>
+<p>我修改了该设计，将线加宽到43mil，两侧铜带开窗，使用类似探针方式的接触（免焊接），可通过配置“顶针”位置来兼容12V或24V，热床维持200度时功率约100W，维持230度功率约140W</p>
+<table>
+<thead>
+<tr>
+<th><img src="/5cea6320/2D%E9%A2%84%E8%A7%88%E5%9B%BE.png" alt></th>
+<th><img src="/5cea6320/pcb_layout.png" alt></th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+<h3 id="升温测试"><a class="header-anchor" href="#升温测试"></a>升温测试</h3>
+<table>
+<thead>
+<tr>
+<th>修改前：线宽28mil、Vin= 12.7V、T<sub>环境</sub> = 10℃，2段PID</th>
+<th>修改后：线宽43mil、Vin= 12.7V、T<sub>环境</sub> = 10℃，3段PID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/5cea6320/12.7V%E4%BE%9B%E7%94%B5_%E7%BA%BF%E5%AE%BD28mil%E7%83%AD%E5%BA%8A%E6%B8%A9%E5%BA%A6%E5%8A%9F%E7%8E%87%E6%B5%8B%E8%AF%95(2%E7%BA%A7PID%E9%99%90%E5%88%B6).png" alt></td>
+<td><img src="/5cea6320/12.7V%E4%BE%9B%E7%94%B5_%E7%BA%BF%E5%AE%BD43mil%E7%83%AD%E5%BA%8A%E6%B8%A9%E5%BA%A6%E5%8A%9F%E7%8E%87%E6%B5%8B%E8%AF%95(3%E7%BA%A7PID%E9%99%90%E5%88%B6).png" alt></td>
+</tr>
+</tbody>
+</table>
+<h2 id="顶针PCB"><a class="header-anchor" href="#顶针PCB"></a>顶针PCB</h2>
+<table>
+<thead>
+<tr>
+<th><img src="/5cea6320/Pogo_Pin_Board_2.png" alt></th>
+<th><img src="/5cea6320/Pogo_Pin_Board_1.png" alt></th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+<h3 id="为什么需要这块板？"><a class="header-anchor" href="#为什么需要这块板？"></a>为什么需要这块板？</h3>
+<ol>
+<li>在铝基板和壳体之间隔热</li>
+<li>铝基板导热太强，供电线十分难焊接，且200度左右焊锡会软化</li>
+<li>我使用过<a href="https://item.taobao.com/item.htm?id=555813649830" target="_blank" rel="noopener">华容5A电流探针</a>与热床接触，探针铜镀金的，导热很快，当热床200度以上时探针内部的弹簧会失去弹性，使探针报废</li>
+</ol>
+<h3 id="顶针的位置"><a class="header-anchor" href="#顶针的位置"></a>顶针的位置</h3>
+<p>所以使用探针的计划翻车了，改用纯螺柱代替探针的接触方式，手搓铜柱顶住热床就行，这种接触方式姑且叫顶针吧，顶针用的螺丝螺柱的具体规格请见后文的 安装图：上壳体</p>
+<p>可以通过配置顶针位置，使铝基板热床工作在12V或24V（许多3D打印机热床也有类似的设计），12V使用8枚顶针，24V使用4枚顶针</p>
+<p><img src="/5cea6320/12Vor24V%E6%8E%A2%E9%92%88%E4%BD%8D%E7%BD%AE.png" alt="12Vor24V探针位置"></p>
+<h2 id="外壳"><a class="header-anchor" href="#外壳"></a>外壳</h2>
+<p>裸板并不意味着经久耐用，寻找合适的外壳是件头疼的事情</p>
+<p>使用铝型材外壳，规格125×51×100mm，价格差不多15包邮，需要按开孔图开孔</p>
+<h3 id="PCB尺寸"><a class="header-anchor" href="#PCB尺寸"></a>PCB尺寸</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>尺寸（mm)</th>
+<th>M3孔距（mm)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主控板</td>
+<td>100×40</td>
+<td>93.2×33.2</td>
+</tr>
+<tr>
+<td>1.3寸OLED板</td>
+<td>49×36</td>
+<td>43×27</td>
+</tr>
+<tr>
+<td>铝基板热床</td>
+<td>100×100</td>
+<td>93.2×93.2</td>
+</tr>
+</tbody>
+</table>
+<p>为了做到安装不冲突，你可能需要修改本项目PCB源文件：最可能改动的是OLED小板的连接器位置，可见它并不居中，因为我根据目前用的<span style="color:rgb(0, 125, 255);">CLP0212</span>电源的尺寸做了修改，以防安装冲突</p>
+<h3 id="开关电源"><a class="header-anchor" href="#开关电源"></a>开关电源</h3>
+<p>电源可选型号如下，这类电源的尺寸大约是100×50mm，可以非常紧凑地安装在铝壳内</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>开关电源</th>
+<th>被动/主动散热功率(W)</th>
+<th>尺寸（mm)</th>
+<th>孔距（mm)</th>
+<th>加格(￥)@包邮</th>
+<th>适配铝壳尺寸（mm)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>厚度偏薄，利于前面板的模块安装</td>
+<td>金升阳 LOF225 20bXX</td>
+<td>140/225</td>
+<td>101.6×50.8×25.4</td>
+<td>95.25×44.45</td>
+<td>155</td>
+<td>125×51×100</td>
+</tr>
+<tr>
+<td>厚度偏厚，非常不利于前面板的模块安装</td>
+<td>明纬 EPP-200-XX</td>
+<td>140/200</td>
+<td>101.6×50.8×32</td>
+<td>95.25×44.45</td>
+<td>214</td>
+<td>125×51×100</td>
+</tr>
+<tr>
+<td>过气方案</td>
+<td>GE <a href="https://library.industrialsolutions.abb.com/publibrary/checkout/CLP0212?TNR=Data%20Sheets%7CCLP0212%7CPDF" target="_blank" rel="noopener">CLP0212</a> 12V</td>
+<td>100/200</td>
+<td>101.6×50.8×37.14</td>
+<td>93.2×42.4</td>
+<td>45~196</td>
+<td>125×51×100</td>
+</tr>
+<tr>
+<td>又不是不能用</td>
+<td><a href="https://m.tb.cn/h.fQLvrV4?sm=300ae6" target="_blank" rel="noopener">WX-DC2416</a></td>
+<td>150/220</td>
+<td>115×65×3.5</td>
+<td>105.8×55.7</td>
+<td>35</td>
+<td>125×51×110</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://www.bilibili.com/read/cv14154464" target="_blank" rel="noopener">参考：200W超小ITX电源 明纬EPP200-12性能测试</a></p>
+<h3 id="安装"><a class="header-anchor" href="#安装"></a>安装</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><img src="/5cea6320/%E5%88%9D%E5%8F%B7%E6%9C%BA3.JPG" alt></th>
+<th><img src="/5cea6320/%E5%88%9D%E5%8F%B7%E6%9C%BA4.JPG" alt></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td><img src="/5cea6320/%E5%88%9D%E5%8F%B7%E6%9C%BA5.JPG" alt></td>
+<td><img src="/5cea6320/%E5%88%9D%E5%8F%B7%E6%9C%BA6.JPG" alt></td>
+</tr>
+<tr>
+<td></td>
+<td><img src="/5cea6320/%E8%BD%B4%E6%B5%8B1.png" alt></td>
+<td><img src="/5cea6320/%E8%BD%B4%E6%B5%8B2.png" alt></td>
+</tr>
+<tr>
+<td>前面板</td>
+<td><img src="/5cea6320/%E6%B3%A8%E9%87%8A%E5%AE%89%E8%A3%85-%E5%89%8D%E9%9D%A2%E6%9D%BF2.png" alt></td>
+<td><img src="/5cea6320/%E6%B3%A8%E9%87%8A%E5%AE%89%E8%A3%85-%E5%89%8D%E9%9D%A2%E6%9D%BF3.png" alt></td>
+</tr>
+<tr>
+<td>后面板</td>
+<td><img src="/5cea6320/%E6%B3%A8%E9%87%8A%E5%AE%89%E8%A3%85-%E5%90%8E%E9%9D%A2%E6%9D%BF2.png" alt></td>
+<td><img src="/5cea6320/%E6%B3%A8%E9%87%8A%E5%AE%89%E8%A3%85-%E5%90%8E%E9%9D%A2%E6%9D%BF3.png" alt></td>
+</tr>
+<tr>
+<td>下壳体</td>
+<td><img src="/5cea6320/%E5%AE%89%E8%A3%85-%E4%B8%8B%E5%A3%B3%E4%BD%931.png" alt></td>
+<td><img src="/5cea6320/%E6%B3%A8%E9%87%8A%E5%AE%89%E8%A3%85-%E4%B8%8B%E5%A3%B3%E4%BD%932.png" alt></td>
+</tr>
+<tr>
+<td>上壳体</td>
+<td><img src="/5cea6320/%E5%AE%89%E8%A3%85-%E4%B8%8A%E5%A3%B3%E4%BD%933.png" alt></td>
+<td><img src="/5cea6320/%E6%B3%A8%E9%87%8A%E5%AE%89%E8%A3%85-%E4%B8%8A%E5%A3%B3%E4%BD%932.png" alt></td>
+</tr>
+</tbody>
+</table>
+<h3 id="接地、绝缘"><a class="header-anchor" href="#接地、绝缘"></a>接地、绝缘</h3>
+<ul>
+<li>热床四个角的铜柱上<span style="color:rgb(255, 50, 50);">必须安装特氟龙垫片</span>（绝缘且耐240度高温），该垫片可以用规格3*6mm的特氟龙管手工切割制作</li>
+<li>AC-05电源插座<span style="color:rgb(255, 50, 50);">务必外套绝缘管</span></li>
+<li>AC-05电源插座的地线、开关电源PCB的接地专用的固定孔、oled显示屏螺丝处的外壳接地点，<span style="color:rgb(255, 50, 50);">三个接地点务必可靠连接</span></li>
+<li>开关电源是裸板，PFC的MOS电压可达380V以上，需<span style="color:rgb(255, 50, 50);">注意开关电源板边沿与铝制外壳的距离</span></li>
+</ul>
+<h3 id="铝壳开孔"><a class="header-anchor" href="#铝壳开孔"></a>铝壳开孔</h3>
+<p>开孔图纸提供了CAD文件，前后面板若自己开孔太麻烦，可以做成铝基板代替</p>
+<p>控制板接热床可选两种连接器，对应不同的引出线方式：</p>
+<ul>
+<li>若使用5569连接器，热床的电线从后面板引出</li>
+<li>若使用5566连接器，热床的电线从上壳体圆洞引出</li>
+</ul>
+<p><img src="/5cea6320/%E5%BC%80%E5%AD%94-%E9%93%9D%E5%A3%B3%E4%BD%93.png" alt></p>
+<h3 id="抽拉板开孔"><a class="header-anchor" href="#抽拉板开孔"></a>抽拉板开孔</h3>
+<table>
+<thead>
+<tr>
+<th><img src="/5cea6320/%E5%BC%80%E5%AD%94-%E5%8D%95%E9%9D%A2%E7%8E%BB%E7%BA%A4%E6%9D%BF%E5%8E%9A1.5mm.png" alt></th>
+<th><img src="/5cea6320/%E6%B3%A8%E9%87%8A%E5%AE%89%E8%A3%85-%E7%8E%BB%E7%BA%A4%E6%9D%BF%E6%8A%BD%E6%8B%89%E7%A4%BA%E6%84%8F.png" alt></th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+<h2 id="程序"><a class="header-anchor" href="#程序"></a>程序</h2>
+<h3 id="烧录前的准备工作"><a class="header-anchor" href="#烧录前的准备工作"></a>烧录前的准备工作</h3>
+<p>感谢<a href="https://b23.tv/DqndTQK" target="_blank" rel="noopener">B站谢培宇x 适配好了MAX6675</a>，<a href="https://pan.baidu.com/s/1FN_KfvtdgoIdXALv11UErQ" target="_blank" rel="noopener">程序</a> 提取码: 7fx5，VsCode环境搭建&amp;程序烧录也推荐看他的视频教程</p>
+<h3 id="热床功率过大导致开关电源限流保护"><a class="header-anchor" href="#热床功率过大导致开关电源限流保护"></a>热床功率过大导致开关电源限流保护</h3>
+<p>朱雀固件原程序有两组可配置的PID，一组负责爬升期，一组负责接近期</p>
+<p>虽说推荐使用的200W以上的开关电源，但探针版GSH_Bed热床在0温升时，功率约288W，因此常温时若直接通电，程序直接按爬升区计算，使开关电源全功率加热，会触发开关电源短路保护</p>
+<p>减小热床线宽可以降低电流，但测试43mil线宽热床，维持230度时PID输出的占空比在84%~100%之间波动，减小热床线宽可能会无法维持到230度</p>
+<h4 id="方法1"><a class="header-anchor" href="#方法1"></a>方法1</h4>
+<p>增加一组可配置的预备期PID和预备温度，用于预备升温，等温度升高到热床内阻增大到 开关电源全功率负载不会触发短路保护时，再切换为爬升区PID，<span style="color:rgb(255, 50, 50);">修改后的程序在 Firmware 文件夹内</span>，预备期PID的值需要需要根据电源测试</p>
+<h4 id="方法2"><a class="header-anchor" href="#方法2"></a>方法2</h4>
+<p>尝试修改温控曲线，限制最大输出功率，但目前曲线部分代码有显示问题，等本id有空试试</p>
+<h2 id="Tips"><a class="header-anchor" href="#Tips"></a>Tips</h2>
+<ol>
+<li>
+<p>热床工作温度？</p>
+<p><span style="color:rgb(255, 50, 50);">请特别注意</span>铜箔与铝板之间的绝缘层在<span style="color:rgb(255, 50, 50);">260度</span>以上会失效，建议<span style="color:rgb(255, 50, 50);">工作温度不超过260度</span></p>
+<blockquote>
+<p>当前仓库源码最高温为260度，可通过 <code>OpenT12.h</code> 的<code>TipMaxTemp</code>进行修改：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="meta">#<span class="meta-keyword">define</span> TipMaxTemp 260</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li>
+<p>热床阻焊层变黄？</p>
+<p>铝基板热床是消耗品，测试在环境温度10℃时，温度在180度时白油阻焊层几乎不会变黄，200度左右开始泛黄，建议PCB打样时选择无阻焊或黑色阻焊</p>
+</li>
+<li>
+<p>热床表面残留的的助焊剂污渍洗板水洗不掉？</p>
+<p>用800目砂纸稍加打磨</p>
+</li>
+<li>
+<p>加热有时oled花屏？（已解决）</p>
+<p>此情况热床温度在100度以下时容易出现，来源于开关电源的电磁干扰，目前暂未找到比较好的解决方法，当热床温度到150度以上时这种现象消失</p>
+<blockquote>
+<h2 id="2023-12-11"><a class="header-anchor" href="#2023-12-11"></a>2023/12/11</h2>
+<p>解决方法：修改<code>TipControl.cpp</code>的<code>PWM_Freq</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="keyword">double</span> PWM_Freq = <span class="number">50000</span>;    <span class="comment">// uint8_t类型写错了，改为double类型</span></span><br><span class="line">&gt;                             <span class="comment">// 将频率从默认的2000改为50000，开关电源模块电感没有吱吱响声了</span></span><br><span class="line">&gt;                             <span class="comment">// 备注：PC817 光耦带宽 81KHz</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>修改后，实测能达到的最高温度没多大影响，改前最高245度，改后242度，关键是开关电源电感不啸叫了，这点非常Nice</p>
+</blockquote>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/esp32/" rel="tag"># esp32</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/1eb159fd/" rel="next" title="nRLC音频头版组装指南">
+                  <i class="fa fa-chevron-left"></i> nRLC音频头版组装指南
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/b7d79828/" rel="prev" title="SCOPE-F07x">
+                  SCOPE-F07x <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/psa.jpg"
+      alt="过气德国佬">
+  <p class="site-author-name" itemprop="name">过气德国佬</p>
+  <div class="site-description motion-element" itemprop="description">潮起潮落，云卷云舒</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/oldgerman" title="GitHub &rarr; https://github.com/oldgerman" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:2920956602@qq.com" title="E-Mail &rarr; mailto:2920956602@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于"><span class="nav-number">1.</span> <span class="nav-text">关于</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#控制板"><span class="nav-number">2.</span> <span class="nav-text">控制板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#热床"><span class="nav-number">3.</span> <span class="nav-text">热床</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#升温测试"><span class="nav-number">3.1.</span> <span class="nav-text">升温测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#顶针PCB"><span class="nav-number">4.</span> <span class="nav-text">顶针PCB</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么需要这块板？"><span class="nav-number">4.1.</span> <span class="nav-text">为什么需要这块板？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顶针的位置"><span class="nav-number">4.2.</span> <span class="nav-text">顶针的位置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#外壳"><span class="nav-number">5.</span> <span class="nav-text">外壳</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PCB尺寸"><span class="nav-number">5.1.</span> <span class="nav-text">PCB尺寸</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开关电源"><span class="nav-number">5.2.</span> <span class="nav-text">开关电源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">5.3.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接地、绝缘"><span class="nav-number">5.4.</span> <span class="nav-text">接地、绝缘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#铝壳开孔"><span class="nav-number">5.5.</span> <span class="nav-text">铝壳开孔</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#抽拉板开孔"><span class="nav-number">5.6.</span> <span class="nav-text">抽拉板开孔</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#程序"><span class="nav-number">6.</span> <span class="nav-text">程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#烧录前的准备工作"><span class="nav-number">6.1.</span> <span class="nav-text">烧录前的准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#热床功率过大导致开关电源限流保护"><span class="nav-number">6.2.</span> <span class="nav-text">热床功率过大导致开关电源限流保护</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方法1"><span class="nav-number">6.2.1.</span> <span class="nav-text">方法1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法2"><span class="nav-number">6.2.2.</span> <span class="nav-text">方法2</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tips"><span class="nav-number">7.</span> <span class="nav-text">Tips</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2023-12-11"><span class="nav-number">8.</span> <span class="nav-text">2023/12/11</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+        
+
+<div id="days"></div>
+<script>
+function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("07/19/2019 15:00:00");
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=setzero(Math.floor(e_hrsold));
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+    seconds=setzero(Math.floor((e_minsold-minsold)*60));
+    document.getElementById('days').innerHTML="(∩•̀ω•́)⊃--*⋆本站由米板1代搭建，已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i) {
+    if (i<10) {
+        i="0" + i
+    };
+    return i;
+}
+show_date_time();
+</script>
+
+
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">过气德国佬</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">130k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        <span>0%</span>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'iWuakuHkkRt5xT7Ct9cyj8nO-gzGzoHsz',
+    appKey: 'PAz23pDzHnucqRDkVMShMp5B',
+    placeholder: '(๑•̀ㅁ•́ฅ✧ 说点什么吧！',
+    avatar: '',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>
