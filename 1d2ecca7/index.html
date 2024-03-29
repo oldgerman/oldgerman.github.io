@@ -102,7 +102,7 @@
 <meta property="og:image" content="http://yoursite.com/1d2ecca7/20240320-1521_mR-71_RE6_shell_link_parts%EF%BC%9A%E5%A4%84%E7%90%86%EF%BC%9A2.jpg">
 <meta property="og:image" content="http://yoursite.com/1d2ecca7/20240320-1521_mR-71_RE6_shell_link_parts%EF%BC%9A%E5%9F%8B%E7%83%AD%E7%86%94%E6%BB%9A%E8%8A%B1%E8%9E%BA%E6%AF%8D%EF%BC%9A1.jpg">
 <meta property="og:image" content="http://yoursite.com/1d2ecca7/20240320-1521_mR-71_RE6_shell_link_parts%EF%BC%9A%E5%9F%8B%E7%83%AD%E7%86%94%E6%BB%9A%E8%8A%B1%E8%9E%BA%E6%AF%8D%EF%BC%9A2.jpg">
-<meta property="og:updated_time" content="2024-03-29T03:55:23.534Z">
+<meta property="og:updated_time" content="2024-03-29T07:57:44.361Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mR-71-RE组装指南">
 <meta name="twitter:description" content="俄罗斯radiokot论坛Andrey_B的作品交流欧姆表mR-71重制版，欢迎DIY">
@@ -337,7 +337,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-29 11:55:23" itemprop="dateModified" datetime="2024-03-29T11:55:23+08:00">2024-03-29</time>
+                <time title="修改时间：2024-03-29 15:57:44" itemprop="dateModified" datetime="2024-03-29T15:57:44+08:00">2024-03-29</time>
               </span>
             
           
@@ -512,7 +512,9 @@
 <li><a href="https://github.com/oldgerman/mR-71-RE/tree/master/Schematic" target="_blank" rel="noopener">原理图</a></li>
 </ul>
 <h3 id="PCB：开尔文焊盘电阻测试板"><a class="header-anchor" href="#PCB：开尔文焊盘电阻测试板"></a>PCB：开尔文焊盘电阻测试板</h3>
-<p>方便开尔文夹子测试低阻值采样电阻，可焊接校准的3R、1K电阻，该板是明显的拼版，通常是不能免费打样的</p>
+<p>方便开尔文夹子测试低阻值采样电阻，支持2512和1206封装</p>
+<p>也可焊接校准的3Ω和1KΩ的0.1%电阻</p>
+<p>该板是明显的拼版，通常是不能免费打样的</p>
 <p>这些电阻的焊盘设计参考了ADI的文章：<a href="https://www.analog.com/en/resources/analog-dialogue/articles/optimize-high-current-sensing-accuracy.html" target="_blank" rel="noopener">Optimize High-Current Sensing Accuracy by Improving Pad Layout of Low-Value Shunt Resistors</a></p>
 <table>
 <thead>
@@ -577,7 +579,7 @@
 <p>电子元件突破80种，一套（电阻电容算到每颗）按照全新原装报价，费用约111元，不包括邮费</p>
 <p>元件参数打斜杠的，以第一个为准</p>
 <p>元件参数有的是DNP，不用焊接，DNP是Do Not Populate的缩写，意思是不用贴装的元件</p>
-<p>仪表放大器的增益电阻可以用3.57K 0.1%（增益误差±0.1% -0.34%），如果要求高可以用3.6K 0.1% 叠焊 300K 0.1%（增益误差±0.2% ）</p>
+<p>仪表放大器的增益电阻可以用3.57KΩ 0.1%（增益误差±0.1% -0.34%），如果要求高可以用3.6KΩ 0.1% 叠焊 300KΩ 0.1%（增益误差±0.2% ）</p>
 <blockquote>
 <p>注：AD8221在G=10下的增益误差为0.3%</p>
 <p>为啥这么麻烦？去年做这玩意的时候，原版用的 INA828 售价150￥每片，它的增益公式里是50K，于是我换成便宜的AD8221，它的增益公式里是49.4K</p>
@@ -591,14 +593,14 @@
 <p>mR-71完全校准使用，发烧友可以用更高精度的绕线电阻</p>
 </blockquote>
 <ul>
-<li>1206 3R 0.1%</li>
-<li>1206 1K 0.1%</li>
+<li>1206 3Ω 0.1%</li>
+<li>1206 1KΩ 0.1%</li>
 </ul>
 <h3 id="开尔文焊盘电阻测试板"><a class="header-anchor" href="#开尔文焊盘电阻测试板"></a>开尔文焊盘电阻测试板</h3>
 <ul>
 <li>2mm镀金香蕉座（K2A33）：50~100个</li>
-<li>2512合金采样电阻：1mR、10mR、100mR</li>
-<li>1206千分之一电阻：1R、10R、100R、1KR、10KR、100KR、1MR</li>
+<li>2512合金采样电阻：1mΩ、10mΩ、100mΩ</li>
+<li>1206千分之一电阻：1Ω、10Ω、100Ω、1KΩ、10KΩ、100KΩ、1MΩ</li>
 </ul>
 <h3 id="外壳-v2"><a class="header-anchor" href="#外壳-v2"></a>外壳</h3>
 <p>外壳固定用的五金件</p>
