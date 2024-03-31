@@ -155,7 +155,7 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/845419ff/</loc>
+    <loc>http://yoursite.com/1eb159fd/</loc>
     
     <lastmod>2022-08-17</lastmod>
     
@@ -164,7 +164,7 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/1eb159fd/</loc>
+    <loc>http://yoursite.com/845419ff/</loc>
     
     <lastmod>2022-08-17</lastmod>
     
@@ -304,7 +304,7 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/tags/stm32/</loc>
+    <loc>http://yoursite.com/tags/Kicad/</loc>
     <lastmod>2024-03-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -318,7 +318,7 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/tags/Kicad/</loc>
+    <loc>http://yoursite.com/tags/stm32/</loc>
     <lastmod>2024-03-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
