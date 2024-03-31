@@ -72,7 +72,7 @@
 <meta property="og:image" content="http://yoursite.com/b8304ba5/%E5%A4%B9%E5%85%B7%EF%BC%9ASMD%E6%B5%8B%E8%AF%95%E5%A4%B9%E5%85%B7%E8%8D%89%E7%A8%BF.png">
 <meta property="og:image" content="http://yoursite.com/b8304ba5/%E6%B5%8B%E9%87%8F%EF%BC%9A%E7%94%B5%E9%98%BB%EF%BC%9A%E5%BC%80%E5%B0%94%E6%96%87%E7%94%B5%E9%98%BB%E6%B5%8B%E8%AF%95%E6%9D%BF.jpg">
 <meta property="og:image" content="http://yoursite.com/b8304ba5/%E6%B5%8B%E9%87%8F%EF%BC%9A%E7%94%B5%E9%98%BB%EF%BC%9A%E5%BC%80%E5%B0%94%E6%96%87%E7%94%B5%E9%98%BB%E6%B5%8B%E8%AF%95%E6%9D%BF%EF%BC%9A%E5%A4%B9%E5%AD%90%E5%A4%B9%E6%8C%81%E5%A7%BF%E5%8A%BF.jpg">
-<meta property="og:updated_time" content="2024-03-30T10:47:29.384Z">
+<meta property="og:updated_time" content="2024-03-31T02:47:12.026Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mR-71-RE校准测试">
 <meta name="twitter:description" content="目前只记录了一台设备的测量数据，不具备普遍性，欢迎补充">
@@ -307,7 +307,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-30 18:47:29" itemprop="dateModified" datetime="2024-03-30T18:47:29+08:00">2024-03-30</time>
+                <time title="修改时间：2024-03-31 10:47:12" itemprop="dateModified" datetime="2024-03-31T10:47:12+08:00">2024-03-31</time>
               </span>
             
           
@@ -356,7 +356,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>3.8k</span>
+              <span>4.3k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -366,7 +366,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>3 分钟</span>
+              <span>4 分钟</span>
             </span>
           
             <div class="post-description">目前只记录了一台设备的测量数据，不具备普遍性，欢迎补充</div>
@@ -645,13 +645,14 @@
 <h3 id="测量：电容"><a class="header-anchor" href="#测量：电容"></a>测量：电容</h3>
 <blockquote>
 <p>省略副参</p>
+<p>注：II类陶瓷的MLCC具有高介电常数（介于3,000 (X7R) 到18,000 (Z5U)），施加直流或交流电压都会导致容量减少，而I类陶瓷的MLCC（C0G，介于6到200）几乎不受这种影响，参考：<a href="https://article.murata.com/zh-cn/article/voltage-characteristics-of-electrostatic-capacitance" target="_blank" rel="noopener">村田：静电容量的电压特性</a>、<a href="https://www.ti.com.cn/cn/lit/an/zhct400a/zhct400a.pdf?ts=1711851223330" target="_blank" rel="noopener">Ti：选择尽可能减少音频应用失真的电容器</a></p>
 </blockquote>
-<p>1pF到100nF，MLCC，C0G，±5%：</p>
+<p>1pF到100nF，I类陶瓷MLCC，C0G，±5%：（C0G的MLCC没有大于1uF的）</p>
 <table>
 <thead>
 <tr>
 <th>型号</th>
-<th>容值</th>
+<th>类型</th>
 <th>材质</th>
 <th>精度</th>
 <th>封装</th>
@@ -741,13 +742,13 @@
 </tr>
 </tbody>
 </table>
-<p>1uF到100uF，MLCC，X5R或X7R，±10%（大于1uF已经没有C0G电容了）</p>
+<p>1uF到100uF，II类陶瓷MLCC，X5R或X7R，±10%</p>
 <table>
 <thead>
 <tr>
 <th>型号</th>
 <th>容值</th>
-<th>材质</th>
+<th>类型</th>
 <th>精度</th>
 <th>封装</th>
 <th>挡位</th>
@@ -785,20 +786,20 @@
 <td>x5R</td>
 <td>±10%</td>
 <td>1206</td>
-<td></td>
+<td>3Ω，3Ω，3Ω</td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<p>1uF到1000uF，钽电容，±10%：待测试</p>
+<p>1uF到1000uF，钽聚合物电容，±10%</p>
 <table>
 <thead>
 <tr>
 <th>型号</th>
 <th>容值</th>
-<th>材质</th>
+<th>类型</th>
 <th>精度</th>
 <th>封装</th>
 <th>挡位</th>
@@ -809,9 +810,9 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="https://item.szlcsc.com/173708.html" target="_blank" rel="noopener">293D105X9016A2TE3</a></td>
+<td>293D105X9016A2TE3</td>
 <td>1uF</td>
-<td>钽</td>
+<td>钽聚合物</td>
 <td>±10%</td>
 <td>3216</td>
 <td>3Ω，3Ω，3Ω</td>
@@ -820,9 +821,9 @@
 <td></td>
 </tr>
 <tr>
-<td><a href="https://item.szlcsc.com/141662.html" target="_blank" rel="noopener">293D106X9035D2TE3</a></td>
+<td>293D106X9035D2TE3</td>
 <td>10uF</td>
-<td>钽</td>
+<td>钽聚合物</td>
 <td>±10%</td>
 <td>7343</td>
 <td>3Ω，3Ω，3Ω</td>
@@ -831,9 +832,49 @@
 <td></td>
 </tr>
 <tr>
-<td><a href="https://item.szlcsc.com/2044449.html" target="_blank" rel="noopener">293D107X9016E2TE3</a></td>
+<td>293D107X9016E2TE3</td>
 <td>100uF</td>
-<td>钽</td>
+<td>钽聚合物</td>
+<td>±10%</td>
+<td>7343</td>
+<td>3Ω，3Ω，3Ω</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>4.7uF到470uF，钽聚合物电容，±10%</p>
+<table>
+<thead>
+<tr>
+<th>型号</th>
+<th>容值</th>
+<th>类型</th>
+<th>精度</th>
+<th>封装</th>
+<th>挡位</th>
+<th>频率：15Hz</th>
+<th>频率：1KHz</th>
+<th>频率：100KHz</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>293D475X9050D2TE3</td>
+<td>4.7uF</td>
+<td>钽聚合物</td>
+<td>±10%</td>
+<td>3216</td>
+<td>3Ω，3Ω，3Ω</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>293D476X9020D2TE3</td>
+<td>47uF</td>
+<td>钽聚合物</td>
 <td>±10%</td>
 <td>7343</td>
 <td>3Ω，3Ω，3Ω</td>
@@ -842,9 +883,38 @@
 <td></td>
 </tr>
 <tr>
-<td><a href="https://item.szlcsc.com/730880.html" target="_blank" rel="noopener">T491X108K006AT</a></td>
+<td>293D477X96R3D2TE3</td>
+<td>470uF</td>
+<td>钽聚合物</td>
+<td>±10%</td>
+<td>7343</td>
+<td>3Ω，3Ω，3Ω</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>1000uF，普通钽电容，±10%</p>
+<table>
+<thead>
+<tr>
+<th>型号</th>
+<th>容值</th>
+<th>类型</th>
+<th>精度</th>
+<th>封装</th>
+<th>挡位</th>
+<th>频率：15Hz</th>
+<th>频率：1KHz</th>
+<th>频率：100KHz</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T491X108K006AT</td>
 <td>1000uF</td>
-<td>钽</td>
+<td>普通钽</td>
 <td>±10%</td>
 <td>7343</td>
 <td>3Ω，3Ω，3Ω</td>
@@ -854,13 +924,13 @@
 </tr>
 </tbody>
 </table>
-<p>10mF到1F，法拉电容，±20%：待测试</p>
+<p>1000uF到10000uF，直插电容，±20%</p>
 <table>
 <thead>
 <tr>
 <th>型号</th>
 <th>容值</th>
-<th>材质</th>
+<th>类型</th>
 <th>精度</th>
 <th>封装</th>
 <th>挡位</th>
@@ -871,47 +941,36 @@
 </thead>
 <tbody>
 <tr>
-<td></td>
-<td>10mF</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>100mF</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>16SEPF1000M</td>
+<td>1000uF</td>
+<td>固态电容</td>
+<td>±20%</td>
+<td>直插</td>
+<td>3Ω，3Ω，3Ω</td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td></td>
-<td>1F</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>25PX10000MEFC18X35.5</td>
+<td>10000uF</td>
+<td>铝电解</td>
+<td>±20%</td>
+<td>直插</td>
+<td>3Ω，3Ω，3Ω</td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<p>1uF到100uF，MKP，5%，威世的高级货：待土豪测试</p>
+<p>1uF到100uF，MKP能做到1%~5%，比如威世的1839、MKP1848系列：待土豪测试</p>
 <table>
 <thead>
 <tr>
 <th>型号</th>
 <th>容值</th>
-<th>材质</th>
+<th>类型</th>
 <th>精度</th>
 <th>封装</th>
 <th>挡位</th>
@@ -922,18 +981,18 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="https://item.szlcsc.com/3485291.html" target="_blank" rel="noopener">MKP1839510254</a></td>
+<td>MKP1848510094K2</td>
 <td>1uF</td>
 <td>MKP</td>
 <td>±5%</td>
-<td>轴向</td>
+<td>插件</td>
 <td></td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td><a href="https://item.szlcsc.com/4365577.html" target="_blank" rel="noopener">MKP1848C61060JK2</a></td>
+<td>MKP1848C61060JK2</td>
 <td>10uF</td>
 <td>MKP</td>
 <td>±5%</td>
@@ -944,7 +1003,7 @@
 <td></td>
 </tr>
 <tr>
-<td><a href="https://item.szlcsc.com/4353947.html" target="_blank" rel="noopener">MKP1848C71050JY5</a></td>
+<td>MKP1848C71050JY5</td>
 <td>100uF</td>
 <td>MKP</td>
 <td>±5%</td>
@@ -956,6 +1015,7 @@
 </tr>
 </tbody>
 </table>
+<p>理论能测到0.1mF，这个容量的单个电容，常见的只有法拉电容了，因为容差很大（-20%~+80%），所以就不测了</p>
 <h3 id="测量：电感"><a class="header-anchor" href="#测量：电感"></a>测量：电感</h3>
 <blockquote>
 <p>省略副参</p>
