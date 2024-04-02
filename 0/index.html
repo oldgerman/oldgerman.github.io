@@ -381,7 +381,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="1-配置概览"><a class="header-anchor" href="#1-配置概览"></a>1. 配置概览</h2><table>
+        <h2 id="1-配置概览"><a class="markdownIt-Anchor" href="#1-配置概览"></a> 1. 配置概览</h2><table>
 <thead>
 <tr>
 <th style="text-align:center"></th>
@@ -453,70 +453,70 @@
 </tbody>
 </table><a id="more"></a>
 
-<h2 id="2-资源包"><a class="header-anchor" href="#2-资源包"></a>2. 资源包</h2>
+<h2 id="2-资源包"><a class="markdownIt-Anchor" href="#2-资源包"></a> 2. 资源包</h2>
 <p>百度云链接：<a href="https://pan.baidu.com/s/1-KpmX9guIDLhQYw00e4vwQ" target="_blank" rel="noopener">XiaoYu_C5_Breed.zip + H大老毛子 + 其他可用固件</a> 提取码：<code>5hjd</code></p>
-<h2 id="3-原厂Web控制台"><a class="header-anchor" href="#3-原厂Web控制台"></a>3. 原厂Web控制台</h2>
+<h2 id="3-原厂web控制台"><a class="markdownIt-Anchor" href="#3-原厂web控制台"></a> 3. 原厂Web控制台</h2>
 <p>打开浏览器，输入机器外壳背面的 IP地址：<code>192.168.188.1</code> 密码：<code>admin</code></p>
 <p><img src="/0/IMG_5324.jpg" alt></p>
-<h4 id="原厂控制台界面："><a class="header-anchor" href="#原厂控制台界面："></a>原厂控制台界面：</h4>
+<h4 id="原厂控制台界面"><a class="markdownIt-Anchor" href="#原厂控制台界面"></a> 原厂控制台界面：</h4>
 <p><img src="/0/Inked%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(147)_LI.jpg" alt></p>
 <p>看一看，SATA硬盘可以识别，但貌似ssh打不开，所以没啥卵用：</p>
 <p><img src="/0/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(148).png" alt></p>
-<h2 id="4-刷入Breed"><a class="header-anchor" href="#4-刷入Breed"></a>4. 刷入Breed</h2>
-<h4 id="Beed是啥？"><a class="header-anchor" href="#Beed是啥？"></a>Beed是啥？</h4>
+<h2 id="4-刷入breed"><a class="markdownIt-Anchor" href="#4-刷入breed"></a> 4. 刷入Breed</h2>
+<h4 id="beed是啥"><a class="markdownIt-Anchor" href="#beed是啥"></a> Beed是啥？</h4>
 <p>breed由恩山论坛大神<a href="https://www.right.com.cn/forum/space-uid-200302.html" target="_blank" rel="noopener">HackPascal</a>开发，breed是一种Bootloader，类似于电脑的BIOS，核心功能是引导操作系统，常见的uboot启动是单线程的，而breed是多线程的，难度系数比uboot大得多，增加了调度器，已经具备小型操作系统的核心</p>
-<h4 id="莫大佬文章的源地址："><a class="header-anchor" href="#莫大佬文章的源地址："></a>莫大佬文章的源地址：</h4>
+<h4 id="莫大佬文章的源地址"><a class="markdownIt-Anchor" href="#莫大佬文章的源地址"></a> 莫大佬文章的源地址：</h4>
 <p>一键刷入BREED教程：<a href="http://www.nas1688.com/166.html" target="_blank" rel="noopener">已失效</a></p>
-<h4 id="在此重新复述刷入方法："><a class="header-anchor" href="#在此重新复述刷入方法："></a>在此重新复述刷入方法：</h4>
+<h4 id="在此重新复述刷入方法"><a class="markdownIt-Anchor" href="#在此重新复述刷入方法"></a> 在此重新复述刷入方法：</h4>
 <ul>
 <li>上电启动，使用网线连接电脑和小娱路由器C5的任意Lan口</li>
 <li>解压上面的度云文件：<code>XiaoYu_C5_Breed.zip</code> 解压密码：<code>www.nas1688.com</code></li>
-<li>win10下直接该程序运行不行，需要右键 <strong>以管理员模式运行该程序</strong>，才能刷入成功不死breed<br>
+<li>win10下直接该程序运行不行，需要右键 <strong>以管理员模式运行该程序</strong>，才能刷入成功不死breed
 等待电脑分配到小娱的IP，可以访问<code>192.168.188.1</code>就行</li>
 <li>将网关IP填入工具中，默认密码admin，点击刷入即可</li>
 </ul>
-<h4 id="刷入成功："><a class="header-anchor" href="#刷入成功："></a>刷入成功：</h4>
+<h4 id="刷入成功"><a class="markdownIt-Anchor" href="#刷入成功"></a> 刷入成功：</h4>
 <p><img src="/0/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(149).png" alt></p>
 <p>根据提示，先拔掉电源，等待下一步操作</p>
-<h2 id="5-重启到Breed-Web控制台"><a class="header-anchor" href="#5-重启到Breed-Web控制台"></a>5. 重启到Breed Web控制台</h2>
-<h4 id="注意事项："><a class="header-anchor" href="#注意事项："></a>注意事项：</h4>
+<h2 id="5-重启到breed-web控制台"><a class="markdownIt-Anchor" href="#5-重启到breed-web控制台"></a> 5. 重启到Breed Web控制台</h2>
+<h4 id="注意事项"><a class="markdownIt-Anchor" href="#注意事项"></a> 注意事项：</h4>
 <ul>
 <li>刷第三方固件一定要进入Breed界面刷入</li>
-<li>Breed界面进入方法:<br>
-a. 拔掉电源<br>
-b. 按住Reset键不放<br>
-c. 接通电源<br>
-d. 6秒后松开Reset键<br>
+<li>Breed界面进入方法:
+a. 拔掉电源
+b. 按住Reset键不放
+c. 接通电源
+d. 6秒后松开Reset键
 e. 浏览器访问：<code>192.168.1.1</code>进入 Breed Web控制台</li>
 </ul>
 <p><img src="/0/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(150).png" alt></p>
-<h2 id="6-备份固件-可选"><a class="header-anchor" href="#6-备份固件-可选"></a>6. 备份固件|可选</h2>
+<h2 id="6-备份固件可选"><a class="markdownIt-Anchor" href="#6-备份固件可选"></a> 6. 备份固件|可选</h2>
 <p>将EEPROM，编程器固件备份，保存生成的文件，若以后想刷回原厂固件，在Breed Web恢复即可</p>
 <p><img src="/0/Inked%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(151)_LI.jpg" alt></p>
-<h2 id="7-刷入H大老毛子"><a class="header-anchor" href="#7-刷入H大老毛子"></a>7. 刷入H大老毛子</h2>
-<h4 id="解压固件："><a class="header-anchor" href="#解压固件："></a>解压固件：</h4>
+<h2 id="7-刷入h大老毛子"><a class="markdownIt-Anchor" href="#7-刷入h大老毛子"></a> 7. 刷入H大老毛子</h2>
+<h4 id="解压固件"><a class="markdownIt-Anchor" href="#解压固件"></a> 解压固件：</h4>
 <p>解压上面的度云文件：<code>小娱同学可用固件.rar</code></p>
 <p>再次解压前一次解压得到的：<code>MT7621_7603_7612_512M_3.4.3.9-099.rar</code></p>
 <p>得到：<code>MT7621_7603_7612_512M_3.4.3.9-099.trx</code></p>
 <p><img src="/0/TIM%E6%88%AA%E5%9B%BE20190821154510.png" alt></p>
-<h4 id="上传固件："><a class="header-anchor" href="#上传固件："></a>上传固件：</h4>
+<h4 id="上传固件"><a class="markdownIt-Anchor" href="#上传固件"></a> 上传固件：</h4>
 <p>在Breed Web控制台 - - 固件更新</p>
 <ul>
 <li>勾选固件</li>
 <li>选择文件<code>MT7621_7603_7612_512M_3.4.3.9-099.trx</code>上传</li>
 </ul>
 <p><img src="/0/TIM%E6%88%AA%E5%9B%BE20190821154047.png" alt></p>
-<h4 id="等待刷入成功："><a class="header-anchor" href="#等待刷入成功："></a>等待刷入成功：</h4>
+<h4 id="等待刷入成功"><a class="markdownIt-Anchor" href="#等待刷入成功"></a> 等待刷入成功：</h4>
 <p><img src="/0/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(152).png" alt></p>
 <p>刷入时观察路由面板指示灯，若全部熄灭了再亮时说明开始重启，这之后等待一两分钟载入老毛子系统</p>
-<h2 id="8-重启到-H大老毛子-Web控制台"><a class="header-anchor" href="#8-重启到-H大老毛子-Web控制台"></a>8. 重启到 H大老毛子 Web控制台</h2>
+<h2 id="8-重启到-h大老毛子-web控制台"><a class="markdownIt-Anchor" href="#8-重启到-h大老毛子-web控制台"></a> 8. 重启到 H大老毛子 Web控制台</h2>
 <p>上一步重启完成后，浏览器访问：<code>192.168.123.1</code></p>
 <p>初始账号：<code>admin</code></p>
 <p>初始密码：<code>admin</code></p>
 <p>因为小娱C5不带无线，建议关闭2.4G，5G 以节约性能：</p>
 <p><img src="/0/TIM%E6%88%AA%E5%9B%BE20190821160818.png" alt></p>
 <p>至此，刷入完毕</p>
-<h3 id="小娱C5-配置篇"><a class="header-anchor" href="#小娱C5-配置篇"></a><a href="https://oldgerman.github.io/29c16836/">小娱C5_配置篇</a></h3>
+<h3 id="小娱c5_配置篇"><a class="markdownIt-Anchor" href="#小娱c5_配置篇"></a> <a href="https://oldgerman.github.io/29c16836/">小娱C5_配置篇</a></h3>
 
     </div>
 
@@ -747,7 +747,7 @@ e. 浏览器访问：<code>192.168.1.1</code>进入 Breed Web控制台</li>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-配置概览"><span class="nav-number">1.</span> <span class="nav-text">1. 配置概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-资源包"><span class="nav-number">2.</span> <span class="nav-text">2. 资源包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-原厂Web控制台"><span class="nav-number">3.</span> <span class="nav-text">3. 原厂Web控制台</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原厂控制台界面："><span class="nav-number">3.0.1.</span> <span class="nav-text">原厂控制台界面：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-刷入Breed"><span class="nav-number">4.</span> <span class="nav-text">4. 刷入Breed</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Beed是啥？"><span class="nav-number">4.0.1.</span> <span class="nav-text">Beed是啥？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#莫大佬文章的源地址："><span class="nav-number">4.0.2.</span> <span class="nav-text">莫大佬文章的源地址：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在此重新复述刷入方法："><span class="nav-number">4.0.3.</span> <span class="nav-text">在此重新复述刷入方法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#刷入成功："><span class="nav-number">4.0.4.</span> <span class="nav-text">刷入成功：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-重启到Breed-Web控制台"><span class="nav-number">5.</span> <span class="nav-text">5. 重启到Breed Web控制台</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注意事项："><span class="nav-number">5.0.1.</span> <span class="nav-text">注意事项：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-备份固件-可选"><span class="nav-number">6.</span> <span class="nav-text">6. 备份固件|可选</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-刷入H大老毛子"><span class="nav-number">7.</span> <span class="nav-text">7. 刷入H大老毛子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解压固件："><span class="nav-number">7.0.1.</span> <span class="nav-text">解压固件：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#上传固件："><span class="nav-number">7.0.2.</span> <span class="nav-text">上传固件：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#等待刷入成功："><span class="nav-number">7.0.3.</span> <span class="nav-text">等待刷入成功：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-重启到-H大老毛子-Web控制台"><span class="nav-number">8.</span> <span class="nav-text">8. 重启到 H大老毛子 Web控制台</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#小娱C5-配置篇"><span class="nav-number">8.1.</span> <span class="nav-text">小娱C5_配置篇</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-配置概览"><span class="nav-number">1.</span> <span class="nav-text"> 1. 配置概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-资源包"><span class="nav-number">2.</span> <span class="nav-text"> 2. 资源包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-原厂web控制台"><span class="nav-number">3.</span> <span class="nav-text"> 3. 原厂Web控制台</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原厂控制台界面"><span class="nav-number">3.0.1.</span> <span class="nav-text"> 原厂控制台界面：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-刷入breed"><span class="nav-number">4.</span> <span class="nav-text"> 4. 刷入Breed</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#beed是啥"><span class="nav-number">4.0.1.</span> <span class="nav-text"> Beed是啥？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#莫大佬文章的源地址"><span class="nav-number">4.0.2.</span> <span class="nav-text"> 莫大佬文章的源地址：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在此重新复述刷入方法"><span class="nav-number">4.0.3.</span> <span class="nav-text"> 在此重新复述刷入方法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#刷入成功"><span class="nav-number">4.0.4.</span> <span class="nav-text"> 刷入成功：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-重启到breed-web控制台"><span class="nav-number">5.</span> <span class="nav-text"> 5. 重启到Breed Web控制台</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注意事项"><span class="nav-number">5.0.1.</span> <span class="nav-text"> 注意事项：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-备份固件可选"><span class="nav-number">6.</span> <span class="nav-text"> 6. 备份固件|可选</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-刷入h大老毛子"><span class="nav-number">7.</span> <span class="nav-text"> 7. 刷入H大老毛子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解压固件"><span class="nav-number">7.0.1.</span> <span class="nav-text"> 解压固件：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#上传固件"><span class="nav-number">7.0.2.</span> <span class="nav-text"> 上传固件：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#等待刷入成功"><span class="nav-number">7.0.3.</span> <span class="nav-text"> 等待刷入成功：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-重启到-h大老毛子-web控制台"><span class="nav-number">8.</span> <span class="nav-text"> 8. 重启到 H大老毛子 Web控制台</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#小娱c5_配置篇"><span class="nav-number">8.1.</span> <span class="nav-text"> 小娱C5_配置篇</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -814,12 +814,12 @@ show_date_time();
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">133k</span>
+    <span title="站点总字数">135k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:01</span>
+    <span title="站点阅读时长">2:02</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>

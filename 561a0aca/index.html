@@ -354,7 +354,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>2.2k</span>
+              <span>2.3k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -381,51 +381,51 @@
       
         <p>半年前博主在学习C语言语法，无奈时间较零散，砖头书不能随身带，就用se看电子书，渐渐想随时敲敲代码跑跑程序（光看书实在是太无聊了），与此同时，也在鼓捣linux（其实那时手头连一个运行linux的电脑都没），于是就开始选设备，从树梅派挑到nexus7再到chromebook，额。。。买东西真累，想起手头有块闲置的一代小米平板，先是用termux凑合，再是安装Kali，用ssh登录本地端口，在安卓环境并行运行linux，emmm，没有GUI的linux真难受。。。最后求助万能的google，找到4PDA论坛mocha大神从英伟达tegra-k1开发板上移植的ubuntu14.04<a href="https://4pda.ru/forum/index.php?showtopic=821143" target="_blank" rel="noopener">项目地址</a>，成功刷入小米平板！</p><a id="more"></a>
 <p><img src="/561a0aca/1.jpg" alt="刷入成功效果"></p>
-<h2 id="准备工作"><a class="header-anchor" href="#准备工作"></a>准备工作</h2>
-<h3 id="解BL琐"><a class="header-anchor" href="#解BL琐"></a>解BL琐</h3>
-<p>想要刷入第三方ROM，先要刷入第三方rec；<br>
-想要刷入第三方rec，先要解Bootloader琐。<br>
+<h2 id="准备工作"><a class="markdownIt-Anchor" href="#准备工作"></a> 准备工作</h2>
+<h3 id="解bl琐"><a class="markdownIt-Anchor" href="#解bl琐"></a> 解BL琐</h3>
+<p>想要刷入第三方ROM，先要刷入第三方rec；
+想要刷入第三方rec，先要解Bootloader琐。
 按照官方操作即可：<a href="http://www.miui.com/unlock/index.html" target="_blank" rel="noopener">解锁小米手机</a></p>
-<h3 id="刷TWRP和multirom"><a class="header-anchor" href="#刷TWRP和multirom"></a>刷TWRP和multirom</h3>
-<p><a href="https://pan.baidu.com/s/18b-AI4UijXQeEea_Zrd09g" target="_blank" rel="noopener">recovery工具链接</a>提取码: qc15<br>
-解BL琐后，将上述链接下载的所有文件(不用解压）放在平板根目录，开机按“音量+”和电源键，进入MIUI原厂recovery,刷入miuies_TWRP_MiPad_2.7.1_signed.zip<br>
-待刷入完成，重启到recovery，进入TWRP-v2.7.1界面，该recovery画面不能填充整个屏幕，稍后咱刷入multirom_TWRP_3.1.1-0.img即可解决。<br>
+<h3 id="刷twrp和multirom"><a class="markdownIt-Anchor" href="#刷twrp和multirom"></a> 刷TWRP和multirom</h3>
+<p><a href="https://pan.baidu.com/s/18b-AI4UijXQeEea_Zrd09g" target="_blank" rel="noopener">recovery工具链接</a>提取码: qc15
+解BL琐后，将上述链接下载的所有文件(不用解压）放在平板根目录，开机按“音量+”和电源键，进入MIUI原厂recovery,刷入miuies_TWRP_MiPad_2.7.1_signed.zip
+待刷入完成，重启到recovery，进入TWRP-v2.7.1界面，该recovery画面不能填充整个屏幕，稍后咱刷入multirom_TWRP_3.1.1-0.img即可解决。
 *注意: v3.0.3必须由v2.7.1升级，不能一次刷入</p>
 <p>在TWRP-v2.7.1界面，点击&quot;Install&quot;，进入文件目录，找到sd_card文件夹，点击进入，此文件夹即是平板内部flash储存的根目录。找到boot-kexec-miuiSmoke6.12.22.zip，点击此文件，右滑刷入，待刷入完成。再找一找multirom_TWRP_3.1.1-0.img发现并没有，点击右下脚的zip方框，选择img，再找下，即可找到，点击此文件，右滑刷入，待刷入完成，点击“reboot to system”，重启到系统</p>
-<p>若一切正常，开机会出现multirom多重引导，点击倒计时即可手动选择启动系统，点击第一个系统，即可正常进入当前系统。<br>
+<p>若一切正常，开机会出现multirom多重引导，点击倒计时即可手动选择启动系统，点击第一个系统，即可正常进入当前系统。
 <img src="/561a0aca/2.jpg" alt="刷入lineageOS和ubuntu后的multirom开机引导界面"></p>
 <p>若仅想用MultiRom功能，仅到此步即可。</p>
-<h3 id="阴差阳错"><a class="header-anchor" href="#阴差阳错"></a>阴差阳错</h3>
-<p>博主之前到这一步时，还保留了MIUI系统，刷ubuntu系统之前只进行了三清，重启进入ubuntu系统，一开始是正常的linux启动4只小企鹅（对应tegra-k1四个Cortex-A15），一条条messages滚过后，就悲剧了，卡在mount: mounting不动了，重刷了几次都是如此！4PDA论坛也有一个会员遇到同样的问题，然而大佬们并不鸟他…</p>
+<h3 id="阴差阳错"><a class="markdownIt-Anchor" href="#阴差阳错"></a> 阴差阳错</h3>
+<p>博主之前到这一步时，还保留了MIUI系统，刷ubuntu系统之前只进行了三清，重启进入ubuntu系统，一开始是正常的linux启动4只小企鹅（对应tegra-k1四个Cortex-A15），一条条messages滚过后，就悲剧了，卡在mount: mounting不动了，重刷了几次都是如此！4PDA论坛也有一个会员遇到同样的问题，然而大佬们并不鸟他...</p>
 <p><img src="/561a0aca/4.jpg" alt="linux开机卡住的地方"></p>
 <p>郁闷了几天，准备放弃，心想要是Linux整不了就刷个CN系统算了，查了查google，发现米板1可刷LineageOS-14，按照论坛的教程，先四清，刷lineageOS之前，需要合并MIUI的两个system分区成一个，合并分区后，成功刷入，配置了一下google全家桶，lineageOS居然该死的甜美。</p>
-<p>emmm…没有用上原生linux还是不爽，再试试如何？又刷了一次ubuntu，重启，居然跳过之前卡住的mount: mounting的部分，成功进入ubuntu桌面，触屏可用，OTG插上键鼠可用，OK搞定</p>
-<h3 id="MiPad-Mocha-合并分区教程-有删改"><a class="header-anchor" href="#MiPad-Mocha-合并分区教程-有删改"></a>MiPad Mocha 合并分区教程/有删改</h3>
-<p><a href="http://www.miui.com/thread-7412054-1-1.html" target="_blank" rel="noopener">论坛原文</a><br>
-将MIUI系统分区合并至1.2GB的具体步骤：<br>
-1.下载 Repartition_MI_Pad_1_2GB_zardMi3.zip 和 Repartition_Stock-Partition_MI_Pad_zardMi3.zip (上文度云链接里有）<br>
-2.拷入你的小米平板根目录中；<br>
-3.清除Cache,Data,System和Dalvik Cache的数据。（重启到twrp选择&quot;wipe&quot;,勾选以下项后，滑动条，实现四清）<br>
-<img src="/561a0aca/3.jpg" alt="multirom_twrp的四清勾选"><br>
-4.刷入Repartition_MI_Pad_1_2GB_zardMi3.zip<br>
-5.将 lineageOS-14刷入,若你想用google服务框架，在1步下载Gapps在此步刷入即可<br>
-6.重启至LineageOS系统<br>
+<p>emmm...没有用上原生linux还是不爽，再试试如何？又刷了一次ubuntu，重启，居然跳过之前卡住的mount: mounting的部分，成功进入ubuntu桌面，触屏可用，OTG插上键鼠可用，OK搞定</p>
+<h3 id="mipad-mocha-合并分区教程有删改"><a class="markdownIt-Anchor" href="#mipad-mocha-合并分区教程有删改"></a> MiPad Mocha 合并分区教程/有删改</h3>
+<p><a href="http://www.miui.com/thread-7412054-1-1.html" target="_blank" rel="noopener">论坛原文</a>
+将MIUI系统分区合并至1.2GB的具体步骤：
+1.下载 Repartition_MI_Pad_1_2GB_zardMi3.zip 和 Repartition_Stock-Partition_MI_Pad_zardMi3.zip (上文度云链接里有）
+2.拷入你的小米平板根目录中；
+3.清除Cache,Data,System和Dalvik Cache的数据。（重启到twrp选择&quot;wipe&quot;,勾选以下项后，滑动条，实现四清）
+<img src="/561a0aca/3.jpg" alt="multirom_twrp的四清勾选">
+4.刷入Repartition_MI_Pad_1_2GB_zardMi3.zip
+5.将 lineageOS-14刷入,若你想用google服务框架，在1步下载Gapps在此步刷入即可
+6.重启至LineageOS系统
 7.你可以使用Google PlayStore里的DiskInfo，System Partitions，或者Titanium Backup来确认你的系统一分区大小。（总大小是1.21GB，剩余空间是688MB）                   ##译者：这里我的数据是总大小1.29GB，剩余空间是733MB</p>
-<h2 id="刷入Linux4TegraR241-mrom"><a class="header-anchor" href="#刷入Linux4TegraR241-mrom"></a>刷入Linux4TegraR241.mrom</h2>
-<h3 id="MultiRom"><a class="header-anchor" href="#MultiRom"></a>MultiRom</h3>
-<p>下载4PDA项目原文置顶链接的Google盘的&quot;02.05.2017 L4T R24.1&quot;<br>
-*注意：不要下03.12.2018版本的，这个版本我刷入过，触摸和OTG都不能用，开机只启动一个核心<br>
-拷贝该文件到平版根目录<br>
-重启到TWRP，点击右上角三条横线，进入整合到TWRP的MultiRom刷机界面，点击&quot;add&quot;<br>
-选择内部flash储存，如图：<br>
-<img src="/561a0aca/11.jpg" alt><br>
-刷入，需要等待10分钟左右，成功刷入如图：<br>
-![](D:\ODG blog\<a href="http://oldgerman.github.io">oldgerman.github.io</a>\source_posts\小米平板1-ubuntu系统-刷机篇\5.jpg)<br>
-重启，点击multirom多重引导界面出现的第二个系统即可启动linux：<br>
-<img src="/561a0aca/6.jpg" alt="linux开机中"><br>
+<h2 id="刷入linux4tegrar241mrom"><a class="markdownIt-Anchor" href="#刷入linux4tegrar241mrom"></a> 刷入Linux4TegraR241.mrom</h2>
+<h3 id="multirom"><a class="markdownIt-Anchor" href="#multirom"></a> MultiRom</h3>
+<p>下载4PDA项目原文置顶链接的Google盘的&quot;02.05.2017 L4T R24.1&quot;
+*注意：不要下03.12.2018版本的，这个版本我刷入过，触摸和OTG都不能用，开机只启动一个核心
+拷贝该文件到平版根目录
+重启到TWRP，点击右上角三条横线，进入整合到TWRP的MultiRom刷机界面，点击&quot;add&quot;
+选择内部flash储存，如图：
+<img src="/561a0aca/11.jpg" alt>
+刷入，需要等待10分钟左右，成功刷入如图：
+![](D:\ODG blog\oldgerman.github.io\source_posts\小米平板1-ubuntu系统-刷机篇\5.jpg)
+重启，点击multirom多重引导界面出现的第二个系统即可启动linux：
+<img src="/561a0aca/6.jpg" alt="linux开机中">
 等待进入ubuntu桌面即可，赶紧用OTG连接键鼠配置一下!</p>
 <p><img src="/561a0aca/0.png" alt="成功进入Gnome"></p>
-<h2 id="ubuntu系统-配置篇"><a class="header-anchor" href="#ubuntu系统-配置篇"></a><a href="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1566385494542&amp;di=3d3e792ff50969f51fc70a74cbc2cd1e&amp;imgtype=0&amp;src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201812%2F10%2F20181210095624_ndyab.png" target="_blank" rel="noopener">ubuntu系统_配置篇</a></h2>
+<h2 id="ubuntu系统_配置篇"><a class="markdownIt-Anchor" href="#ubuntu系统_配置篇"></a> <a href="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1566385494542&amp;di=3d3e792ff50969f51fc70a74cbc2cd1e&amp;imgtype=0&amp;src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201812%2F10%2F20181210095624_ndyab.png" target="_blank" rel="noopener">ubuntu系统_配置篇</a></h2>
 
     </div>
 
@@ -661,7 +661,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解BL琐"><span class="nav-number">1.1.</span> <span class="nav-text">解BL琐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#刷TWRP和multirom"><span class="nav-number">1.2.</span> <span class="nav-text">刷TWRP和multirom</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阴差阳错"><span class="nav-number">1.3.</span> <span class="nav-text">阴差阳错</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MiPad-Mocha-合并分区教程-有删改"><span class="nav-number">1.4.</span> <span class="nav-text">MiPad Mocha 合并分区教程/有删改</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#刷入Linux4TegraR241-mrom"><span class="nav-number">2.</span> <span class="nav-text">刷入Linux4TegraR241.mrom</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MultiRom"><span class="nav-number">2.1.</span> <span class="nav-text">MultiRom</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ubuntu系统-配置篇"><span class="nav-number">3.</span> <span class="nav-text">ubuntu系统_配置篇</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text"> 准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解bl琐"><span class="nav-number">1.1.</span> <span class="nav-text"> 解BL琐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#刷twrp和multirom"><span class="nav-number">1.2.</span> <span class="nav-text"> 刷TWRP和multirom</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阴差阳错"><span class="nav-number">1.3.</span> <span class="nav-text"> 阴差阳错</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mipad-mocha-合并分区教程有删改"><span class="nav-number">1.4.</span> <span class="nav-text"> MiPad Mocha 合并分区教程/有删改</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#刷入linux4tegrar241mrom"><span class="nav-number">2.</span> <span class="nav-text"> 刷入Linux4TegraR241.mrom</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#multirom"><span class="nav-number">2.1.</span> <span class="nav-text"> MultiRom</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ubuntu系统_配置篇"><span class="nav-number">3.</span> <span class="nav-text"> ubuntu系统_配置篇</span></a></li></ol></div>
             
 
           </div>
@@ -728,12 +728,12 @@ show_date_time();
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">133k</span>
+    <span title="站点总字数">135k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:01</span>
+    <span title="站点阅读时长">2:02</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>

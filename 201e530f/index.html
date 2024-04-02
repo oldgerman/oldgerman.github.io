@@ -407,7 +407,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><img src="/201e530f/title.png" alt="title"></p><p><a href="https://github.com/oldgerman/DarkPill" target="_blank" rel="noopener">DarkPill开发板github项目地址</a></p><h2 id="预备知识"><a class="header-anchor" href="#预备知识"></a>预备知识</h2><p><a href="https://www.stmcu.org.cn/document/detail/index/id-200272" target="_blank" rel="noopener">RM0008 - STM32F10x参考手册-中文</a></p><h3 id="STM32的启动模式"><a class="header-anchor" href="#STM32的启动模式"></a>STM32的启动模式</h3><p>RM0008：P33</p><p><img src="/201e530f/boot-mode.png" alt="boot-mode"></p><h4 id="DarkPill的BOOT0，BOOT1，Reset"><a class="header-anchor" href="#DarkPill的BOOT0，BOOT1，Reset"></a>DarkPill的BOOT0，BOOT1，Reset</h4><p>DarkPill的BOOT0默认下拉，按下开关为高电平，BOOT1为串100K悬空(悬空是低电平)，Reset默认上拉，按下开关复位</p><a id="more"></a>
+        <p><img src="/201e530f/title.png" alt="title"></p><p><a href="https://github.com/oldgerman/DarkPill" target="_blank" rel="noopener">DarkPill开发板github项目地址</a></p><h2 id="预备知识"><a class="markdownIt-Anchor" href="#预备知识"></a> 预备知识</h2><p><a href="https://www.stmcu.org.cn/document/detail/index/id-200272" target="_blank" rel="noopener">RM0008 - STM32F10x参考手册-中文</a></p><h3 id="stm32的启动模式"><a class="markdownIt-Anchor" href="#stm32的启动模式"></a> STM32的启动模式</h3><p>RM0008：P33</p><p><img src="/201e530f/boot-mode.png" alt="boot-mode"></p><h4 id="darkpill的boot0boot1reset"><a class="markdownIt-Anchor" href="#darkpill的boot0boot1reset"></a> DarkPill的BOOT0，BOOT1，Reset</h4><p>DarkPill的BOOT0默认下拉，按下开关为高电平，BOOT1为串100K悬空(悬空是低电平)，Reset默认上拉，按下开关复位</p><a id="more"></a>
 
 
 
@@ -416,17 +416,17 @@
 
 
 
-<h3 id="STM32的刷机方式"><a class="header-anchor" href="#STM32的刷机方式"></a>STM32的刷机方式</h3>
+<h3 id="stm32的刷机方式"><a class="markdownIt-Anchor" href="#stm32的刷机方式"></a> STM32的刷机方式</h3>
 <p>三种最常用的：</p>
-<h4 id="串口芯片刷机"><a class="header-anchor" href="#串口芯片刷机"></a>串口芯片刷机</h4>
+<h4 id="串口芯片刷机"><a class="markdownIt-Anchor" href="#串口芯片刷机"></a> 串口芯片刷机</h4>
 <p>RM0008： P60</p>
 <p>“The values on the BOOT pins are lated on the 4th rising edge of SYSCLK after a reset（复位后，BOOT0引脚和nBOOT1位上的值在SYSCLK的第4个上升沿被锁存）”</p>
 <p><a href="https://blog.csdn.net/qq_29545231/article/details/77915544" target="_blank" rel="noopener">STM32用CH340下载程序的方法</a></p>
-<h4 id="SWD刷机"><a class="header-anchor" href="#SWD刷机"></a>SWD刷机</h4>
+<h4 id="swd刷机"><a class="markdownIt-Anchor" href="#swd刷机"></a> SWD刷机</h4>
 <p>SWD接口直接连接Cortex-M3内核，无需复位操作，直接接上ST-LINK烧录</p>
-<h4 id="DFU刷机"><a class="header-anchor" href="#DFU刷机"></a>DFU刷机</h4>
+<h4 id="dfu刷机"><a class="markdownIt-Anchor" href="#dfu刷机"></a> DFU刷机</h4>
 <p><a href="#DFU%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%BC%8F">DFU的两种编程模式</a></p>
-<h3 id="外部高速晶振-HSE-与USB总线时钟"><a class="header-anchor" href="#外部高速晶振-HSE-与USB总线时钟"></a>外部高速晶振(HSE)与USB总线时钟</h3>
+<h3 id="外部高速晶振hse与usb总线时钟"><a class="markdownIt-Anchor" href="#外部高速晶振hse与usb总线时钟"></a> 外部高速晶振(HSE)与USB总线时钟</h3>
 <p>P1:</p>
 <p><img src="/201e530f/f103_datasheet_page1.jpg" alt="f103_datasheet_page1"></p>
 <p>P12:</p>
@@ -472,20 +472,20 @@
 </table>
 <p><a href="https://d1.amobbs.com/bbs_upload782111/files_46/ourdev_687013TGMATN.pdf" target="_blank" rel="noopener">STM32的时钟树.pdf</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/23805341" target="_blank" rel="noopener">RCC时钟配置实践</a></p>
-<h3 id="DFU的两种编程模式"><a class="header-anchor" href="#DFU的两种编程模式"></a>DFU的两种编程模式</h3>
+<h3 id="dfu的两种编程模式"><a class="markdownIt-Anchor" href="#dfu的两种编程模式"></a> DFU的两种编程模式</h3>
 <p><strong>关键词：</strong> ISP模式，IAP模式，自举驱动程序</p>
-<p>“对于STM32F1系列，只有互联型子系列STM32 F105/STM32F107支持通过DFU方式实现ISP编程， 所谓ISP模式就是指MCU芯片出厂时内部已集成了DFU相关自举驱动代码，利用它并借助USB接口即可将用户应用程序下载进芯片。而其它STM32F1芯片即使带USB模块，若想利用DFU方式编程就只能自行编写DFU自举驱动，即通过IAP模式实现用户程序的下载或升级…” 👉 <a href="https://blog.csdn.net/zhjmyx/article/details/53056351" target="_blank" rel="noopener">原文轻戳</a></p>
-<h2 id="在Aduino-IDE下使用"><a class="header-anchor" href="#在Aduino-IDE下使用"></a>在Aduino IDE下使用</h2>
-<h3 id="Arduino-STM32"><a class="header-anchor" href="#Arduino-STM32"></a>Arduino_STM32</h3>
+<p>“对于STM32F1系列，只有互联型子系列STM32 F105/STM32F107支持通过DFU方式实现ISP编程， 所谓ISP模式就是指MCU芯片出厂时内部已集成了DFU相关自举驱动代码，利用它并借助USB接口即可将用户应用程序下载进芯片。而其它STM32F1芯片即使带USB模块，若想利用DFU方式编程就只能自行编写DFU自举驱动，即通过IAP模式实现用户程序的下载或升级...” 👉 <a href="https://blog.csdn.net/zhjmyx/article/details/53056351" target="_blank" rel="noopener">原文轻戳</a></p>
+<h2 id="在aduino-ide下使用"><a class="markdownIt-Anchor" href="#在aduino-ide下使用"></a> 在Aduino IDE下使用</h2>
+<h3 id="arduino_stm32"><a class="markdownIt-Anchor" href="#arduino_stm32"></a> Arduino_STM32</h3>
 <p><a href="https://github.com/rogerclarkmelbourne/Arduino_STM32" target="_blank" rel="noopener">github地址</a></p>
 <p>按照<a href="https://github.com/rogerclarkmelbourne/Arduino_STM32/wiki" target="_blank" rel="noopener">wiki</a>里的<a href="https://github.com/rogerclarkmelbourne/Arduino_STM32/wiki/Installation" target="_blank" rel="noopener">Installation</a>步骤（下载安装开发板包，安装Due开发板以间接安装g++工具链）</p>
 <p>arduino环境支持的三种常见的烧录方式已经在DarkPill的README.md中演示</p>
 <p>我们来说说使用stm32duino-bootloader实现USB-C烧录F103：</p>
-<h3 id="STM32duino-bootloader"><a class="header-anchor" href="#STM32duino-bootloader"></a>STM32duino-bootloader</h3>
+<h3 id="stm32duino-bootloader"><a class="markdownIt-Anchor" href="#stm32duino-bootloader"></a> STM32duino-bootloader</h3>
 <p><a href="https://github.com/rogerclarkmelbourne/STM32duino-bootloader" target="_blank" rel="noopener">github地址</a></p>
 <p>作者是<span style="color:BlueViolet;">罗杰·克拉克</span>(澳洲)，他将<a href="https://github.com/leaflabs/maple-bootloader" target="_blank" rel="noopener">maple-bootloader</a>改良，让更多的F103开发板能以IAP模式实现DFU烧录程序，这么好的东西DarkPill是不是可以直接用呢？但经过测试发现，他老人家仓库里编译的二进制文件仅适用于板载8MHz晶振的F103，而我的目前DarkPill板载是3225 12Mhz晶振（大真空3225 8Mhz晶振刚下单，逃）</p>
-<h4 id="烧录stm32duino-bootloader"><a class="header-anchor" href="#烧录stm32duino-bootloader"></a>烧录stm32duino-bootloader</h4>
-<h5 id="连接"><a class="header-anchor" href="#连接"></a>连接</h5>
+<h4 id="烧录stm32duino-bootloader"><a class="markdownIt-Anchor" href="#烧录stm32duino-bootloader"></a> 烧录stm32duino-bootloader</h4>
+<h5 id="连接"><a class="markdownIt-Anchor" href="#连接"></a> 连接</h5>
 <table>
 <thead>
 <tr>
@@ -508,7 +508,7 @@
 </tr>
 </tbody>
 </table>
-<h5 id="烧录"><a class="header-anchor" href="#烧录"></a>烧录</h5>
+<h5 id="烧录"><a class="markdownIt-Anchor" href="#烧录"></a> 烧录</h5>
 <p>烧录的STM32duino-bootloader与3225晶振频率的对应表：</p>
 <table>
 <thead>
@@ -563,7 +563,7 @@
 <p><img src="/201e530f/Maple-NON-COM.png" alt="20200814230533"></p>
 <p>然后下次就能正常识别为COM了</p>
 <p><img src="/201e530f/Maple-COM.png" alt="20200814011155"></p>
-<h3 id="若晶振频率不匹配"><a class="header-anchor" href="#若晶振频率不匹配"></a>若晶振频率不匹配</h3>
+<h3 id="若晶振频率不匹配"><a class="markdownIt-Anchor" href="#若晶振频率不匹配"></a> 若晶振频率不匹配</h3>
 <p>Arduino IDE默认的Generic STM32FC series的Crystal默认是8Mhz，如果Darkpill的HSE为12MHz或16MHz，那么Blink程序闪烁速度会比8Mhz快，串口波特率也同理(会收不到信息或者乱码)，所以，需要修改开发包里的HSE或者PLL的值</p>
 <p><span style="color:#FF0000;">那么，我们开始找吧！</span></p>
 <p>在Arduino_STM32\STM32F1\core\maple下的boards.h文件里有以下两行代码：</p>
@@ -595,36 +595,36 @@
     	<td width="33%"><img src="/201e530f/BLINK_TEST(2).png"></td>
     </tr>
 </table>
-<h2 id="在Keil-MDK环境下使用"><a class="header-anchor" href="#在Keil-MDK环境下使用"></a>在Keil MDK环境下使用</h2>
+<h2 id="在keil-mdk环境下使用"><a class="markdownIt-Anchor" href="#在keil-mdk环境下使用"></a> 在Keil MDK环境下使用</h2>
 <p>下载最新版的MDK5.31</p>
 <p>下载对应stm32系列的<a href="https://www.keil.com/dd2/pack/#/eula-container" target="_blank" rel="noopener">MDK5 Software Packs</a>包</p>
 <p><a href="https://www.cnblogs.com/armfly/p/12564643.html" target="_blank" rel="noopener">MDK5.29，5.30，5.31和各种软件包镜像下载（2020-07-03）</a></p>
-<h3 id="配置MDK工程模板"><a class="header-anchor" href="#配置MDK工程模板"></a>配置MDK工程模板</h3>
+<h3 id="配置mdk工程模板"><a class="markdownIt-Anchor" href="#配置mdk工程模板"></a> 配置MDK工程模板</h3>
 <p><a href="https://www.bilibili.com/video/BV1kx411k7JT?p=8" target="_blank" rel="noopener">教程：正点原子手把手教你学STM32：第10集</a></p>
-<h3 id="配置过程中与视频中正点原子战舰的区别"><a class="header-anchor" href="#配置过程中与视频中正点原子战舰的区别"></a>配置过程中与视频中正点原子战舰的区别</h3>
+<h3 id="配置过程中与视频中正点原子战舰的区别"><a class="markdownIt-Anchor" href="#配置过程中与视频中正点原子战舰的区别"></a> 配置过程中与视频中正点原子战舰的区别</h3>
 <p><a href="https://blog.csdn.net/hitxiaya/article/details/7440496" target="_blank" rel="noopener">STM32：LD、MD、HD 的区别</a></p>
 <p>DarlPill使用F103C8T6，战舰使用F103ZET6，工程模板仅仅芯片闪存MD与HD的区别，有以下两处：</p>
-<h4 id="启动文件"><a class="header-anchor" href="#启动文件"></a>启动文件</h4>
-<p>F103C8T6使用<code>startup_stm32f10x_md.s</code><br>
+<h4 id="启动文件"><a class="markdownIt-Anchor" href="#启动文件"></a> 启动文件</h4>
+<p>F103C8T6使用<code>startup_stm32f10x_md.s</code>
 F103ZET6使用<code>startup_stm32f10x_hd.s</code></p>
-<h4 id="全局宏定义"><a class="header-anchor" href="#全局宏定义"></a>全局宏定义</h4>
+<h4 id="全局宏定义"><a class="markdownIt-Anchor" href="#全局宏定义"></a> 全局宏定义</h4>
 <p>Option for target的C/C++栏里的preprocesor symbols的define：</p>
-<p>F103C8T6使用<code>STM32F10X_MD,USE_STDPERIPH_DRIVER</code><br>
+<p>F103C8T6使用<code>STM32F10X_MD,USE_STDPERIPH_DRIVER</code>
 F103ZET6使用<code>STM32F10X_HD,USE_STDPERIPH_DRIVER</code></p>
-<h3 id="首次编译问题"><a class="header-anchor" href="#首次编译问题"></a>首次编译问题</h3>
+<h3 id="首次编译问题"><a class="markdownIt-Anchor" href="#首次编译问题"></a> 首次编译问题</h3>
 <p>按照原子哥的教程配置好工程模板后，编译，最前面前几句报错：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">../CORE/core_cm3.c(445): error: non-ASM statement <span class="keyword">in</span> naked <span class="keyword">function</span> is not supported</span><br><span class="line">  uint32_t result=0;</span><br><span class="line">  。。。。。。(后面还有一长串错误不用看了)</span><br></pre></td></tr></table></figure>
 <p>问题解决：</p>
 <p><img src="/201e530f/non-ASM.png" alt="20200811222427"></p>
-<p>修改后，再次编译没问题了：&quot;…\OBJ\Temp.axf&quot; - 0 Error(s), 0 Warning(s).✅</p>
+<p>修改后，再次编译没问题了：&quot;..\OBJ\Temp.axf&quot; - 0 Error(s), 0 Warning(s).✅</p>
 <p>编译视频最后的原子哥的闪烁程序，用FlyMCU上传，第0~5部步骤如下：</p>
 <p><img src="/201e530f/20200811231112.png" alt="20200811231112"></p>
 <p>上图第5步后，FLyMCU会显示开始连接，这时，按住boot0不放，按一次Reset，FlyMCU会上传，测试OK（我用D1 mini的CH340上传的）</p>
 <p><img src="/201e530f/PB5_Blink_gif_320x181_3s.gif" alt></p>
 <p>如果没有在OBJ目录找到编译生成的hex文件，看看视频里勾选生成hex那步是不是忘了</p>
-<h3 id="晶振及倍频修改"><a class="header-anchor" href="#晶振及倍频修改"></a>晶振及倍频修改</h3>
-<h4 id="STM32系列修改外部晶振以及代码的修改"><a class="header-anchor" href="#STM32系列修改外部晶振以及代码的修改"></a><a href="https://blog.csdn.net/qq_26039331/article/details/78751047?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-9.channel_param&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-9.channel_param" target="_blank" rel="noopener">STM32系列修改外部晶振以及代码的修改</a></h4>
-<h2 id="解决stm32duino-bootloader晶振频率不匹配"><a class="header-anchor" href="#解决stm32duino-bootloader晶振频率不匹配"></a>解决stm32duino-bootloader晶振频率不匹配</h2>
+<h3 id="晶振及倍频修改"><a class="markdownIt-Anchor" href="#晶振及倍频修改"></a> 晶振及倍频修改</h3>
+<h4 id="stm32系列修改外部晶振以及代码的修改"><a class="markdownIt-Anchor" href="#stm32系列修改外部晶振以及代码的修改"></a> <a href="https://blog.csdn.net/qq_26039331/article/details/78751047?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-9.channel_param&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-9.channel_param" target="_blank" rel="noopener">STM32系列修改外部晶振以及代码的修改</a></h4>
+<h2 id="解决stm32duino-bootloader晶振频率不匹配"><a class="markdownIt-Anchor" href="#解决stm32duino-bootloader晶振频率不匹配"></a> 解决stm32duino-bootloader晶振频率不匹配</h2>
 <p>折腾了好久，发现烧录了maple mini bootloader的stm32win10就是不识别设备，估计是外部晶振的频率是12Mhz造成的，几经辗转，看到了STM32duino的社区里帖子<a href="http://stm32duinoforum.com/forum/viewtopic_f_2_t_4190.html" target="_blank" rel="noopener">STM32F103上将时钟设置为72Mhz</a>，这位使用F103的老外用16Mhz的晶振代替8MHz的晶振，然后使用maple mini的bootloader USB就是发现不了F103， <strong>伯恩特</strong>» 2018年10月5日星期五上午11:39的回答截取了maple mini 定义USB总线时钟频率的一段代码，可以知道由PLL倍频器的值定义：</p>
 <p><img src="/201e530f/20200813153820.png" alt="20200813153820"></p>
 <p>那么他的USB不识别肯定由于16MHz晶振导致USB的时钟不在协议频率范围里了，巧了，在该帖的最下面发现了<a href="https://github.com/rogerclarkmelbourne/STM32duino-bootloader" target="_blank" rel="noopener">STM32duino-bootloader</a>的作者<span style="color:BlueViolet;">罗杰·克拉克</span>的回答，看来USB频率不对实锤了：</p>
@@ -669,7 +669,7 @@ F103ZET6使用<code>STM32F10X_HD,USE_STDPERIPH_DRIVER</code></p>
 </tbody>
 </table>
 <p>拓展阅读：<a href="https://www.cnblogs.com/cherishui/p/4204280.html" target="_blank" rel="noopener">USB时钟为什么是48MHz？</a></p>
-<h3 id="重新编译stm32duino-bootloader"><a class="header-anchor" href="#重新编译stm32duino-bootloader"></a>重新编译stm32duino-bootloader</h3>
+<h3 id="重新编译stm32duino-bootloader"><a class="markdownIt-Anchor" href="#重新编译stm32duino-bootloader"></a> 重新编译stm32duino-bootloader</h3>
 <p>先把<a href="https://github.com/rogerclarkmelbourne/STM32duino-bootloader" target="_blank" rel="noopener">STM32duino-bootloader</a>的整个git仓库下载下来，解压</p>
 <p>你会发现这个stm32工程使用Makfile管理编译，别怕，我们先<a href="https://www.cnblogs.com/RegressionWorldLine/p/11876643.html" target="_blank" rel="noopener">Win10下搭建STM32开发环境</a>，将make和gnu_arm嵌入式工具链装好，能在PowerShell中唤出版本信息即可：</p>
 <p><img src="/201e530f/make_and_arm_tool_chain.png" alt="20200813225042"></p>
@@ -708,11 +708,11 @@ F103ZET6使用<code>STM32F10X_HD,USE_STDPERIPH_DRIVER</code></p>
 <li>make generic-pc13</li>
 </ul>
 <p>完工！</p>
-<h3 id="参考："><a class="header-anchor" href="#参考："></a>参考：</h3>
+<h3 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考：</h3>
 <p><a href="https://www.paincker.com/stm32-project-in-linux" target="_blank" rel="noopener">在LINUX下如何开始一个STM32工程</a></p>
 <p><a href="%5Bhttps://hoolev.github.io/%E7%89%A9%E8%81%94%E7%BD%91/2015/12/21/stm32-cmake/%5D(https://hoolev.github.io/%E7%89%A9%E8%81%94%E7%BD%91/2015/12/21/stm32-cmake/)">使用CMake构建STM32工程</a></p>
 <p><a href="https://www.jianshu.com/p/7f77a5486a26" target="_blank" rel="noopener">探索Keil基于makefile的STM32编译方法</a></p>
-<h1 id="STM32F103C8T6-使用DFU"><a class="header-anchor" href="#STM32F103C8T6-使用DFU"></a><a href="https://www.codenong.com/cs107104993/" target="_blank" rel="noopener">STM32F103C8T6 使用DFU</a></h1>
+<h1 id="stm32f103c8t6-使用dfu"><a class="markdownIt-Anchor" href="#stm32f103c8t6-使用dfu"></a> <a href="https://www.codenong.com/cs107104993/" target="_blank" rel="noopener">STM32F103C8T6 使用DFU</a></h1>
 
     </div>
 
@@ -954,7 +954,7 @@ F103ZET6使用<code>STM32F10X_HD,USE_STDPERIPH_DRIVER</code></p>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#预备知识"><span class="nav-number">1.</span> <span class="nav-text">预备知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#STM32的启动模式"><span class="nav-number">1.1.</span> <span class="nav-text">STM32的启动模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DarkPill的BOOT0，BOOT1，Reset"><span class="nav-number">1.1.1.</span> <span class="nav-text">DarkPill的BOOT0，BOOT1，Reset</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#STM32的刷机方式"><span class="nav-number">1.2.</span> <span class="nav-text">STM32的刷机方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#串口芯片刷机"><span class="nav-number">1.2.1.</span> <span class="nav-text">串口芯片刷机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SWD刷机"><span class="nav-number">1.2.2.</span> <span class="nav-text">SWD刷机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DFU刷机"><span class="nav-number">1.2.3.</span> <span class="nav-text">DFU刷机</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#外部高速晶振-HSE-与USB总线时钟"><span class="nav-number">1.3.</span> <span class="nav-text">外部高速晶振(HSE)与USB总线时钟</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DFU的两种编程模式"><span class="nav-number">1.4.</span> <span class="nav-text">DFU的两种编程模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Aduino-IDE下使用"><span class="nav-number">2.</span> <span class="nav-text">在Aduino IDE下使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Arduino-STM32"><span class="nav-number">2.1.</span> <span class="nav-text">Arduino_STM32</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#STM32duino-bootloader"><span class="nav-number">2.2.</span> <span class="nav-text">STM32duino-bootloader</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#烧录stm32duino-bootloader"><span class="nav-number">2.2.1.</span> <span class="nav-text">烧录stm32duino-bootloader</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#连接"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">连接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#烧录"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">烧录</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#若晶振频率不匹配"><span class="nav-number">2.3.</span> <span class="nav-text">若晶振频率不匹配</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Keil-MDK环境下使用"><span class="nav-number">3.</span> <span class="nav-text">在Keil MDK环境下使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置MDK工程模板"><span class="nav-number">3.1.</span> <span class="nav-text">配置MDK工程模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置过程中与视频中正点原子战舰的区别"><span class="nav-number">3.2.</span> <span class="nav-text">配置过程中与视频中正点原子战舰的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#启动文件"><span class="nav-number">3.2.1.</span> <span class="nav-text">启动文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#全局宏定义"><span class="nav-number">3.2.2.</span> <span class="nav-text">全局宏定义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首次编译问题"><span class="nav-number">3.3.</span> <span class="nav-text">首次编译问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#晶振及倍频修改"><span class="nav-number">3.4.</span> <span class="nav-text">晶振及倍频修改</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#STM32系列修改外部晶振以及代码的修改"><span class="nav-number">3.4.1.</span> <span class="nav-text">STM32系列修改外部晶振以及代码的修改</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决stm32duino-bootloader晶振频率不匹配"><span class="nav-number">4.</span> <span class="nav-text">解决stm32duino-bootloader晶振频率不匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重新编译stm32duino-bootloader"><span class="nav-number">4.1.</span> <span class="nav-text">重新编译stm32duino-bootloader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考："><span class="nav-number">4.2.</span> <span class="nav-text">参考：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#STM32F103C8T6-使用DFU"><span class="nav-number"></span> <span class="nav-text">STM32F103C8T6 使用DFU</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#预备知识"><span class="nav-number">1.</span> <span class="nav-text"> 预备知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#stm32的启动模式"><span class="nav-number">1.1.</span> <span class="nav-text"> STM32的启动模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#darkpill的boot0boot1reset"><span class="nav-number">1.1.1.</span> <span class="nav-text"> DarkPill的BOOT0，BOOT1，Reset</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stm32的刷机方式"><span class="nav-number">1.2.</span> <span class="nav-text"> STM32的刷机方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#串口芯片刷机"><span class="nav-number">1.2.1.</span> <span class="nav-text"> 串口芯片刷机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#swd刷机"><span class="nav-number">1.2.2.</span> <span class="nav-text"> SWD刷机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dfu刷机"><span class="nav-number">1.2.3.</span> <span class="nav-text"> DFU刷机</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#外部高速晶振hse与usb总线时钟"><span class="nav-number">1.3.</span> <span class="nav-text"> 外部高速晶振(HSE)与USB总线时钟</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dfu的两种编程模式"><span class="nav-number">1.4.</span> <span class="nav-text"> DFU的两种编程模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在aduino-ide下使用"><span class="nav-number">2.</span> <span class="nav-text"> 在Aduino IDE下使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#arduino_stm32"><span class="nav-number">2.1.</span> <span class="nav-text"> Arduino_STM32</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stm32duino-bootloader"><span class="nav-number">2.2.</span> <span class="nav-text"> STM32duino-bootloader</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#烧录stm32duino-bootloader"><span class="nav-number">2.2.1.</span> <span class="nav-text"> 烧录stm32duino-bootloader</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#连接"><span class="nav-number">2.2.1.1.</span> <span class="nav-text"> 连接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#烧录"><span class="nav-number">2.2.1.2.</span> <span class="nav-text"> 烧录</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#若晶振频率不匹配"><span class="nav-number">2.3.</span> <span class="nav-text"> 若晶振频率不匹配</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在keil-mdk环境下使用"><span class="nav-number">3.</span> <span class="nav-text"> 在Keil MDK环境下使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置mdk工程模板"><span class="nav-number">3.1.</span> <span class="nav-text"> 配置MDK工程模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置过程中与视频中正点原子战舰的区别"><span class="nav-number">3.2.</span> <span class="nav-text"> 配置过程中与视频中正点原子战舰的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#启动文件"><span class="nav-number">3.2.1.</span> <span class="nav-text"> 启动文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#全局宏定义"><span class="nav-number">3.2.2.</span> <span class="nav-text"> 全局宏定义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首次编译问题"><span class="nav-number">3.3.</span> <span class="nav-text"> 首次编译问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#晶振及倍频修改"><span class="nav-number">3.4.</span> <span class="nav-text"> 晶振及倍频修改</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#stm32系列修改外部晶振以及代码的修改"><span class="nav-number">3.4.1.</span> <span class="nav-text"> STM32系列修改外部晶振以及代码的修改</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决stm32duino-bootloader晶振频率不匹配"><span class="nav-number">4.</span> <span class="nav-text"> 解决stm32duino-bootloader晶振频率不匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重新编译stm32duino-bootloader"><span class="nav-number">4.1.</span> <span class="nav-text"> 重新编译stm32duino-bootloader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">4.2.</span> <span class="nav-text"> 参考：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#stm32f103c8t6-使用dfu"><span class="nav-number"></span> <span class="nav-text"> STM32F103C8T6 使用DFU</span></a></div>
             
 
           </div>
@@ -1021,12 +1021,12 @@ show_date_time();
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">133k</span>
+    <span title="站点总字数">135k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:01</span>
+    <span title="站点阅读时长">2:02</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>

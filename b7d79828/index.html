@@ -398,13 +398,22 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><img src="/b7d79828/%E5%A4%96%E5%A3%B3%E8%A3%85%E9%85%8D-0.jpg" alt></p><h3 id="关于"><a class="header-anchor" href="#关于"></a>关于</h3><p><a href="https://github.com/oldgerman/SCOPE-F07x" target="_blank" rel="noopener">SCOPE-F07x</a> 从 <a href="https://github.com/EETree-git/SCOPE-F072" target="_blank" rel="noopener">硬禾SCOPE-F072</a> 开源和公开资料修改&amp;优化</p><p>零零散散修改的地方比较多，详见修改说明部分</p><p><img src="/b7d79828/SCOPE-F07x_MIndMap_Main.png" alt></p><h3 id="PCB"><a class="header-anchor" href="#PCB"></a>PCB</h3><p>工艺：</p><ul>
+        <p><img src="/b7d79828/%E5%A4%96%E5%A3%B3%E8%A3%85%E9%85%8D-0.jpg" alt></p><h3 id="关于"><a class="markdownIt-Anchor" href="#关于"></a> 关于</h3><p><a href="https://github.com/oldgerman/SCOPE-F07x" target="_blank" rel="noopener">SCOPE-F07x</a> 从 <a href="https://github.com/EETree-git/SCOPE-F072" target="_blank" rel="noopener">硬禾SCOPE-F072</a> 开源和公开资料修改&amp;优化</p><p>零零散散修改的地方比较多，详见修改说明部分</p><p><img src="/b7d79828/SCOPE-F07x_MIndMap_Main.png" alt></p><h3 id="pcb"><a class="markdownIt-Anchor" href="#pcb"></a> PCB</h3><p>工艺：</p><ul>
 <li>层数：2</li>
 <li>板厚: 1.0mm</li>
 <li>过孔: 0.3/0.5mm</li>
 <li>线宽线隙: 6mil/6mil</li>
 <li>尺寸: 38x38mm</li>
-</ul><p>封装：绝大多数是0402，物料约40多种</p><table>
+</ul><p>封装：绝大多数是0402，物料约40多种</p><a id="more"></a>
+
+
+
+
+
+
+
+
+<table>
 <thead>
 <tr>
 <th><img src="/b7d79828/3d_1.png" alt></th>
@@ -413,18 +422,8 @@
 <th><img src="/b7d79828/3d_4_png.png" alt></th>
 </tr>
 </thead>
-<tbody></tbody>
-</table><a id="more"></a>
-
-
-
-
-
-
-
-
-
-<h3 id="外壳"><a class="header-anchor" href="#外壳"></a>外壳</h3>
+</table>
+<h3 id="外壳"><a class="markdownIt-Anchor" href="#外壳"></a> 外壳</h3>
 <p>硬禾的原始设计配套的外壳有亿点点low，出于情怀我想到经典设计 iPod nano (<em>6th</em> generation)，然而想做到这么简约并非易事</p>
 <p><img src="/b7d79828/wikipedia_IPOD-NANO-6th.png" alt></p>
 <p>经过PCB和建模的各方面努力，外壳OK</p>
@@ -440,11 +439,10 @@
 <th><img src="/b7d79828/CASE_3D_2.png" alt></th>
 </tr>
 </thead>
-<tbody></tbody>
 </table>
 <p>一张 iPod nano 6th 海报同款角度视图 (๑•̀ㅂ•́)و✧</p>
 <p><img src="/b7d79828/SW_six-view_2.png" alt></p>
-<h3 id="散热"><a class="header-anchor" href="#散热"></a>散热</h3>
+<h3 id="散热"><a class="markdownIt-Anchor" href="#散热"></a> 散热</h3>
 <p>OPA4197其中的两个运放作为双路直流电压源，电流范围±30mA，手册 I(sink)和I(source)给的是±65mA，实测输出3.3V电压，负载电流30mA时，没有什么压降，但发热比较大，当增加到40mA开始过热/失调，电压不再稳定，因此推荐加装散热片</p>
 <p>散热片物料：15x15x0.5mm紫铜片、3M 8810导热双面胶、金手指胶带</p>
 <table>
@@ -461,8 +459,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="修改说明"><a class="header-anchor" href="#修改说明"></a>修改说明</h3>
-<h4 id="硬件"><a class="header-anchor" href="#硬件"></a>硬件</h4>
+<h3 id="修改说明"><a class="markdownIt-Anchor" href="#修改说明"></a> 修改说明</h3>
+<h4 id="硬件"><a class="markdownIt-Anchor" href="#硬件"></a> 硬件</h4>
 <table>
 <thead>
 <tr>
@@ -520,7 +518,7 @@
 </tbody>
 </table>
 <p>备注：其他修改细节见原理图</p>
-<h4 id="软件"><a class="header-anchor" href="#软件"></a>软件</h4>
+<h4 id="软件"><a class="markdownIt-Anchor" href="#软件"></a> 软件</h4>
 <p>原版程序：</p>
 <p>有好几个大的数组(成员数量几百个)，使用静态内存分配，运行时不能释放，导致固件编译后内存使用率95%以上，开Os优化编译后，Flash可用空间还有50KB以上，由于RAM剩余空间紧张，加速度计、EEPROM、屏幕背光、USB通讯、ADC反馈等相关实现被裁剪</p>
 <p><img src="/b7d79828/EETree_%E5%85%A8%E5%B1%80%E5%A4%A7%E6%95%B0%E7%BB%84%E5%8D%A0%E7%94%A8RAM12.57KB.png" alt="EETree_全局大数组占用RAM12.57KB"></p>
@@ -528,7 +526,7 @@
 <p>使用动态内存分配，尽可能实现上述被裁剪的功能</p>
 <p>代码进度：</p>
 <p>目前仅针对修改版PCB做了修改适配，提供工程源码文件，优化还没开始搞，代码等改好了有空再说~</p>
-<h3 id="功能测试"><a class="header-anchor" href="#功能测试"></a>功能测试</h3>
+<h3 id="功能测试"><a class="markdownIt-Anchor" href="#功能测试"></a> 功能测试</h3>
 <table>
 <thead>
 <tr>
@@ -579,7 +577,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="其他-补充"><a class="header-anchor" href="#其他-补充"></a>其他&amp;补充</h3>
+<h3 id="其他补充"><a class="markdownIt-Anchor" href="#其他补充"></a> 其他&amp;补充</h3>
 <p><strong>一些目录说明</strong></p>
 <ul>
 <li>
@@ -611,10 +609,10 @@
 </ul>
 <p><strong>USB DFU</strong></p>
 <p>需要在未上电时按住KEY_O不放，插电进入，推荐使用STM32CubeProgrammer的USB模式烧录</p>
-<h3 id="Acknowledgments"><a class="header-anchor" href="#Acknowledgments"></a>Acknowledgments</h3>
+<h3 id="acknowledgments"><a class="markdownIt-Anchor" href="#acknowledgments"></a> Acknowledgments</h3>
 <p>感谢硬禾团队</p>
-<h3 id="License"><a class="header-anchor" href="#License"></a>License</h3>
-<p>This work is licensed under a<br>
+<h3 id="license"><a class="markdownIt-Anchor" href="#license"></a> License</h3>
+<p>This work is licensed under a
 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</p>
 <p><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener"><img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="CC BY-NC-SA 4.0"></a></p>
 
@@ -856,7 +854,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于"><span class="nav-number">1.</span> <span class="nav-text">关于</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PCB"><span class="nav-number">2.</span> <span class="nav-text">PCB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#外壳"><span class="nav-number">3.</span> <span class="nav-text">外壳</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#散热"><span class="nav-number">4.</span> <span class="nav-text">散热</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改说明"><span class="nav-number">5.</span> <span class="nav-text">修改说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#硬件"><span class="nav-number">5.1.</span> <span class="nav-text">硬件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#软件"><span class="nav-number">5.2.</span> <span class="nav-text">软件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#功能测试"><span class="nav-number">6.</span> <span class="nav-text">功能测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他-补充"><span class="nav-number">7.</span> <span class="nav-text">其他&amp;补充</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Acknowledgments"><span class="nav-number">8.</span> <span class="nav-text">Acknowledgments</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#License"><span class="nav-number">9.</span> <span class="nav-text">License</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于"><span class="nav-number">1.</span> <span class="nav-text"> 关于</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pcb"><span class="nav-number">2.</span> <span class="nav-text"> PCB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#外壳"><span class="nav-number">3.</span> <span class="nav-text"> 外壳</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#散热"><span class="nav-number">4.</span> <span class="nav-text"> 散热</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改说明"><span class="nav-number">5.</span> <span class="nav-text"> 修改说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#硬件"><span class="nav-number">5.1.</span> <span class="nav-text"> 硬件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#软件"><span class="nav-number">5.2.</span> <span class="nav-text"> 软件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#功能测试"><span class="nav-number">6.</span> <span class="nav-text"> 功能测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他补充"><span class="nav-number">7.</span> <span class="nav-text"> 其他&amp;补充</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#acknowledgments"><span class="nav-number">8.</span> <span class="nav-text"> Acknowledgments</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#license"><span class="nav-number">9.</span> <span class="nav-text"> License</span></a></li></ol></div>
             
 
           </div>
@@ -923,12 +921,12 @@ show_date_time();
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">133k</span>
+    <span title="站点总字数">135k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:01</span>
+    <span title="站点阅读时长">2:02</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>

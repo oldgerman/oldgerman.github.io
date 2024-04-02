@@ -353,7 +353,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>689</span>
+              <span>691</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -378,17 +378,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="老毛子KodExplorer从上级路由访问"><a class="header-anchor" href="#老毛子KodExplorer从上级路由访问"></a>老毛子KodExplorer从上级路由访问</h1><h2 id="起因"><a class="header-anchor" href="#起因"></a>起因</h2><p>因为宿舍里用蹭室友的上级路由的网，于是小娱就接到TP-LINK下级了，我的电脑再接小娱，上级的TP-LINK因为开了Wifi服务，我的手机想连TP-LINK的wifif看小娱硬盘里的片，直接肯定是访问不了小娱的内网的可道云的，所以我们需要使用老毛子的<span style="color:rgb(255, 150, 200);">端口映射</span>功能</p><a id="more"></a>
+        <h1 id="老毛子kodexplorer从上级路由访问"><a class="markdownIt-Anchor" href="#老毛子kodexplorer从上级路由访问"></a> 老毛子KodExplorer从上级路由访问</h1><h2 id="起因"><a class="markdownIt-Anchor" href="#起因"></a> 起因</h2><p>因为宿舍里用蹭室友的上级路由的网，于是小娱就接到TP-LINK下级了，我的电脑再接小娱，上级的TP-LINK因为开了Wifi服务，我的手机想连TP-LINK的wifif看小娱硬盘里的片，直接肯定是访问不了小娱的内网的可道云的，所以我们需要使用老毛子的<span style="color:rgb(255, 150, 200);">端口映射</span>功能</p><a id="more"></a>
 
 
-<h2 id="开始吧！"><a class="header-anchor" href="#开始吧！"></a>开始吧！</h2>
-<h3 id="检查可道云设置"><a class="header-anchor" href="#检查可道云设置"></a>检查可道云设置</h3>
+<h2 id="开始吧"><a class="markdownIt-Anchor" href="#开始吧"></a> 开始吧！</h2>
+<h3 id="检查可道云设置"><a class="markdownIt-Anchor" href="#检查可道云设置"></a> 检查可道云设置</h3>
 <p>在什么地方：搭建web环境</p>
 <p>如何安装网上有很多，这里不教~</p>
 <p>设置为我下面的即可，服务端口默认是88，你也可以根据喜好改成其他的数字，我就用默认的</p>
 <p><img src="/7cbfbaea/10.1%E5%8F%AF%E9%81%93%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%90%AF%E7%94%A8.png" alt="10.1可道云服务启用"></p>
 <p><img src="/7cbfbaea/10.2%E5%8F%AF%E9%81%93%E4%BA%91%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%A3.png" alt="10.2可道云服务端口"></p>
-<h3 id="修改为静态IP地址"><a class="header-anchor" href="#修改为静态IP地址"></a>修改为静态IP地址</h3>
+<h3 id="修改为静态ip地址"><a class="markdownIt-Anchor" href="#修改为静态ip地址"></a> 修改为静态IP地址</h3>
 <p>在什么地方：外部网络 - 外网设置</p>
 <p>TP-LINK打开的DNS服务随机分配IP给小娱是跑不了了，所以首先我们把小娱的外网连接类型默认的动态IP，改为静态IP地址：</p>
 <table>
@@ -407,20 +407,20 @@
 </table>
 <p>由于上级的TP-LINK网关地址为192.168.1.1，所以我就将小于的静态IP地址改为192.168.1.233了，可以在上级路由器看到：</p>
 <p><img src="/7cbfbaea/1.1.TP-LINK%E7%9C%8B%E5%B0%8F%E5%A8%B1%E7%9A%84%E9%9D%99%E6%80%81IP.png" alt="1.1.TP-LINK看小娱的静态IP"></p>
-<h3 id="手动端口映射"><a class="header-anchor" href="#手动端口映射"></a>手动端口映射</h3>
+<h3 id="手动端口映射"><a class="markdownIt-Anchor" href="#手动端口映射"></a> 手动端口映射</h3>
 <p>在什么地方：外部网络 - 端口转发(UPnP)</p>
 <p>只用填</p>
 <ol>
 <li>端口范围（可道云默认是88端口，我就填88）</li>
-<li>内网IP（是你的小娱的内网小娱的IP地址… 嘿，小娱在这儿当网关呢！我的是192.168.233.1）,</li>
+<li>内网IP（是你的小娱的内网小娱的IP地址... 嘿，小娱在这儿当网关呢！我的是192.168.233.1）,</li>
 <li>协议（就是TCP了）</li>
 </ol>
 <p><img src="/7cbfbaea/3.%E6%89%8B%E5%8A%A8%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84.png" alt="3.手动端口映射"></p>
-<h3 id="防火墙允许端口转发"><a class="header-anchor" href="#防火墙允许端口转发"></a>防火墙允许端口转发</h3>
+<h3 id="防火墙允许端口转发"><a class="markdownIt-Anchor" href="#防火墙允许端口转发"></a> 防火墙允许端口转发</h3>
 <p>在什么地方：防火墙 - 通用设置</p>
 <p>打开即可：</p>
 <p>![2.允许外网访问 Transmission](老毛子KodExplorer从上级路由访问/2.允许外网访问 Transmission.png)</p>
-<h2 id="享受！"><a class="header-anchor" href="#享受！"></a>享受！</h2>
+<h2 id="享受"><a class="markdownIt-Anchor" href="#享受"></a> 享受！</h2>
 <p>TP-LINK和小娱都无需重启，打开手机连上TP-LINK的wifi，浏览器输入192.168.1.233:88，即可访问内网小娱的可道云</p>
 
     </div>
@@ -661,7 +661,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#老毛子KodExplorer从上级路由访问"><span class="nav-number">1.</span> <span class="nav-text">老毛子KodExplorer从上级路由访问</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#起因"><span class="nav-number">1.1.</span> <span class="nav-text">起因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始吧！"><span class="nav-number">1.2.</span> <span class="nav-text">开始吧！</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#检查可道云设置"><span class="nav-number">1.2.1.</span> <span class="nav-text">检查可道云设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改为静态IP地址"><span class="nav-number">1.2.2.</span> <span class="nav-text">修改为静态IP地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手动端口映射"><span class="nav-number">1.2.3.</span> <span class="nav-text">手动端口映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防火墙允许端口转发"><span class="nav-number">1.2.4.</span> <span class="nav-text">防火墙允许端口转发</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#享受！"><span class="nav-number">1.3.</span> <span class="nav-text">享受！</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#老毛子kodexplorer从上级路由访问"><span class="nav-number">1.</span> <span class="nav-text"> 老毛子KodExplorer从上级路由访问</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#起因"><span class="nav-number">1.1.</span> <span class="nav-text"> 起因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始吧"><span class="nav-number">1.2.</span> <span class="nav-text"> 开始吧！</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#检查可道云设置"><span class="nav-number">1.2.1.</span> <span class="nav-text"> 检查可道云设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改为静态ip地址"><span class="nav-number">1.2.2.</span> <span class="nav-text"> 修改为静态IP地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手动端口映射"><span class="nav-number">1.2.3.</span> <span class="nav-text"> 手动端口映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防火墙允许端口转发"><span class="nav-number">1.2.4.</span> <span class="nav-text"> 防火墙允许端口转发</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#享受"><span class="nav-number">1.3.</span> <span class="nav-text"> 享受！</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -728,12 +728,12 @@ show_date_time();
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">133k</span>
+    <span title="站点总字数">135k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:01</span>
+    <span title="站点阅读时长">2:02</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>

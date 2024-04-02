@@ -90,7 +90,7 @@
 <meta property="og:image" content="http://oldgerman.github.io/74a960e2/%E6%97%8B%E8%BD%AColed%E9%98%88%E5%80%BC%E4%BA%8B%E4%BB%B6%E6%98%AF%E4%BB%A5x%E8%BF%98%E6%98%AFz%E8%BD%B4%E8%A7%A6%E5%8F%91%E5%88%A4%E6%96%AD%EF%BC%9F.jpg">
 <meta property="og:image" content="http://oldgerman.github.io/74a960e2/currentPointer%E9%9A%8FMOVTAsk%E8%B0%83%E5%BA%A6%E6%AC%A1%E6%95%B0%E5%8F%98%E5%8C%96.png">
 <meta property="og:image" content="http://oldgerman.github.io/74a960e2/%E4%B8%80%E8%BE%B96D%E6%97%8B%E8%BD%AC%E9%98%88%E5%80%BC%E6%A3%80%E6%B5%8B%E4%B8%80%E8%BE%B9%E8%BF%90%E5%8A%A8%E6%A3%80%E6%B5%8B%E7%9A%84%E7%9E%AC%E9%97%B4.png">
-<meta property="og:updated_time" content="2024-04-02T14:16:57.544Z">
+<meta property="og:updated_time" content="2024-04-02T15:44:06.327Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ODGIRON LIS3DH笔记">
 <meta name="twitter:description" content="解读ironOS开源烙铁固件：如何使用加速度计实现运动唤醒和oled旋转">
@@ -325,7 +325,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-02 22:16:57" itemprop="dateModified" datetime="2024-04-02T22:16:57+08:00">2024-04-02</time>
+                <time title="修改时间：2024-04-02 23:44:06" itemprop="dateModified" datetime="2024-04-02T23:44:06+08:00">2024-04-02</time>
               </span>
             
           
@@ -399,7 +399,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="TS100的两个加速度计"><a class="header-anchor" href="#TS100的两个加速度计"></a>TS100的两个加速度计</h2><p>基于IronOS固件的典型烙铁，比如TS100的PCB预留了两种加速度计焊盘，一种是NXP的MMA系列的MMA8652FC加速度计，一种是ST的LIS系列的LIS2DH12加速度计，实际出货时只焊接一个（这么做应该是和采购有关），大多数TS100仅焊接的是LIS2DH12加速度计，其封装为 LGA12(2.0x2.0x1.0 mm)，焊盘之间实在距离太小了，又是LGA封装，和QFN封装能侧面爬锡不同，LGA封装仅底面开了焊盘，侧面无法爬锡，从网上找到TS100的PCB的加速度计如下：</p><a id="more"></a>
+        <h2 id="ts100的两个加速度计"><a class="markdownIt-Anchor" href="#ts100的两个加速度计"></a> TS100的两个加速度计</h2><p>基于IronOS固件的典型烙铁，比如TS100的PCB预留了两种加速度计焊盘，一种是NXP的MMA系列的MMA8652FC加速度计，一种是ST的LIS系列的LIS2DH12加速度计，实际出货时只焊接一个（这么做应该是和采购有关），大多数TS100仅焊接的是LIS2DH12加速度计，其封装为 LGA12(2.0x2.0x1.0 mm)，焊盘之间实在距离太小了，又是LGA封装，和QFN封装能侧面爬锡不同，LGA封装仅底面开了焊盘，侧面无法爬锡，从网上找到TS100的PCB的加速度计如下：</p><a id="more"></a>
 
 <table>
 <thead>
@@ -429,7 +429,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="LIS3DH与LIS2DH12"><a class="header-anchor" href="#LIS3DH与LIS2DH12"></a>LIS3DH与LIS2DH12</h2>
+<h2 id="lis3dh与lis2dh12"><a class="markdownIt-Anchor" href="#lis3dh与lis2dh12"></a> LIS3DH与LIS2DH12</h2>
 <p><a href="https://oldgerman.github.io/d5ffc54/">ODGIRON</a>，是我最近在开发的基于ironOS的快充T12电烙铁，由于ODGIRON双面布线，加速度盘下要走两个过孔才能布通，因此选用了封装更大的LIS3DH，封装为LGA12(3.0x3.0x1.0 mm)，其焊接更友好，还更便宜，需要用到的地方与LIS2DH12几乎完全一致，要什么自行车</p>
 <table>
 <thead>
@@ -537,7 +537,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="ironOS-加速度计读数不正常问题解决"><a class="header-anchor" href="#ironOS-加速度计读数不正常问题解决"></a>ironOS 加速度计读数不正常问题解决</h2>
+<h2 id="ironos-加速度计读数不正常问题解决"><a class="markdownIt-Anchor" href="#ironos-加速度计读数不正常问题解决"></a> ironOS 加速度计读数不正常问题解决</h2>
 <p>ironOS跑了FreeRTOS，加速度计为MOVTask任务，与oled的GUITask共用 I2C1 总线，由二值信号量做 I2C1 互斥，具体实现请见ironOS源码</p>
 <p>ironOS的LISDH12的加速度计驱动代码有BUG，它配置了一大堆非必要的加速度计寄存器，而实际上任务仅用到读取3轴数据和6D检测，我仔细跟了它原本的寄存器配置，得出LISDH12工作状态如下：</p>
 <ul>
@@ -564,9 +564,9 @@
 <p>所以，是否按ironOS的原始代码启用高通滤波器看你的喜好，个人感觉数据不过滤波器运动检测舒服一些</p>
 <p>注意：数据经过滤波器对6D阈值无影响，6D阈值是取原始读数的</p>
 <p>LIS3DH的滤波器还有很多高级特性供配置，可以作用于中断、敲击检测，更多请参考手册的 8.9节 CTRL_REG2 (21h)</p>
-<h2 id="根据加速读计旋转oled"><a class="header-anchor" href="#根据加速读计旋转oled"></a>根据加速读计旋转oled</h2>
+<h2 id="根据加速读计旋转oled"><a class="markdownIt-Anchor" href="#根据加速读计旋转oled"></a> 根据加速读计旋转oled</h2>
 <p>LIS3DH带有6D阈值事件中断功能。</p>
-<h3 id="加速度计坐标轴"><a class="header-anchor" href="#加速度计坐标轴"></a>加速度计坐标轴</h3>
+<h3 id="加速度计坐标轴"><a class="markdownIt-Anchor" href="#加速度计坐标轴"></a> 加速度计坐标轴</h3>
 <p>注意TS100的LIS2DH12和我ODGIRON的LIS3DH的轴向坐标不同：</p>
 <table>
 <thead>
@@ -585,7 +585,7 @@
 </tbody>
 </table>
 <p>我对原本TS100的 LIS3DH::getOrientation() 函数进行修改，使之符合LIS3DH的坐标轴，明细请见源代码。</p>
-<h3 id="右手与左手的旋转与加速度计坐标关系"><a class="header-anchor" href="#右手与左手的旋转与加速度计坐标关系"></a>右手与左手的旋转与加速度计坐标关系</h3>
+<h3 id="右手与左手的旋转与加速度计坐标关系"><a class="markdownIt-Anchor" href="#右手与左手的旋转与加速度计坐标关系"></a> 右手与左手的旋转与加速度计坐标关系</h3>
 <p>我根据加速度计相对烙铁的安装的位置，画了ODGIRON和TS100的加速读坐标两张纸贴在烙铁上，下文都按照左边ODGIRON贴纸上的坐标</p>
 <table>
 <thead>
@@ -615,7 +615,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="INT2-THS-阈值寄存器"><a class="header-anchor" href="#INT2-THS-阈值寄存器"></a>INT2_THS 阈值寄存器</h3>
+<h3 id="int2_ths-阈值寄存器"><a class="markdownIt-Anchor" href="#int2_ths-阈值寄存器"></a> INT2_THS 阈值寄存器</h3>
 <p>THS 即 threshold 阈值</p>
 <p>ironOS 的 <code>INT2_THS</code> 寄存器 设置值为0x28，根据datasheet：</p>
 <ul>
@@ -672,56 +672,77 @@
 </tbody>
 </table>
 <p>所以这很奇怪，<code>INT2_THS</code>的值可能由z轴也可能为x轴的阈值事件触发，但最终手性的判断是OK的</p>
-<h3 id="那么旋转oled阈值事件到底是以x还是z轴触发判断？"><a class="header-anchor" href="#那么旋转oled阈值事件到底是以x还是z轴触发判断？"></a>那么旋转oled阈值事件到底是以x还是z轴触发判断？</h3>
+<h3 id="那么旋转oled阈值事件到底是以x还是z轴触发判断"><a class="markdownIt-Anchor" href="#那么旋转oled阈值事件到底是以x还是z轴触发判断"></a> 那么旋转oled阈值事件到底是以x还是z轴触发判断？</h3>
 <p>设y轴水平，烙铁沿y轴旋转，则 x轴加速度读数 与 沿y轴旋转角度（从0度到顺时针90度）存在函数关系，我来推导一下</p>
-<p>通过原点的直线的参数方程为：<br>
-$$<br>
-\left{<br>
-\begin{align}<br>
-x=tcos(\theta)&amp;\<br>
-y=tsin(\theta)&amp;,\space\space\theta∈[0,\pi]\<br>
-\end{align}<br>
-\right.<br>
-$$<br>
-如图所示，圆形直径是1g时，读数为1024，则半径为512，那么该的圆的方程为：<br>
-$$<br>
-x<sup>2+(y-512)</sup>2=512^2<br>
-$$<br>
-该圆上任一点 (x,y) 到原点 (0,0) 的距离为：<br>
-$$<br>
-d=\sqrt{x<sup>2+y</sup>2}<br>
-$$<br>
-联立以上公式得：<br>
-$$<br>
-\left{<br>
-\begin{align}<br>
-x&amp;=tcos(\theta)\<br>
-y&amp;=tsin(\theta),\space\space\theta∈[0,\pi]\<br>
-x<sup>2+(y-512)</sup>2&amp;=512^2\<br>
-d&amp;=\sqrt{x<sup>2+y</sup>2}\<br>
-\end{align}<br>
-\right.<br>
-$$<br>
-易整理得：<br>
-$$<br>
-d=1024\cdot sin(\theta) \space\space,\space\space\theta∈[0,\pi]<br>
-$$<br>
-即<br>
-$$<br>
-x轴加速度读数=1024\cdot sin(沿y轴旋转角度) \space\space,\space\space\theta∈[0,\pi]<br>
-$$</p>
+<p>通过原点的直线的参数方程为：
+<span></span></p>
+<p class="katex-block katex-error" title="ParseError: KaTeX parse error: No such environment: align at position 15: \left\{
+\begin{̲a̲l̲i̲g̲n̲}̲
+x&amp;=tcos(\theta…">\left\{
+\begin{align}
+x&amp;=tcos(\theta)\\
+y&amp;=tsin(\theta),\space\space\theta∈[0,\pi]\\
+\end{align}
+\right.
+</p>
+
+如图所示，圆形直径是1g时，读数为1024，则半径为512，那么该的圆的方程为：
+<span>
+$$
+x^2+(y-512)^2=512^2
+$$
+</span>
+该圆上任一点 (x,y) 到原点 (0,0) 的距离为：
+<span>
+$$
+d=\sqrt{x^2+y^2}
+$$
+</span>
+联立以上公式得：
+<span>
+$$
+\left\{
+\begin{align}
+x&=tcos(\theta)\\
+y&=tsin(\theta),\space\space\theta∈[0,\pi]\\
+x^2+(y-512)^2&=512^2\\
+d&=\sqrt{x^2+y^2}\\
+\end{align}
+\right.
+$$
+</span>
+易整理得：
+$$
+d=1024\cdot sin(\theta) \space\space,\space\space\theta∈[0,\pi]
+$$
+即
+$$
+x轴加速度读数=1024\cdot sin(沿y轴旋转角度) \space\space,\space\space\theta∈[0,\pi]
+$$
 <p>那么把旋转角度带入这个正弦函数求得的值，再由 THS[6:0] 的 1LSB = 16mg 计算触发阈值，设置为<code>INT2_THS</code>的值，就可指定旋转角度触发中断了</p>
 <p><img src="/74a960e2/sw.png" alt="sw"></p>
 <p>然后就是x与z轴的事件 受<code>INT2_THS</code>的值范围 会出现先后触发的情况：</p>
 <p><img src="/74a960e2/%E6%97%8B%E8%BD%AColed%E9%98%88%E5%80%BC%E4%BA%8B%E4%BB%B6%E6%98%AF%E4%BB%A5x%E8%BF%98%E6%98%AFz%E8%BD%B4%E8%A7%A6%E5%8F%91%E5%88%A4%E6%96%AD%EF%BC%9F.jpg" alt="旋转oled阈值事件是以x还是z轴触发判断？"></p>
 <p>*实际却正好相反：非常有意思，是加速读内部硬件逻辑判断的</p>
 <p>注意：使能了IN2中断锁存：LIR_INT2[7:7] = 1：在INT2_SRC（35h）寄存器上锁存中断请求，对此没有影响</p>
-<p>为了最佳旋转触发，我取中间值，45度作为临界点，即 $$1024\cdot sin(\pi/2)≈724.08$$，然后再除以寄存器的分辨率16mg/LSB，即 $$724.08/16≈45$$，将<code>INT2_THS</code>设置为45</p>
+<p>为了最佳旋转触发，我取中间值，45度作为临界点：</p>
+<span>
+$$
+1024\cdot sin(\pi/2)≈724.08
+$$
+</span>
+<p>然后再除以寄存器的分辨率16mg/LSB：</p>
+<span>
+$$
+724.08/16≈45
+$$
+</span>
+<p>那么将<code>INT2_THS</code>设置为45即可</p>
 <p>剩下oled驱动、旋转oled的命令不是重点，略</p>
-<h3 id="INT2-DURATION寄存器有没有用？"><a class="header-anchor" href="#INT2-DURATION寄存器有没有用？"></a>INT2_DURATION寄存器有没有用？</h3>
+<h3 id="int2_duration寄存器有没有用"><a class="markdownIt-Anchor" href="#int2_duration寄存器有没有用"></a> INT2_DURATION寄存器有没有用？</h3>
 <p>会增加一个消抖时间，可开可不开，实际效果无明显变化</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*开了没开一样，没卵用？*/</span>	&#123;LIS_INT2_DURATION, <span class="number">64</span>, <span class="number">0</span>&#125;,    <span class="comment">//default：00000000 // 64 = 0b01000000	// 超出阈值持续多少时间才触发INT2的中断（相当于按键延时消抖）</span></span><br></pre></td></tr></table></figure>
-<h2 id="运动检测算法"><a class="header-anchor" href="#运动检测算法"></a>运动检测算法</h2>
+<h2 id="运动检测算法"><a class="markdownIt-Anchor" href="#运动检测算法"></a> 运动检测算法</h2>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">currentPointer = (currentPointer + <span class="number">1</span>) % MOVFilter</span><br></pre></td></tr></table></figure>
 <p>每8次MOVTask调度，currentPointer归0，很有意思</p>
 <p>串口打印currentPointer随MOVTAsk调度次数变化：ptr是currentPointer， time是调度次数</p>
@@ -730,10 +751,10 @@ $$</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第1次：</span></span><br><span class="line">currentPointer = <span class="number">0</span></span><br><span class="line">datax[] = &#123;<span class="number">176</span>, <span class="number">176</span>, <span class="number">176</span>, <span class="number">176</span>, <span class="number">176</span>, <span class="number">176</span>, <span class="number">176</span>, <span class="number">176</span>&#125;	<span class="comment">//首次会将每一个元素都赋值为本次x轴数据，之后不会</span></span><br><span class="line"><span class="comment">//         ^    ^     ^    ^    ^    ^    ^    ^</span></span><br><span class="line"><span class="comment">//     第1次 第1次 第1次 第1次 第1次 第1次 第1次 第1次</span></span><br><span class="line"><span class="comment">//第2次：</span></span><br><span class="line">currentPointer = <span class="number">1</span></span><br><span class="line">datax[] = &#123;<span class="number">176</span>, <span class="number">233</span>, <span class="number">176</span>, <span class="number">176</span>, <span class="number">176</span>, <span class="number">176</span>, <span class="number">176</span>, <span class="number">176</span>&#125;</span><br><span class="line"><span class="comment">//         ^    ^     ^    ^    ^    ^    ^    ^</span></span><br><span class="line"><span class="comment">//     第1次 第2次 第1次 第1次 第1次 第1次 第1次 第1次</span></span><br><span class="line">......</span><br><span class="line"><span class="comment">//第7次：</span></span><br><span class="line">currentPointer = <span class="number">7</span></span><br><span class="line">datax[] = &#123;<span class="number">176</span>, <span class="number">233</span>, xxx, xxx, xxx, xxx, xxx, <span class="number">176</span>&#125;	<span class="comment">//xxx表示x轴的随机取值</span></span><br><span class="line"><span class="comment">//         ^    ^     ^    ^    ^    ^    ^    ^</span></span><br><span class="line"><span class="comment">//     第1次 第2次 第3次 第4次 第5次 第6次 第7次 第1次</span></span><br><span class="line"><span class="comment">//第8次：</span></span><br><span class="line">currentPointer = <span class="number">0</span>	<span class="comment">//整除归零，重新计数</span></span><br><span class="line">datax[] = &#123;<span class="number">176</span>, <span class="number">233</span>, xxx, xxx, xxx, xxx, xxx, xxx&#125;</span><br><span class="line"><span class="comment">//         ^    ^     ^    ^    ^    ^    ^    ^</span></span><br><span class="line"><span class="comment">//     第1次 第2次 第3次 第4次 第5次 第6次 第7次 第8次</span></span><br><span class="line"><span class="comment">//第9次：</span></span><br><span class="line">currentPointer = <span class="number">1</span></span><br><span class="line">datax[] = &#123;<span class="number">176</span>, <span class="number">233</span>, xxx, xxx, xxx, xxx, xxx, xxx&#125;</span><br><span class="line"><span class="comment">//         ^    ^     ^    ^    ^    ^    ^    ^</span></span><br><span class="line"><span class="comment">//     第9次 第2次 第3次 第4次 第5次 第6次 第7次 第8次</span></span><br><span class="line">......</span><br></pre></td></tr></table></figure>
 <p>然后每次求一次8个元素的平均值，即变量avgx，使用<code>abs(avgx - 本次读到的x数据)</code>，得到x轴变化量的绝对值，以同样的方式计算y和z轴，求和为三轴的总变化值，即变量error，将error与threshold比较，若大于，则更新运动检测的时间戳，即变量lastMovementTime，具体请见代码，以下节选部分：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 求三轴变化量绝对值的总和 //Sum the deltas	//abs()求传入数据的绝对值</span></span><br><span class="line"><span class="keyword">int32_t</span> error = (<span class="built_in">abs</span>(avgx - axisData.x) + <span class="built_in">abs</span>(avgy - axisData.y) + <span class="built_in">abs</span>(avgz - axisData.z));</span><br><span class="line"><span class="comment">// So now we have averages, we want to look if these are different by more</span></span><br><span class="line"><span class="comment">// than the threshold</span></span><br><span class="line"><span class="comment">// If movement has occurred then we update the tick timer</span></span><br><span class="line"><span class="comment">// 如果发生了移动，那么我们更新滴答计时器</span></span><br><span class="line"><span class="keyword">if</span> (error &gt; threshold) &#123;</span><br><span class="line">    lastMovementTime = xTaskGetTickCount();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="综合测试"><a class="header-anchor" href="#综合测试"></a>综合测试</h2>
+<h2 id="综合测试"><a class="markdownIt-Anchor" href="#综合测试"></a> 综合测试</h2>
 <p>一边读3轴数据，一边6D旋转阈值检测，一边运动检测的瞬间，OK：</p>
 <p><img src="/74a960e2/%E4%B8%80%E8%BE%B96D%E6%97%8B%E8%BD%AC%E9%98%88%E5%80%BC%E6%A3%80%E6%B5%8B%E4%B8%80%E8%BE%B9%E8%BF%90%E5%8A%A8%E6%A3%80%E6%B5%8B%E7%9A%84%E7%9E%AC%E9%97%B4.png" alt="20210220011749"></p>
-<h2 id="相关链接"><a class="header-anchor" href="#相关链接"></a>相关链接</h2>
+<h2 id="相关链接"><a class="markdownIt-Anchor" href="#相关链接"></a> 相关链接</h2>
 <p><a href="https://oldgerman.github.io/d5ffc54/">ODGIRON_开源PD电烙铁</a></p>
 <p><a href="https://github.com/Ralim/IronOS" target="_blank" rel="noopener">IronOS开源烙铁固件github</a></p>
 <p><a href="https://www.sohu.com/a/109038400_116463" target="_blank" rel="noopener">美与质量共存——TS100袖珍迷你烙铁评测</a></p>
@@ -979,7 +1000,7 @@ $$</p>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#TS100的两个加速度计"><span class="nav-number">1.</span> <span class="nav-text">TS100的两个加速度计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LIS3DH与LIS2DH12"><span class="nav-number">2.</span> <span class="nav-text">LIS3DH与LIS2DH12</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ironOS-加速度计读数不正常问题解决"><span class="nav-number">3.</span> <span class="nav-text">ironOS 加速度计读数不正常问题解决</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根据加速读计旋转oled"><span class="nav-number">4.</span> <span class="nav-text">根据加速读计旋转oled</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加速度计坐标轴"><span class="nav-number">4.1.</span> <span class="nav-text">加速度计坐标轴</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#右手与左手的旋转与加速度计坐标关系"><span class="nav-number">4.2.</span> <span class="nav-text">右手与左手的旋转与加速度计坐标关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#INT2-THS-阈值寄存器"><span class="nav-number">4.3.</span> <span class="nav-text">INT2_THS 阈值寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#那么旋转oled阈值事件到底是以x还是z轴触发判断？"><span class="nav-number">4.4.</span> <span class="nav-text">那么旋转oled阈值事件到底是以x还是z轴触发判断？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#INT2-DURATION寄存器有没有用？"><span class="nav-number">4.5.</span> <span class="nav-text">INT2_DURATION寄存器有没有用？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运动检测算法"><span class="nav-number">5.</span> <span class="nav-text">运动检测算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#综合测试"><span class="nav-number">6.</span> <span class="nav-text">综合测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关链接"><span class="nav-number">7.</span> <span class="nav-text">相关链接</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ts100的两个加速度计"><span class="nav-number">1.</span> <span class="nav-text"> TS100的两个加速度计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lis3dh与lis2dh12"><span class="nav-number">2.</span> <span class="nav-text"> LIS3DH与LIS2DH12</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ironos-加速度计读数不正常问题解决"><span class="nav-number">3.</span> <span class="nav-text"> ironOS 加速度计读数不正常问题解决</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根据加速读计旋转oled"><span class="nav-number">4.</span> <span class="nav-text"> 根据加速读计旋转oled</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加速度计坐标轴"><span class="nav-number">4.1.</span> <span class="nav-text"> 加速度计坐标轴</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#右手与左手的旋转与加速度计坐标关系"><span class="nav-number">4.2.</span> <span class="nav-text"> 右手与左手的旋转与加速度计坐标关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#int2_ths-阈值寄存器"><span class="nav-number">4.3.</span> <span class="nav-text"> INT2_THS 阈值寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#那么旋转oled阈值事件到底是以x还是z轴触发判断"><span class="nav-number">4.4.</span> <span class="nav-text"> 那么旋转oled阈值事件到底是以x还是z轴触发判断？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#int2_duration寄存器有没有用"><span class="nav-number">4.5.</span> <span class="nav-text"> INT2_DURATION寄存器有没有用？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运动检测算法"><span class="nav-number">5.</span> <span class="nav-text"> 运动检测算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#综合测试"><span class="nav-number">6.</span> <span class="nav-text"> 综合测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关链接"><span class="nav-number">7.</span> <span class="nav-text"> 相关链接</span></a></li></ol></div>
             
 
           </div>
@@ -1046,12 +1067,12 @@ show_date_time();
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">133k</span>
+    <span title="站点总字数">135k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:01</span>
+    <span title="站点阅读时长">2:02</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>
