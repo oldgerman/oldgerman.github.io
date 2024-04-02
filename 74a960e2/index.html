@@ -90,7 +90,7 @@
 <meta property="og:image" content="http://oldgerman.github.io/74a960e2/%E6%97%8B%E8%BD%AColed%E9%98%88%E5%80%BC%E4%BA%8B%E4%BB%B6%E6%98%AF%E4%BB%A5x%E8%BF%98%E6%98%AFz%E8%BD%B4%E8%A7%A6%E5%8F%91%E5%88%A4%E6%96%AD%EF%BC%9F.jpg">
 <meta property="og:image" content="http://oldgerman.github.io/74a960e2/currentPointer%E9%9A%8FMOVTAsk%E8%B0%83%E5%BA%A6%E6%AC%A1%E6%95%B0%E5%8F%98%E5%8C%96.png">
 <meta property="og:image" content="http://oldgerman.github.io/74a960e2/%E4%B8%80%E8%BE%B96D%E6%97%8B%E8%BD%AC%E9%98%88%E5%80%BC%E6%A3%80%E6%B5%8B%E4%B8%80%E8%BE%B9%E8%BF%90%E5%8A%A8%E6%A3%80%E6%B5%8B%E7%9A%84%E7%9E%AC%E9%97%B4.png">
-<meta property="og:updated_time" content="2024-04-02T13:27:03.399Z">
+<meta property="og:updated_time" content="2024-04-02T14:16:57.544Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ODGIRON LIS3DH笔记">
 <meta name="twitter:description" content="解读ironOS开源烙铁固件：如何使用加速度计实现运动唤醒和oled旋转">
@@ -325,7 +325,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-02 21:27:03" itemprop="dateModified" datetime="2024-04-02T21:27:03+08:00">2024-04-02</time>
+                <time title="修改时间：2024-04-02 22:16:57" itemprop="dateModified" datetime="2024-04-02T22:16:57+08:00">2024-04-02</time>
               </span>
             
           
@@ -674,29 +674,33 @@
 <p>所以这很奇怪，<code>INT2_THS</code>的值可能由z轴也可能为x轴的阈值事件触发，但最终手性的判断是OK的</p>
 <h3 id="那么旋转oled阈值事件到底是以x还是z轴触发判断？"><a class="header-anchor" href="#那么旋转oled阈值事件到底是以x还是z轴触发判断？"></a>那么旋转oled阈值事件到底是以x还是z轴触发判断？</h3>
 <p>设y轴水平，烙铁沿y轴旋转，则 x轴加速度读数 与 沿y轴旋转角度（从0度到顺时针90度）存在函数关系，我来推导一下</p>
-<p>通过原点的直线L的参数方程为：<br>
+<p>通过原点的直线的参数方程为：<br>
 $$<br>
-L:\left{\begin{align}<br>
-x&amp;=tcos(\theta)&amp;\<br>
-y&amp;=tsin(\theta)&amp;,\space\space\theta∈[0,\pi]<br>
-\end{align}\right.<br>
+\left{<br>
+\begin{align}<br>
+x=tcos(\theta)&amp;\<br>
+y=tsin(\theta)&amp;,\space\space\theta∈[0,\pi]\<br>
+\end{align}<br>
+\right.<br>
 $$<br>
 如图所示，圆形直径是1g时，读数为1024，则半径为512，那么该的圆的方程为：<br>
 $$<br>
 x<sup>2+(y-512)</sup>2=512^2<br>
 $$<br>
-该圆上任一点$$(x,y)$$到原点$$(0,0)$$的距离为：<br>
+该圆上任一点 (x,y) 到原点 (0,0) 的距离为：<br>
 $$<br>
 d=\sqrt{x<sup>2+y</sup>2}<br>
 $$<br>
 联立以上公式得：<br>
 $$<br>
-\left{\begin{align}<br>
-x&amp;=tcos(\theta)&amp;\<br>
-y&amp;=tsin(\theta)&amp;,\space\space\theta∈[0,\pi]\<br>
-x<sup>2+(y-512)</sup>2&amp;=512^2&amp;\<br>
-d&amp;=\sqrt{x<sup>2+y</sup>2}&amp;\<br>
-\end{align}\right.<br>
+\left{<br>
+\begin{align}<br>
+x&amp;=tcos(\theta)\<br>
+y&amp;=tsin(\theta),\space\space\theta∈[0,\pi]\<br>
+x<sup>2+(y-512)</sup>2&amp;=512^2\<br>
+d&amp;=\sqrt{x<sup>2+y</sup>2}\<br>
+\end{align}<br>
+\right.<br>
 $$<br>
 易整理得：<br>
 $$<br>
@@ -706,7 +710,7 @@ $$<br>
 $$<br>
 x轴加速度读数=1024\cdot sin(沿y轴旋转角度) \space\space,\space\space\theta∈[0,\pi]<br>
 $$</p>
-<p>所以把旋转角度带入这个正弦函数求得的值，再由 THS[6:0] 的 1LSB = 16mg 计算触发阈值，设置为<code>INT2_THS</code>的值，即可指定旋转角度触发中断</p>
+<p>那么把旋转角度带入这个正弦函数求得的值，再由 THS[6:0] 的 1LSB = 16mg 计算触发阈值，设置为<code>INT2_THS</code>的值，就可指定旋转角度触发中断了</p>
 <p><img src="/74a960e2/sw.png" alt="sw"></p>
 <p>然后就是x与z轴的事件 受<code>INT2_THS</code>的值范围 会出现先后触发的情况：</p>
 <p><img src="/74a960e2/%E6%97%8B%E8%BD%AColed%E9%98%88%E5%80%BC%E4%BA%8B%E4%BB%B6%E6%98%AF%E4%BB%A5x%E8%BF%98%E6%98%AFz%E8%BD%B4%E8%A7%A6%E5%8F%91%E5%88%A4%E6%96%AD%EF%BC%9F.jpg" alt="旋转oled阈值事件是以x还是z轴触发判断？"></p>
