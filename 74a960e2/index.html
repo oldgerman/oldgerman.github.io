@@ -90,7 +90,7 @@
 <meta property="og:image" content="http://oldgerman.github.io/74a960e2/%E6%97%8B%E8%BD%AColed%E9%98%88%E5%80%BC%E4%BA%8B%E4%BB%B6%E6%98%AF%E4%BB%A5x%E8%BF%98%E6%98%AFz%E8%BD%B4%E8%A7%A6%E5%8F%91%E5%88%A4%E6%96%AD%EF%BC%9F.jpg">
 <meta property="og:image" content="http://oldgerman.github.io/74a960e2/currentPointer%E9%9A%8FMOVTAsk%E8%B0%83%E5%BA%A6%E6%AC%A1%E6%95%B0%E5%8F%98%E5%8C%96.png">
 <meta property="og:image" content="http://oldgerman.github.io/74a960e2/%E4%B8%80%E8%BE%B96D%E6%97%8B%E8%BD%AC%E9%98%88%E5%80%BC%E6%A3%80%E6%B5%8B%E4%B8%80%E8%BE%B9%E8%BF%90%E5%8A%A8%E6%A3%80%E6%B5%8B%E7%9A%84%E7%9E%AC%E9%97%B4.png">
-<meta property="og:updated_time" content="2024-04-02T13:21:19.098Z">
+<meta property="og:updated_time" content="2024-04-02T13:26:02.989Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ODGIRON LIS3DH笔记">
 <meta name="twitter:description" content="解读ironOS开源烙铁固件：如何使用加速度计实现运动唤醒和oled旋转">
@@ -325,7 +325,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-02 21:21:19" itemprop="dateModified" datetime="2024-04-02T21:21:19+08:00">2024-04-02</time>
+                <time title="修改时间：2024-04-02 21:26:02" itemprop="dateModified" datetime="2024-04-02T21:26:02+08:00">2024-04-02</time>
               </span>
             
           
@@ -712,8 +712,8 @@ $$</p>
 <p><img src="/74a960e2/%E6%97%8B%E8%BD%AColed%E9%98%88%E5%80%BC%E4%BA%8B%E4%BB%B6%E6%98%AF%E4%BB%A5x%E8%BF%98%E6%98%AFz%E8%BD%B4%E8%A7%A6%E5%8F%91%E5%88%A4%E6%96%AD%EF%BC%9F.jpg" alt="旋转oled阈值事件是以x还是z轴触发判断？"></p>
 <p>*实际却正好相反：非常有意思，是加速读内部硬件逻辑判断的</p>
 <p>注意：使能了IN2中断锁存：LIR_INT2[7:7] = 1：在INT2_SRC（35h）寄存器上锁存中断请求，对此没有影响</p>
-<p>因此为了最佳旋转触发，我取中间值724.08，即45度作为临界点，再除以16mg/LSB，将<code>INT2_THS</code>设置为45</p>
-<p>剩下oled驱动、旋转oled的命令不是重点，略。</p>
+<p>为了最佳旋转触发，我取中间值，45度作为临界点，即 $$1024\cdot sin(\pi/2)≈724.08$$，然后再除以寄存器的分辨率16mg/LSB，即 $$724.08/16≈45$$，将<code>INT2_THS</code>设置为45</p>
+<p>剩下oled驱动、旋转oled的命令不是重点，略</p>
 <h3 id="INT2-DURATION寄存器有没有用？"><a class="header-anchor" href="#INT2-DURATION寄存器有没有用？"></a>INT2_DURATION寄存器有没有用？</h3>
 <p>会增加一个消抖时间，可开可不开，实际效果无明显变化</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*开了没开一样，没卵用？*/</span>	&#123;LIS_INT2_DURATION, <span class="number">64</span>, <span class="number">0</span>&#125;,    <span class="comment">//default：00000000 // 64 = 0b01000000	// 超出阈值持续多少时间才触发INT2的中断（相当于按键延时消抖）</span></span><br></pre></td></tr></table></figure>
