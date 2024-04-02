@@ -58,7 +58,7 @@
   <meta name="description" content="解读ironOS开源烙铁固件：如何使用加速度计实现运动唤醒和oled旋转">
 <meta name="keywords" content="加速度计">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ODGIRON_LIS3DH笔记">
+<meta property="og:title" content="ODGIRON LIS3DH笔记">
 <meta property="og:url" content="http://oldgerman.github.io/74a960e2/index.html">
 <meta property="og:site_name" content="OldGerman&#39;s Blog">
 <meta property="og:description" content="解读ironOS开源烙铁固件：如何使用加速度计实现运动唤醒和oled旋转">
@@ -90,9 +90,9 @@
 <meta property="og:image" content="http://oldgerman.github.io/74a960e2/%E6%97%8B%E8%BD%AColed%E9%98%88%E5%80%BC%E4%BA%8B%E4%BB%B6%E6%98%AF%E4%BB%A5x%E8%BF%98%E6%98%AFz%E8%BD%B4%E8%A7%A6%E5%8F%91%E5%88%A4%E6%96%AD%EF%BC%9F.jpg">
 <meta property="og:image" content="http://oldgerman.github.io/74a960e2/currentPointer%E9%9A%8FMOVTAsk%E8%B0%83%E5%BA%A6%E6%AC%A1%E6%95%B0%E5%8F%98%E5%8C%96.png">
 <meta property="og:image" content="http://oldgerman.github.io/74a960e2/%E4%B8%80%E8%BE%B96D%E6%97%8B%E8%BD%AC%E9%98%88%E5%80%BC%E6%A3%80%E6%B5%8B%E4%B8%80%E8%BE%B9%E8%BF%90%E5%8A%A8%E6%A3%80%E6%B5%8B%E7%9A%84%E7%9E%AC%E9%97%B4.png">
-<meta property="og:updated_time" content="2024-03-28T10:35:40.398Z">
+<meta property="og:updated_time" content="2024-04-02T13:21:19.098Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ODGIRON_LIS3DH笔记">
+<meta name="twitter:title" content="ODGIRON LIS3DH笔记">
 <meta name="twitter:description" content="解读ironOS开源烙铁固件：如何使用加速度计实现运动唤醒和oled旋转">
 <meta name="twitter:image" content="http://oldgerman.github.io/74a960e2/TS100-72%E5%8F%98(1).png">
   <link rel="canonical" href="http://oldgerman.github.io/74a960e2/">
@@ -109,7 +109,7 @@
   };
 </script>
 
-  <title>ODGIRON_LIS3DH笔记 | OldGerman's Blog</title>
+  <title>ODGIRON LIS3DH笔记 | OldGerman's Blog</title>
   <meta name="generator" content="Hexo 3.9.0">
   
 
@@ -298,7 +298,7 @@
       <meta itemprop="name" content="OldGerman's Blog">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">ODGIRON_LIS3DH笔记
+        <h1 class="post-title" itemprop="name headline">ODGIRON LIS3DH笔记
 
           
         </h1>
@@ -325,7 +325,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-28 18:35:40" itemprop="dateModified" datetime="2024-03-28T18:35:40+08:00">2024-03-28</time>
+                <time title="修改时间：2024-04-02 21:21:19" itemprop="dateModified" datetime="2024-04-02T21:21:19+08:00">2024-04-02</time>
               </span>
             
           
@@ -344,7 +344,7 @@
           
 
           
-            <span id="/74a960e2/" class="post-meta-item leancloud_visitors" data-flag-title="ODGIRON_LIS3DH笔记" title="阅读次数">
+            <span id="/74a960e2/" class="post-meta-item leancloud_visitors" data-flag-title="ODGIRON LIS3DH笔记" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -374,7 +374,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>6.2k</span>
+              <span>6.7k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -548,7 +548,7 @@
 <li>期望的加速度输出频率：当ODR=25，ODR/9 = 2.777次/秒，运动检测较迟钝</li>
 <li>ODGIRON设置的加速度输出频率：ODR为100Hz，ODR/9=11.111次/秒，与MOVTask调度频率10Hz几乎同步，运动检测很灵敏</li>
 </ul>
-<p>其运动检测的源代码：ironOS运动检测是由MOVTask里跑了一个阈值比较程序，它实现了运动检测，既然软件进行了运动检测，那为啥还要使能6D阈值检测的事件中断？别慌，后面会讲。</p>
+<p>其运动检测的源代码：ironOS运动检测是由MOVTask里跑了一个阈值比较程序，它实现了运动检测，既然软件进行了运动检测，那为啥还要使能6D阈值检测的事件中断？</p>
 <p>ironOS读取加速度计的代码如下：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief  读取三轴数据</span></span><br><span class="line"><span class="comment"> * @param  传x、y、z数据的引用</span></span><br><span class="line"><span class="comment"> * @retval none</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LIS2DH12::getAxisReadings</span><span class="params">(<span class="keyword">int16_t</span> &amp;x, <span class="keyword">int16_t</span> &amp;y, <span class="keyword">int16_t</span> &amp;z)</span> </span>&#123;</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">array</span>&lt;<span class="keyword">int16_t</span>, 3&gt; sensorData;	<span class="comment">//三组16bit用于存储三个轴12bit数据</span></span><br><span class="line"></span><br><span class="line">  FRToSI2C::Mem_Read(</span><br><span class="line">truetrue  	  	  	  LIS2DH_I2C_ADDRESS,</span><br><span class="line">truetrue  	  	  	  <span class="number">0xA8</span>,	<span class="comment">//注意，0xA8是OUT_X_L的0x28 与 连续读取的0x80 两者按位与运算得到的</span></span><br><span class="line">      						<span class="comment">//这里它连续读取 OUT_X_L 到 OUT_Z_H 共六个相邻的只读寄存器</span></span><br><span class="line">truetruetruetruetrue  <span class="keyword">reinterpret_cast</span>&lt;<span class="keyword">uint8_t</span> *&gt;(sensorData.<span class="built_in">begin</span>()), <span class="comment">// 将定位到容器首元素iterator强制转换为unit8_t*,炫技操作？</span></span><br><span class="line">truetruetruetruetrue  sensorData.<span class="built_in">size</span>() * <span class="keyword">sizeof</span>(<span class="keyword">int16_t</span>)</span><br><span class="line">truetruetruetruetrue);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//依次赋值</span></span><br><span class="line">  x = sensorData[<span class="number">0</span>];</span><br><span class="line">  y = sensorData[<span class="number">1</span>];</span><br><span class="line">  z = sensorData[<span class="number">2</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>由于12bit数据是左对齐的，可见，在 //依次赋值 的地方，未作 &gt;&gt; 4 运算，直接输出的xyz结果范围不是[-2048, +2048]，而是有时候数据能到 ±10000以外，离谱</p>
@@ -556,7 +556,7 @@
 <p><img src="/74a960e2/ironOS%E7%9A%84%E5%8A%A0%E9%80%9F%E5%BA%A6%E8%AE%A1-%E5%89%A7%E7%83%88%E6%91%87%E6%99%83%EF%BC%8C%E5%B0%86%E8%AF%BB%E6%95%B0%E5%B7%A6%E7%A7%BB%E4%BD%8D4bit%E8%BF%90%E7%AE%97%E7%BB%93%E6%9E%9C.png" alt="ironOS的加速度计-剧烈摇晃，将读数左移位4bit运算结果"></p>
 <p>这与arduino的Sparkfun 的LIS3DH例程非常不同，arduino的例程跑起来，若水平放置加速度计，z方向会在-1024附近，即能显示地球的重力加速度1g，奇怪的是ironOS的跑起来没有1g的加速度，读出数据如下：</p>
 <p><img src="/74a960e2/3%E8%BD%B4%E6%95%B0%E6%8D%AE%E9%80%9A%E8%BF%87%E9%AB%98%E9%80%9A%E6%BB%A4%E6%B3%A2%E5%99%A8.png" alt="20210220005151"></p>
-<p>这是为什么呢？排查出错原因是仅配置了LIS_CTRL_REG2的FDS位，使能了High-pass filter ，使数据通过了加速度计的内部滤波器，即我们读到的是静置或运动状态的噪声（相邻两次数据的偏差值）。。。</p>
+<p>这是为什么呢？排查出错原因是仅配置了LIS_CTRL_REG2的FDS位，使能了High-pass filter ，这之后输出的三轴数据，是经高通滤波后的</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;LIS_CTRL_REG2, <span class="number">0b00001000</span>, <span class="number">0</span>&#125;, <span class="comment">//default：00000000 // Highpass filter off          // 		 FDS[3:3] = 1：</span></span><br><span class="line"><span class="comment">//筛选数据选择。默认值：0</span></span><br><span class="line"><span class="comment">// 0：绕过内部滤波器</span></span><br><span class="line"><span class="comment">// 1：来自内部滤波器的数据发送到输出寄存器和FIFO</span></span><br></pre></td></tr></table></figure>
 <p>我将该配置取消掉，之后水平静置读数正常，换算z方向的加速度是正常的1g左右：</p>
 <p><img src="/74a960e2/ironOS%E7%9A%84%E5%8A%A0%E9%80%9F%E5%BA%A6%E8%AE%A1-%E6%AD%A3%E5%B8%B8%E9%9D%99%E7%BD%AE.png" alt></p>
@@ -586,7 +586,7 @@
 </table>
 <p>我对原本TS100的 LIS3DH::getOrientation() 函数进行修改，使之符合LIS3DH的坐标轴，明细请见源代码。</p>
 <h3 id="右手与左手的旋转与加速度计坐标关系"><a class="header-anchor" href="#右手与左手的旋转与加速度计坐标关系"></a>右手与左手的旋转与加速度计坐标关系</h3>
-<p>我根据加速度计相对烙铁的安装的位置，画了ODGIRON和TS100的加速读坐标两张纸贴在烙铁上，下文都按照ODGIRON的坐标来的，不再做坐标系变化的解释</p>
+<p>我根据加速度计相对烙铁的安装的位置，画了ODGIRON和TS100的加速读坐标两张纸贴在烙铁上，下文都按照左边ODGIRON贴纸上的坐标</p>
 <table>
 <thead>
 <tr>
@@ -617,10 +617,10 @@
 </table>
 <h3 id="INT2-THS-阈值寄存器"><a class="header-anchor" href="#INT2-THS-阈值寄存器"></a>INT2_THS 阈值寄存器</h3>
 <p>THS 即 threshold 阈值</p>
-<p>ironOS 的 INT2_THS 寄存器 设置值为0x28，根据datasheet：</p>
+<p>ironOS 的 <code>INT2_THS</code> 寄存器 设置值为0x28，根据datasheet：</p>
 <ul>
 <li>
-<p>由 Table 68. INT2_THS description：LIS3DH工作在12bit ±2g，则 THS[6:0] 的 1LSB = 16mg，计算触发阈值：先将0x28转换为10进制：0x28 = 40DEC ,  再乘以16msg 得到触发阈值为±640mg，</p>
+<p>由 Table 68. <code>INT2_THS</code> description：LIS3DH工作在12bit ±2g，则 THS[6:0] 的 1LSB = 16mg，计算触发阈值：先将0x28转换为10进制：0x28 = 40DEC ,  再乘以16msg 得到触发阈值为±640mg，</p>
 </li>
 <li>
 <p>由 Table 4. Mechanical characteristics的Sensitivity部分：LIS3DH工作在12bit ±2g时 ，加速度输出数据的1LSB = 1mg，则读数为±640触发临界点</p>
@@ -671,15 +671,48 @@
 </tr>
 </tbody>
 </table>
-<p>所以这很奇怪，INT2_THS的值可能由z轴也可能为x轴的阈值事件触发，但最终手性的判断是OK的</p>
+<p>所以这很奇怪，<code>INT2_THS</code>的值可能由z轴也可能为x轴的阈值事件触发，但最终手性的判断是OK的</p>
 <h3 id="那么旋转oled阈值事件到底是以x还是z轴触发判断？"><a class="header-anchor" href="#那么旋转oled阈值事件到底是以x还是z轴触发判断？"></a>那么旋转oled阈值事件到底是以x还是z轴触发判断？</h3>
-<p>关于上一节的疑问，我绘制了y轴水平时，沿y轴旋转，INT2_THS的值随旋转角度的曲线，它是抛物线关系，通过下图即可看出，x轴的读数 随旋转角度从0度到顺时针90度 的曲线关系（圆形直径是1g重力加速度时读数为1024)，类似抛物线（实际应该是参数方程）</p>
+<p>设y轴水平，烙铁沿y轴旋转，则 x轴加速度读数 与 沿y轴旋转角度（从0度到顺时针90度）存在函数关系，我来推导一下</p>
+<p>通过原点的直线L的参数方程为：<br>
+$$<br>
+L:\left{\begin{align}<br>
+x&amp;=tcos(\theta)&amp;\<br>
+y&amp;=tsin(\theta)&amp;,\space\space\theta∈[0,\pi]<br>
+\end{align}\right.<br>
+$$<br>
+如图所示，圆形直径是1g时，读数为1024，则半径为512，那么该的圆的方程为：<br>
+$$<br>
+x<sup>2+(y-512)</sup>2=512^2<br>
+$$<br>
+该圆上任一点$$(x,y)$$到原点$$(0,0)$$的距离为：<br>
+$$<br>
+d=\sqrt{x<sup>2+y</sup>2}<br>
+$$<br>
+联立以上公式得：<br>
+$$<br>
+\left{\begin{align}<br>
+x&amp;=tcos(\theta)&amp;\<br>
+y&amp;=tsin(\theta)&amp;,\space\space\theta∈[0,\pi]\<br>
+x<sup>2+(y-512)</sup>2&amp;=512^2&amp;\<br>
+d&amp;=\sqrt{x<sup>2+y</sup>2}&amp;\<br>
+\end{align}\right.<br>
+$$<br>
+易整理得：<br>
+$$<br>
+d=1024\cdot sin(\theta) \space\space,\space\space\theta∈[0,\pi]<br>
+$$<br>
+即<br>
+$$<br>
+x轴加速度读数=1024\cdot sin(沿y轴旋转角度) \space\space,\space\space\theta∈[0,\pi]<br>
+$$</p>
+<p>所以把旋转角度带入这个正弦函数求得的值，再由 THS[6:0] 的 1LSB = 16mg 计算触发阈值，设置为<code>INT2_THS</code>的值，即可指定旋转角度触发中断</p>
 <p><img src="/74a960e2/sw.png" alt="sw"></p>
-<p>然后就是x与z轴的事件 受INT2_THS的值范围 会出现先后触发的情况：</p>
+<p>然后就是x与z轴的事件 受<code>INT2_THS</code>的值范围 会出现先后触发的情况：</p>
 <p><img src="/74a960e2/%E6%97%8B%E8%BD%AColed%E9%98%88%E5%80%BC%E4%BA%8B%E4%BB%B6%E6%98%AF%E4%BB%A5x%E8%BF%98%E6%98%AFz%E8%BD%B4%E8%A7%A6%E5%8F%91%E5%88%A4%E6%96%AD%EF%BC%9F.jpg" alt="旋转oled阈值事件是以x还是z轴触发判断？"></p>
 <p>*实际却正好相反：非常有意思，是加速读内部硬件逻辑判断的</p>
 <p>注意：使能了IN2中断锁存：LIR_INT2[7:7] = 1：在INT2_SRC（35h）寄存器上锁存中断请求，对此没有影响</p>
-<p>因此为了最佳旋转触发，我取中间值724.08，即45度作为临界点，再除以16mg/LSB，将INT2_THS设置为45</p>
+<p>因此为了最佳旋转触发，我取中间值724.08，即45度作为临界点，再除以16mg/LSB，将<code>INT2_THS</code>设置为45</p>
 <p>剩下oled驱动、旋转oled的命令不是重点，略。</p>
 <h3 id="INT2-DURATION寄存器有没有用？"><a class="header-anchor" href="#INT2-DURATION寄存器有没有用？"></a>INT2_DURATION寄存器有没有用？</h3>
 <p>会增加一个消抖时间，可开可不开，实际效果无明显变化</p>
@@ -719,7 +752,7 @@
     <strong>本文作者： </strong>过气德国佬</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://oldgerman.github.io/74a960e2/" title="ODGIRON_LIS3DH笔记">http://oldgerman.github.io/74a960e2/</a>
+    <a href="http://oldgerman.github.io/74a960e2/" title="ODGIRON LIS3DH笔记">http://oldgerman.github.io/74a960e2/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
@@ -1009,7 +1042,7 @@ show_date_time();
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">132k</span>
+    <span title="站点总字数">133k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
