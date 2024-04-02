@@ -1670,7 +1670,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ff3bdf;
+  background: #ffde39;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2764,13 +2764,13 @@ a.fancybox {
   color: #222 !important;
 }
 body {
-  background: url("/images/bk-sch.jpg");
+  background: url("/images/bk.jpg");
   width: 100%;
   height: 100%;
   background-attachment: fixed;
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: 50% 50%;
+  background-position: 50% 0%;
 }
 .main-inner {
   background: #fff;
