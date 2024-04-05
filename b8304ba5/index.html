@@ -73,7 +73,7 @@
 <meta property="og:image" content="http://oldgerman.github.io/b8304ba5/%E5%A4%B9%E5%85%B7%EF%BC%9ASMD%E6%B5%8B%E8%AF%95%E5%A4%B9%E5%85%B7%E8%8D%89%E7%A8%BF.png">
 <meta property="og:image" content="http://oldgerman.github.io/b8304ba5/%E6%B5%8B%E9%87%8F%EF%BC%9A%E7%94%B5%E9%98%BB%EF%BC%9A%E5%BC%80%E5%B0%94%E6%96%87%E7%94%B5%E9%98%BB%E6%B5%8B%E8%AF%95%E6%9D%BF.jpg">
 <meta property="og:image" content="http://oldgerman.github.io/b8304ba5/%E6%B5%8B%E9%87%8F%EF%BC%9A%E7%94%B5%E9%98%BB%EF%BC%9A%E5%BC%80%E5%B0%94%E6%96%87%E7%94%B5%E9%98%BB%E6%B5%8B%E8%AF%95%E6%9D%BF%EF%BC%9A%E5%A4%B9%E5%AD%90%E5%A4%B9%E6%8C%81%E5%A7%BF%E5%8A%BF.jpg">
-<meta property="og:updated_time" content="2024-04-04T14:36:35.514Z">
+<meta property="og:updated_time" content="2024-04-05T01:23:20.419Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mR-71-RE校准测试">
 <meta name="twitter:description" content="目前只记录了一台设备的测量数据，不具备普遍性，欢迎补充">
@@ -308,7 +308,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-04 22:36:35" itemprop="dateModified" datetime="2024-04-04T22:36:35+08:00">2024-04-04</time>
+                <time title="修改时间：2024-04-05 09:23:20" itemprop="dateModified" datetime="2024-04-05T09:23:20+08:00">2024-04-05</time>
               </span>
             
           
@@ -357,7 +357,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>5.2k</span>
+              <span>5.1k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -490,6 +490,7 @@
 <p>未开启相对测量模式，测量时水平方向左右各一个夹子的夹测试件，注意远离干扰源</p>
 <p>目前使用的开尔文测试线，在量程边界测量时，测量值受线缆角度、两个夹子之间的距离、夹子与机身的距离影响很大</p>
 <p>表格中某些测量值由<code>值±值</code>构成，在测量时，读数抖动的最差值，某些值的几个尾数都是0，是抖动太快，而都记为0，对于读数比较稳定的，可能省略误差值；某些测量值标<code>N/A</code>，表示测不出来或测量值没有参考价值</p>
+<p>测量值左侧不同颜色的圆圈，代表示数随夹具的姿势影响大小，或夹具稳定时示数的跳动幅度：很大🔴、较大🟠、适中🟡、较小🟢</p>
 <p>由于记录数据非常耗时，测量结果省略副参，不考虑重复测量误差</p>
 <h3 id="测量电阻"><a class="markdownIt-Anchor" href="#测量电阻"></a> 测量：电阻</h3>
 <table>
@@ -514,9 +515,6 @@
 <th>频率：15Hz</th>
 <th>频率：1KHz</th>
 <th>频率：100KHz</th>
-<th>备注：15Hz</th>
-<th>备注：1KHz</th>
-<th>备注：100KHz</th>
 </tr>
 </thead>
 <tbody>
@@ -528,12 +526,9 @@
 <td>2W</td>
 <td>2512</td>
 <td>3Ω</td>
-<td>0.9878mΩ±0.0249mΩ</td>
-<td>0.9871mΩ±0.0068mΩ</td>
-<td>1.0200mΩ±0.4100mΩ</td>
-<td>示数不太稳定</td>
-<td>示数不太稳定</td>
-<td>示数随夹具的姿势影响很大</td>
+<td>🟡0.9878mΩ±0.0249mΩ</td>
+<td>🟡0.9871mΩ±0.0068mΩ</td>
+<td>🔴1.0200mΩ±0.4100mΩ</td>
 </tr>
 <tr>
 <td>PA2512FKE7W0R01E</td>
@@ -543,12 +538,9 @@
 <td>2W</td>
 <td>2512</td>
 <td>3Ω</td>
-<td>10.026mΩ</td>
-<td>10.024mΩ</td>
-<td>10.480mΩ±1.120mΩ</td>
-<td>示数较稳定</td>
-<td>示数较稳定</td>
-<td>示数随夹具的姿势影响很大</td>
+<td>🟢10.026mΩ</td>
+<td>🟢10.024mΩ</td>
+<td>🟠10.480mΩ±1.120mΩ</td>
 </tr>
 <tr>
 <td>HoJLR2512-3W-100mR-1%</td>
@@ -558,12 +550,9 @@
 <td>3W</td>
 <td>2512</td>
 <td>3Ω</td>
-<td>99.496mΩ</td>
-<td>99.384mΩ</td>
-<td>99.416mΩ±0.474mΩ</td>
-<td>示数较稳定</td>
-<td>示数较稳定</td>
-<td>示数随夹具的姿势影响较大</td>
+<td>🟢99.496mΩ</td>
+<td>🟢99.384mΩ</td>
+<td>🟢99.416mΩ±0.474mΩ</td>
 </tr>
 </tbody>
 </table>
@@ -581,9 +570,6 @@
 <th>频率：15Hz</th>
 <th>频率：1KHz</th>
 <th>频率：100KHz</th>
-<th>备注：15Hz</th>
-<th>备注：1KHz</th>
-<th>备注：100KHz</th>
 </tr>
 </thead>
 <tbody>
@@ -595,12 +581,9 @@
 <td>250mW</td>
 <td>1206</td>
 <td>3Ω</td>
-<td>1.0020Ω</td>
-<td>1.0019Ω</td>
-<td>1.0022Ω</td>
-<td>示数较稳定</td>
-<td>示数较稳定</td>
-<td>示数较稳定</td>
+<td>🟢1.0020Ω</td>
+<td>🟢1.0019Ω</td>
+<td>🟢1.0022Ω</td>
 </tr>
 <tr>
 <td>ARG06BTC0100</td>
@@ -610,12 +593,9 @@
 <td>250mW</td>
 <td>1206</td>
 <td>3Ω</td>
-<td>9.9893Ω</td>
-<td>9.9897Ω</td>
-<td>9.9968Ω</td>
-<td>示数较稳定</td>
-<td>示数较稳定</td>
-<td>示数较稳定</td>
+<td>🟢9.9893Ω</td>
+<td>🟢9.9897Ω</td>
+<td>🟢9.9968Ω</td>
 </tr>
 <tr>
 <td>ARG06BTC1000</td>
@@ -625,12 +605,9 @@
 <td>250mW</td>
 <td>1206</td>
 <td>3Ω</td>
-<td>99.673Ω</td>
-<td>99.607Ω</td>
-<td>100.01Ω</td>
-<td>示数较稳定</td>
-<td>示数较稳定</td>
-<td>示数较稳定</td>
+<td>🟢99.673Ω</td>
+<td>🟢99.607Ω</td>
+<td>🟢100.01Ω</td>
 </tr>
 <tr>
 <td>ARG06BTC1001</td>
@@ -640,12 +617,9 @@
 <td>250mW</td>
 <td>1206</td>
 <td>1KΩ</td>
-<td>1.0001KΩ</td>
-<td>1.0000KΩ</td>
-<td>998.37Ω</td>
-<td>示数较稳定</td>
-<td>示数较稳定</td>
-<td>示数较稳定</td>
+<td>🟢1.0001KΩ</td>
+<td>🟢1.0000KΩ</td>
+<td>🟢998.37Ω</td>
 </tr>
 <tr>
 <td>ARG06BTC1002</td>
@@ -655,12 +629,9 @@
 <td>250mW</td>
 <td>1206</td>
 <td>1KΩ</td>
-<td>9.9750KΩ</td>
-<td>9.9774KΩ</td>
-<td>10.198KΩ</td>
-<td>示数较稳定</td>
-<td>示数较稳定</td>
-<td>示数较稳定</td>
+<td>🟢9.9750KΩ</td>
+<td>🟢9.9774KΩ</td>
+<td>🟢10.198KΩ</td>
 </tr>
 <tr>
 <td>ARG06BTC1003</td>
@@ -670,12 +641,9 @@
 <td>250mW</td>
 <td>1206</td>
 <td>1KΩ</td>
-<td>100.27KΩ</td>
-<td>100.44KΩ</td>
-<td>102.41KΩ</td>
-<td>示数较稳定</td>
-<td>示数较稳定</td>
-<td>示数较稳定</td>
+<td>🟢100.27KΩ</td>
+<td>🟢100.44KΩ</td>
+<td>🟢102.41KΩ</td>
 </tr>
 <tr>
 <td>ARG06BTC1004</td>
@@ -685,12 +653,9 @@
 <td>250mW</td>
 <td>1206</td>
 <td>1KΩ</td>
-<td>1.0736MΩ±0.0951MΩ</td>
-<td>1.0450MΩ±0.0654MΩ</td>
-<td>0.9600MΩ±0.1000MΩ</td>
-<td>示数随夹具的姿势影响较大</td>
-<td>示数随夹具的姿势影响较大</td>
-<td>示数随夹具的姿势影响很大</td>
+<td>🟠1.0736MΩ±0.0951MΩ</td>
+<td>🟠1.0450MΩ±0.0654MΩ</td>
+<td>🔴0.9600MΩ±0.1000MΩ</td>
 </tr>
 </tbody>
 </table>
@@ -723,9 +688,9 @@
 <td>C0G</td>
 <td>1206</td>
 <td>1K，1K，1K</td>
-<td>N/A</td>
-<td>19.862pF±6.708pF</td>
-<td>10.0871pF±0.0007pF</td>
+<td>🔴N/A</td>
+<td>🟠19.862pF±6.708pF</td>
+<td>🟢10.0871pF±0.0007pF</td>
 </tr>
 <tr>
 <td>CC1206FRNPO9BN101</td>
@@ -735,9 +700,9 @@
 <td>C0G</td>
 <td>1206</td>
 <td>1K，1K，1K</td>
-<td>N/A</td>
-<td>88.446pF±0.314pF</td>
-<td>97.821pF±0.083pF</td>
+<td>🔴N/A</td>
+<td>🟢88.446pF±0.314pF</td>
+<td>🟢97.821pF±0.083pF</td>
 </tr>
 <tr>
 <td>CC1206FRNPO9BN102</td>
@@ -747,9 +712,9 @@
 <td>C0G</td>
 <td>1206</td>
 <td>1K，1K，1K</td>
-<td>1.2400nF±0.2300nF</td>
-<td>1.0036nF±0.0007nF</td>
-<td>1.0046nF±0.0022nF</td>
+<td>🟡1.2400nF±0.2300nF</td>
+<td>🟢1.0036nF±0.0007nF</td>
+<td>🟢1.0046nF±0.0022nF</td>
 </tr>
 <tr>
 <td>CC1206FKNPO9BN103</td>
@@ -759,9 +724,9 @@
 <td>C0G</td>
 <td>1206</td>
 <td>1K，1K，1K</td>
-<td>9.200nF±0.2000nF</td>
-<td>9.9995nF±0.0005nF</td>
-<td>9.6054nF±0.0124nF</td>
+<td>🟢9.200nF±0.2000nF</td>
+<td>🟢9.9995nF±0.0005nF</td>
+<td>🟢9.6054nF±0.0124nF</td>
 </tr>
 <tr>
 <td>GRM31C5C1H104FA01L</td>
@@ -771,9 +736,9 @@
 <td>C0G</td>
 <td>1206</td>
 <td>1K，1K，3Ω</td>
-<td>98.579nF±0.099nF</td>
-<td>99.221nF±0.001nF</td>
-<td>98.936nF±0.038nF</td>
+<td>🟢98.579nF±0.099nF</td>
+<td>🟢99.221nF±0.001nF</td>
+<td>🟢98.936nF±0.038nF</td>
 </tr>
 </tbody>
 </table>
@@ -802,9 +767,9 @@
 <td>MKP</td>
 <td>插件</td>
 <td>3Ω，3Ω，3Ω</td>
-<td>0.9969uF±0.0508uF</td>
-<td>0.9998uF±0.0003uF</td>
-<td>1.0235uF±0.0078uF</td>
+<td>🟢0.9969uF±0.0508uF</td>
+<td>🟢0.9998uF±0.0003uF</td>
+<td>🟢1.0235uF±0.0078uF</td>
 </tr>
 </tbody>
 </table>
@@ -833,9 +798,9 @@
 <td>x5R</td>
 <td>0603</td>
 <td>1K，1K，1K</td>
-<td>795.99nF±0.15nF</td>
-<td>794.09nF±0.27nF</td>
-<td>720.03nF±0.16nF</td>
+<td>🟢795.99nF±0.15nF</td>
+<td>🟢794.09nF±0.27nF</td>
+<td>🟢720.03nF±0.16nF</td>
 </tr>
 <tr>
 <td>CL31A106KBHNNNE</td>
@@ -845,9 +810,9 @@
 <td>x5R</td>
 <td>1206</td>
 <td>3Ω，3Ω，3Ω</td>
-<td>7.0731uF±0.0586uF</td>
-<td>7.0041uF±0.0027uF</td>
-<td>7.2273uF±0.0005uF</td>
+<td>🟢7.0731uF±0.0586uF</td>
+<td>🟢7.0041uF±0.0027uF</td>
+<td>🟡5.8105uF±1.4174uF</td>
 </tr>
 <tr>
 <td>GRM31CR60J107KEA8L</td>
@@ -857,9 +822,9 @@
 <td>x5R</td>
 <td>1206</td>
 <td>3Ω，3Ω，3Ω</td>
-<td>80.085uF±0.042uF</td>
-<td>76.986uF±0.012uF</td>
-<td>49.416uF±0.079uF</td>
+<td>🟢80.085uF±0.042uF</td>
+<td>🟢76.986uF±0.012uF</td>
+<td>🟠29.400uF±10.453uF</td>
 </tr>
 </tbody>
 </table>
@@ -888,9 +853,9 @@
 <td>钽</td>
 <td>7343</td>
 <td>3Ω，3Ω，3Ω</td>
-<td>4.4065uF±0.1045uF</td>
-<td>4.5959uF±0.0001uF</td>
-<td>7.2000uF±.0400uF</td>
+<td>🟢4.4065uF±0.1045uF</td>
+<td>🟢4.5959uF±0.0001uF</td>
+<td>🟡3.5065uF±0.5465uF</td>
 </tr>
 <tr>
 <td>293D476X9020D2TE3</td>
@@ -900,9 +865,9 @@
 <td>钽</td>
 <td>7343</td>
 <td>3Ω，3Ω，3Ω</td>
-<td>47.320uF±0.301uF</td>
-<td>45.149uF±0.099uF</td>
-<td>79.000nH±1.000nH</td>
+<td>🟢47.320uF±0.301uF</td>
+<td>🟢45.149uF±0.099uF</td>
+<td>🟠20.883uF±9.112uF</td>
 </tr>
 <tr>
 <td>293D477X96R3D2TE3</td>
@@ -912,9 +877,9 @@
 <td>钽</td>
 <td>7343</td>
 <td>3Ω，3Ω，3Ω</td>
-<td>506.77uF±0.04uF</td>
-<td>459.93uF±0.01uF</td>
-<td>190.00nH±12.00nH</td>
+<td>🟢506.77uF±0.04uF</td>
+<td>🟢459.93uF±0.01uF</td>
+<td>🔴N/A</td>
 </tr>
 </tbody>
 </table>
@@ -943,9 +908,9 @@
 <td>钽</td>
 <td>7343</td>
 <td>3Ω，3Ω，3Ω</td>
-<td>10.086uF±0.086uF</td>
-<td>9.9675uF±9.0007uF</td>
-<td>5.9680uF±0.0021uF</td>
+<td>🟢10.086uF±0.086uF</td>
+<td>🟡9.4841uF±0.4834uF</td>
+<td>🟡7.9668uF±1.9986uF</td>
 </tr>
 <tr>
 <td>TAJD107K020RNJ</td>
@@ -955,9 +920,9 @@
 <td>钽</td>
 <td>7343</td>
 <td>3Ω，3Ω，3Ω</td>
-<td>100.08uF±0.03uF</td>
-<td>95.212uF±0.002uF</td>
-<td>12.884uF±0.252uF</td>
+<td>🟢100.08uF±0.03uF</td>
+<td>🟢95.212uF±0.002uF</td>
+<td>🟠44.923uF±24.429uF</td>
 </tr>
 <tr>
 <td>T491X108K006AT</td>
@@ -967,9 +932,9 @@
 <td>钽</td>
 <td>7343</td>
 <td>3Ω，3Ω，3Ω</td>
-<td>1.1450mF±0.0001mF</td>
-<td>912.43uF±0.33uF</td>
-<td>30.080uF±11.435uF</td>
+<td>🟢1.1450mF±0.0001mF</td>
+<td>🟢904.53912.43uF±0.33uF</td>
+<td>🔴N/A</td>
 </tr>
 </tbody>
 </table>
@@ -998,9 +963,9 @@
 <td>铝电解</td>
 <td>插件</td>
 <td>3Ω，3Ω，3Ω</td>
-<td>10.053mF±0.003mF</td>
-<td>8.8537mF±0.0026mF</td>
-<td>26.900uF±0.600uF</td>
+<td>🟢10.053mF±0.003mF</td>
+<td>🟢9.29268.8537mF±0.0026mF</td>
+<td>🔴N/A</td>
 </tr>
 </tbody>
 </table>
@@ -1049,7 +1014,6 @@
 <th>频率：15Hz</th>
 <th>频率：1KHz</th>
 <th>频率：100KHz</th>
-<th>备注</th>
 </tr>
 </thead>
 <tbody>
@@ -1060,10 +1024,9 @@
 <td>一体成型</td>
 <td>0630</td>
 <td>3Ω，3Ω，3Ω</td>
-<td>N/A</td>
-<td>145.77nH±67.71nH</td>
-<td>152.06nH±72.13nH</td>
-<td>示数随夹具的姿势影响很大</td>
+<td>🔴N/A</td>
+<td>🔴145.77nH±67.71nH</td>
+<td>🔴152.06nH±72.13nH</td>
 </tr>
 <tr>
 <td>APH0420T1R0M</td>
@@ -1072,10 +1035,9 @@
 <td>一体成型</td>
 <td>0420</td>
 <td>3Ω，3Ω，3Ω</td>
-<td>N/A</td>
-<td>1.0410uH±0.0719uH</td>
-<td>1.1034uH±0.0721uH</td>
-<td>示数随夹具的姿势影响中等</td>
+<td>🔴N/A</td>
+<td>🟡1.0410uH±0.0719uH</td>
+<td>🟡1.1034uH±0.0721uH</td>
 </tr>
 <tr>
 <td>SLO0420H100MTT</td>
@@ -1084,10 +1046,9 @@
 <td>一体成型</td>
 <td>0420</td>
 <td>3Ω，3Ω，3Ω</td>
-<td>8.2850uH±1.9650uH</td>
-<td>10.486uH±0.026uH</td>
-<td>10.228uH±0.026uH</td>
-<td>示数随夹具的姿势影响较小</td>
+<td>🟡8.2850uH±1.9650uH</td>
+<td>🟢10.486uH±0.026uH</td>
+<td>🟢10.228uH±0.026uH</td>
 </tr>
 <tr>
 <td>CYA1265-100UH</td>
@@ -1096,10 +1057,9 @@
 <td>一体成型</td>
 <td>1265</td>
 <td>3Ω，3Ω，3Ω</td>
-<td>113.63uH±0.32uH</td>
-<td>111.90uHuH±0.01uH</td>
-<td>124.62uH±0.01uH</td>
-<td>示数随夹具的姿势影响较小</td>
+<td>🟢113.63uH±0.32uH</td>
+<td>🟢111.90uHuH±0.01uH</td>
+<td>🟢124.62uH±0.01uH</td>
 </tr>
 </tbody>
 </table>
@@ -1116,7 +1076,6 @@
 <th>频率：15Hz</th>
 <th>频率：1KHz</th>
 <th>频率：100KHz</th>
-<th>备注</th>
 </tr>
 </thead>
 <tbody>
@@ -1127,10 +1086,9 @@
 <td>色环</td>
 <td>插件</td>
 <td>3Ω，3Ω，3Ω</td>
-<td>1.0031mH±0.0021mH</td>
-<td>977.38uH±0.35uH</td>
-<td>861.99uH±0.55uH</td>
-<td>示数随夹具的姿势影响较小</td>
+<td>🟢1.0031mH±0.0021mH</td>
+<td>🟢977.38uH±0.35uH</td>
+<td>🟢861.99uH±0.55uH</td>
 </tr>
 <tr>
 <td>XR0510-103</td>
@@ -1139,10 +1097,9 @@
 <td>色环</td>
 <td>插件</td>
 <td>1K，1K，1K</td>
-<td>10.181mH±0.082mH</td>
-<td>9.7007mH±0.0220mH</td>
-<td>9.3157mH±0.0072mH</td>
-<td>示数随夹具的姿势影响较小</td>
+<td>🟢10.181mH±0.082mH</td>
+<td>🟢9.7007mH±0.0220mH</td>
+<td>🟢9.3157mH±0.0072mH</td>
 </tr>
 <tr>
 <td>XR0514-104</td>
@@ -1151,10 +1108,9 @@
 <td>色环</td>
 <td>插件</td>
 <td>1K，1K，1K</td>
-<td>100.74mH±0.0017mH</td>
-<td>98.143mH±0.001mH</td>
-<td>177.60mH±11.60mH</td>
-<td>示数随夹具的姿势影响中等</td>
+<td>🟢100.74mH±0.0017mH</td>
+<td>🟢98.143mH±0.001mH</td>
+<td>🟡177.60mH±11.60mH</td>
 </tr>
 </tbody>
 </table>
