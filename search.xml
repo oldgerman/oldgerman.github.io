@@ -347,9 +347,9 @@
       
         <tags>
             
-            <tag> stm32 </tag>
-            
             <tag> type-c </tag>
+            
+            <tag> stm32 </tag>
             
         </tags>
       
@@ -399,9 +399,9 @@
       
         <tags>
             
-            <tag> type-c </tag>
-            
             <tag> esp8266 </tag>
+            
+            <tag> type-c </tag>
             
         </tags>
       
