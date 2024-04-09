@@ -72,7 +72,7 @@
 <meta property="og:image" content="http://oldgerman.github.io/b8304ba5/%E5%A4%B9%E5%85%B7%EF%BC%9ASMD%E6%B5%8B%E8%AF%95%E5%A4%B9%E5%85%B7%E8%8D%89%E7%A8%BF.png">
 <meta property="og:image" content="http://oldgerman.github.io/b8304ba5/%E6%B5%8B%E9%87%8F%EF%BC%9A%E7%94%B5%E9%98%BB%EF%BC%9A%E5%BC%80%E5%B0%94%E6%96%87%E7%94%B5%E9%98%BB%E6%B5%8B%E8%AF%95%E6%9D%BF.jpg">
 <meta property="og:image" content="http://oldgerman.github.io/b8304ba5/%E6%B5%8B%E9%87%8F%EF%BC%9A%E7%94%B5%E9%98%BB%EF%BC%9A%E5%BC%80%E5%B0%94%E6%96%87%E7%94%B5%E9%98%BB%E6%B5%8B%E8%AF%95%E6%9D%BF%EF%BC%9A%E5%A4%B9%E5%AD%90%E5%A4%B9%E6%8C%81%E5%A7%BF%E5%8A%BF.jpg">
-<meta property="og:updated_time" content="2024-04-09T16:58:19.090Z">
+<meta property="og:updated_time" content="2024-04-09T17:01:27.059Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mR-71-RE校准测试">
 <meta name="twitter:description" content="目前只记录了一台设备的测量数据，不具备普遍性，欢迎补充">
@@ -307,7 +307,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-10 00:58:19" itemprop="dateModified" datetime="2024-04-10T00:58:19+08:00">2024-04-10</time>
+                <time title="修改时间：2024-04-10 01:01:27" itemprop="dateModified" datetime="2024-04-10T01:01:27+08:00">2024-04-10</time>
               </span>
             
           
@@ -443,8 +443,8 @@
 <h3 id="问题校准后再次短路夹子时还是会有几mω底数"><a class="markdownIt-Anchor" href="#问题校准后再次短路夹子时还是会有几mω底数"></a> 问题：校准后再次短路夹子时，还是会有几mΩ底数？</h3>
 <p>参考：<a href="https://www.hioki.co.jp/file/cmw/userguides/3813/pdf/?action=browser&amp;log=0&amp;lang=jp" target="_blank" rel="noopener">日置电阻计RM3544用户指南</a>：P9（开尔文测试夹调零）、P10（电流电压探针调零）</p>
 <p><img src="/b8304ba5/%E6%97%A5%E7%BD%AE%E7%94%B5%E9%98%BB%E8%AE%A1RM3544%E7%94%A8%E6%88%B7%E6%8C%87%E5%8D%97%EF%BC%9A%E5%BC%80%E5%B0%94%E6%96%87%E6%B5%8B%E8%AF%95%E5%A4%B9%E5%92%8C%E7%94%B5%E5%8E%8B%E7%94%B5%E6%B5%81%E6%8E%A2%E9%92%88%E8%B0%83%E9%9B%B6.png" alt></p>
-<p>如果校准时短路夹子的姿势随意，测量时也随意短路夹子，那么各个挡位可能还会有几mΩ底数，测量小于10mΩ的电阻误差会比较大，产生这种现象的原因，可能是短路夹子时，受到了短路节点电阻R<sub>short</sub>的影响：激励源（AD8066）电流流过R<sub>short</sub>的压降被仪放（AD8221）测得，同时，R<sub>short</sub>串入回路也影响了短路时的电流（被AD8606测得）</p>
-<p>这种情况可以再开路短路校准一次，根据测试夹具的不同，短路姿势也稍有不同：</p>
+<p>如果校准时短路夹子的姿势随意，测量时也随意短路夹子，那么各个挡位可能还会有几mΩ底数，测量小于10mΩ的电阻误差会比较大，产生这种现象的原因，可能是短路夹子时，受到了上图R<sub>short</sub>的影响：激励源（AD8066）电流流过R<sub>short</sub>的压降被仪放（AD8221）测得，同时，R<sub>short</sub>串入回路也影响了短路时的电流（被AD8606测得）</p>
+<p>这种情况可以再开路短路校准一次，以避免R<sub>short</sub>的影响，根据测试夹具的不同，短路姿势也稍有不同：</p>
 <ul>
 <li>开尔文测试夹：交错夹在一起短路时，电流端的触片优先叠在一起，电压端的触片优先叠在一起</li>
 <li>电流电压探针：首先电流端互相短路，然后电压端子互相短路，最后两个短路节点互相短路</li>
