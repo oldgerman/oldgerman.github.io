@@ -83,7 +83,7 @@
 <meta property="og:image" content="http://oldgerman.github.io/74fbdec2/AT24C16_Dev_Addr.png">
 <meta property="og:image" content="http://oldgerman.github.io/74fbdec2/AT24C16_%E5%86%99%E5%88%86%E6%9E%901_%E6%95%B0%E6%8D%AE%E5%88%86%E5%B8%83.JPG">
 <meta property="og:image" content="http://oldgerman.github.io/74fbdec2/union%E5%86%85%E5%B5%8C%E4%BD%8D%E5%9F%9F%E7%BB%93%E6%9E%84%E4%BD%93%E4%BD%9C%E4%B8%BAcolum%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0-Debug%E4%B8%8B%E6%9F%A5%E7%9C%8B%E4%BD%8D%E5%9F%9F%E4%BF%AE%E6%94%B9%E6%83%85%E5%86%B5.png">
-<meta property="og:updated_time" content="2024-04-11T07:57:57.849Z">
+<meta property="og:updated_time" content="2024-04-11T08:10:32.817Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SAU-G0 EEPROM笔记">
 <meta name="twitter:description" content="本篇是 SAU-G0 EEPROM 芯片应用笔记的随便记录版">
@@ -318,7 +318,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-11 15:57:57" itemprop="dateModified" datetime="2024-04-11T15:57:57+08:00">2024-04-11</time>
+                <time title="修改时间：2024-04-11 16:10:32" itemprop="dateModified" datetime="2024-04-11T16:10:32+08:00">2024-04-11</time>
               </span>
             
           
@@ -403,7 +403,7 @@
 <p>根据Flash的擦写特性，如果有一个1byte的数据变化需求，那它存储所在的页（或者扇区、或者最小擦除粒度）需要先整块擦除再写入，不能只修改该页的1个byte同时不影响该页原有的其他数据，那么原有的其他数据如果要保留怎么办，有两种方式：</p>
 <ol>
 <li>
-<p>找一个空的页，将原有的有用数据的页整个复制过去，将原来的页擦除，将1byte的数据变化+复制过去的页复制到原来的flash，最后零时使用的这个空的页擦除。这个方法省MCU的内存，不需要在SRAM中存Flash页里的所有相关数据作为复制操作的缓冲区</p>
+<p>找一个空的页，将原有的有用数据的页整个复制过去，将原来的页擦除，将1byte的数据变化+复制过去的页复制到原来的flash，最后临时使用的这个空的页擦除。这个方法省MCU的内存，不需要在SRAM中存Flash页里的所有相关数据作为复制操作的缓冲区</p>
 </li>
 <li>
 <p>在SRAM中总是存在一个flash修改页数据的全局变量，当该页发生一个1byte的数据变化需求，将该页的数据整个拷贝到SRAM中，擦除该页，再将1byte的数据变化+SRAM中的flash数据副本复制到原来的flash，这个方法耗费MCU的内存，需要在SRAM中存待修改的Flash页的所有相关数据，当页大小比较大时，比如STM32F4 Flash分布和G031不一样，在STM32F4的编程手册上可找到FLASH是按照Sector划分的：F4系列最小擦除粒度为扇区（最小的16K，但有16K、64K、128K三种大小）,那么当你修改的扇区中的有用数据有比如14K时，正好F4的SRAM剩余空间不够14KB，那么使用方式1，留一个16KB的扇区做复制备份，才是行得通的方法</p>
@@ -412,9 +412,9 @@
 <p><img src="/74fbdec2/F4_FLASH%E7%9A%84Sector%E5%88%92%E5%88%86.png" alt="F4_FLASH的Sector划分"></p>
 <p>可见，如果需要频繁地修改非易失性存储器的数据，而且单次改动的数据量又很小，比如只占最小擦除粒度的 1/100，如果使用方式1，得磨损2次，如果使用方式2磨损1次，而且，STM32的Flash是有擦写寿命的，例如G031最坏情况只有1万次：</p>
 <p><img src="/74fbdec2/G031%E6%93%A6%E5%86%99%E5%AF%BF%E5%91%BD.png" alt="6B509ED7C29973CE1FBBE74496ABB86B"></p>
-<p>对于SAU-G0，若使用flash每小时存一次采集数据，每天改动24次flash数据，那么416天后，G031的该页将面临报废（实际上2KB寸不下1万组采集数据hhh）</p>
+<p>对于SAU-G0，若使用flash的一个2KB页每小时存一次采集数据，每天改动24次flash数据，那么416天后，G031的该页将面临报废（实际上2KB存不下这些采集数据hhh）</p>
 <p>可能又有疑问，计算机的固态硬盘不也是Flash吗，每天面临比stm32还要多得多的擦写需求，那为啥没有那么容易报废？</p>
-<p>好问题，因为固态硬盘除了存储介质是NAND Flash，每一块盘都带有闪存控制器，闪存翻译层的平均磨损逻辑，可以将擦除平均分布在所有的块上，最大化每个块的寿命，对于坏块自动屏蔽处理，从预留OP中开辟新的块来代替，而STM32是NOR Flash，没有（这么nb的）闪存主控，无法整这些高级骚操作，按照产品规格书的Flash最坏擦除寿命进行保守设计才是最佳</p>
+<p>好问题，因为固态硬盘除了存储介质是NAND Flash，每一块盘都带有闪存控制器，闪存翻译层的平均磨损逻辑，可以将擦除平均分布在所有的块上，最大化每个块的寿命，对于坏块自动屏蔽处理，从预留OP中开辟新的块来代替，而STM32是NOR Flash，没有（这么nb的）闪存主控，无法整这些高级骚操作，只能按照产品规格书的Flash最坏擦除寿命进行保守的应用</p>
 <p>EEPROM最小擦写粒度是1byte，可以按1byte读写，也可以多个byte读写，不需要地址对齐，擦写寿命100万次，相比G031的 Flash，对于频繁的小容量数据存取EEPROM再合适不过</p>
 <h2 id="eeprom参数表格at24cxx系列"><a class="markdownIt-Anchor" href="#eeprom参数表格at24cxx系列"></a> EEPROM参数表格（AT24Cxx系列）</h2>
 <p>所有的这些型号都支持字节读写，即每个byte都有独立的地址，若地址指针寻址位数不够，使用I2C地址的P位来倍增地址指针寻址数量，例如1片24C16，I2C地址就占用0x50~0x57（nnd居然跟我用的PCF2129的0x51地址冲突了一个），还要注意发送的地址指针地址与同一I2C总线上的设备是否冲突，例如：<a href="https://www.cnblogs.com/xklzw/p/10521820.html" target="_blank" rel="noopener">X1226 和 AT24C16 地址冲突问题</a></p>
