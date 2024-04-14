@@ -72,7 +72,7 @@
 <meta property="og:image" content="http://oldgerman.github.io/b8304ba5/%E5%A4%B9%E5%85%B7%EF%BC%9A%E5%8F%B0%E5%BC%8FLCR%E5%A4%B9%E5%85%B7.png">
 <meta property="og:image" content="http://oldgerman.github.io/b8304ba5/%E6%B5%8B%E9%87%8F%EF%BC%9A%E7%94%B5%E9%98%BB%EF%BC%9A%E5%BC%80%E5%B0%94%E6%96%87%E7%94%B5%E9%98%BB%E6%B5%8B%E8%AF%95%E6%9D%BF.jpg">
 <meta property="og:image" content="http://oldgerman.github.io/b8304ba5/%E6%B5%8B%E9%87%8F%EF%BC%9A%E7%94%B5%E9%98%BB%EF%BC%9A%E5%BC%80%E5%B0%94%E6%96%87%E7%94%B5%E9%98%BB%E6%B5%8B%E8%AF%95%E6%9D%BF%EF%BC%9A%E5%A4%B9%E5%AD%90%E5%A4%B9%E6%8C%81%E5%A7%BF%E5%8A%BF.jpg">
-<meta property="og:updated_time" content="2024-04-14T10:36:16.819Z">
+<meta property="og:updated_time" content="2024-04-14T10:38:48.823Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mR-71-RE校准测试">
 <meta name="twitter:description" content="目前只记录了一台设备的测量数据，不具备普遍性，欢迎补充">
@@ -307,7 +307,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-14 18:36:16" itemprop="dateModified" datetime="2024-04-14T18:36:16+08:00">2024-04-14</time>
+                <time title="修改时间：2024-04-14 18:38:48" itemprop="dateModified" datetime="2024-04-14T18:38:48+08:00">2024-04-14</time>
               </span>
             
           
@@ -486,7 +486,7 @@
 </ul>
 <h3 id="夹具的影响"><a class="markdownIt-Anchor" href="#夹具的影响"></a> 夹具的影响</h3>
 <p>参考：<a href="https://docs.keysight.com/kkbopen/lcr100ohm" target="_blank" rel="noopener">LCR表使用自制夹具如何才能精确的测试小于100ohm阻抗的器件</a></p>
-<p>虽然开路和短路校准可以补偿夹具和测试线杂散参数对测量结果的影响，但与开尔文测试夹连接的四根RG316线缆，都是以MCX连接器与主机相连的。MCX的优点是，连接处可以360度旋转适应线缆的角度，但用了一段时间，发现这也是显著的缺点。旋转或拉扯的次数多了，MCX连接处就会松动，测量元件时不同的夹持姿势，都会影响MCX连接处的接触情况，即测试线的杂散参数变化了，那么以前保存的开路和短路校准数据不再适用，尤其是高测试频率下，这种变化对低阻抗器件的测量结果影响很大。例如在100KHz时，两夹子间的距离、线缆长度或形状、MCX连接器的旋转角度，都对测量值有较大影响</p>
+<p>虽然开路和短路校准可以补偿夹具和测试线杂散参数对测量结果的影响，但与开尔文测试夹连接的四根RG316线缆，都是以MCX连接器与主机相连的。MCX的优点是，连接处可以360度旋转适应线缆的角度，但用了一段时间，发现这也是显著的缺点。旋转或拉扯的次数多了，MCX连接处就会松动，测量元件时不同的夹持姿势，都会影响MCX连接处的接触情况，即测试线的杂散参数变化了，那么以前保存的开路和短路校准数据不再适用，尤其是高测试频率下，这种变化对测量结果影响很大，例如在100KHz时，两夹子间的距离、线缆长度或形状、MCX连接器的旋转角度，都对测量值有较大影响</p>
 <p>这种影响可以通过引线更短，覆盖范围更小，接触更稳定的夹具降低，由于固件能保存5种测试夹具的校准数据，诸位可以自行发挥，设计多种夹具试试</p>
 <p>常见台式电桥的夹具，不论轴向、SMD、开尔文夹，均通过有4个BNC连接器的金属盒与机器相连：</p>
 <p><a href="http://www.lokmita.lt/en/test,measurement/component,testers/lcr,meters/lcr,accessories/test,fixture,for,axial,radial,leaded,components,up,to,30mhz,lcr,05a.html" target="_blank" rel="noopener">Lokmita test fixture</a>（左）、<a href="https://www.keysight.com/us/en/product/16034G/smd-test-fixture.html" target="_blank" rel="noopener">Keysight 16034G</a>（中）、<a href="https://www.keysight.com/us/en/product/16089A/large-kelvin-clip-lead.html" target="_blank" rel="noopener">Keysight 16089A</a>（右）</p>
