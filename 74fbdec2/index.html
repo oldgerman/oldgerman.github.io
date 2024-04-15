@@ -82,8 +82,8 @@
 <meta property="og:image" content="http://oldgerman.github.io/74fbdec2/AT24C01-02-32-64-128-256-512_Dev_Addr.png">
 <meta property="og:image" content="http://oldgerman.github.io/74fbdec2/AT24C16_Dev_Addr.png">
 <meta property="og:image" content="http://oldgerman.github.io/74fbdec2/AT24C16_%E5%86%99%E5%88%86%E6%9E%901_%E6%95%B0%E6%8D%AE%E5%88%86%E5%B8%83.JPG">
-<meta property="og:image" content="http://oldgerman.github.io/74fbdec2/union%E5%86%85%E5%B5%8C%E4%BD%8D%E5%9F%9F%E7%BB%93%E6%9E%84%E4%BD%93%E4%BD%9C%E4%B8%BAcolum%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0-Debug%E4%B8%8B%E6%9F%A5%E7%9C%8B%E4%BD%8D%E5%9F%9F%E4%BF%AE%E6%94%B9%E6%83%85%E5%86%B5.png">
-<meta property="og:updated_time" content="2024-04-11T08:16:13.146Z">
+<meta property="og:image" content="http://oldgerman.github.io/74fbdec2/union%E5%86%85%E5%B5%8C%E4%BD%8D%E5%9F%9F%E7%BB%93%E6%9E%84%E4%BD%93%E4%BD%9C%E4%B8%BAcolum%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0Debug%E4%B8%8B%E6%9F%A5%E7%9C%8B%E4%BD%8D%E5%9F%9F%E4%BF%AE%E6%94%B9%E6%83%85%E5%86%B5.png">
+<meta property="og:updated_time" content="2024-04-15T02:01:05.401Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SAU-G0 EEPROM笔记">
 <meta name="twitter:description" content="本篇是 SAU-G0 EEPROM 芯片应用笔记的随便记录版">
@@ -318,7 +318,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-11 16:16:13" itemprop="dateModified" datetime="2024-04-11T16:16:13+08:00">2024-04-11</time>
+                <time title="修改时间：2024-04-15 10:01:05" itemprop="dateModified" datetime="2024-04-15T10:01:05+08:00">2024-04-15</time>
               </span>
             
           
@@ -1013,7 +1013,7 @@
 <p>changeSettingsBitByMask()实现修改位，类似于I2C读写寄存器指定位：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//路径 Page.cpp</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">changeSettingsBitByMask</span><span class="params">(settingsBitsType * ptrBits, <span class="keyword">uint8_t</span> mask)</span></span>&#123;</span><br><span class="line">    <span class="keyword">uint8_t</span> b = ptrBits-&gt;ctrl;    <span class="comment">//先备份一个</span></span><br><span class="line">    (b &amp; mask)?            <span class="comment">//若b对应mask为1的位为1</span></span><br><span class="line">        (b = b &amp; ~mask)        <span class="comment">//不改变b对应mask为0位的值，将mask为1的值改为0</span></span><br><span class="line">    :                    <span class="comment">//b对应mask为1的位为0</span></span><br><span class="line">        (b = b | mask);        <span class="comment">//不改变b对应mask为0位的值，将mask为0的值改为1</span></span><br><span class="line"><span class="comment">//参考                b = (data != 0) ? (b | mask) : (b &amp; ~mask);</span></span><br><span class="line">    ptrBits-&gt;ctrl = b;    <span class="comment">//保存b到结构体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>测试union内嵌位域结构体作为colum构造函数参数，在Debug下查看位域修改情况：</p>
-<p><img src="/74fbdec2/union%E5%86%85%E5%B5%8C%E4%BD%8D%E5%9F%9F%E7%BB%93%E6%9E%84%E4%BD%93%E4%BD%9C%E4%B8%BAcolum%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0-Debug%E4%B8%8B%E6%9F%A5%E7%9C%8B%E4%BD%8D%E5%9F%9F%E4%BF%AE%E6%94%B9%E6%83%85%E5%86%B5.png" alt="union内嵌位域结构体作为colum构造函数参数-Debug下查看位域修改情况"></p>
+<p><img src="/74fbdec2/union%E5%86%85%E5%B5%8C%E4%BD%8D%E5%9F%9F%E7%BB%93%E6%9E%84%E4%BD%93%E4%BD%9C%E4%B8%BAcolum%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0Debug%E4%B8%8B%E6%9F%A5%E7%9C%8B%E4%BD%8D%E5%9F%9F%E4%BF%AE%E6%94%B9%E6%83%85%E5%86%B5.png" alt="union内嵌位域结构体作为colum构造函数参数Debug下查看位域修改情况"></p>
 <h3 id="sau-g0采集数据的格式"><a class="markdownIt-Anchor" href="#sau-g0采集数据的格式"></a> SAU-G0采集数据的格式</h3>
 <p>存SAU-G0采集数据的EEPROM建议24C16（16Kbit容量）以上，因为 24C16刚好是2KB，与G031 Flash的页大小一样，存满了可以拷贝到G031的Flash的一个页里</p>
 <p>对于24C16，每小时存一组（温度16bit+湿度16bit）的采集数据，可以存20天，消耗1920byte，余下的128byte，支持每天用6byte存一次日期，还余下8byte，6byte日期数据如下：</p>
