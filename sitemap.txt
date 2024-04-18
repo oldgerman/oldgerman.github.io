@@ -10,7 +10,6 @@ http://oldgerman.github.io/d5ffc54/
 http://oldgerman.github.io/271ae56e/
 http://oldgerman.github.io/b85c9bb4/
 http://oldgerman.github.io/f3fd3c5b/
-http://oldgerman.github.io/about/index.html
 http://oldgerman.github.io/5cea6320/
 http://oldgerman.github.io/b7d79828/
 http://oldgerman.github.io/eeea93b8/
@@ -27,15 +26,15 @@ http://oldgerman.github.io/2b131f00/
 http://oldgerman.github.io/7cbfbaea/
 http://oldgerman.github.io/6722c02f/
 http://oldgerman.github.io/categories/index.html
-http://oldgerman.github.io/tags/index.html
 http://oldgerman.github.io/tags/index-1.html
+http://oldgerman.github.io/tags/index.html
 http://oldgerman.github.io/rank/index.html
 http://oldgerman.github.io/
 http://oldgerman.github.io/tags/stm32/
 http://oldgerman.github.io/tags/type-c/
 http://oldgerman.github.io/tags/Kicad/
-http://oldgerman.github.io/tags/%E5%8A%A0%E9%80%9F%E5%BA%A6%E8%AE%A1/
 http://oldgerman.github.io/tags/esp8266/
+http://oldgerman.github.io/tags/%E5%8A%A0%E9%80%9F%E5%BA%A6%E8%AE%A1/
 http://oldgerman.github.io/tags/esp32/
 http://oldgerman.github.io/tags/%E5%8D%8A%E5%AF%BC%E4%BD%93%E5%85%83%E4%BB%B6/
 http://oldgerman.github.io/tags/STM32CubeIDE/
