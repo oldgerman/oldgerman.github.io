@@ -200,15 +200,6 @@
   </url>
   
   <url>
-    <loc>http://oldgerman.github.io/561a0aca/</loc>
-    
-    <lastmod>2022-08-17</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://oldgerman.github.io/b216a5e8/</loc>
     
     <lastmod>2022-08-17</lastmod>
@@ -218,7 +209,7 @@
   </url>
   
   <url>
-    <loc>http://oldgerman.github.io/7cbfbaea/</loc>
+    <loc>http://oldgerman.github.io/561a0aca/</loc>
     
     <lastmod>2022-08-17</lastmod>
     
@@ -228,6 +219,15 @@
   
   <url>
     <loc>http://oldgerman.github.io/2b131f00/</loc>
+    
+    <lastmod>2022-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://oldgerman.github.io/7cbfbaea/</loc>
     
     <lastmod>2022-08-17</lastmod>
     
@@ -254,15 +254,6 @@
   </url>
   
   <url>
-    <loc>http://oldgerman.github.io/tags/index-1.html</loc>
-    
-    <lastmod>2022-08-17</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://oldgerman.github.io/rank/index.html</loc>
     
     <lastmod>2022-08-17</lastmod>
@@ -280,6 +271,15 @@
     <priority>0.6</priority>
   </url>
   
+  <url>
+    <loc>http://oldgerman.github.io/tags/index-1.html</loc>
+    
+    <lastmod>2022-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
 
   <url>
     <loc>http://oldgerman.github.io/</loc>
@@ -288,13 +288,6 @@
     <priority>1.0</priority>
   </url>
 
-  
-  <url>
-    <loc>http://oldgerman.github.io/tags/Kicad/</loc>
-    <lastmod>2024-04-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
   
   <url>
     <loc>http://oldgerman.github.io/tags/esp8266/</loc>
@@ -312,6 +305,13 @@
   
   <url>
     <loc>http://oldgerman.github.io/tags/stm32/</loc>
+    <lastmod>2024-04-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://oldgerman.github.io/tags/Kicad/</loc>
     <lastmod>2024-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -425,13 +425,6 @@
   </url>
   
   <url>
-    <loc>http://oldgerman.github.io/categories/SAU-G0/</loc>
-    <lastmod>2024-04-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://oldgerman.github.io/categories/STM32/</loc>
     <lastmod>2024-04-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -440,6 +433,13 @@
   
   <url>
     <loc>http://oldgerman.github.io/categories/%E4%BB%AA%E8%A1%A8%E5%88%B6%E4%BD%9C/</loc>
+    <lastmod>2024-04-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://oldgerman.github.io/categories/SAU-G0/</loc>
     <lastmod>2024-04-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
