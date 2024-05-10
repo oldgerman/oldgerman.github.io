@@ -72,7 +72,7 @@
 <meta property="og:image" content="http://oldgerman.github.io/b8304ba5/%E5%A4%B9%E5%85%B7%EF%BC%9A%E5%8F%B0%E5%BC%8FLCR%E5%A4%B9%E5%85%B7.png">
 <meta property="og:image" content="http://oldgerman.github.io/b8304ba5/%E6%B5%8B%E9%87%8F%EF%BC%9A%E7%94%B5%E9%98%BB%EF%BC%9A%E5%BC%80%E5%B0%94%E6%96%87%E7%94%B5%E9%98%BB%E6%B5%8B%E8%AF%95%E6%9D%BF.jpg">
 <meta property="og:image" content="http://oldgerman.github.io/b8304ba5/%E6%B5%8B%E9%87%8F%EF%BC%9A%E7%94%B5%E9%98%BB%EF%BC%9A%E5%BC%80%E5%B0%94%E6%96%87%E7%94%B5%E9%98%BB%E6%B5%8B%E8%AF%95%E6%9D%BF%EF%BC%9A%E5%A4%B9%E5%AD%90%E5%A4%B9%E6%8C%81%E5%A7%BF%E5%8A%BF.jpg">
-<meta property="og:updated_time" content="2024-04-14T10:44:58.399Z">
+<meta property="og:updated_time" content="2024-05-10T01:57:38.452Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mR-71-RE校准测试">
 <meta name="twitter:description" content="目前只记录了一台设备的测量数据，不具备普遍性，欢迎补充">
@@ -307,7 +307,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-14 18:44:58" itemprop="dateModified" datetime="2024-04-14T18:44:58+08:00">2024-04-14</time>
+                <time title="修改时间：2024-05-10 09:57:38" itemprop="dateModified" datetime="2024-05-10T09:57:38+08:00">2024-05-10</time>
               </span>
             
           
@@ -356,7 +356,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>6.1k</span>
+              <span>6.2k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -765,7 +765,7 @@
 </tr>
 </tbody>
 </table>
-<p>1uF ，±5%，MKP电容</p>
+<p>1uF ~ 100uF ，±5%，MKP电容</p>
 <table>
 <thead>
 <tr>
@@ -793,6 +793,30 @@
 <td>🟡1.024uF±0.032uF</td>
 <td>🟢0.9915uF±0.0005uF</td>
 <td>🟢1.0361uF±0.0038uF</td>
+</tr>
+<tr>
+<td>MKP20106J2EAC461625</td>
+<td>10uF</td>
+<td>±5%</td>
+<td>250V</td>
+<td>MKP</td>
+<td>轴向</td>
+<td>3Ω，3Ω，3Ω</td>
+<td>🟢9.8162uF±0.0552uF</td>
+<td>🟢9.8206uF±0.0003uF</td>
+<td>🔴7.7880uF±2.6880uF</td>
+</tr>
+<tr>
+<td>WLS1070800</td>
+<td>100uF</td>
+<td>±5%</td>
+<td>800V</td>
+<td>MKP</td>
+<td>轴向</td>
+<td>3Ω，3Ω，3Ω</td>
+<td>🟢101.22uF±0.04uF</td>
+<td>🟢100.42uF±0.01uF</td>
+<td>🔴N/A</td>
 </tr>
 </tbody>
 </table>
@@ -961,49 +985,6 @@
 </tr>
 </tbody>
 </table>
-<p>10000uF ~ 100000uF，±10%，湿式钽超级电容</p>
-<table>
-<thead>
-<tr>
-<th>型号</th>
-<th>容值</th>
-<th>误差</th>
-<th>电压</th>
-<th>类型</th>
-<th>封装</th>
-<th>挡位</th>
-<th>频率：15Hz</th>
-<th>频率：1KHz</th>
-<th>频率：100KHz</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>STE10000-10T4KI</td>
-<td>10000uF</td>
-<td>±10%</td>
-<td>10V</td>
-<td>钽</td>
-<td>轴向</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>TWDE104K003CB0Z0700</td>
-<td>100000uF</td>
-<td>±10%</td>
-<td>3V</td>
-<td>钽</td>
-<td>轴向</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
 <p>10000uF ~ 100000uF，±20%，铝电解电容</p>
 <table>
 <thead>
@@ -1030,25 +1011,25 @@
 <td>牛角型</td>
 <td>3Ω，3Ω，3Ω</td>
 <td>🟢10.053mF±0.003mF</td>
-<td>🟢8.8537mF±0.0026mF</td>
+<td>🟡8.8900mF±0.1888mF</td>
 <td>🔴N/A</td>
 </tr>
 <tr>
-<td>B41456B4100M000</td>
+<td>B41456B5100M000</td>
 <td>100000uF</td>
 <td>±20%</td>
-<td>16V</td>
+<td>25V</td>
 <td>铝电解</td>
 <td>螺栓型</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>3Ω，3Ω，3Ω</td>
+<td>🟢94.950mF±0.039mF</td>
+<td>🔴100.06mF±45.94mF</td>
+<td>🔴N/A</td>
 </tr>
 </tbody>
 </table>
 <h3 id="测量电感"><a class="markdownIt-Anchor" href="#测量电感"></a> 测量：电感</h3>
-<p>100nH ~ 100uH，±20%，一体成型电感，随便找的几个</p>
+<p>100nH ~ 100uH，±20%，一体成型电感，随便找了几个</p>
 <table>
 <thead>
 <tr>
@@ -1158,49 +1139,6 @@
 <td>🟢100.74mH±0.17mH</td>
 <td>🟢98.143mH±0.001mH</td>
 <td>🟠177.60mH±11.60mH</td>
-</tr>
-</tbody>
-</table>
-<p>1H ~ 10H 电感</p>
-<table>
-<thead>
-<tr>
-<th>型号</th>
-<th>感值</th>
-<th>误差</th>
-<th>电压</th>
-<th>类型</th>
-<th>封装</th>
-<th>挡位</th>
-<th>频率：15Hz</th>
-<th>频率：1KHz</th>
-<th>频率：100KHz</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>1H</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>10H</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
 </tr>
 </tbody>
 </table>
