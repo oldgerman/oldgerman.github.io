@@ -71,7 +71,7 @@
 <meta property="og:image" content="http://oldgerman.github.io/561a0aca/5.jpg">
 <meta property="og:image" content="http://oldgerman.github.io/561a0aca/6.jpg">
 <meta property="og:image" content="http://oldgerman.github.io/561a0aca/0.png">
-<meta property="og:updated_time" content="2024-05-13T14:53:26.527Z">
+<meta property="og:updated_time" content="2024-05-13T15:39:24.200Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="小米平板1-ubuntu系统_刷机篇">
 <meta name="twitter:description" content="米板1代闲置？手把手教你打造linux平板，让老黄的核弹继续发挥余热！">
@@ -306,7 +306,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-13 22:53:26" itemprop="dateModified" datetime="2024-05-13T22:53:26+08:00">2024-05-13</time>
+                <time title="修改时间：2024-05-13 23:39:24" itemprop="dateModified" datetime="2024-05-13T23:39:24+08:00">2024-05-13</time>
               </span>
             
           
@@ -380,7 +380,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>半年前博主在学习C语言语法，无奈时间较零散，砖头书不能随身带，就用se看电子书，渐渐想随时敲敲代码跑跑程序（光看书实在是太无聊了），与此同时，也在鼓捣linux（其实那时手头连一个运行linux的电脑都没），于是就开始选设备，从树梅派挑到nexus7再到chromebook，额。。。买东西真累，想起手头有块闲置的一代小米平板，先是用termux凑合，再是安装Kali，用ssh登录本地端口，在安卓环境并行运行linux，emmm，没有GUI的linux真难受。。。最后求助万能的google，找到4PDA论坛mocha大神从英伟达tegra-k1开发板上移植的ubuntu14.04<a href="https://4pda.ru/forum/index.php?showtopic=821143" target="_blank" rel="noopener">项目地址</a>，成功刷入小米平板！</p><a id="more"></a>
+        <p><s>半年前在学习C语言语法，无奈时间较零散，砖头书不能随身带，就用se看电子书，渐渐想随时敲敲代码跑跑程序（光看书实在是太无聊了），与此同时，也在鼓捣linux（其实那时手头连一个运行linux的电脑都没），于是就开始选设备，从树梅派挑到nexus7再到chromebook，额。。。买东西真累</s></p><p>想起手头有块闲置的一代小米平板，先是用termux凑合，再是安装Kali，用ssh登录本地端口，在安卓环境并行运行linux，emmm，没有GUI的linux真难受。。。最后求助万能的google，找到4PDA论坛mocha大神从英伟达tegra-k1开发板上移植的ubuntu14.04<a href="https://4pda.ru/forum/index.php?showtopic=821143" target="_blank" rel="noopener">项目地址</a>，成功刷入小米平板！</p><a id="more"></a>
+
 <p><img src="/561a0aca/1.jpg" alt="刷入成功效果"></p>
 <h2 id="准备工作"><a class="markdownIt-Anchor" href="#准备工作"></a> 准备工作</h2>
 <h3 id="解bl琐"><a class="markdownIt-Anchor" href="#解bl琐"></a> 解BL琐</h3>
@@ -388,43 +389,59 @@
 想要刷入第三方rec，先要解Bootloader琐。
 按照官方操作即可：<a href="http://www.miui.com/unlock/index.html" target="_blank" rel="noopener">解锁小米手机</a></p>
 <h3 id="刷twrp和multirom"><a class="markdownIt-Anchor" href="#刷twrp和multirom"></a> 刷TWRP和multirom</h3>
-<p><a href="https://pan.baidu.com/s/18b-AI4UijXQeEea_Zrd09g" target="_blank" rel="noopener">recovery工具链接</a>提取码: qc15
-解BL琐后，将上述链接下载的所有文件(不用解压）放在平板根目录，开机按“音量+”和电源键，进入MIUI原厂recovery,刷入miuies_TWRP_MiPad_2.7.1_signed.zip
-待刷入完成，重启到recovery，进入TWRP-v2.7.1界面，该recovery画面不能填充整个屏幕，稍后咱刷入multirom_TWRP_3.1.1-0.img即可解决。
-*注意: v3.0.3必须由v2.7.1升级，不能一次刷入</p>
-<p>在TWRP-v2.7.1界面，点击&quot;Install&quot;，进入文件目录，找到sd_card文件夹，点击进入，此文件夹即是平板内部flash储存的根目录。找到boot-kexec-miuiSmoke6.12.22.zip，点击此文件，右滑刷入，待刷入完成。再找一找multirom_TWRP_3.1.1-0.img发现并没有，点击右下脚的zip方框，选择img，再找下，即可找到，点击此文件，右滑刷入，待刷入完成，点击“reboot to system”，重启到系统</p>
-<p>若一切正常，开机会出现multirom多重引导，点击倒计时即可手动选择启动系统，点击第一个系统，即可正常进入当前系统。
-<img src="/561a0aca/2.jpg" alt="刷入lineageOS和ubuntu后的multirom开机引导界面"></p>
+<p>度盘  <a href="https://pan.baidu.com/s/18b-AI4UijXQeEea_Zrd09g" target="_blank" rel="noopener">链接：在文件夹：recovery工具</a> 提取码: qc15</p>
+<p>解BL琐后，将上述链接下载的所有文件(不用解压）放在平板根目录，开机按“音量+”和电源键，进入MIUI原厂recovery,刷入<code>miuies_TWRP_MiPad_2.7.1_signed.zip</code></p>
+<p>待刷入完成，重启到recovery，进入TWRP-v2.7.1界面，该recovery画面不能填充整个屏幕，稍后咱刷入<code>multirom_TWRP_3.1.1-0.img</code>即可解决。</p>
+<p>*注意: v3.0.3必须由v2.7.1升级，不能一次刷入</p>
+<p>在TWRP-v2.7.1界面，点击&quot;Install&quot;，进入文件目录，找到sd_card文件夹，点击进入，此文件夹即是平板内部flash储存的根目录。找到<code>boot-kexec-miuiSmoke6.12.22.zip</code>，点击此文件，右滑刷入，待刷入完成。再找一找<code>multirom_TWRP_3.1.1-0.img</code>发现并没有，点击右下脚的zip方框，选择img，再找下，即可找到，点击此文件，右滑刷入，待刷入完成，点击“reboot to system”，重启到系统</p>
+<p>若一切正常，开机会出现multirom多重引导，点击倒计时即可手动选择启动系统，点击第一个系统，即可正常进入当前系统。</p>
+<p><img src="/561a0aca/2.jpg" alt="刷入lineageOS和ubuntu后的multirom开机引导界面"></p>
 <p>若仅想用MultiRom功能，仅到此步即可。</p>
 <h3 id="阴差阳错"><a class="markdownIt-Anchor" href="#阴差阳错"></a> 阴差阳错</h3>
 <p>博主之前到这一步时，还保留了MIUI系统，刷ubuntu系统之前只进行了三清，重启进入ubuntu系统，一开始是正常的linux启动4只小企鹅（对应tegra-k1四个Cortex-A15），一条条messages滚过后，就悲剧了，卡在mount: mounting不动了，重刷了几次都是如此！4PDA论坛也有一个会员遇到同样的问题，然而大佬们并不鸟他...</p>
 <p><img src="/561a0aca/4.jpg" alt="linux开机卡住的地方"></p>
-<p>郁闷了几天，准备放弃，心想要是Linux整不了就刷个CN系统算了，查了查google，发现米板1可刷LineageOS-14，按照论坛的教程，先四清，刷lineageOS之前，需要合并MIUI的两个system分区成一个，合并分区后，成功刷入，配置了一下google全家桶，lineageOS居然该死的甜美。</p>
+<p>郁闷了几天，准备放弃，心想要是Linux整不了就刷个CN系统算了，查了查google，发现米板1可刷LineageOS-14，按照论坛的教程，先四清，刷lineageOS之前，需要合并MIUI的两个system分区成一个，合并分区后，成功刷入，配置了一下google全家桶（PS：lineageOS 14.1 居然该死的甜美）</p>
 <p>emmm...没有用上原生linux还是不爽，再试试如何？又刷了一次ubuntu，重启，居然跳过之前卡住的mount: mounting的部分，成功进入ubuntu桌面，触屏可用，OTG插上键鼠可用，OK搞定</p>
 <h3 id="mipad-mocha-合并分区教程有删改"><a class="markdownIt-Anchor" href="#mipad-mocha-合并分区教程有删改"></a> MiPad Mocha 合并分区教程/有删改</h3>
-<p><a href="http://www.miui.com/thread-7412054-1-1.html" target="_blank" rel="noopener">论坛原文</a>
-将MIUI系统分区合并至1.2GB的具体步骤：
-1.下载 Repartition_MI_Pad_1_2GB_zardMi3.zip 和 Repartition_Stock-Partition_MI_Pad_zardMi3.zip (上文度云链接里有）
-2.拷入你的小米平板根目录中；
-3.清除Cache,Data,System和Dalvik Cache的数据。（重启到twrp选择&quot;wipe&quot;,勾选以下项后，滑动条，实现四清）
-<img src="/561a0aca/3.jpg" alt="multirom_twrp的四清勾选">
-4.刷入Repartition_MI_Pad_1_2GB_zardMi3.zip
-5.将 lineageOS-14刷入,若你想用google服务框架，在1步下载Gapps在此步刷入即可
-6.重启至LineageOS系统
-7.你可以使用Google PlayStore里的DiskInfo，System Partitions，或者Titanium Backup来确认你的系统一分区大小。（总大小是1.21GB，剩余空间是688MB）                   ##译者：这里我的数据是总大小1.29GB，剩余空间是733MB</p>
+<p><a href="http://www.miui.com/thread-7412054-1-1.html" target="_blank" rel="noopener">论坛原文</a></p>
+<p>将MIUI系统分区合并至1.2GB的具体步骤：</p>
+<ol>
+<li>
+<p>下载 <code>Repartition_MI_Pad_1_2GB_zardMi3.zip</code> 和 <code>Repartition_Stock-Partition_MI_Pad_zardMi3.zip</code> (在本段<a href="http://www.miui.com/thread-7412054-1-1.html" target="_blank" rel="noopener">论坛原文</a>度云链接的分区工具文件夹里，或度盘  <a href="https://pan.baidu.com/s/18b-AI4UijXQeEea_Zrd09g" target="_blank" rel="noopener">链接：在文件夹：分区工具</a> 提取码: qc15）</p>
+</li>
+<li>
+<p>拷入你的小米平板根目录中</p>
+</li>
+<li>
+<p>清除Cache,Data,System和Dalvik Cache的数据。（重启到twrp选择&quot;wipe&quot;,勾选以下项后，滑动条，实现四清）
+<img src="/561a0aca/3.jpg" alt="multirom_twrp的四清勾选"></p>
+</li>
+<li>
+<p>刷入<code>Repartition_MI_Pad_1_2GB_zardMi3.zip</code></p>
+</li>
+<li>
+<p>将 lineageOS-14刷入,若你想用google服务框架，在1步下载Gapps在此步刷入即可</p>
+</li>
+<li>
+<p>重启至LineageOS系统</p>
+</li>
+<li>
+<p>你可以使用Google PlayStore里的DiskInfo，System Partitions，或者Titanium Backup来确认你的系统一分区大小。（总大小是1.21GB，剩余空间是688MB)                   ##译者：这里我的数据是总大小1.29GB，剩余空间是733MB</p>
+</li>
+</ol>
 <h2 id="刷入linux4tegrar241mrom"><a class="markdownIt-Anchor" href="#刷入linux4tegrar241mrom"></a> 刷入Linux4TegraR241.mrom</h2>
 <h3 id="multirom"><a class="markdownIt-Anchor" href="#multirom"></a> MultiRom</h3>
-<p>下载4PDA项目原文置顶链接的Google盘的&quot;02.05.2017 L4T R24.1&quot;
-*注意：不要下03.12.2018版本的，这个版本我刷入过，触摸和OTG都不能用，开机只启动一个核心
-拷贝该文件到平版根目录
-重启到TWRP，点击右上角三条横线，进入整合到TWRP的MultiRom刷机界面，点击&quot;add&quot;
-选择内部flash储存，如图：
-<img src="/561a0aca/11.jpg" alt>
-刷入，需要等待10分钟左右，成功刷入如图：
-<img src="/561a0aca/5.jpg" alt>
-重启，点击multirom多重引导界面出现的第二个系统即可启动linux：
-<img src="/561a0aca/6.jpg" alt="linux开机中">
-等待进入ubuntu桌面即可，赶紧用OTG连接键鼠配置一下!</p>
+<p>下载4PDA项目原文置顶链接的Google盘的&quot;02.05.2017 L4T R24.1&quot;，好像这个链接失效了，我传了一份到度盘  <a href="https://pan.baidu.com/s/18b-AI4UijXQeEea_Zrd09g" target="_blank" rel="noopener">链接：在文件夹：L4T_R241</a> 提取码: qc15</p>
+<p>*注意：不要下03.12.2018版本的，这个版本我刷入过，触摸和OTG都不能用，开机只启动一个核心</p>
+<p>拷贝该文件到平版根目录</p>
+<p>重启到TWRP，点击右上角三条横线，进入整合到TWRP的MultiRom刷机界面，点击&quot;add&quot;</p>
+<p>选择内部flash储存，如图：</p>
+<p><img src="/561a0aca/11.jpg" alt></p>
+<p>刷入，需要等待10分钟左右，成功刷入如图：</p>
+<p><img src="/561a0aca/5.jpg" alt></p>
+<p>重启，点击multirom多重引导界面出现的第二个系统即可启动linux：</p>
+<p><img src="/561a0aca/6.jpg" alt="linux开机中"></p>
+<p>等待进入ubuntu桌面即可，赶紧用OTG连接键鼠配置一下!</p>
 <p><img src="/561a0aca/0.png" alt="成功进入Gnome"></p>
 
     </div>
